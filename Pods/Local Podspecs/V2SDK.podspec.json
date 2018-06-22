@@ -1,0 +1,23 @@
+{
+  "name": "V2SDK",
+  "version": "0.0.1",
+  "license": "MIT",
+  "requires_arc": true,
+  "source": {
+    "path": "DevelopmentPods/V2SDK"
+  },
+  "summary": "V2SDK",
+  "homepage": "No homepage",
+  "authors": {
+    "xushuifeng": "shuifengxu@gmail.com"
+  },
+  "platforms": {
+    "ios": "10.0"
+  },
+  "source_files": "*.swift",
+  "dependencies": {
+    "GenericNetworking": [
+
+    ]
+  }
+}

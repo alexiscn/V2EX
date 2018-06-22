@@ -1,0 +1,29 @@
+PODS:
+  - Alamofire (4.7.2)
+  - GenericNetworking (0.1.9):
+    - Alamofire
+  - V2SDK (0.0.1):
+    - GenericNetworking
+
+DEPENDENCIES:
+  - Alamofire
+  - GenericNetworking
+  - V2SDK (from `DevelopmentPods/V2SDK`)
+
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - Alamofire
+    - GenericNetworking
+
+EXTERNAL SOURCES:
+  V2SDK:
+    :path: DevelopmentPods/V2SDK
+
+SPEC CHECKSUMS:
+  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
+  GenericNetworking: a80a48896d250fd0bd0ab395d773e074de2580c4
+  V2SDK: ab86cc0d740dde4dbc3d79f9db58a87ff760d696
+
+PODFILE CHECKSUM: 88d1ae07bdc13953973f08dea9b0c59dc5e3d51b
+
+COCOAPODS: 1.5.0
