@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
 		A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */; };
-		A38D0EAC20DCEA4000F7C932 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EAB20DCEA4000F7C932 /* ViewController.swift */; };
 		A38D0EAF20DCEA4000F7C932 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EAD20DCEA4000F7C932 /* Main.storyboard */; };
 		A38D0EB120DCEA4100F7C932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB020DCEA4100F7C932 /* Assets.xcassets */; };
 		A38D0EB420DCEA4100F7C932 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */; };
+		A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EC720DD060900F7C932 /* TimelineViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D0EA620DCEA4000F7C932 /* V2EX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = V2EX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A38D0EAB20DCEA4000F7C932 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A38D0EAE20DCEA4000F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A38D0EB020DCEA4100F7C932 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A38D0EB320DCEA4100F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A38D0EB520DCEA4100F7C932 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A38D0EC720DD060900F7C932 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		B4AC35F723942C404A14CBA3 /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -71,11 +71,11 @@
 			isa = PBXGroup;
 			children = (
 				A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */,
-				A38D0EAB20DCEA4000F7C932 /* ViewController.swift */,
 				A38D0EAD20DCEA4000F7C932 /* Main.storyboard */,
 				A38D0EB020DCEA4100F7C932 /* Assets.xcassets */,
 				A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */,
 				A38D0EB520DCEA4100F7C932 /* Info.plist */,
+				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
 			);
 			path = V2EX;
 			sourceTree = "<group>";
@@ -166,12 +166,14 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GenericNetworking/GenericNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/V2SDK/V2SDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GenericNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/V2SDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,8 +206,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A38D0EAC20DCEA4000F7C932 /* ViewController.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
+				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,7 +355,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = V2EX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -369,7 +374,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = V2EX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

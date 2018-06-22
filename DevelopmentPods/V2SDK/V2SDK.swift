@@ -8,9 +8,9 @@
 import Foundation
 import GenericNetworking
 
-class V2SDK {
+public class V2SDK {
     
-    public func setup() {
+    public class func setup() {
         GenericNetworking.baseURLString = "https://www.v2ex.com/"
     }
     
