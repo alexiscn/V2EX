@@ -8,9 +8,17 @@
 import Foundation
 
 public enum V2Tabs: String {
+    case tech
+    case creative
+    case play
+    case apple
+    case jobs
+    case deals
+    case city
+    case qna
     case hot
     case all
-    case apple
+    case r2
 }
 
 public struct Topic {

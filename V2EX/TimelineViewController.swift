@@ -15,16 +15,34 @@ class TimelineViewController: UIViewController {
     
     fileprivate var tableView: UITableView!
     
+    fileprivate var currentPage: Int = 0
+    
+    fileprivate var currentTab: V2Tabs = .hot
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "V2EX"
         setupTableView()
-        V2SDK.getTopics(tab: .hot, page: 0) { (topics, error) in
+        
+        loadData()
+    }
+    
+    private func loadData(isLoadMore: Bool = false) {
+        if isLoadMore {
+            currentPage += 1
+        } else {
+            currentPage = 0
+        }
+        V2SDK.getTopics(tab: currentTab, page: currentPage) { (topics, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error)
                 } else {
-                    self.dataSource = topics
+                    if self.currentPage == 0 {
+                        self.dataSource = topics
+                    } else {
+                        self.dataSource.append(contentsOf: topics)
+                    }
                     self.tableView.reloadData()
                 }
             }
