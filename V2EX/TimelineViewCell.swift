@@ -39,6 +39,9 @@ class TimelineViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(nodeButton)
         
+        let commentImageView = UIImageView(image: UIImage(named: "comment"))
+        contentView.addSubview(commentImageView)
+        
         avatarView.snp.makeConstraints { make in
             make.height.width.equalTo(40)
             make.leading.equalToSuperview().offset(10)
@@ -56,6 +59,13 @@ class TimelineViewCell: UITableViewCell {
             make.leading.equalToSuperview().offset(60)
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
+        
+        commentImageView.snp.makeConstraints { make in
+            make.height.width.equalTo(16)
+            make.centerY.equalTo(nodeButton)
+            make.leading.equalTo(nodeButton.snp.trailing).offset(10)
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -67,6 +77,7 @@ class TimelineViewCell: UITableViewCell {
         
         avatarView.image = nil
         titleLabel.text = nil
+        nodeButton.setTitle(nil, for: .normal)
     }
     
     func update(_ topic: Topic) {
