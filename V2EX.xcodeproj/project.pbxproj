@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
+		A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */; };
 		A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */; };
 		A38D0EAF20DCEA4000F7C932 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EAD20DCEA4000F7C932 /* Main.storyboard */; };
 		A38D0EB120DCEA4100F7C932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB020DCEA4100F7C932 /* Assets.xcassets */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewCell.swift; sourceTree = "<group>"; };
 		A38D0EA620DCEA4000F7C932 /* V2EX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = V2EX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A38D0EAE20DCEA4000F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */,
 				A38D0EB520DCEA4100F7C932 /* Info.plist */,
 				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
+				A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */,
 			);
 			path = V2EX;
 			sourceTree = "<group>";
@@ -166,14 +169,18 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GenericNetworking/GenericNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/V2SDK/V2SDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GenericNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/V2SDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 			);

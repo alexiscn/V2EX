@@ -1,6 +1,6 @@
 {
   "name": "V2SDK",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "requires_arc": true,
   "source": {
@@ -17,6 +17,9 @@
   "source_files": "*.swift",
   "dependencies": {
     "GenericNetworking": [
+
+    ],
+    "SwiftSoup": [
 
     ]
   }

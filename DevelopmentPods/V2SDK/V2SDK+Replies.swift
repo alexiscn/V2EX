@@ -15,7 +15,7 @@ extension V2SDK {
     /// - Parameters:
     ///   - topicID: 主题 id
     ///   - completion: 请求回调
-    public class func getTopicReplies(topicID: Int, completion: @escaping GenericNetworkingCompletion<Reply>) {
+    public class func getTopicReplies(topicID: Int, completion: @escaping GenericNetworkingCompletion<Int>) {
         let path = "/replies/show.json"
         let params = ["topic_id": topicID]
         GenericNetworking.getJSON(path: path, parameters: params, completion: completion)

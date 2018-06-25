@@ -13,18 +13,19 @@ class TimelineViewController: UIViewController {
 
     fileprivate var dataSource: [Topic] = []
     
+    fileprivate var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-        V2SDK.getHotTopics { response in
-            switch response {
-            case .success(let list):
-                self.dataSource = list
-                break
-            case .error(let error):
-                print(error)
-                break
+        setupTableView()
+        V2SDK.getTopics(tab: .hot, page: 0) { (topics, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print(error)
+                } else {
+                    self.dataSource = topics
+                    self.tableView.reloadData()
+                }
             }
         }
     }
@@ -34,6 +35,13 @@ class TimelineViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    fileprivate func setupTableView() {
+        tableView = UITableView(frame: view.bounds)
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(TimelineViewCell.self, forCellReuseIdentifier: NSStringFromClass(TimelineViewCell.self))
+        view.addSubview(tableView)
+    }
 }
 
 extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
@@ -47,7 +55,13 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TimelineViewCell.self), for: indexPath) as! TimelineViewCell
+        let topic = dataSource[indexPath.row]
+        cell.update(topic)
+        return cell
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
 }

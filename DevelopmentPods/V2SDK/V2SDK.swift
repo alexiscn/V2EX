@@ -8,6 +8,10 @@
 import Foundation
 import GenericNetworking
 
+public typealias TopicList = [Topic]
+
+public typealias V2SDKLoadingCompletion = (TopicList, Error?) -> Void
+
 public class V2SDK {
     
     public class func setup() {

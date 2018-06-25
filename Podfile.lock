@@ -2,21 +2,28 @@ PODS:
   - Alamofire (4.7.2)
   - GenericNetworking (0.1.9):
     - Alamofire
+  - Kingfisher (4.8.0)
   - SnapKit (4.0.0)
-  - V2SDK (0.0.1):
+  - SwiftSoup (1.7.1)
+  - V2SDK (0.0.2):
     - GenericNetworking
+    - SwiftSoup
 
 DEPENDENCIES:
   - Alamofire
   - GenericNetworking
+  - Kingfisher
   - SnapKit
+  - SwiftSoup
   - V2SDK (from `DevelopmentPods/V2SDK`)
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - GenericNetworking
+    - Kingfisher
     - SnapKit
+    - SwiftSoup
 
 EXTERNAL SOURCES:
   V2SDK:
@@ -25,9 +32,11 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
   GenericNetworking: a80a48896d250fd0bd0ab395d773e074de2580c4
+  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  V2SDK: ab86cc0d740dde4dbc3d79f9db58a87ff760d696
+  SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
+  V2SDK: 56e12aebe1285bd730e8e9f11e822bf8ce264549
 
-PODFILE CHECKSUM: 850ff2466bd8bdeef5ec5979d130220a9e5b1301
+PODFILE CHECKSUM: c13f906189664c032d24e252b546ff141d0aa120
 
 COCOAPODS: 1.5.0
