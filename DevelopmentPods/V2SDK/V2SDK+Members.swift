@@ -10,7 +10,6 @@ import GenericNetworking
 
 extension V2SDK {
     
-    
     /// 获取用户信息
     ///
     /// - Parameters:
@@ -33,4 +32,5 @@ extension V2SDK {
         let params = ["id": userID]
         GenericNetworking.getJSON(path: path, parameters: params, completion: completion)
     }
+    
 }

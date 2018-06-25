@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SlideMenuControllerSwift
 import V2SDK
 
 @UIApplicationMain
@@ -14,9 +15,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    fileprivate var sliderMenuController: SlideMenuController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         V2SDK.setup()
+        
+        let timelineViewController = TimelineViewController()
+        let mainViewController = UINavigationController(rootViewController: timelineViewController)
+        let leftMenuController = HomeMenuViewController()
+        let rightMenuController = TabMenuViewController()
+        rightMenuController.didSelectTabHandler = { menu in
+            timelineViewController.switchTo(menu)
+            self.sliderMenuController?.closeRight()
+        }
+        
+        SlideMenuOptions.rightViewWidth = 150
+        
+        sliderMenuController = SlideMenuController(mainViewController: mainViewController, leftMenuViewController: leftMenuController, rightMenuViewController: rightMenuController)
+        window?.rootViewController = sliderMenuController
+        window?.makeKeyAndVisible()
+    
         return true
     }
 

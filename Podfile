@@ -7,6 +7,7 @@ target 'V2EX' do
     pod 'SnapKit'
     pod 'SwiftSoup'
     pod 'Kingfisher'
+    pod 'SlideMenuControllerSwift'
     
     pod 'V2SDK', :path => 'DevelopmentPods/V2SDK'
 end

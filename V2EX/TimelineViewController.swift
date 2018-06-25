@@ -27,6 +27,12 @@ class TimelineViewController: UIViewController {
         loadData()
     }
     
+    func switchTo(_ menu: TabMenu) {
+        currentTab = menu.tab
+        currentPage = 0
+        loadData()
+    }
+    
     private func loadData(isLoadMore: Bool = false) {
         if isLoadMore {
             currentPage += 1
@@ -58,6 +64,7 @@ class TimelineViewController: UIViewController {
         tableView = UITableView(frame: view.bounds)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView()
         tableView.register(TimelineViewCell.self, forCellReuseIdentifier: NSStringFromClass(TimelineViewCell.self))
         view.addSubview(tableView)
     }

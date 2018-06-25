@@ -12,7 +12,6 @@ import SwiftSoup
 
 extension V2SDK {
     
-    
     /// 获取社区每天最热的10个主题
     ///
     /// - Parameter completion: 请求回调
@@ -107,4 +106,5 @@ extension V2SDK {
             }
         }
     }
+    
 }

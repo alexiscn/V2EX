@@ -1,6 +1,6 @@
 {
   "name": "V2SDK",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "requires_arc": true,
   "source": {

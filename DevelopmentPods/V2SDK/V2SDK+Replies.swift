@@ -20,5 +20,4 @@ extension V2SDK {
         let params = ["topic_id": topicID]
         GenericNetworking.getJSON(path: path, parameters: params, completion: completion)
     }
-    
 }
