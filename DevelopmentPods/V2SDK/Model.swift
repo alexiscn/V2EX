@@ -46,6 +46,8 @@ public struct Topic {
     
     public var member: Member?
     
+    public var node: Node?
+    
     public var created: Int64?
     
     public var last_modified: Int64?
@@ -70,18 +72,19 @@ public struct Member {
 
 public struct Node {
     
-    public var id: Int
+    public var id: Int = 0
     
-    public var name: String
+    public var name: String?
     
-    public var title: String
+    public var title: String?
     
-    public var title_alternative: String
+    public var title_alternative: String?
     
     public var url: URL?
     
     public var topics: Int = 0
     
+    init() {}
 }
 
 public struct Reply {

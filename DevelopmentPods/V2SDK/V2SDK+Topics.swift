@@ -58,8 +58,15 @@ extension V2SDK {
         }
         
         // parse node
-        if let node = try? cell.select("a.node").first() {
-            
+        if let nodeElement = try? cell.select("a.node").first() {
+            var node = Node()
+            if let title = try? nodeElement?.text() {
+                node.title = title
+            }
+            if let name = try? nodeElement?.attr("href"), let nodename = name {
+                node.name = nodename.replacingOccurrences(of: "/go/", with: "")
+            }
+            topic.node = node
         }
         topic.member = member
         return topic
