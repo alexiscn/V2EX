@@ -17,6 +17,7 @@ class TimelineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "V2EX"
         setupTableView()
         V2SDK.getTopics(tab: .hot, page: 0) { (topics, error) in
             DispatchQueue.main.async {
@@ -62,6 +63,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        var topic = dataSource[indexPath.row]
+        return TimelineViewCell.heightForRowWithTopic(&topic)
     }
 }

@@ -27,9 +27,9 @@ extension V2SDK {
         GenericNetworking.getJSON(path: path, completion: completion)
     }
     
-    public class func showUserTopics(username: String) {
+    public class func showUserTopics(username: String, completion: @escaping GenericNetworkingCompletion<Int>) {
         let path = "/api/topics/show.json?username=" + username
-        
+        GenericNetworking.getJSON(path: path, completion: completion)
     }
     
     class func parseCell(_ cell: Element) -> Topic {
@@ -42,6 +42,17 @@ extension V2SDK {
                 member.avatar = URL(string: "https:" + src)
             } else {
                 member.avatar = URL(string: src)
+            }
+        }
+        // parse members
+        if let members = try? cell.select("strong") {
+            if let m1 = members.first() {
+                member.username = try? m1.text()
+                if let m2 = members.last(), m1 != m2 {
+                    var replyMember = Member()
+                    replyMember.username = try? m2.text()
+                    topic.lastReplyedUser = replyMember
+                }
             }
         }
         

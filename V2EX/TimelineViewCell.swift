@@ -48,7 +48,13 @@ class TimelineViewCell: UITableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(60)
             make.trailing.equalToSuperview().offset(-10)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().offset(10)
+        }
+        
+        nodeButton.snp.makeConstraints { make in
+            make.height.width.equalTo(0)
+            make.leading.equalToSuperview().offset(60)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
     }
     
@@ -71,11 +77,29 @@ class TimelineViewCell: UITableViewCell {
         
         if let nodeTitle = topic.node?.title {
             let size = (nodeTitle as NSString).size(withAttributes: [.font: nodeButton.titleLabel?.font! as Any])
-            nodeButton.frame.origin = CGPoint(x: 60, y: titleLabel.frame.maxY + 10)
-            nodeButton.frame.size = CGSize(width: size.width + 10, height: size.height + 4)
+            
+            nodeButton.snp.updateConstraints { make in
+                make.height.equalTo(size.height + 4)
+                make.width.equalTo(size.width + 10)
+            }
         }
         
         
+    }
+    
+    class func heightForRowWithTopic(_ topic: inout Topic) -> CGFloat {
+        if topic._rowHeight > 0 {
+           return topic._rowHeight
+        }
+        let width = UIScreen.main.bounds.width - 70
+        if let title = topic.title {
+            let maxSize = CGSize(width: width, height: CGFloat.infinity)
+            let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 15) as Any])
+            let height = 10 + rect.height + 10 + 30
+            topic._rowHeight = height
+            return height
+        }
+        return 80
     }
     
 }

@@ -13,26 +13,9 @@ public enum V2Tabs: String {
     case apple
 }
 
-//public struct NodeResonse: Codable {
-//    
-//    public let id: Int
-//    public let name: String
-//    public let url: URL
-//    public let title: String
-//    public let title_alternative: String
-//    public let topics: Int
-//    public let stars: Int
-//    public let header: String?
-//    public let footer: String?
-//    public let created: Int64
-//    public let avatar_mini: String
-//    public let avatar_normal: String
-//    public let avatar_large: String
-//    
-//}
-
-
 public struct Topic {
+    
+    public var _rowHeight: CGFloat = 0
     
     public var id: Int?
     
@@ -45,6 +28,8 @@ public struct Topic {
     public var replies: Int = 0
     
     public var member: Member?
+    
+    public var lastReplyedUser: Member?
     
     public var node: Node?
     

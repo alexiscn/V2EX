@@ -21,4 +21,8 @@ extension String {
         return size(withAttributes: attributes)
     }
     
+    func boundingRectWithSize(_ size: CGSize, attributes: [NSAttributedStringKey: Any]) -> CGRect {
+        let str = self as NSString
+        return str.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+    }
 }
