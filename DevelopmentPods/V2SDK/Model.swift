@@ -7,6 +7,8 @@
 
 import Foundation
 
+public typealias TopicList = [Topic]
+
 public struct NodeResonse: Codable {
     
     public let id: Int
@@ -25,6 +27,7 @@ public struct NodeResonse: Codable {
     
 }
 
+
 public struct Topic: Codable {
     
     public let id: Int
@@ -37,6 +40,13 @@ public struct Topic: Codable {
     
     public let replies: Int
     
+    public let member: Member
+    
+    public let created: Int64
+    
+    public let last_modified: Int64
+    
+//    public let 
 }
 
 public struct Member: Codable {

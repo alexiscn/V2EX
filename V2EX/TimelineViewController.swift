@@ -17,6 +17,16 @@ class TimelineViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        V2SDK.getHotTopics { response in
+            switch response {
+            case .success(let list):
+                self.dataSource = list
+                break
+            case .error(let error):
+                print(error)
+                break
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -11,7 +11,7 @@ import GenericNetworking
 public class V2SDK {
     
     public class func setup() {
-        GenericNetworking.baseURLString = "https://www.v2ex.com/"
+        GenericNetworking.baseURLString = "https://www.v2ex.com"
     }
     
 }
