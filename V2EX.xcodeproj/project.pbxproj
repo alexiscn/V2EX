@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
+		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
+		A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548520E1D5A000C76393 /* LoginViewController.swift */; };
 		A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */; };
 		A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD520E0FA950052576D /* StringExtensions.swift */; };
 		A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD720E1084F0052576D /* NodeViewController.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
+		A358548520E1D5A000C76393 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewCell.swift; sourceTree = "<group>"; };
 		A3704DD520E0FA950052576D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		A3704DD720E1084F0052576D /* NodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +65,79 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A358548720E1D65A00C76393 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A38D0EB520DCEA4100F7C932 /* Info.plist */,
+				A38D0EAD20DCEA4000F7C932 /* Main.storyboard */,
+				A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */,
+				A38D0EB020DCEA4100F7C932 /* Assets.xcassets */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A358548820E1D68F00C76393 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				A358548E20E1D72400C76393 /* Node */,
+				A358548D20E1D71800C76393 /* Topic */,
+				A358548C20E1D6E400C76393 /* Menu */,
+				A358548A20E1D6AE00C76393 /* Timeline */,
+				A358548920E1D69900C76393 /* Account */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		A358548920E1D69900C76393 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				A358548520E1D5A000C76393 /* LoginViewController.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
+		A358548A20E1D6AE00C76393 /* Timeline */ = {
+			isa = PBXGroup;
+			children = (
+				A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */,
+				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
+			);
+			path = Timeline;
+			sourceTree = "<group>";
+		};
+		A358548B20E1D6D200C76393 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				A3A39CA420E181A4000B07F0 /* ThemeManager.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A358548C20E1D6E400C76393 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */,
+				A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		A358548D20E1D71800C76393 /* Topic */ = {
+			isa = PBXGroup;
+			children = (
+				A358548320E1D51600C76393 /* TopicDetailViewController.swift */,
+			);
+			path = Topic;
+			sourceTree = "<group>";
+		};
+		A358548E20E1D72400C76393 /* Node */ = {
+			isa = PBXGroup;
+			children = (
+				A3704DD720E1084F0052576D /* NodeViewController.swift */,
+			);
+			path = Node;
+			sourceTree = "<group>";
+		};
 		A3704DD420E0FA7D0052576D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,18 +167,11 @@
 		A38D0EA820DCEA4000F7C932 /* V2EX */ = {
 			isa = PBXGroup;
 			children = (
+				A358548820E1D68F00C76393 /* Application */,
+				A358548B20E1D6D200C76393 /* Common */,
 				A3704DD420E0FA7D0052576D /* Extensions */,
+				A358548720E1D65A00C76393 /* Supporting Files */,
 				A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */,
-				A38D0EAD20DCEA4000F7C932 /* Main.storyboard */,
-				A38D0EB020DCEA4100F7C932 /* Assets.xcassets */,
-				A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */,
-				A38D0EB520DCEA4100F7C932 /* Info.plist */,
-				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
-				A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */,
-				A3704DD720E1084F0052576D /* NodeViewController.swift */,
-				A3A39CA420E181A4000B07F0 /* ThemeManager.swift */,
-				A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */,
-				A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */,
 			);
 			path = V2EX;
 			sourceTree = "<group>";
@@ -239,12 +309,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
+				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A3A39CA720E181F0000B07F0 /* TabMenuViewController.swift in Sources */,
 				A3A39CA920E182C4000B07F0 /* HomeMenuViewController.swift in Sources */,
 				A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
+				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* ThemeManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -392,8 +464,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
-				INFOPLIST_FILE = V2EX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -408,8 +483,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
-				INFOPLIST_FILE = V2EX/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

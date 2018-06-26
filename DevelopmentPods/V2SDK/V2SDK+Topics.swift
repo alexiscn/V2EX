@@ -56,8 +56,13 @@ extension V2SDK {
         }
         
         // parse topic title
-        if let titleElement = try? cell.select("span.item_title").first(), let title = try? titleElement?.text() {
-            topic.title = title
+        if let titleElement = try? cell.select("span.item_title").first() {
+            if let title = try? titleElement?.text() {
+                topic.title = title
+            }
+            if let href = try? titleElement?.select("a").attr("href"), let link = href {
+                topic.url = URL(string: "https://www.v2ex.com" + link)
+            }
         }
         
         // parse reply count

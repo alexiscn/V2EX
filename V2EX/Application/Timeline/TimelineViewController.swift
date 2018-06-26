@@ -91,4 +91,8 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         var topic = dataSource[indexPath.row]
         return TimelineViewCell.heightForRowWithTopic(&topic)
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
 }
