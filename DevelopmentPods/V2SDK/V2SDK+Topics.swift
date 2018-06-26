@@ -44,13 +44,14 @@ extension V2SDK {
     ///   - tab: tab
     ///   - page: 当前页码，从0开始
     ///   - completion: 请求回调
-    public class func getTopicList(tab: V2Tabs, page: Int, completion: @escaping V2SDKLoadingCompletion) {
-        let url = String(format: "https://www.v2ex.com/?tab=%@&page=%d", tab.rawValue, page)
-        Alamofire.request(url).responseData { (dataResponse) in
-            guard let data = dataResponse.data, let html = String(data: data, encoding: .utf8) else {
-                completion([], dataResponse.error)
+    public class func getTopicList(tab: V2Tabs, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
+        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@&page=%d", tab.rawValue, page))!
+        loadHTMLString(url: url) { (html, error) in
+            guard let html = html else {
+                completion([], error)
                 return
             }
+            
             do {
                 let doc = try SwiftSoup.parse(html)
                 let cells = try doc.select("div")
@@ -67,17 +68,31 @@ extension V2SDK {
                 completion([], error)
             }
         }
+        
     }
     
-    public class func getTopicDetail(_ topicURL: URL, completion: @escaping V2SDKLoadingCompletion) {
-        Alamofire.request(topicURL).responseData { dataResponse in
-            
+    
+    /// 获取主题详情，包括评论列表
+    ///
+    /// - Parameters:
+    ///   - topicURL: 主题URL
+    ///   - completion: 请求回调
+    public class func getTopicDetail(_ topicURL: URL, completion: @escaping V2SDKLoadTopicDetailCompletion) {
+        
+        loadHTMLString(url: topicURL) { (html, error) in
+            guard let html = html else {
+                completion(nil, error)
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                
+            } catch {
+                completion(nil, error)
+            }
         }
     }
     
-    class func loadHTMLString(url: URL) {
-        
-    }
 }
 
 extension V2SDK {

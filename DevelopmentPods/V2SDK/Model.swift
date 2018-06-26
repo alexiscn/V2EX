@@ -82,6 +82,8 @@ public struct Node {
 
 public struct Reply {
     
+    public var _rowHeight: CGFloat = 0
+    
     public var id: Int = 0
     
     public var thanks: Int = 0
