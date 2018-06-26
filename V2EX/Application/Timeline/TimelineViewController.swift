@@ -39,7 +39,7 @@ class TimelineViewController: UIViewController {
         } else {
             currentPage = 0
         }
-        V2SDK.getTopics(tab: currentTab, page: currentPage) { (topics, error) in
+        V2SDK.getTopicList(tab: currentTab, page: currentPage) { (topics, error) in
             DispatchQueue.main.async {
                 if let error = error {
                     print(error)

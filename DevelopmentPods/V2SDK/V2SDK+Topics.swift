@@ -20,22 +20,76 @@ extension V2SDK {
         GenericNetworking.getJSON(path: path, completion: completion)
     }
     
-    
+    /// 获取最新的主题
+    ///
+    /// - Parameter completion: 请求回调
     public class func getLatestTopics(completion: @escaping GenericNetworkingCompletion<Int>) {
         let path = "/api/topics/latest.json"
         GenericNetworking.getJSON(path: path, completion: completion)
     }
-    
+
+    /// 根据用户名获取用户的主题列表
+    ///
+    /// - Parameters:
+    ///   - username: 用户名
+    ///   - completion: 请求回调
     public class func showUserTopics(username: String, completion: @escaping GenericNetworkingCompletion<Int>) {
         let path = "/api/topics/show.json?username=" + username
         GenericNetworking.getJSON(path: path, completion: completion)
     }
     
-    class func parseCell(_ cell: Element) -> Topic {
-        var topic = Topic()
-        // parse avatar
-        var member = Member()
+    /// 获取主题列表
+    ///
+    /// - Parameters:
+    ///   - tab: tab
+    ///   - page: 当前页码，从0开始
+    ///   - completion: 请求回调
+    public class func getTopicList(tab: V2Tabs, page: Int, completion: @escaping V2SDKLoadingCompletion) {
+        let url = String(format: "https://www.v2ex.com/?tab=%@&page=%d", tab.rawValue, page)
+        Alamofire.request(url).responseData { (dataResponse) in
+            guard let data = dataResponse.data, let html = String(data: data, encoding: .utf8) else {
+                completion([], dataResponse.error)
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                let cells = try doc.select("div")
+                var topics: TopicList = []
+                for cell in cells {
+                    if !cell.hasClass("cell item") {
+                        continue
+                    }
+                    let topic = self.parseTopicListCell(cell)
+                    topics.append(topic)
+                }
+                completion(topics, nil)
+            } catch {
+                completion([], error)
+            }
+        }
+    }
+    
+    public class func getTopicDetail(_ topicURL: URL, completion: @escaping V2SDKLoadingCompletion) {
+        Alamofire.request(topicURL).responseData { dataResponse in
+            
+        }
+    }
+    
+    class func loadHTMLString(url: URL) {
         
+    }
+}
+
+extension V2SDK {
+    
+    class func parseTopicDetail() {
+        
+    }
+    
+    class func parseTopicListCell(_ cell: Element) -> Topic {
+        var topic = Topic()
+        var member = Member()
+        // parse avatar
         if let img = try? cell.select("img").first(), let imgEle = img, let src = try? imgEle.attr("src") {
             if src.hasPrefix("//") {
                 member.avatar = URL(string: "https:" + src)
@@ -61,6 +115,12 @@ extension V2SDK {
                 topic.title = title
             }
             if let href = try? titleElement?.select("a").attr("href"), let link = href {
+                let topicLink = link.replacingOccurrences(of: "/t/", with: "")
+                if topicLink.contains("#") {
+                    topic.id = Int(topicLink.split(separator: "#")[0])
+                } else {
+                    topic.id = Int(topicLink)
+                }
                 topic.url = URL(string: "https://www.v2ex.com" + link)
             }
         }
@@ -86,30 +146,4 @@ extension V2SDK {
         topic.member = member
         return topic
     }
-    
-    public class func getTopics(tab: V2Tabs, page: Int, completion: @escaping V2SDKLoadingCompletion) {
-        let url = String(format: "https://www.v2ex.com/?tab=%@&page=%d", tab.rawValue, page)
-        Alamofire.request(url).responseData { (dataResponse) in
-            guard let data = dataResponse.data, let html = String(data: data, encoding: .utf8) else {
-                completion([], dataResponse.error)
-                return
-            }
-            do {
-                let doc = try SwiftSoup.parse(html)
-                let cells = try doc.select("div")
-                var topics: TopicList = []
-                for cell in cells {
-                    if !cell.hasClass("cell item") {
-                        continue
-                    }
-                    let topic = self.parseCell(cell)
-                    topics.append(topic)
-                }
-                completion(topics, nil)
-            } catch {
-                completion([], error)
-            }
-        }
-    }
-    
 }
