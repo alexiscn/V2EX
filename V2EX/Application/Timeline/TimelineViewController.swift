@@ -8,6 +8,7 @@
 
 import UIKit
 import V2SDK
+import MJRefresh
 
 class TimelineViewController: UIViewController {
 
@@ -39,18 +40,27 @@ class TimelineViewController: UIViewController {
         } else {
             currentPage = 0
         }
-        V2SDK.getTopicList(tab: currentTab, page: currentPage) { (topics, error) in
+        V2SDK.getTopicList(tab: currentTab, page: currentPage) { [weak self] (topics, error) in
             DispatchQueue.main.async {
+                guard let strongSelf = self else {
+                    return
+                }
                 if let error = error {
                     print(error)
                 } else {
-                    if self.currentPage == 0 {
-                        self.dataSource = topics
+                    if strongSelf.currentPage == 0 {
+                        strongSelf.dataSource = topics
                     } else {
-                        self.dataSource.append(contentsOf: topics)
+                        strongSelf.dataSource.append(contentsOf: topics)
                     }
-                    self.tableView.reloadData()
+                    strongSelf.tableView.reloadData()
                 }
+                if isLoadMore {
+                    strongSelf.tableView.mj_footer.endRefreshing()
+                } else {
+                    strongSelf.tableView.mj_header.endRefreshing()
+                }
+
             }
         }
     }
@@ -67,6 +77,16 @@ class TimelineViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.register(TimelineViewCell.self, forCellReuseIdentifier: NSStringFromClass(TimelineViewCell.self))
         view.addSubview(tableView)
+        let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            self?.loadData()
+        })
+        header?.lastUpdatedTimeLabel.isHidden = true
+        tableView.mj_header = header
+        
+        let footer = MJRefreshAutoNormalFooter(refreshingBlock: { [weak self] in
+            self?.loadData(isLoadMore: true)
+        })
+        tableView.mj_footer = footer
     }
 }
 
@@ -94,5 +114,8 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+        
+        let detailViewController = TopicDetailViewController()
+        navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

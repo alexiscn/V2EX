@@ -8,7 +8,7 @@ target 'V2EX' do
     pod 'SwiftSoup'
     pod 'Kingfisher'
     pod 'SlideMenuControllerSwift'
-    pod 'CRRefresh'
+    pod 'MJRefresh'
     
     pod 'V2SDK', :path => 'DevelopmentPods/V2SDK'
 end
