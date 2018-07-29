@@ -14,5 +14,6 @@ Pod::Spec.new do |s|
 
   s.dependency 'GenericNetworking'
   s.dependency 'SwiftSoup'
+  s.dependency 'SQLiteKit'
   
 end

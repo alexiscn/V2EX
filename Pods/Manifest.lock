@@ -6,9 +6,11 @@ PODS:
   - MJRefresh (3.1.15.3)
   - SlideMenuControllerSwift (4.0.0)
   - SnapKit (4.0.0)
+  - SQLiteKit (0.0.13)
   - SwiftSoup (1.7.1)
   - V2SDK (0.0.3):
     - GenericNetworking
+    - SQLiteKit
     - SwiftSoup
 
 DEPENDENCIES:
@@ -18,11 +20,12 @@ DEPENDENCIES:
   - MJRefresh
   - SlideMenuControllerSwift
   - SnapKit
+  - SQLiteKit (from `DevelopmentPods/SQLiteKit`)
   - SwiftSoup
   - V2SDK (from `DevelopmentPods/V2SDK`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - GenericNetworking
     - Kingfisher
@@ -32,6 +35,8 @@ SPEC REPOS:
     - SwiftSoup
 
 EXTERNAL SOURCES:
+  SQLiteKit:
+    :path: DevelopmentPods/SQLiteKit
   V2SDK:
     :path: DevelopmentPods/V2SDK
 
@@ -42,9 +47,10 @@ SPEC CHECKSUMS:
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
   SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  SQLiteKit: 85b6981d192d6e972f02a745ee76ce7b00612855
   SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
-  V2SDK: 7e0ff403b0283d574af6c8e176589bd335dcac21
+  V2SDK: 43a2cd999c17d149efc0e764f2b847aa6fe5f4f6
 
-PODFILE CHECKSUM: 99e4815a833c0ecd2c6bbddc620af378a705b41c
+PODFILE CHECKSUM: 487b4f56b16c9a8815af2566aad81897282a34b5
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.0

@@ -13,7 +13,7 @@ public typealias TopicList = [Topic]
 
 public typealias V2SDKLoadTimelineCompletion = (TopicList, Error?) -> Void
 
-public typealias V2SDKLoadTopicDetailCompletion = (Topic?, Error?) -> Void
+public typealias V2SDKLoadTopicDetailCompletion = (TopicDetail?, [Reply], Error?) -> Void
 
 public class V2SDK {
     

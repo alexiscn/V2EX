@@ -78,17 +78,19 @@ extension V2SDK {
     ///   - topicURL: 主题URL
     ///   - completion: 请求回调
     public class func getTopicDetail(_ topicURL: URL, completion: @escaping V2SDKLoadTopicDetailCompletion) {
-        
         loadHTMLString(url: topicURL) { (html, error) in
             guard let html = html else {
-                completion(nil, error)
+                completion(nil, [], error)
                 return
             }
+            
             do {
                 let doc = try SwiftSoup.parse(html)
-                
+                let replyList = parseTopicReply(doc)
+                let detail = parseTopicDetail(doc)
+                completion(detail, replyList, nil)
             } catch {
-                completion(nil, error)
+                completion(nil, [], error)
             }
         }
     }
@@ -97,8 +99,61 @@ extension V2SDK {
 
 extension V2SDK {
     
-    class func parseTopicDetail() {
-        
+    class func parseTopicReply(_ doc: Document) -> [Reply] {
+        do {
+            let cells = try doc.select("div.cell")
+            // comments
+            var replyList: [Reply] = []
+            for cell in cells {
+                let divID = try? cell.attr("id")
+                if divID == nil || divID == "" {
+                    continue
+                }
+                var reply = Reply()
+                let avatarSrc = try cell.select("img").first()?.attr("src")
+                reply.avatarURL = avatarURLWithSource(avatarSrc)
+                reply.content = try cell.select("div.reply_content").text()
+                reply.timeAgo = try cell.select("span.ago").text()
+                let userLink = try cell.select("a.dark")
+                reply.username = try userLink.text()
+                
+                replyList.append(reply)
+            }
+            return replyList
+        } catch {
+            print(error)
+        }
+        return []
+    }
+    
+    class func parseTopicDetail(_ doc: Document) -> TopicDetail? {
+        do {
+            // header
+            var detail = TopicDetail()
+            let header = try doc.select("div.header")
+            let authorAvatarSrc = try header.select("img").first()?.attr("src")
+            detail.authorAvatarURL = avatarURLWithSource(authorAvatarSrc)
+            detail.title = try header.select("h1").text()
+            detail.author = try header.select("small a").text()
+            detail.small = try header.select("small").text()
+            detail.content = try doc.select("div.topic_content").text()
+            
+            return detail
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    class func avatarURLWithSource(_ src: String?) -> URL? {
+        guard let src = src else {
+            return nil
+        }
+        if src.hasPrefix("//") {
+            return URL(string: "https:" + src)
+        } else {
+            return URL(string: src)
+        }
     }
     
     class func parseTopicListCell(_ cell: Element) -> Topic {
@@ -106,11 +161,7 @@ extension V2SDK {
         var member = Member()
         // parse avatar
         if let img = try? cell.select("img").first(), let imgEle = img, let src = try? imgEle.attr("src") {
-            if src.hasPrefix("//") {
-                member.avatar = URL(string: "https:" + src)
-            } else {
-                member.avatar = URL(string: src)
-            }
+            member.avatar = avatarURLWithSource(src)
         }
         // parse members
         if let members = try? cell.select("strong") {

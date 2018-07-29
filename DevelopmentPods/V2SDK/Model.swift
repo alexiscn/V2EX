@@ -80,6 +80,22 @@ public struct Node {
     init() {}
 }
 
+public struct TopicDetail {
+    
+    public var _rowHeight: CGFloat = 0
+    
+    public var title: String?
+    
+    public var author: String?
+    
+    public var authorAvatarURL: URL?
+    
+    public var content: String?
+    
+    public var small: String?
+    
+}
+
 public struct Reply {
     
     public var _rowHeight: CGFloat = 0
@@ -88,9 +104,19 @@ public struct Reply {
     
     public var thanks: Int = 0
     
+    public var timeAgo: String?
+    
     public var content: String?
     
-    public var content_rendered: String
+    //public var member: Member?
     
-    public var member: Member?
+    public var userLinkURL: URL?
+    
+    public var username: String?
+    
+    public var avatarURL: URL?
+    
+    init() {
+        
+    }
 }

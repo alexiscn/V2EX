@@ -10,5 +10,6 @@ target 'V2EX' do
     pod 'SlideMenuControllerSwift'
     pod 'MJRefresh'
     
+    pod 'SQLiteKit', :path => 'DevelopmentPods/SQLiteKit'
     pod 'V2SDK', :path => 'DevelopmentPods/V2SDK'
 end

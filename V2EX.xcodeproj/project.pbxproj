@@ -18,6 +18,7 @@
 		A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */; };
 		A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD520E0FA950052576D /* StringExtensions.swift */; };
 		A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD720E1084F0052576D /* NodeViewController.swift */; };
+		A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */; };
 		A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */; };
 		A38D0EAF20DCEA4000F7C932 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EAD20DCEA4000F7C932 /* Main.storyboard */; };
 		A38D0EB120DCEA4100F7C932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB020DCEA4100F7C932 /* Assets.xcassets */; };
@@ -40,6 +41,7 @@
 		A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewCell.swift; sourceTree = "<group>"; };
 		A3704DD520E0FA950052576D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		A3704DD720E1084F0052576D /* NodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeViewController.swift; sourceTree = "<group>"; };
+		A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewCell.swift; sourceTree = "<group>"; };
 		A38D0EA620DCEA4000F7C932 /* V2EX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = V2EX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A38D0EAE20DCEA4000F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 			children = (
 				A358548320E1D51600C76393 /* TopicDetailViewController.swift */,
 				A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */,
+				A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				"${BUILT_PRODUCTS_DIR}/GenericNetworking/GenericNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/SQLiteKit/SQLiteKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SlideMenuControllerSwift/SlideMenuControllerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
@@ -299,6 +303,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GenericNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLiteKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SlideMenuControllerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
@@ -337,6 +342,7 @@
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
 				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
 				A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */,
+				A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
@@ -495,7 +501,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -511,7 +520,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
