@@ -31,6 +31,7 @@ class TimelineViewController: UIViewController {
     func switchTo(_ menu: TabMenu) {
         currentTab = menu.tab
         currentPage = 0
+        title = menu.title
         loadData()
     }
     

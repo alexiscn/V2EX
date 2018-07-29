@@ -90,7 +90,7 @@ public struct TopicDetail {
     
     public var authorAvatarURL: URL?
     
-    public var content: String?
+    public var contentHTML: String?
     
     public var small: String?
     

@@ -136,7 +136,7 @@ extension V2SDK {
             detail.title = try header.select("h1").text()
             detail.author = try header.select("small a").text()
             detail.small = try header.select("small").text()
-            detail.content = try doc.select("div.topic_content").text()
+            detail.contentHTML = try doc.select("div.topic_content").html()
             
             return detail
         } catch {

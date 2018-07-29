@@ -9,16 +9,21 @@
 import UIKit
 import SnapKit
 import V2SDK
+import WebKit
 
 class TopicDetailViewCell: UITableViewCell {
  
+    var webViewHeightChangedHandler: ((CGFloat) -> Void)?
+    
     private let avatarView: UIImageView
     
     private let usernameButton: UIButton
     
     private let titleLabel: UILabel
     
-    private let contentLabel: UILabel
+    private let timeAgoLabel: UILabel
+    
+    private let webView: WKWebView
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         
@@ -31,16 +36,23 @@ class TopicDetailViewCell: UITableViewCell {
         titleLabel.numberOfLines = 0
         titleLabel.font = UIFont.systemFont(ofSize: 20)
         
-        contentLabel = UILabel()
-        contentLabel.font = UIFont.systemFont(ofSize: 14)
-        contentLabel.numberOfLines = 0
+        timeAgoLabel = UILabel()
+        timeAgoLabel.font = UIFont.systemFont(ofSize: 11)
+        timeAgoLabel.textColor = UIColor(red: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
+        
+        let configuration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: configuration)
+        
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(avatarView)
         contentView.addSubview(usernameButton)
+        contentView.addSubview(timeAgoLabel)
         contentView.addSubview(titleLabel)
-        contentView.addSubview(contentLabel)
+        contentView.addSubview(webView)
+        
+        webView.navigationDelegate = self
         
         avatarView.snp.makeConstraints { make in
             make.height.width.equalTo(40)
@@ -53,18 +65,36 @@ class TopicDetailViewCell: UITableViewCell {
             make.leading.equalToSuperview().offset(64)
         }
         
+        timeAgoLabel.snp.makeConstraints { make in
+            make.top.equalTo(usernameButton.snp.bottom).offset(-3)
+            make.leading.equalToSuperview().offset(64)
+        }
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(12)
             make.top.equalTo(avatarView.snp.bottom).offset(12)
             make.trailing.equalToSuperview().offset(-12)
         }
         
-        contentLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
+        webView.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
+            make.leading.equalToSuperview().offset(12)
             make.trailing.equalToSuperview().offset(-12)
+            make.height.equalTo(0)
         }
         
+        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+    }
+    
+    deinit {
+        webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "contentSize" {
+            let height = webView.scrollView.contentSize.height
+            updateWebViewHeight(height)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -75,7 +105,18 @@ class TopicDetailViewCell: UITableViewCell {
         avatarView.kf.setImage(with: detail.authorAvatarURL)
         usernameButton.setTitle(detail.author, for: .normal)
         titleLabel.text = detail.title
-        contentLabel.text = detail.content
+        timeAgoLabel.text = detail.small
+        webView.loadHTMLString(htmlContent(detail.contentHTML), baseURL: URL(string: "https://www.v2ex.com"))
+    }
+    
+    func htmlContent(_ contentHTML: String?) -> String {
+        var html = "<html><head><meta name=\"viewport\" content=\"width=device-width, user-scalable=no\">"
+        html += "<style>\(ThemeManager.shared.webViewStyle())</style></head>"
+        if let content = contentHTML {
+            html += content
+        }
+        html += "</html>"
+        return html
     }
     
     class func heightForRowWithDetail(_ detail: inout TopicDetail) -> CGFloat {
@@ -94,15 +135,38 @@ class TopicDetailViewCell: UITableViewCell {
         
         rowHeight += 12
         
-        if let content = detail.content {
-            let maxSize = CGSize(width: width, height: CGFloat.infinity)
-            let rect = content.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
-            rowHeight += rect.height
-        }
-        rowHeight += 12
-        
         detail._rowHeight = rowHeight
         return rowHeight
         
     }
+    
+    func updateWebViewHeight(_ height: CGFloat) {
+        webView.snp.updateConstraints { make in
+            make.height.equalTo(height)
+        }
+        if webView.frame.height == 0 {
+            webViewHeightChangedHandler?(height)
+        }
+    }
+
+}
+
+extension TopicDetailViewCell: WKNavigationDelegate {
+    
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+//        webView.evaluateJavaScript("document.readyState") { (complete, error) in
+//            if complete != nil {
+//                webView.evaluateJavaScript("document.body.offsetHeight", completionHandler: { [weak self] (height, error) in
+//                    self?.updateWebViewHeight(height as! CGFloat)
+//                })
+//            }
+//        }
+    }
+    
+}
+
+enum H: Int {
+    case h1 = 22
+    case h2 = 18
+    case h3 = 16
 }

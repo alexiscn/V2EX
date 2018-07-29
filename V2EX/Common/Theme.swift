@@ -35,9 +35,18 @@ enum Theme {
 
 class ThemeManager {
     
+    static let shared = ThemeManager()
+    
     public class func setTheme(_ theme: Theme) {
         
     }
     
+    func webViewStyle() -> String {
+        if let path = Bundle.main.path(forResource: "style", ofType: "css"),
+            let style = try? String(contentsOf: URL(fileURLWithPath: path), encoding: .utf8) {
+            return style
+        }
+        return ""
+    }
     
 }

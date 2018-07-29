@@ -19,6 +19,8 @@ class TopicDetailViewController: UIViewController {
     
     fileprivate let topicURL: URL?
     
+    fileprivate var webViewHeightCaculated = false
+    
     init(url: URL?) {
         topicURL = url
         super.init(nibName: nil, bundle: nil)
@@ -79,6 +81,16 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TopicDetailViewCell.self), for: indexPath) as! TopicDetailViewCell
             cell.selectionStyle = .none
+            cell.webViewHeightChangedHandler = { [weak self] height in
+                guard let strongSelf = self else {
+                    return
+                }
+                if !strongSelf.webViewHeightCaculated && height != 0.0 {
+                    strongSelf.webViewHeightCaculated = true
+                    strongSelf.detail?._rowHeight += height
+                    strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+                }
+            }
             if let detail = detail {
                 cell.update(detail)
             }
@@ -95,9 +107,11 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.section == 0 {
             if var detail = detail {
-                return TopicDetailViewCell.heightForRowWithDetail(&detail)
+                let height = TopicDetailViewCell.heightForRowWithDetail(&detail)
+                self.detail = detail
+                return height
             }
-            return 120.0
+            return 0.0
         }
         var reply = comments[indexPath.row]
         return TopicCommentViewCell.heightForRowWithReply(&reply)
