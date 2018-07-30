@@ -77,23 +77,10 @@ class TopicDetailViewCell: UITableViewCell {
         }
         
         webView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
-            make.leading.equalToSuperview().offset(12)
-            make.trailing.equalToSuperview().offset(-12)
+            make.top.equalTo(titleLabel.snp.bottom)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.height.equalTo(0)
-        }
-        
-        webView.scrollView.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
-    }
-    
-    deinit {
-        webView.scrollView.removeObserver(self, forKeyPath: "contentSize")
-    }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "contentSize" {
-            let height = webView.scrollView.contentSize.height
-            updateWebViewHeight(height)
         }
     }
     
@@ -141,11 +128,9 @@ class TopicDetailViewCell: UITableViewCell {
     }
     
     func updateWebViewHeight(_ height: CGFloat) {
+        webViewHeightChangedHandler?(height)    
         webView.snp.updateConstraints { make in
             make.height.equalTo(height)
-        }
-        if webView.frame.height == 0 {
-            webViewHeightChangedHandler?(height)
         }
     }
 
@@ -154,13 +139,13 @@ class TopicDetailViewCell: UITableViewCell {
 extension TopicDetailViewCell: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-//        webView.evaluateJavaScript("document.readyState") { (complete, error) in
-//            if complete != nil {
-//                webView.evaluateJavaScript("document.body.offsetHeight", completionHandler: { [weak self] (height, error) in
-//                    self?.updateWebViewHeight(height as! CGFloat)
-//                })
-//            }
-//        }
+
+        let js = "Math.max(document.body.scrollHeight, document.body.offsetHeight, document.documentElement.clientHeight, document.documentElement.scrollHeight, document.documentElement.offsetHeight)"
+        webView.evaluateJavaScript(js) { [weak self] (height, error) in
+            if let h = height as? CGFloat {
+                self?.updateWebViewHeight(h)
+            }
+        }
     }
     
 }

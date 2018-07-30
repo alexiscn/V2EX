@@ -85,7 +85,7 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 guard let strongSelf = self else {
                     return
                 }
-                if !strongSelf.webViewHeightCaculated && height != 0.0 {
+                if !strongSelf.webViewHeightCaculated {
                     strongSelf.webViewHeightCaculated = true
                     strongSelf.detail?._rowHeight += height
                     strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
