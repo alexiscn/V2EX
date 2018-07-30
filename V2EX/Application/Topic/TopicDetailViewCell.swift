@@ -146,6 +146,29 @@ extension TopicDetailViewCell: WKNavigationDelegate {
                 self?.updateWebViewHeight(h)
             }
         }
+        
+        let imgJavascriptInjection = """
+                                    var images = document.getElementsByTagName('img');
+                                    for (var i = 0; i < images.length ; i++) {
+                                        var img = images[i];
+                                        img.onclick = function() {
+                                            window.location.href = 'v2ex-img:' + src
+                                        }
+                                    }
+                                    """
+        webView.evaluateJavaScript(imgJavascriptInjection, completionHandler: nil)
+        
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if let url = navigationAction.request.url, url.scheme == "v2ex-img" {
+            let src = url.absoluteString.replacingOccurrences(of: "v2ex-img", with: "")
+            print(src)
+            decisionHandler(.cancel)
+            return
+        }
+        
+        decisionHandler(.allow)
     }
     
 }
