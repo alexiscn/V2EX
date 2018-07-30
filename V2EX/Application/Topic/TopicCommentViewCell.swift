@@ -34,7 +34,7 @@ class TopicCommentViewCell: UITableViewCell {
         
         floorLabel = UILabel()
         floorLabel.font = UIFont.systemFont(ofSize: 11)
-//        floorLabel.textColor =
+        floorLabel.textColor = UIColor(red: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
         
         usernameButton = UIButton(type: .system)
         usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
@@ -71,6 +71,11 @@ class TopicCommentViewCell: UITableViewCell {
             make.leading.equalTo(usernameButton.snp.trailing).offset(5)
         }
         
+        floorLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(usernameButton)
+            make.trailing.equalToSuperview().offset(-12)
+        }
+        
         contentLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-12)
             make.leading.equalToSuperview().offset(64)
@@ -93,6 +98,9 @@ class TopicCommentViewCell: UITableViewCell {
         avatarView.kf.setImage(with: reply.avatarURL)
         contentLabel.text = reply.content
         timeAgoLabel.text = reply.timeAgo
+        if let floor = reply.floor {
+            floorLabel.text = "\(floor)楼"
+        }
     }
 
     class func heightForRowWithReply(_ reply: inout Reply) -> CGFloat {

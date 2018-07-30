@@ -17,8 +17,10 @@ public typealias V2SDKLoadTopicDetailCompletion = (TopicDetail?, [Reply], Error?
 
 public class V2SDK {
     
-    public class func setup() {
-        GenericNetworking.baseURLString = "https://www.v2ex.com"
+    static let baseURLString = "https://www.v2ex.com"
+    
+    public class func setup() {    
+        GenericNetworking.baseURLString = baseURLString
     }
     
     internal class func loadHTMLString(url: URL, completion: @escaping (String?, Error?) -> Void) {

@@ -9,16 +9,11 @@
 import UIKit
 import V2SDK
 
-struct TabMenu {
-    let tab: V2Tabs
-    let title: String
-}
-
 class TabMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
-    var didSelectTabHandler: ((TabMenu) -> Void)?
+    var didSelectTabHandler: ((V2Tab) -> Void)?
     
-    fileprivate var dataSource: [TabMenu] = []
+    fileprivate var dataSource: [V2Tab] = V2Tab.tabs()
     
     fileprivate var tableView: UITableView!
     
@@ -32,19 +27,6 @@ class TabMenuViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
         tableView.tableFooterView = UIView()
         view.addSubview(tableView)
-        
-        dataSource.removeAll()
-        dataSource.append(TabMenu(tab: .tech, title: "程序员"))
-        dataSource.append(TabMenu(tab: .creative, title: "创意"))
-        dataSource.append(TabMenu(tab: .play, title: "好玩"))
-        dataSource.append(TabMenu(tab: .apple, title: "Apple"))
-        dataSource.append(TabMenu(tab: .jobs, title: "酷工作"))
-        dataSource.append(TabMenu(tab: .deals, title: "交易"))
-        dataSource.append(TabMenu(tab: .city, title: "城市"))
-        dataSource.append(TabMenu(tab: .qna, title: "问与答"))
-        dataSource.append(TabMenu(tab: .hot, title: "最热"))
-        dataSource.append(TabMenu(tab: .all, title: "全部"))
-        dataSource.append(TabMenu(tab: .r2, title: "R2"))
         
         tableView.reloadData()
     }

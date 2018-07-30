@@ -44,8 +44,8 @@ extension V2SDK {
     ///   - tab: tab
     ///   - page: 当前页码，从0开始
     ///   - completion: 请求回调
-    public class func getTopicList(tab: V2Tabs, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
-        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@&page=%d", tab.rawValue, page))!
+    public class func getTopicList(tab: V2Tab, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
+        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@&page=%d", tab.tab, page))!
         loadHTMLString(url: url) { (html, error) in
             guard let html = html else {
                 completion([], error)
@@ -77,8 +77,12 @@ extension V2SDK {
     /// - Parameters:
     ///   - topicURL: 主题URL
     ///   - completion: 请求回调
-    public class func getTopicDetail(_ topicURL: URL, completion: @escaping V2SDKLoadTopicDetailCompletion) {
-        loadHTMLString(url: topicURL) { (html, error) in
+    public class func getTopicDetail(_ topicURL: URL, page: Int = 1, completion: @escaping V2SDKLoadTopicDetailCompletion) {
+        
+        let urlString = topicURL.absoluteString.appending("?p=1")
+        let url = URL(string: urlString)!
+        
+        loadHTMLString(url: url) { (html, error) in
             guard let html = html else {
                 completion(nil, [], error)
                 return
@@ -116,6 +120,7 @@ extension V2SDK {
                 reply.timeAgo = try cell.select("span.ago").text()
                 let userLink = try cell.select("a.dark")
                 reply.username = try userLink.text()
+                reply.floor = try cell.select("span.no").text()
                 
                 replyList.append(reply)
             }
@@ -187,7 +192,12 @@ extension V2SDK {
                 } else {
                     topic.id = Int(topicLink)
                 }
-                topic.url = URL(string: "https://www.v2ex.com" + link)
+                if link.contains("#") {
+                    topic.url = URL(string: baseURLString + String(link.split(separator: "#")[0]))
+                } else {
+                    
+                    topic.url = URL(string: baseURLString + link)
+                }
             }
         }
         

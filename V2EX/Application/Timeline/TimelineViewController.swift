@@ -18,7 +18,7 @@ class TimelineViewController: UIViewController {
     
     fileprivate var currentPage: Int = 0
     
-    fileprivate var currentTab: V2Tabs = .hot
+    fileprivate var currentTab: V2Tab = V2Tab(tab: "hot", title: "最热")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,10 +28,11 @@ class TimelineViewController: UIViewController {
         loadData()
     }
     
-    func switchTo(_ menu: TabMenu) {
-        currentTab = menu.tab
+    func switchTo(_ menu: V2Tab) {
+        currentTab = menu
         currentPage = 0
         title = menu.title
+        tableView.setContentOffset(.zero, animated: true)
         loadData()
     }
     
