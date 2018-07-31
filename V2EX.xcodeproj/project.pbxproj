@@ -25,6 +25,7 @@
 		A38D0EB120DCEA4100F7C932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB020DCEA4100F7C932 /* Assets.xcassets */; };
 		A38D0EB420DCEA4100F7C932 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */; };
 		A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EC720DD060900F7C932 /* TimelineViewController.swift */; };
+		A392D11721102E6600CCFDDD /* TimelineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392D11621102E6600CCFDDD /* TimelineHeaderView.swift */; };
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
 		A3A39CA720E181F0000B07F0 /* TabMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */; };
 		A3A39CA920E182C4000B07F0 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */; };
@@ -51,6 +52,7 @@
 		A38D0EB320DCEA4100F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A38D0EB520DCEA4100F7C932 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A38D0EC720DD060900F7C932 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		A392D11621102E6600CCFDDD /* TimelineHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineHeaderView.swift; sourceTree = "<group>"; };
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuViewController.swift; sourceTree = "<group>"; };
 		A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */,
 				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
+				A392D11621102E6600CCFDDD /* TimelineHeaderView.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
+				A392D11721102E6600CCFDDD /* TimelineHeaderView.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
