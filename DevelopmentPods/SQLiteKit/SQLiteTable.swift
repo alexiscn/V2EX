@@ -7,24 +7,34 @@
 
 import Foundation
 
-/// Type to reflect to a database table
-public protocol SQLiteTable: class, Codable {
-    
-    /// Required initializer. used for Mirror reflecting of Object ORM
-    init()
+public protocol SQLiteCodingKeyBase: CodingKey {
+    var rootType: SQLiteCodingKeyBase.Type { get }
+}
 
+public protocol SQLiteCodingKey: SQLiteCodingKeyBase, Hashable {
+    
+    associatedtype base: SQLiteCodingKeyBase
+
+}
+
+/// Type to reflect to a database table
+public protocol SQLiteCodable: Codable {
+
+    //associatedtype CodingKeys: CodingKey
+    
     /// Specifiy column attributes of a table, eg: isPK
     ///
     /// - Returns: column attributes
     static func attributes() -> [SQLiteAttribute]
     
+    init()
 }
 
-extension SQLiteTable {
+extension SQLiteCodable {
 
     /// Return mapping type of SQLiteTable
-    internal var mapType: SQLiteTable.Type {
+    internal var mapType: SQLiteCodable.Type {
         let mirror = Mirror(reflecting: self)
-        return mirror.subjectType as! SQLiteTable.Type
+        return mirror.subjectType as! SQLiteCodable.Type
     }
 }

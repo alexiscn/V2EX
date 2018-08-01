@@ -13,7 +13,7 @@ public class SQLiteConnectionAsync {
         
     }
     
-    public func insertAsync<T: SQLiteTable>(_ obj: T) {
+    public func insertAsync<T: SQLiteCodable>(_ obj: T) {
         
     }
     

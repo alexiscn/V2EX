@@ -41,7 +41,7 @@ struct TableMapping {
         return autoIncPK != nil
     }
     
-    init(type: SQLiteTable.Type, createFlags: SQLiteConnection.CreateFlags = .none) {
+    init(type: SQLiteCodable.Type, createFlags: SQLiteConnection.CreateFlags = .none) {
         let attributes = type.attributes()
         
         if let nameAttribute = attributes.first(where: { $0.attribute == .tableName }) {
@@ -124,7 +124,7 @@ struct TableMapping {
         ///
         /// - Parameter object: object
         /// - Returns: object value of the column
-        func getValue(of object: SQLiteTable) -> Any {
+        func getValue(of object: SQLiteCodable) -> Any {
             let mirror = Mirror(reflecting: object)
             return mirror.children.first(where: { $0.label == name })!.value
         }

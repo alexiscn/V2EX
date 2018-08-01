@@ -151,7 +151,7 @@ class SQLiteCommand {
         throw SQLiteError.executeError(Int(r.rawValue), "")
     }
     
-    func executeQuery<T: SQLiteTable>() -> [T] {
+    func executeQuery<T: SQLiteCodable>() -> [T] {
         let map = conn.getMapping(of: T.self)
         do {
             return try executeDeferredQuery(map)
@@ -161,7 +161,7 @@ class SQLiteCommand {
         }
     }
     
-    func executeDeferredQuery<T: SQLiteTable>(_ map: TableMapping) throws -> [T] {
+    func executeDeferredQuery<T: SQLiteCodable>(_ map: TableMapping) throws -> [T] {
         let stmt = try prepare()
         let columnCount = SQLite3.columnCount(stmt)
         var cols: [TableMapping.Column?] = []

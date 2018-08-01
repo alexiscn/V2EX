@@ -56,7 +56,7 @@ func withClassValuePointer<Value, Result>(of value: inout Value, _ body: (Unsafe
 
 class Reflection {
     
-    class func set<T: SQLiteTable>(_ value: Any, key: String, for instance: inout T) {
+    class func set<T: SQLiteCodable>(_ value: Any, key: String, for instance: inout T) {
         withClassValuePointer(of: &instance) { pointer in
             let valuePointer = pointer.advanced(by: 1) // TODO
             let sets = reflectable(of: T.self)

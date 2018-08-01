@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SQLiteKit
 
 public struct V2Tab {
     
@@ -176,7 +177,20 @@ public struct TopicDetail {
     
 }
 
-public struct Reply {
+public struct Reply: SQLiteCodable {
+    
+    public static func attributes() -> [SQLiteAttribute] {
+        return []
+    }
+    
+    enum CodingKeys: String, CodingKey {
+        case thanks
+        case timeAgo = "time_ago"
+        case content
+        case floor
+        case userLinkURL = "user_link_url"
+        case username
+    }
     
     public var _rowHeight: CGFloat = 0
     
@@ -193,4 +207,8 @@ public struct Reply {
     public var username: String?
     
     public var avatarURL: URL?
+    
+    public init() {
+        
+    }
 }

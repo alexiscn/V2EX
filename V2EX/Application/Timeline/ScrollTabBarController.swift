@@ -1,5 +1,5 @@
 //
-//  TimelineHeaderView.swift
+//  ScrollTabBarController.swift
 //  V2EX
 //
 //  Created by xu.shuifeng on 2018/7/31.
@@ -8,6 +8,8 @@
 
 import UIKit
 
-class TimelineHeaderView: UIView {
+class ScrollTabBarController: UIViewController {
+    
+    
     
 }

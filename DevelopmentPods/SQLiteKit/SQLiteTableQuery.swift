@@ -8,7 +8,7 @@
 import Foundation
 
 /// A query interface of table
-public class SQLiteTableQuery<T: SQLiteTable> {
+public class SQLiteTableQuery<T: SQLiteCodable> {
     
     private let conn: SQLiteConnection
     private let table: TableMapping
@@ -64,7 +64,7 @@ public class SQLiteTableQuery<T: SQLiteTable> {
     ///
     /// - Parameter predicate: predicate
     /// - Returns: All objects that match the predicate
-    public func filter<T: SQLiteTable>(using predicate: NSPredicate) -> [T] {
+    public func filter<T: SQLiteCodable>(using predicate: NSPredicate) -> [T] {
         let predication = predicate.predicateFormat
         let cmdText = "SELECT * FROM \(table.tableName) WHERE \(predication)"
         return conn.createCommand(cmdText, parameters: []).executeQuery()
@@ -75,7 +75,7 @@ public class SQLiteTableQuery<T: SQLiteTable> {
     ///
     /// - Parameter limit: Limit number that your want to select.
     /// - Returns: SQLiteTableQuery
-    public func limit<T: SQLiteTable>(_ limit: Int) -> SQLiteTableQuery<T> {
+    public func limit<T: SQLiteCodable>(_ limit: Int) -> SQLiteTableQuery<T> {
         let q: SQLiteTableQuery<T> = clone()
         q._limit = limit
         return q
@@ -101,7 +101,7 @@ public class SQLiteTableQuery<T: SQLiteTable> {
         return q
     }
     
-    fileprivate func clone<T: SQLiteTable>() -> SQLiteTableQuery<T> {
+    fileprivate func clone<T: SQLiteCodable>() -> SQLiteTableQuery<T> {
         let query = SQLiteTableQuery<T>(connection: conn, table: table)
         query._limit = _limit
         query._offset = _offset
