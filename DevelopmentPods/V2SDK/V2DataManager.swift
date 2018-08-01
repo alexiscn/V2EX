@@ -6,12 +6,26 @@
 //
 
 import Foundation
+import SQLiteKit
 
-class V2DataManager {
+public class V2DataManager {
     
-    static let shared = V2DataManager()
+    public static let shared = V2DataManager()
     
-    func loadTopics() {
+    fileprivate var db: SQLiteConnection?
+    
+    init() {
+        let path = NSHomeDirectory().appending("/Documents/db.sqlite")
+        try? FileManager.default.removeItem(atPath: path)
+        do {
+            db = try SQLiteConnection(databasePath: path)
+            try db?.createTable(Reply.self)
+        } catch {
+            print(error)
+        }
+    }
+    
+    public func loadTopics() {
         
     }
     

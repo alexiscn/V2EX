@@ -51,9 +51,16 @@ struct TableMapping {
         }
         self.createFlags = createFlags
         
+        let ignoredColumnNames: [String] = attributes.filter { return $0.attribute == .ignore }.map { return $0.name }
+        
         var cols: [Column] = []
         let mirror = Mirror(reflecting: type.init())
         for child in mirror.children {
+            
+            if let label = child.label, ignoredColumnNames.contains(label) {
+                continue
+            }
+            
             let col = Column(propertyInfo: child, attributes: attributes)
             cols.append(col)
             // TODO: If we support nested table model, we should check
@@ -61,8 +68,8 @@ struct TableMapping {
             //print(m.displayStyle)
         }
         columns = cols
-        insertColumns = columns.filter { return $0.isAutoInc == false || !$0.ignored }
-        insertOrReplaceColumns = columns.filter { return !$0.ignored }
+        insertColumns = columns.filter { return $0.isAutoInc == false }
+        insertOrReplaceColumns = columns
         
         for c in cols {
             if c.isPK && c.isAutoInc {
@@ -159,7 +166,8 @@ extension TableMapping.Column {
             "REAL": [
                 Float.self, Float?.self,
                 Double.self, Double?.self,
-                Date.self, Date?.self
+                Date.self, Date?.self,
+                CGFloat.self, CGFloat?.self
             ],
             "TEXT": [
                 String.self, String?.self,

@@ -180,7 +180,9 @@ public struct TopicDetail {
 public struct Reply: SQLiteCodable {
     
     public static func attributes() -> [SQLiteAttribute] {
-        return []
+        return [
+            SQLiteAttribute(name: "_rowHeight", attribute: .ignore)
+        ]
     }
     
     enum CodingKeys: String, CodingKey {

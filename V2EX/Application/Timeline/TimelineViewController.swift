@@ -26,6 +26,8 @@ class TimelineViewController: UIViewController {
         setupTableView()
         
         loadData()
+        
+        V2DataManager.shared.loadTopics()
     }
     
     func switchTo(_ menu: V2Tab) {
