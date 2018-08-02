@@ -111,12 +111,15 @@ public struct V2Tab {
 
 public struct Topic: SQLiteCodable {
     
-    public static func attributes() -> [SQLiteAttribute] {
-        return [
-            SQLiteAttribute(name: "_rowHeight", attribute: .ignore)
-        ]
+    public struct Columns {
+        public static let tab = "tab"
     }
     
+    public static func attributes() -> [SQLiteAttribute] {
+        return []
+    }
+    
+    // this property is not stored in database
     public var _rowHeight: CGFloat = 0
     
     public var title: String?
@@ -134,8 +137,6 @@ public struct Topic: SQLiteCodable {
     public var nodeName: String?
     
     public var nodeTitle: String?
-    
-    public var last_modified: Int64?
     
     public var tab: String = ""
     
@@ -163,18 +164,7 @@ public struct TopicDetail {
 public struct Reply: SQLiteCodable {
     
     public static func attributes() -> [SQLiteAttribute] {
-        return [
-            SQLiteAttribute(name: "_rowHeight", attribute: .ignore)
-        ]
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case thanks
-        case timeAgo = "time_ago"
-        case content
-        case floor
-        case userLinkURL = "user_link_url"
-        case username
+        return []
     }
     
     public var _rowHeight: CGFloat = 0

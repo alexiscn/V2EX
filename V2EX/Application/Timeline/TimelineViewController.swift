@@ -25,9 +25,12 @@ class TimelineViewController: UIViewController {
         title = "V2EX"
         setupTableView()
         
+        let topics = V2DataManager.shared.loadTopics(forTab: "hot")
+        if topics.count > 0 {
+            dataSource = topics
+            tableView.reloadData()
+        }
         loadData()
-        
-        V2DataManager.shared.loadTopics()
     }
     
     func switchTo(_ menu: V2Tab) {
