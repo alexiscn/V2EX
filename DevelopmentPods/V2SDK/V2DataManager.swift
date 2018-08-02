@@ -18,7 +18,7 @@ public class V2DataManager {
     
     init() {
         let path = NSHomeDirectory().appending("/Documents/db.sqlite")
-//        try? FileManager.default.removeItem(atPath: path)
+        try? FileManager.default.removeItem(atPath: path)
         do {
             db = try SQLiteConnection(databasePath: path)
             try db.createTable(Topic.self)

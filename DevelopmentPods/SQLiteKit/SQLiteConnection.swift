@@ -306,8 +306,8 @@ public class SQLiteConnection {
     ///
     /// - Parameter pk: Value of table primary key
     /// - Returns: Object that match the primary. `nil` will return if not found.
-    public func find<T: SQLiteCodable>(_ pk: Any) -> T? {
-        let map = getMapping(of: T.self)
+    public func find<Object: SQLiteCodable>(_ pk: Any) -> Object? {
+        let map = getMapping(of: Object.self)
         return query(map.queryByPrimaryKeySQL, parameters: [pk]).first
     }
     
@@ -334,7 +334,7 @@ public class SQLiteConnection {
     ///
     /// - Parameter Type to reflect to a database table
     /// - Returns: A queryable object that is able to translate Where, OrderBy, and Take queries into native SQL.
-    public func table<T>(of type: SQLiteCodable.Type) -> SQLiteTableQuery<T> where T: SQLiteCodable {
+    public func table<T: SQLiteCodable>(of type: T.Type) -> SQLiteTableQuery<T> where T: SQLiteCodable {
         let map = getMapping(of: type)
         return SQLiteTableQuery<T>(connection: self, table: map)
     }
@@ -394,7 +394,7 @@ public class SQLiteConnection {
     /// - Returns: The number of rows added to the table.
     /// - Throws: Exceptions.
     @discardableResult
-    public func insert(_ obj: SQLiteCodable?) throws -> Int {
+    public func insert<Object: SQLiteCodable>(_ obj: Object?) throws -> Int {
         return try insert(obj, extra: "")
     }
     
@@ -407,7 +407,7 @@ public class SQLiteConnection {
     /// - Returns: The number of rows modified.
     /// - Throws: Exceptions.
     @discardableResult
-    public func insertOrReplace(_ obj: SQLiteCodable?) throws -> Int {
+    public func insertOrReplace<Object: SQLiteCodable>(_ obj: Object?) throws -> Int {
         return try insert(obj, extra: "OR REPLACE")
     }
     
@@ -422,11 +422,12 @@ public class SQLiteConnection {
     /// - Returns: The number of rows added to the table.
     /// - Throws: Exceptions.
     @discardableResult
-    public func insert(_ obj: SQLiteCodable?, extra: String) throws -> Int {
+    public func insert<Object: SQLiteCodable>(_ obj: Object?, extra: String) throws -> Int {
         guard let object = obj else {
             return 0
         }
-        let map = getMapping(of: object.mapType)
+        let type: Object.Type = object.mapType()
+        let map = getMapping(of: type)
         let isReplacing = extra.uppercased() == "OR REPLACE"
         let columns = isReplacing ? map.insertOrReplaceColumns: map.insertColumns
         
@@ -449,7 +450,7 @@ public class SQLiteConnection {
     /// - Returns: The number of rows added to the table.
     /// - Throws: Exceptions
     @discardableResult
-    public func insertAll(_ objects: [SQLiteCodable], inTranscation: Bool = false) throws -> Int {
+    public func insertAll<Object: SQLiteCodable>(_ objects: [Object], inTranscation: Bool = false) throws -> Int {
         var result = 0
         if inTranscation {
             
@@ -471,8 +472,8 @@ public class SQLiteConnection {
     /// - Returns: The number of rows updated.
     /// - Throws: Exceptions
     @discardableResult
-    public func update<T: SQLiteCodable>(_ obj: T) throws -> Int {
-        let map = getMapping(of: T.self)
+    public func update<Object: SQLiteCodable>(_ obj: Object) throws -> Int {
+        let map = getMapping(of: Object.self)
         guard let pk = map.pk else {
             throw SQLiteError.notSupportedError("Could not update table without primary key")
         }
@@ -485,7 +486,7 @@ public class SQLiteConnection {
     }
     
     @discardableResult
-    public func upsert<T: SQLiteCodable>(_ obj: T) throws -> Int {
+    public func upsert<Object: SQLiteCodable>(_ obj: Object) throws -> Int {
         if SQLiteConnection.libVersionNumber > 3024000 {
             // TODO
         } else {
@@ -507,8 +508,9 @@ public class SQLiteConnection {
     /// - Returns: The number of rows deleted.
     /// - Throws: Exceptions
     @discardableResult
-    public func delete(_ obj: SQLiteCodable) throws -> Int {
-        let map = getMapping(of: obj.mapType)
+    public func delete<Object: SQLiteCodable>(_ obj: Object) throws -> Int {
+        let type: Object.Type = obj.mapType()
+        let map = getMapping(of: type)
         guard let pk = map.pk else {
             throw SQLiteError.notSupportedError("Could not delete row without primary key")
         }
@@ -528,7 +530,7 @@ public class SQLiteConnection {
     }
     
     @discardableResult
-    public func delete(using predicate: NSPredicate, on table: SQLiteCodable.Type) throws -> Int {
+    public func delete<Object: SQLiteCodable>(using predicate: NSPredicate, on table: Object.Type) throws -> Int {
         let map = getMapping(of: table)
         let sql = "DELETE FROM \(map.tableName) WHERE \(predicate.predicateFormat)"
         return try execute(sql)
@@ -559,7 +561,7 @@ public class SQLiteConnection {
 
 extension SQLiteConnection {
     
-    func getMapping(of type: SQLiteCodable.Type, createFlags: CreateFlags = .none) -> TableMapping {
+    func getMapping<T: SQLiteCodable>(of type: T.Type, createFlags: CreateFlags = .none) -> TableMapping {
         let key = String(describing: type)
         var map: TableMapping
         lock()
@@ -632,6 +634,12 @@ extension SQLiteConnection {
 }
 
 fileprivate class ColumnInfo: SQLiteCodable {
+    
+    enum CodingKeys: String, SQLiteCodingKey {
+        typealias root = ColumnInfo
+        case name
+        case notnull
+    }
     
     static func attributes() -> [SQLiteAttribute] {
         return []

@@ -41,7 +41,7 @@ struct TableMapping {
         return autoIncPK != nil
     }
     
-    init(type: SQLiteCodable.Type, createFlags: SQLiteConnection.CreateFlags = .none) {
+    init<T: SQLiteCodable>(type: T.Type, createFlags: SQLiteConnection.CreateFlags = .none) {
         let attributes = type.attributes()
         
         if let nameAttribute = attributes.first(where: { $0.attribute == .tableName }) {
@@ -52,6 +52,9 @@ struct TableMapping {
         self.createFlags = createFlags
         
         let ignoredColumnNames: [String] = attributes.filter { return $0.attribute == .ignore }.map { return $0.name }
+        
+        // TODO
+        //let codingKeys = T.CodingKeys.allKeys
         
         var cols: [Column] = []
         let mirror = Mirror(reflecting: type.init())
@@ -131,7 +134,7 @@ struct TableMapping {
         ///
         /// - Parameter object: object
         /// - Returns: object value of the column
-        func getValue(of object: SQLiteCodable) -> Any {
+        func getValue<Object: SQLiteCodable>(of object: Object) -> Any {
             let mirror = Mirror(reflecting: object)
             return mirror.children.first(where: { $0.label == name })!.value
         }
