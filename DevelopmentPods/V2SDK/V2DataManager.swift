@@ -12,14 +12,17 @@ public class V2DataManager {
     
     public static let shared = V2DataManager()
     
-    fileprivate var db: SQLiteConnection?
+    fileprivate var db: SQLiteConnection!
+    
+    fileprivate let queue = DispatchQueue(label: "com.v2ex.datamanager")
     
     init() {
         let path = NSHomeDirectory().appending("/Documents/db.sqlite")
         try? FileManager.default.removeItem(atPath: path)
         do {
             db = try SQLiteConnection(databasePath: path)
-            try db?.createTable(Reply.self)
+            try db.createTable(Topic.self)
+            try db.createTable(Reply.self)
         } catch {
             print(error)
         }
@@ -29,8 +32,19 @@ public class V2DataManager {
         
     }
     
-    func saveTopics() {
+    func saveTopics(_ topics: [Topic], forTab tab: String) {
+        if db == nil {
+            return
+        }
         
+        queue.async {
+            do {
+                try self.db.delete(using: NSPredicate(format: "tab=%@", tab), on: Topic.self)
+                try self.db.insertAll(topics)
+            } catch {
+                print(error)
+            }
+        }
     }
     
 }

@@ -42,10 +42,9 @@ extension V2SDK {
     ///
     /// - Parameters:
     ///   - tab: tab
-    ///   - page: 当前页码，从0开始
     ///   - completion: 请求回调
-    public class func getTopicList(tab: V2Tab, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
-        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@&page=%d", tab.tab, page))!
+    public class func getTopicList(tab: V2Tab, completion: @escaping V2SDKLoadTimelineCompletion) {
+        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@", tab.tab))!
         loadHTMLString(url: url) { (html, error) in
             guard let html = html else {
                 completion([], error)
@@ -60,9 +59,11 @@ extension V2SDK {
                     if !cell.hasClass("cell item") {
                         continue
                     }
-                    let topic = self.parseTopicListCell(cell)
+                    var topic = self.parseTopicListCell(cell)
+                    topic.tab = tab.tab
                     topics.append(topic)
                 }
+                V2DataManager.shared.saveTopics(topics, forTab: tab.tab)
                 completion(topics, nil)
             } catch {
                 completion([], error)
@@ -163,19 +164,16 @@ extension V2SDK {
     
     class func parseTopicListCell(_ cell: Element) -> Topic {
         var topic = Topic()
-        var member = Member()
         // parse avatar
         if let img = try? cell.select("img").first(), let imgEle = img, let src = try? imgEle.attr("src") {
-            member.avatar = avatarURLWithSource(src)
+            topic.avatar = avatarURLWithSource(src)
         }
         // parse members
         if let members = try? cell.select("strong") {
             if let m1 = members.first() {
-                member.username = try? m1.text()
+                topic.username = try? m1.text()
                 if let m2 = members.last(), m1 != m2 {
-                    var replyMember = Member()
-                    replyMember.username = try? m2.text()
-                    topic.lastReplyedUser = replyMember
+                    topic.lastReplyedUserName = try? m2.text()
                 }
             }
         }
@@ -186,16 +184,9 @@ extension V2SDK {
                 topic.title = title
             }
             if let href = try? titleElement?.select("a").attr("href"), let link = href {
-                let topicLink = link.replacingOccurrences(of: "/t/", with: "")
-                if topicLink.contains("#") {
-                    topic.id = Int(topicLink.split(separator: "#")[0])
-                } else {
-                    topic.id = Int(topicLink)
-                }
                 if link.contains("#") {
                     topic.url = URL(string: baseURLString + String(link.split(separator: "#")[0]))
                 } else {
-                    
                     topic.url = URL(string: baseURLString + link)
                 }
             }
@@ -210,16 +201,13 @@ extension V2SDK {
         
         // parse node
         if let nodeElement = try? cell.select("a.node").first() {
-            var node = Node()
             if let title = try? nodeElement?.text() {
-                node.title = title
+                topic.nodeTitle = title
             }
             if let name = try? nodeElement?.attr("href"), let nodename = name {
-                node.name = nodename.replacingOccurrences(of: "/go/", with: "")
+                topic.nodeName = nodename.replacingOccurrences(of: "/go/", with: "")
             }
-            topic.node = node
         }
-        topic.member = member
         return topic
     }
 }

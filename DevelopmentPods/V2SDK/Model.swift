@@ -22,6 +22,14 @@ public struct V2Tab {
         self.subTabs = []
     }
     
+    public static var hotTab: V2Tab {
+        return V2Tab(tab: "hot", title: "最热")
+    }
+    
+    public static var allTab: V2Tab {
+        return V2Tab(tab: "all", title: "全部")
+    }
+    
     public static func tabs() -> [V2Tab] {
         
         var techTab = V2Tab(tab: "tech", title: "技术")
@@ -98,67 +106,42 @@ public struct V2Tab {
         
         return [techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, hotTab, allTab]
     }
-    
 }
 
 
-public struct Topic {
+public struct Topic: SQLiteCodable {
+    
+    public static func attributes() -> [SQLiteAttribute] {
+        return [
+            SQLiteAttribute(name: "_rowHeight", attribute: .ignore)
+        ]
+    }
     
     public var _rowHeight: CGFloat = 0
-    
-    public var id: Int?
     
     public var title: String?
     
     public var url: URL?
     
-    public var content: String?
-    
     public var replies: Int = 0
-    
-    public var member: Member?
-    
-    public var lastReplyedUser: Member?
-    
-    public var node: Node?
-    
-    public var created: Int64?
-    
-    public var last_modified: Int64?
-    
-    init() {
-        
-    }
-}
-
-public struct Member {
-    
-    public var id: Int?
     
     public var username: String?
     
     public var avatar: URL?
     
-    init() {
+    public var lastReplyedUserName: String?
+    
+    public var nodeName: String?
+    
+    public var nodeTitle: String?
+    
+    public var last_modified: Int64?
+    
+    public var tab: String = ""
+    
+    public init() {
         
     }
-}
-
-public struct Node {
-    
-    public var id: Int = 0
-    
-    public var name: String?
-    
-    public var title: String?
-    
-    public var title_alternative: String?
-    
-    public var url: URL?
-    
-    public var topics: Int = 0
-    
-    init() {}
 }
 
 public struct TopicDetail {

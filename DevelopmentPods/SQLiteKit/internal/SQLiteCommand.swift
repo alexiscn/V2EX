@@ -31,12 +31,12 @@ class SQLiteCommand {
         conn = connection
     }
     
-    func bind(_ name: String?, value: Any) {
+    func bind(_ name: String?, value: Any?) {
         let binding = Binding(name: name, value: value)
         _bindings.append(binding)
     }
     
-    func bind(_ value: Any) {
+    func bind(_ value: Any?) {
         bind(nil, value: value)
     }
     
@@ -64,6 +64,10 @@ class SQLiteCommand {
                 code = SQLite3.bindInt(stmt, index: index, value: v ? 1 : 0)
             case let v as Int:
                 code = SQLite3.bindInt(stmt, index: index, value: v)
+            case let v as Int32:
+                code = SQLite3.bindInt(stmt, index: index, value: Int(v))
+            case let v as Int64:
+                code = SQLite3.bindDouble(stmt, index: index, value: Double(v))
             case let v as Float:
                 code = SQLite3.bindDouble(stmt, index: index, value: Double(v))
             case let v as Double:
@@ -78,7 +82,11 @@ class SQLiteCommand {
             case let v as Data:
                 code = SQLite3.bindBlob(stmt, index: index, value: v)
             default:
-                throw SQLiteError.notSupportedError("Unsupported parameter type")
+                // NOTE: When Any? is Option<Any> = nil, value == nil always retrun false.
+                if value is ExpressibleByNilLiteral {
+                    return SQLite3.bindNull(stmt, index: index)
+                }
+                throw SQLiteError.notSupportedError("Unsupported parameter type, value: \(value)")
             }
         } else {
             code = SQLite3.bindNull(stmt, index: index)

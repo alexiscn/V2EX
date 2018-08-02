@@ -38,35 +38,26 @@ class TimelineViewController: UIViewController {
         loadData()
     }
     
-    private func loadData(isLoadMore: Bool = false) {
-        if isLoadMore {
-            currentPage += 1
-        } else {
-            currentPage = 0
-        }
-        V2SDK.getTopicList(tab: currentTab, page: currentPage) { [weak self] (topics, error) in
+    private func loadData() {
+        V2SDK.getTopicList(tab: currentTab) { [weak self] (topics, error) in
             DispatchQueue.main.async {
                 guard let strongSelf = self else {
                     return
                 }
-                if let error = error {
-                    print(error)
+                strongSelf.dataSource = topics
+                strongSelf.tableView.reloadData()
+                strongSelf.tableView.mj_header.endRefreshing()
+                if strongSelf.currentTab.tab == V2Tab.allTab.tab {
+                    strongSelf.tableView.mj_footer.resetNoMoreData()
                 } else {
-                    if strongSelf.currentPage == 0 {
-                        strongSelf.dataSource = topics
-                    } else {
-                        strongSelf.dataSource.append(contentsOf: topics)
-                    }
-                    strongSelf.tableView.reloadData()
+                    strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
                 }
-                if isLoadMore {
-                    strongSelf.tableView.mj_footer.endRefreshing()
-                } else {
-                    strongSelf.tableView.mj_header.endRefreshing()
-                }
-
             }
         }
+    }
+    
+    fileprivate func loadMoreData() {
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,8 +79,9 @@ class TimelineViewController: UIViewController {
         tableView.mj_header = header
         
         let footer = MJRefreshAutoNormalFooter(refreshingBlock: { [weak self] in
-            self?.loadData(isLoadMore: true)
+            self?.loadMoreData()
         })
+        footer?.stateLabel.isHidden = true
         tableView.mj_footer = footer
     }
 }

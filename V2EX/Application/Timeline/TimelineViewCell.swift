@@ -121,14 +121,14 @@ class TimelineViewCell: UITableViewCell {
     
     func update(_ topic: Topic) {
         
-        avatarView.kf.setImage(with: topic.member?.avatar)
-        usernameLabel.text = topic.member?.username
+        avatarView.kf.setImage(with: topic.avatar)
+        usernameLabel.text = topic.username
         timeLabel.text = "5分钟前"
         titleLabel.text = topic.title
         commentCountLabel.text = "\(topic.replies)"
-        nodeButton.setTitle(topic.node?.title, for: .normal)
+        nodeButton.setTitle(topic.nodeTitle, for: .normal)
         
-        if let nodeTitle = topic.node?.title {
+        if let nodeTitle = topic.nodeTitle {
             let size = (nodeTitle as NSString).size(withAttributes: [.font: nodeButton.titleLabel?.font! as Any])
             
             nodeButton.snp.updateConstraints { make in

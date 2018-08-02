@@ -449,7 +449,7 @@ public class SQLiteConnection {
     /// - Returns: The number of rows added to the table.
     /// - Throws: Exceptions
     @discardableResult
-    public func insertAll(_ objects: [SQLiteCodable], inTranscation: Bool = true) throws -> Int {
+    public func insertAll(_ objects: [SQLiteCodable], inTranscation: Bool = false) throws -> Int {
         var result = 0
         if inTranscation {
             
@@ -525,6 +525,13 @@ public class SQLiteConnection {
     @discardableResult
     public func deleteAll<T: SQLiteCodable>(_ type: T.Type) throws -> Int {
         return try deleteAll(map: getMapping(of: T.self))
+    }
+    
+    @discardableResult
+    public func delete(using predicate: NSPredicate, on table: SQLiteCodable.Type) throws -> Int {
+        let map = getMapping(of: table)
+        let sql = "DELETE FROM \(map.tableName) WHERE \(predicate.predicateFormat)"
+        return try execute(sql)
     }
     
     @discardableResult
