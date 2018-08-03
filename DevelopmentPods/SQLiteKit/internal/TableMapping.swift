@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 enum SQLiteDataType: String {
     case INTEGER
     case REAL
@@ -51,19 +49,17 @@ struct TableMapping {
         }
         self.createFlags = createFlags
         
-        let ignoredColumnNames: [String] = attributes.filter { return $0.attribute == .ignore }.map { return $0.name }
-        
         // TODO
-        //let codingKeys = T.CodingKeys.allKeys
+        let codingKeys = T.CodingKeys.allKeys
+        
+        for key in T.CodingKeys.allCases {
+            print(key)
+        }
+        
         
         var cols: [Column] = []
         let mirror = Mirror(reflecting: type.init())
         for child in mirror.children {
-            
-            if let label = child.label, ignoredColumnNames.contains(label) {
-                continue
-            }
-            
             let col = Column(propertyInfo: child, attributes: attributes)
             cols.append(col)
             // TODO: If we support nested table model, we should check
@@ -110,8 +106,6 @@ struct TableMapping {
         
         let isAutoInc: Bool
         
-        let ignored: Bool
-        
         let isIndexed: Bool
         
         let columnType: Any.Type
@@ -124,9 +118,9 @@ struct TableMapping {
             let columnAttr = attributes.filter { $0.name == columnName }
             isPK = columnAttr.contains(where: { $0.attribute == Attribute.isPK })
             isAutoInc = columnAttr.contains(where: { $0.attribute == Attribute.autoInc })
-            ignored = columnAttr.contains(where: { $0.attribute == Attribute.ignore })
             isIndexed = columnAttr.contains(where: { $0.attribute == Attribute.indexed })
             columnType = type(of: propertyInfo.value)
+            print(columnType)
         }
         
         

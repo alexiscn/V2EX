@@ -39,8 +39,6 @@ public struct Attribute: OptionSet {
     /// Make property AUTOINCREMENT
     /// NOTE: Only support `Int` or `Int64`
     public static let autoInc = Attribute(rawValue: 1 << 2)
-
-    public static let nonull = Attribute(rawValue: 1 << 3)
     
     /// Create index
     public static let indexed = Attribute(rawValue: 1 << 4)
@@ -48,8 +46,6 @@ public struct Attribute: OptionSet {
     /// Table name
     public static let tableName = Attribute(rawValue: 1 << 5)
     
-    /// Member that defins when `ignore` will not create column
-    public static let ignore = Attribute(rawValue: 1 << 6)
 }
 
 
