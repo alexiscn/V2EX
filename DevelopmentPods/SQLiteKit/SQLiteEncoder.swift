@@ -7,6 +7,16 @@
 
 import Foundation
 
+class SqliteEncoder {
+    
+    private var encoder = _SQLiteEncoder()
+    
+    func encode<T: Encodable>(_ value: T) throws -> [String: Any] {
+        try value.encode(to: encoder)
+        return encoder.values
+    }
+}
+
 fileprivate class _SQLiteEncoder: Encoder {
     
     var values: [String: Any] = [:]

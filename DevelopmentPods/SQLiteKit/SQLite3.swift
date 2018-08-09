@@ -8,15 +8,15 @@
 import Foundation
 import SQLite3
 
-typealias SQLiteStatement = OpaquePointer
+internal typealias SQLiteStatement = OpaquePointer
 
-typealias SQLiteDatabaseHandle = OpaquePointer
+internal typealias SQLiteDatabaseHandle = OpaquePointer
 
-let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
+internal let SQLITE_TRANSIENT = unsafeBitCast(-1, to: sqlite3_destructor_type.self)
 
-class SQLite3 {
+internal class SQLite3 {
     
-    enum Result: Int32 {
+    internal enum Result: Int32 {
         case ok = 0
         case error = 1
         case `internal` = 2

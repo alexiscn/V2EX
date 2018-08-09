@@ -71,6 +71,7 @@ extension SQLiteCodingKey {
 public protocol SQLiteCodable: Codable, RootCodable where CodingKeys.root == Self {
 
     associatedtype CodingKeys: SQLiteCodingKey
+    typealias Columns = CodingKeys
     
     /// Specifiy column attributes of a table, eg: isPK
     ///

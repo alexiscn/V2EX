@@ -580,7 +580,7 @@ extension SQLiteConnection {
         return map
     }
     
-    fileprivate func migrateTable(_ map: TableMapping, existingCols: [ColumnInfo]) throws {
+    fileprivate func migrateTable(_ map: TableMapping, existingCols: [_ColumnInfo]) throws {
         var newCols: [TableMapping.Column] = []
         for column in map.columns {
             if let _ = existingCols.first(where: { $0.name == column.name }) {
@@ -594,7 +594,7 @@ extension SQLiteConnection {
         }
     }
     
-    fileprivate func getExistingColumns(tableName: String) -> [ColumnInfo] {
+    fileprivate func getExistingColumns(tableName: String) -> [_ColumnInfo] {
         let sql = String(format: "pragma table_info(%@)", tableName)
         return query(sql)
     }
@@ -633,10 +633,10 @@ extension SQLiteConnection {
     }
 }
 
-fileprivate class ColumnInfo: SQLiteCodable {
+fileprivate class _ColumnInfo: SQLiteCodable {
     
     enum CodingKeys: String, SQLiteCodingKey {
-        typealias root = ColumnInfo
+        typealias root = _ColumnInfo
         case name
         case notnull
     }

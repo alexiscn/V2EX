@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SQLiteCommand {
+internal class SQLiteCommand {
     
     struct Binding {
         public let name: String?

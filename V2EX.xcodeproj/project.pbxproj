@@ -30,6 +30,7 @@
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
 		A3A39CA720E181F0000B07F0 /* TabMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */; };
 		A3A39CA920E182C4000B07F0 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */; };
+		A3DF1DF0211A8DEB00D1390C /* ScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF1DEF211A8DEB00D1390C /* ScrollViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuViewController.swift; sourceTree = "<group>"; };
 		A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
+		A3DF1DEF211A8DEB00D1390C /* ScrollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewController.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		B4AC35F723942C404A14CBA3 /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +134,7 @@
 			children = (
 				A3A39CA420E181A4000B07F0 /* Theme.swift */,
 				A379E9BB210DF33900FA2169 /* style.css */,
+				A3DF1DEF211A8DEB00D1390C /* ScrollViewController.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -362,6 +365,7 @@
 				A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
+				A3DF1DF0211A8DEB00D1390C /* ScrollViewController.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
 				A392D11721102E6600CCFDDD /* ScrollTabBar.swift in Sources */,

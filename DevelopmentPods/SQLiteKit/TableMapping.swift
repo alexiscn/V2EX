@@ -50,11 +50,20 @@ struct TableMapping {
         self.createFlags = createFlags
         
         // TODO
-        let codingKeys = T.CodingKeys.allKeys
+//        let codingKeys = T.CodingKeys.allKeys
+//
+//        for key in T.CodingKeys.allCases {
+//            print(key)
+//        }
+//        do {
+//
+//            let values = try SqliteEncoder().encode(type.init())
+//            print(values)
+//        } catch {
+//            print(error)
+//        }
         
-        for key in T.CodingKeys.allCases {
-            print(key)
-        }
+        SQLiteDecoder.decode(T.CodingKeys.root.self)
         
         
         var cols: [Column] = []
@@ -120,7 +129,7 @@ struct TableMapping {
             isAutoInc = columnAttr.contains(where: { $0.attribute == Attribute.autoInc })
             isIndexed = columnAttr.contains(where: { $0.attribute == Attribute.indexed })
             columnType = type(of: propertyInfo.value)
-            print(columnType)
+            //print(columnType)
         }
         
         

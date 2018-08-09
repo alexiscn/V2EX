@@ -131,21 +131,21 @@ public struct Topic: SQLiteCodable {
     // this property is not stored in database
     public var _rowHeight: CGFloat = 0
     
-    public var title: String?
+    public var title: String? = nil
     
-    public var url: URL?
+    public var url: URL? = nil
     
     public var replies: Int = 0
     
-    public var username: String?
+    public var username: String? = nil
     
-    public var avatar: URL?
+    public var avatar: URL? = nil
     
-    public var lastReplyedUserName: String?
+    public var lastReplyedUserName: String? = nil
     
-    public var nodeName: String?
+    public var nodeName: String? = nil
     
-    public var nodeTitle: String?
+    public var nodeTitle: String? = nil
     
     public var tab: String = ""
     

@@ -7,25 +7,25 @@
 
 import Foundation
 
-class AtomicInteger {
+internal class AtomicInteger {
     
     private let semaphore = DispatchSemaphore(value: 1)
     private var value: Int = 0
     
-    public func get() -> Int {
+    func get() -> Int {
         semaphore.wait()
         defer { semaphore.signal() }
         return value
     }
     
-    public func incrementAndGet() -> Int {
+    func incrementAndGet() -> Int {
         semaphore.wait()
         defer { semaphore.signal() }
         value += 1
         return value
     }
     
-    public func decrementAndGet() -> Int {
+    func decrementAndGet() -> Int {
         semaphore.wait()
         defer { semaphore.signal() }
         value -= 1
