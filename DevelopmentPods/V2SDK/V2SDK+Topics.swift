@@ -44,7 +44,7 @@ extension V2SDK {
     ///   - tab: tab
     ///   - completion: 请求回调
     public class func getTopicList(tab: V2Tab, completion: @escaping V2SDKLoadTimelineCompletion) {
-        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@", tab.tab))!
+        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@", tab.key))!
         loadHTMLString(url: url) { (html, error) in
             guard let html = html else {
                 completion([], error)
@@ -60,10 +60,10 @@ extension V2SDK {
                         continue
                     }
                     var topic = self.parseTopicListCell(cell)
-                    topic.tab = tab.tab
+                    topic.tab = tab.key
                     topics.append(topic)
                 }
-                V2DataManager.shared.saveTopics(topics, forTab: tab.tab)
+                V2DataManager.shared.saveTopics(topics, forTab: tab.key)
                 completion(topics, nil)
             } catch {
                 completion([], error)

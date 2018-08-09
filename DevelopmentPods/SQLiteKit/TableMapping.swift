@@ -49,20 +49,6 @@ struct TableMapping {
         }
         self.createFlags = createFlags
         
-        // TODO
-//        let codingKeys = T.CodingKeys.allKeys
-//
-//        for key in T.CodingKeys.allCases {
-//            print(key)
-//        }
-//        do {
-//
-//            let values = try SqliteEncoder().encode(type.init())
-//            print(values)
-//        } catch {
-//            print(error)
-//        }
-        
         SQLiteDecoder.decode(T.CodingKeys.root.self)
         
         
@@ -71,9 +57,6 @@ struct TableMapping {
         for child in mirror.children {
             let col = Column(propertyInfo: child, attributes: attributes)
             cols.append(col)
-            // TODO: If we support nested table model, we should check
-            //let m = Mirror(reflecting: child.value)
-            //print(m.displayStyle)
         }
         columns = cols
         insertColumns = columns.filter { return $0.isAutoInc == false }

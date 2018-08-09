@@ -4,7 +4,6 @@ PODS:
     - Alamofire
   - Kingfisher (4.8.0)
   - MJRefresh (3.1.15.3)
-  - SlideMenuControllerSwift (4.0.0)
   - SnapKit (4.0.0)
   - SQLiteKit (0.0.13)
   - SwiftSoup (1.7.1)
@@ -18,7 +17,6 @@ DEPENDENCIES:
   - GenericNetworking
   - Kingfisher
   - MJRefresh
-  - SlideMenuControllerSwift
   - SnapKit
   - SQLiteKit (from `DevelopmentPods/SQLiteKit`)
   - SwiftSoup
@@ -30,7 +28,6 @@ SPEC REPOS:
     - GenericNetworking
     - Kingfisher
     - MJRefresh
-    - SlideMenuControllerSwift
     - SnapKit
     - SwiftSoup
 
@@ -45,12 +42,11 @@ SPEC CHECKSUMS:
   GenericNetworking: a80a48896d250fd0bd0ab395d773e074de2580c4
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
-  SlideMenuControllerSwift: 021d6318201c53d4d4d3710517d43d6c556c7dd0
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SQLiteKit: 85b6981d192d6e972f02a745ee76ce7b00612855
   SwiftSoup: 277f7ef548826e0ca7603a06b30d4a5df3ee0587
   V2SDK: 43a2cd999c17d149efc0e764f2b847aa6fe5f4f6
 
-PODFILE CHECKSUM: 487b4f56b16c9a8815af2566aad81897282a34b5
+PODFILE CHECKSUM: 19e2225ee4fa77ea1de470e95b51b8080cac9e3f
 
 COCOAPODS: 1.5.3

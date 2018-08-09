@@ -13,33 +13,8 @@ public protocol SQLiteCodingKeyBase: CodingKey {
     var rootType: RootCodable.Type { get }
 }
 
-public protocol SQLiteCodingKey: SQLiteCodingKeyBase, Hashable, EnumCollection, RawRepresentable where RawValue == String {
+public protocol SQLiteCodingKey: SQLiteCodingKeyBase, Hashable, RawRepresentable where RawValue == String {
     associatedtype root: RootCodable
-}
-
-public protocol EnumCollection {
-//    associatedtype AllCases: Collection where AllCases.Element == Self
-    static var allCases: [Self] { get }
-}
-
-public extension EnumCollection where Self: Hashable {
-    
-    public static var allCases: [Self] {
-        return [Self](AnySequence { () -> AnyIterator<Self> in
-            var raw = 0
-            var first: Self?
-            return AnyIterator {
-                let current = withUnsafeBytes(of: &raw) { $0.load(as: Self.self) }
-                if raw == 0 {
-                    first = current
-                } else if current == first {
-                    return nil
-                }
-                raw += 1
-                return current
-            }
-        })
-    }
 }
 
 extension SQLiteCodingKey {
@@ -79,7 +54,6 @@ public protocol SQLiteCodable: Codable, RootCodable where CodingKeys.root == Sel
     static func attributes() -> [SQLiteAttribute]
     
     init()
-
 }
 
 extension SQLiteCodable {

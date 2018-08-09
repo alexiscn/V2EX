@@ -18,42 +18,50 @@ class TimelineViewController: UIViewController {
     
     fileprivate var currentPage: Int = 0
     
-    fileprivate var currentTab: V2Tab = V2Tab(tab: "hot", title: "最热")
+    fileprivate let tab: V2Tab
+    
+    init(tab: V2Tab) {
+        self.tab = tab
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "V2EX"
         setupTableView()
-        
-        let topics = V2DataManager.shared.loadTopics(forTab: "hot")
-        if topics.count > 0 {
-            dataSource = topics
-            tableView.reloadData()
-        }
         loadData()
     }
-    
-    func switchTo(_ menu: V2Tab) {
-        currentTab = menu
-        currentPage = 0
-        title = menu.title
-        tableView.setContentOffset(.zero, animated: true)
-        loadData()
-    }
-    
+
     private func loadData() {
-        V2SDK.getTopicList(tab: currentTab) { [weak self] (topics, error) in
-            DispatchQueue.main.async {
-                guard let strongSelf = self else {
-                    return
+        
+        DispatchQueue.global().async {
+            print("loading Data, key:\(self.tab.key)")
+            let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
+            
+            if topics.count > 0 {
+                DispatchQueue.main.async {
+                    self.dataSource = topics
+                    self.tableView.reloadData()
                 }
-                strongSelf.dataSource = topics
-                strongSelf.tableView.reloadData()
-                strongSelf.tableView.mj_header.endRefreshing()
-                if strongSelf.currentTab.tab == V2Tab.allTab.tab {
-                    strongSelf.tableView.mj_footer.resetNoMoreData()
-                } else {
-                    strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
+                
+            }
+            V2SDK.getTopicList(tab: self.tab) { [weak self] (topics, error) in
+                DispatchQueue.main.async {
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    strongSelf.dataSource = topics
+                    strongSelf.tableView.reloadData()
+                    strongSelf.tableView.mj_header.endRefreshing()
+                    if strongSelf.tab.key == V2Tab.allTab.key {
+                        strongSelf.tableView.mj_footer.resetNoMoreData()
+                    } else {
+                        strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
+                    }
                 }
             }
         }

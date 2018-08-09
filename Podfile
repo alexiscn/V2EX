@@ -7,7 +7,6 @@ target 'V2EX' do
     pod 'SnapKit'
     pod 'SwiftSoup'
     pod 'Kingfisher'
-    pod 'SlideMenuControllerSwift'
     pod 'MJRefresh'
     
     pod 'SQLiteKit', :path => 'DevelopmentPods/SQLiteKit'
