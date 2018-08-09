@@ -19,15 +19,22 @@ class MainHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDelega
     init(frame: CGRect, tabs: [V2Tab]) {
         dataSource = tabs
         let layout = UICollectionViewFlowLayout()
-        collectionView = UICollectionView(frame: CGRect(origin: .zero, size: .zero), collectionViewLayout: layout)
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: frame.height, height: frame.height)
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        collectionView = UICollectionView(frame: CGRect(origin: .zero, size: frame.size), collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.register(MainMenuItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(MainMenuItemCell.self))
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         super.init(frame: frame)
         
         addSubview(collectionView)
         
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.reloadData()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,17 +58,32 @@ class MainHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDelega
 }
 
 
-fileprivate class MainMenuItemCell: UICollectionViewCell {
+class MainMenuItemCell: UICollectionViewCell {
     
-    fileprivate let titleButton: UIButton
+    let titleButton: UIButton
+    
+    override var isSelected: Bool {
+        didSet {
+            titleButton.isSelected = isSelected
+        }
+    }
     
     override init(frame: CGRect) {
         
         titleButton = UIButton(type: .system)
+        titleButton.setBackgroundImage(UIColor.black.toImage(), for: .selected)
+        titleButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        titleButton.setTitleColor(.black, for: .normal)
+        titleButton.setTitleColor(.white, for: .selected)
         
         super.init(frame: frame)
         
         contentView.addSubview(titleButton)
+        
+        titleButton.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+            make.height.width.equalToSuperview()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,6 +91,20 @@ fileprivate class MainMenuItemCell: UICollectionViewCell {
     }
     
     func update(_ tab: V2Tab) {
-        
+        titleButton.setTitle(tab.title, for: .normal)
     }
+}
+
+extension UIColor {
+    
+    func toImage()-> UIImage? {
+        let size = CGSize(width: 1, height: 1)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        self.setFill()
+        UIRectFill(CGRect(origin: CGPoint.zero, size: size))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
 }

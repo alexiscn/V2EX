@@ -33,7 +33,6 @@ extension SQLiteCodingKey {
             }) else {
                 break
             }
-            print(key)
             keys.append(key.stringValue)
             raw += 1
         }

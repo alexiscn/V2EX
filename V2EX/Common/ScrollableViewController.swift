@@ -96,7 +96,6 @@ class ScrollableViewController: UIViewController, UICollectionViewDataSource, UI
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! ScrollableListViewCell
         cell.containerViewController = self
-        print(indexPath.item)
         cell.viewController = viewControllers[indexPath.item]
         return cell
     }

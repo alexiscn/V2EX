@@ -18,14 +18,15 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        headerView = MainHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 80), tabs: V2Tab.tabs())
+        let statusBarHeight = isXScreenLayout ? view.keyWindowSafeAreaInsets.top: 20
+        headerView = MainHeaderView(frame: CGRect(x: 0, y: statusBarHeight, width: view.bounds.width, height: 60), tabs: V2Tab.tabs())
         view.addSubview(headerView)
         
         var viewControllers: [UIViewController] = []
         for tab in V2Tab.tabs() {
             viewControllers.append(TimelineViewController(tab: tab))
         }
-        let frame = CGRect(x: 0, y: 80, width: view.bounds.width, height: view.bounds.height - 80)
+        let frame = CGRect(x: 0, y: 60 + statusBarHeight, width: view.bounds.width, height: view.bounds.height - 60 - statusBarHeight)
         scrollViewController = ScrollableViewController(frame: frame, viewControllers: viewControllers, startIndex: 0)
         addChildViewController(scrollViewController)
         view.addSubview(scrollViewController.view)
@@ -47,3 +48,20 @@ class MainViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
 }
+
+extension UIViewController {
+    
+    var isXScreenLayout: Bool {
+        return (UIScreen.main.bounds.width == 375 && UIScreen.main.bounds.height == 812)
+    }
+    
+}
+
+extension UIView {
+    
+    /// Used to layout
+    var keyWindowSafeAreaInsets: UIEdgeInsets {
+        return UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
+    }
+}
+

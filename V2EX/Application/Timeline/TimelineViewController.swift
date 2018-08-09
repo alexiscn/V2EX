@@ -39,15 +39,13 @@ class TimelineViewController: UIViewController {
     private func loadData() {
         
         DispatchQueue.global().async {
-            print("loading Data, key:\(self.tab.key)")
-            let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
             
+            let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
             if topics.count > 0 {
                 DispatchQueue.main.async {
                     self.dataSource = topics
                     self.tableView.reloadData()
                 }
-                
             }
             V2SDK.getTopicList(tab: self.tab) { [weak self] (topics, error) in
                 DispatchQueue.main.async {
