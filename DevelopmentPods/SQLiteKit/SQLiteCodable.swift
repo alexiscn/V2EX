@@ -40,6 +40,13 @@ extension SQLiteCodingKey {
     }
 }
 
+public protocol SQLiteEncodable: Encodable {
+    
+}
+
+public protocol SQLiteDecodable: Decodable {
+    
+}
 
 /// Type to reflect to a database table
 public protocol SQLiteCodable: Codable, RootCodable where CodingKeys.root == Self {

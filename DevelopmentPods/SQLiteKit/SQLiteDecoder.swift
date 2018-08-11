@@ -10,13 +10,13 @@ import Foundation
 internal class SQLiteDecoder {
     
     static func decode<T: SQLiteCodable>(_ type: T.Type) {
-        let decoder = _SQLiteTableDecoder(codingPath: [])
+        let decoder = _TableDecoder(codingPath: [])
         let _ = try? type.init(from: decoder)
     }
     
 }
 
-fileprivate class _SQLiteTableDecoder: Decoder {
+fileprivate class _TableDecoder: Decoder {
     var codingPath: [CodingKey]
     
     var columns: [String: Any] = [:]
@@ -28,7 +28,7 @@ fileprivate class _SQLiteTableDecoder: Decoder {
     }
     
     func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
-        return KeyedDecodingContainer<Key>(_SQLiteKeyedDecodingContainer<Key>(decoder: self))
+        return KeyedDecodingContainer<Key>(_KeyedDecodingContainer<Key>(decoder: self))
     }
     
     func unkeyedContainer() throws -> UnkeyedDecodingContainer {
@@ -41,7 +41,7 @@ fileprivate class _SQLiteTableDecoder: Decoder {
     
 }
 
-fileprivate class _SQLiteKeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainerProtocol {
+fileprivate class _KeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainerProtocol {
     
     typealias Key = K
     
@@ -49,9 +49,9 @@ fileprivate class _SQLiteKeyedDecodingContainer<K: CodingKey>: KeyedDecodingCont
         return []
     }
     
-    private let decoder: _SQLiteTableDecoder
+    private let decoder: _TableDecoder
     
-    fileprivate init(decoder: _SQLiteTableDecoder) {
+    fileprivate init(decoder: _TableDecoder) {
         self.decoder = decoder
     }
     
@@ -133,7 +133,7 @@ fileprivate class _SQLiteKeyedDecodingContainer<K: CodingKey>: KeyedDecodingCont
     }
     
     func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: K) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
-        return KeyedDecodingContainer<NestedKey>(_SQLiteKeyedDecodingContainer<NestedKey>(decoder: decoder))
+        return KeyedDecodingContainer<NestedKey>(_KeyedDecodingContainer<NestedKey>(decoder: decoder))
     }
     
     func nestedUnkeyedContainer(forKey key: K) throws -> UnkeyedDecodingContainer {
@@ -157,9 +157,9 @@ fileprivate class _SingleValueDecodingContainer : SingleValueDecodingContainer {
         return []
     }
     
-    var decoder: _SQLiteTableDecoder
+    var decoder: _TableDecoder
     
-    fileprivate init(decoder: _SQLiteTableDecoder){
+    fileprivate init(decoder: _TableDecoder){
         self.decoder = decoder
     }
     
@@ -168,7 +168,7 @@ fileprivate class _SingleValueDecodingContainer : SingleValueDecodingContainer {
     }
     
     public func decode<T: Decodable>(_ type: T.Type) throws -> T {
-        let child = _SQLiteTableDecoder()
+        let child = _TableDecoder()
         let result = try T(from: child)
         return result
     }
@@ -188,9 +188,9 @@ fileprivate class _UnKeyedDecodingContainer: UnkeyedDecodingContainer {
     
     public var currentIndex: Int = 0
     
-    private let decoder: _SQLiteTableDecoder
+    private let decoder: _TableDecoder
     
-    fileprivate init(decoder: _SQLiteTableDecoder){
+    fileprivate init(decoder: _TableDecoder){
         self.decoder = decoder
     }
     
@@ -203,7 +203,7 @@ fileprivate class _UnKeyedDecodingContainer: UnkeyedDecodingContainer {
     }
     
     public func nestedContainer<NestedKey>(keyedBy: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> {
-        return KeyedDecodingContainer<NestedKey>(_SQLiteKeyedDecodingContainer<NestedKey>(decoder: decoder))
+        return KeyedDecodingContainer<NestedKey>(_KeyedDecodingContainer<NestedKey>(decoder: decoder))
     }
     
     public func nestedUnkeyedContainer() throws -> UnkeyedDecodingContainer {

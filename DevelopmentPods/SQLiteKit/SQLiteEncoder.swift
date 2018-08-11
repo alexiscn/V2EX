@@ -7,9 +7,9 @@
 
 import Foundation
 
-class SqliteEncoder {
+internal class TableEncoder {
     
-    private var encoder = _SQLiteEncoder()
+    private var encoder = _TableEncoder()
     
     func encode<T: Encodable>(_ value: T) throws -> [String: Any] {
         try value.encode(to: encoder)
@@ -17,7 +17,7 @@ class SqliteEncoder {
     }
 }
 
-fileprivate class _SQLiteEncoder: Encoder {
+fileprivate class _TableEncoder: Encoder {
     
     var values: [String: Any] = [:]
     
@@ -71,7 +71,7 @@ fileprivate struct _SQLiteKeyedEncodingContainer<K: CodingKey>: KeyedEncodingCon
     
     typealias Key = K
     
-    var encoder: _SQLiteEncoder
+    var encoder: _TableEncoder
     
     var codingPath: [CodingKey]
     
@@ -103,10 +103,10 @@ fileprivate struct _SQLiteKeyedEncodingContainer<K: CodingKey>: KeyedEncodingCon
     }
     
     mutating func superEncoder() -> Encoder {
-        return _SQLiteEncoder()
+        return _TableEncoder()
     }
     
     mutating func superEncoder(forKey key: K) -> Encoder {
-        return _SQLiteEncoder()
+        return _TableEncoder()
     }
 }
