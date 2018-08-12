@@ -30,7 +30,7 @@ public class V2DataManager {
     
     public func loadTopics(forTab tab: String) -> [Topic] {
         let tableQuery: SQLiteTableQuery<Topic> = db.table(of: Topic.self)
-        return tableQuery.toList()
+        return tableQuery.filter(using: NSPredicate(format: "tab=%@", tab))
     }
     
     func saveTopics(_ topics: [Topic], forTab tab: String) {
