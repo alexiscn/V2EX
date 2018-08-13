@@ -49,6 +49,12 @@ class MainMenuItemCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        titleButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+    }
+    
     func update(_ tab: V2Tab) {
         titleButton.setTitle(tab.title, for: .normal)
     }

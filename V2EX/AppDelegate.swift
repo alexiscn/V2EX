@@ -13,9 +13,33 @@ import V2SDK
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var tabViewController: UITabBarController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         V2SDK.setup()
+        
+        tabViewController = UITabBarController()
+        
+        
+        let timelineViewController = TimelineViewController(tab: .hotTab)
+        timelineViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-home"), tag: 0)
+        
+        let searchViewController = UIViewController()
+        searchViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-search"), tag: 1)
+        
+        let profileViewController = UIViewController()
+        profileViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-profile"), tag: 2)
+        
+        tabViewController.viewControllers = [timelineViewController, searchViewController, profileViewController]
+        
+        window?.rootViewController = tabViewController
+        
+        tabViewController.tabBar.tintColor = UIColor(red: 47.0/255, green: 51.0/255, blue: 60.0/255, alpha: 1.0)
+        tabViewController.tabBar.items?.forEach({ item in
+            item.title = ""
+            item.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
+        })
         
         return true
     }

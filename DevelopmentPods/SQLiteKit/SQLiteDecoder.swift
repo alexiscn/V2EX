@@ -12,14 +12,16 @@ internal class SQLiteDecoder {
     static func decode<T: SQLiteCodable>(_ type: T.Type) {
         let decoder = _TableDecoder(codingPath: [])
         let _ = try? type.init(from: decoder)
+        print(decoder.properties)
     }
     
 }
 
 fileprivate class _TableDecoder: Decoder {
+    
     var codingPath: [CodingKey]
     
-    var columns: [String: Any] = [:]
+    var properties: [String: Any] = [:]
     
     var userInfo: [CodingUserInfoKey : Any] = [:]
     
@@ -62,69 +64,78 @@ fileprivate class _KeyedDecodingContainer<K: CodingKey>: KeyedDecodingContainerP
     }
     
     func decodeNil(forKey key: K) throws -> Bool {
-        print(key.stringValue)
+        
+        decoder.properties[key.stringValue] = NSNull.self
         return true
     }
     
     func decode(_ type: Bool.Type, forKey key: K) throws -> Bool {
-        print(key.stringValue)
+        decoder.properties[key.stringValue] = Bool.self
         return false
     }
     
     func decode(_ type: String.Type, forKey key: K) throws -> String {
-        print(key.stringValue)
+        decoder.properties[key.stringValue] = String.self
         return ""
     }
     
     func decode(_ type: Double.Type, forKey key: K) throws -> Double {
-        print(key.stringValue)
+        decoder.properties[key.stringValue] = Double.self
         return 0
     }
     
     func decode(_ type: Float.Type, forKey key: K) throws -> Float {
-        print(key.stringValue)
+        decoder.properties[key.stringValue] = Float.self
         return 0
     }
     
     func decode(_ type: Int.Type, forKey key: K) throws -> Int {
-        print(key.stringValue)
+        decoder.properties[key.stringValue] = Int.self
         return 0
     }
     
     func decode(_ type: Int8.Type, forKey key: K) throws -> Int8 {
-        print(key.stringValue)
+        decoder.properties[key.stringValue] = Int8.self
         return 0
     }
     
     func decode(_ type: Int16.Type, forKey key: K) throws -> Int16 {
+        decoder.properties[key.stringValue] = Int16.self
         return 0
     }
     
     func decode(_ type: Int32.Type, forKey key: K) throws -> Int32 {
+        decoder.properties[key.stringValue] = Int32.self
         return 0
     }
     
     func decode(_ type: Int64.Type, forKey key: K) throws -> Int64 {
+        decoder.properties[key.stringValue] = Int64.self
         return 0
     }
     
     func decode(_ type: UInt.Type, forKey key: K) throws -> UInt {
+        decoder.properties[key.stringValue] = UInt.self
         return 0
     }
     
     func decode(_ type: UInt8.Type, forKey key: K) throws -> UInt8 {
+        decoder.properties[key.stringValue] = UInt8.self
         return 0
     }
     
     func decode(_ type: UInt16.Type, forKey key: K) throws -> UInt16 {
+        decoder.properties[key.stringValue] = UInt16.self
         return 0
     }
     
     func decode(_ type: UInt32.Type, forKey key: K) throws -> UInt32 {
+        decoder.properties[key.stringValue] = UInt32.self
         return 0
     }
     
     func decode(_ type: UInt64.Type, forKey key: K) throws -> UInt64 {
+        decoder.properties[key.stringValue] = UInt32.self
         return 0
     }
     

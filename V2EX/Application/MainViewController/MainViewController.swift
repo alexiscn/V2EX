@@ -31,6 +31,9 @@ class MainViewController: UIViewController {
         addChildViewController(scrollViewController)
         view.addSubview(scrollViewController.view)
         scrollViewController.didMove(toParentViewController: self)
+        scrollViewController.scrollViewControllerPageDidChanged = { [weak self] index in
+            self?.headerView.select(at: index)
+        }
     }
 
     override func didReceiveMemoryWarning() {

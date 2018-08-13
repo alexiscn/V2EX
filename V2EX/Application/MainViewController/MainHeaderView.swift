@@ -56,9 +56,9 @@ class MainHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         cell.update(tab)
         return cell
     }
+    
+    func select(at index: Int) {
+        let indexPath = IndexPath(item: index, section: 0)
+        collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .left)
+    }
 }
-
-
-
-
-
