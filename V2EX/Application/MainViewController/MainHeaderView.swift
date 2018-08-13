@@ -28,6 +28,7 @@ class MainHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDelega
         collectionView.register(MainMenuItemCell.self, forCellWithReuseIdentifier: NSStringFromClass(MainMenuItemCell.self))
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.allowsMultipleSelection = false
         super.init(frame: frame)
         
         addSubview(collectionView)
@@ -58,53 +59,6 @@ class MainHeaderView: UIView, UICollectionViewDataSource, UICollectionViewDelega
 }
 
 
-class MainMenuItemCell: UICollectionViewCell {
-    
-    let titleButton: UIButton
-    
-    override var isSelected: Bool {
-        didSet {
-            titleButton.isSelected = isSelected
-        }
-    }
-    
-    override init(frame: CGRect) {
-        
-        titleButton = UIButton(type: .system)
-        titleButton.setBackgroundImage(UIColor.black.toImage(), for: .selected)
-        titleButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        titleButton.setTitleColor(.black, for: .normal)
-        titleButton.setTitleColor(.white, for: .selected)
-        
-        super.init(frame: frame)
-        
-        contentView.addSubview(titleButton)
-        
-        titleButton.snp.makeConstraints { make in
-            make.centerX.centerY.equalToSuperview()
-            make.height.width.equalToSuperview()
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func update(_ tab: V2Tab) {
-        titleButton.setTitle(tab.title, for: .normal)
-    }
-}
 
-extension UIColor {
-    
-    func toImage()-> UIImage? {
-        let size = CGSize(width: 1, height: 1)
-        UIGraphicsBeginImageContextWithOptions(size, false, 0)
-        self.setFill()
-        UIRectFill(CGRect(origin: CGPoint.zero, size: size))
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return image
-    }
-    
-}
+
+

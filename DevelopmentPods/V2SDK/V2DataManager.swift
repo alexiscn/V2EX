@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import AVFoundation
 import SQLiteKit
 
 public class V2DataManager {

@@ -48,20 +48,3 @@ class MainViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
 }
-
-extension UIViewController {
-    
-    var isXScreenLayout: Bool {
-        return (UIScreen.main.bounds.width == 375 && UIScreen.main.bounds.height == 812)
-    }
-    
-}
-
-extension UIView {
-    
-    /// Used to layout
-    var keyWindowSafeAreaInsets: UIEdgeInsets {
-        return UIApplication.shared.keyWindow?.safeAreaInsets ?? .zero
-    }
-}
-

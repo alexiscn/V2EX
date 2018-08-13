@@ -20,16 +20,16 @@
 		A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD720E1084F0052576D /* NodeViewController.swift */; };
 		A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */; };
 		A379E9BC210DF33900FA2169 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = A379E9BB210DF33900FA2169 /* style.css */; };
+		A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971121212A37000DFF1E /* UIViewExtensions.swift */; };
+		A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */; };
+		A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971521212C56000DFF1E /* UIColorExtensions.swift */; };
+		A37A971821212C74000DFF1E /* MainMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971721212C74000DFF1E /* MainMenuItemCell.swift */; };
 		A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */; };
 		A38D0EAF20DCEA4000F7C932 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EAD20DCEA4000F7C932 /* Main.storyboard */; };
 		A38D0EB120DCEA4100F7C932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB020DCEA4100F7C932 /* Assets.xcassets */; };
 		A38D0EB420DCEA4100F7C932 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */; };
 		A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EC720DD060900F7C932 /* TimelineViewController.swift */; };
-		A392D11721102E6600CCFDDD /* ScrollTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392D11621102E6600CCFDDD /* ScrollTabBar.swift */; };
-		A392D16321106A6B00CCFDDD /* ScrollTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A392D16221106A6B00CCFDDD /* ScrollTabBarController.swift */; };
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
-		A3A39CA720E181F0000B07F0 /* TabMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */; };
-		A3A39CA920E182C4000B07F0 /* HomeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */; };
 		A3DF1DF0211A8DEB00D1390C /* ScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 		A3DFFDF7211C31DD005818BC /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */; };
@@ -49,6 +49,10 @@
 		A3704DD720E1084F0052576D /* NodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeViewController.swift; sourceTree = "<group>"; };
 		A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewCell.swift; sourceTree = "<group>"; };
 		A379E9BB210DF33900FA2169 /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		A37A971121212A37000DFF1E /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		A37A971521212C56000DFF1E /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
+		A37A971721212C74000DFF1E /* MainMenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuItemCell.swift; sourceTree = "<group>"; };
 		A38D0EA620DCEA4000F7C932 /* V2EX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = V2EX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A38D0EAE20DCEA4000F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -56,11 +60,7 @@
 		A38D0EB320DCEA4100F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A38D0EB520DCEA4100F7C932 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A38D0EC720DD060900F7C932 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
-		A392D11621102E6600CCFDDD /* ScrollTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollTabBar.swift; sourceTree = "<group>"; };
-		A392D16221106A6B00CCFDDD /* ScrollTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollTabBarController.swift; sourceTree = "<group>"; };
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMenuViewController.swift; sourceTree = "<group>"; };
-		A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMenuViewController.swift; sourceTree = "<group>"; };
 		A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
@@ -107,7 +107,6 @@
 				A3DFFDF3211C3049005818BC /* MainViewController */,
 				A358548920E1D69900C76393 /* Account */,
 				A358548A20E1D6AE00C76393 /* Timeline */,
-				A358548C20E1D6E400C76393 /* Menu */,
 				A358548E20E1D72400C76393 /* Node */,
 				A358548D20E1D71800C76393 /* Topic */,
 				A358549120E2043900C76393 /* Settings */,
@@ -128,8 +127,6 @@
 			children = (
 				A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */,
 				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
-				A392D11621102E6600CCFDDD /* ScrollTabBar.swift */,
-				A392D16221106A6B00CCFDDD /* ScrollTabBarController.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -142,15 +139,6 @@
 				A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		A358548C20E1D6E400C76393 /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				A3A39CA820E182C4000B07F0 /* HomeMenuViewController.swift */,
-				A3A39CA620E181F0000B07F0 /* TabMenuViewController.swift */,
-			);
-			path = Menu;
 			sourceTree = "<group>";
 		};
 		A358548D20E1D71800C76393 /* Topic */ = {
@@ -185,6 +173,9 @@
 			children = (
 				A3704DD520E0FA950052576D /* StringExtensions.swift */,
 				A358549820E2071900C76393 /* UIStoryboardExtensions.swift */,
+				A37A971121212A37000DFF1E /* UIViewExtensions.swift */,
+				A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */,
+				A37A971521212C56000DFF1E /* UIColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -224,6 +215,7 @@
 			children = (
 				A3DFFDF4211C3063005818BC /* MainViewController.swift */,
 				A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */,
+				A37A971721212C74000DFF1E /* MainMenuItemCell.swift */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
@@ -371,18 +363,18 @@
 				A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
-				A392D16321106A6B00CCFDDD /* ScrollTabBarController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
+				A37A971821212C74000DFF1E /* MainMenuItemCell.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
-				A3A39CA720E181F0000B07F0 /* TabMenuViewController.swift in Sources */,
-				A3A39CA920E182C4000B07F0 /* HomeMenuViewController.swift in Sources */,
+				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
+				A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */,
 				A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
+				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A3DF1DF0211A8DEB00D1390C /* ScrollableViewController.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
-				A392D11721102E6600CCFDDD /* ScrollTabBar.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,7 +523,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -547,7 +542,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
