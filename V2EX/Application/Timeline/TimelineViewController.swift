@@ -31,7 +31,7 @@ class TimelineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "V2EX"
+        navigationItem.title = tab.title
         setupTableView()
         loadData()
     }

@@ -21,17 +21,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         tabViewController = UITabBarController()
         
-        
         let timelineViewController = TimelineViewController(tab: .hotTab)
-        timelineViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-home"), tag: 0)
+        let timelineNav = UINavigationController(rootViewController: timelineViewController)
+        timelineNav.tabBarItem = UITabBarItem(title:nil, image: UIImage(named: "tabbar-home"), tag: 0)
         
-        let searchViewController = UIViewController()
-        searchViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-search"), tag: 1)
         
-        let profileViewController = UIViewController()
-        profileViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-profile"), tag: 2)
+        let searchViewController = SearchViewController()
+        let searchNav = UINavigationController(rootViewController: searchViewController)
+        searchNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-search"), tag: 1)
         
-        tabViewController.viewControllers = [timelineViewController, searchViewController, profileViewController]
+        let profileViewController = ProfileViewController()
+        let profileNav = UINavigationController(rootViewController: profileViewController)
+        profileNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-profile"), tag: 2)
+        
+        tabViewController.viewControllers = [timelineNav, searchNav, profileNav]
         
         window?.rootViewController = tabViewController
         

@@ -206,3 +206,7 @@ public struct Reply: SQLiteCodable {
         
     }
 }
+
+public struct V2Node {
+    
+}
