@@ -208,5 +208,11 @@ public struct Reply: SQLiteCodable {
 }
 
 public struct V2Node {
-    
+    public let title: String
+    public let url: URL?
+}
+
+public struct V2NodeGroup {
+    public let title: String
+    public let nodes: [V2NodeGroup]
 }

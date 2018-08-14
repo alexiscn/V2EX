@@ -9,6 +9,7 @@ import Foundation
 import GenericNetworking
 import Alamofire
 import SwiftSoup
+import AVFoundation
 
 extension V2SDK {
     
@@ -63,6 +64,7 @@ extension V2SDK {
                     topic.tab = tab.key
                     topics.append(topic)
                 }
+                //parseNodeNavigations(doc)
                 V2DataManager.shared.saveTopics(topics, forTab: tab.key)
                 completion(topics, nil)
             } catch {
@@ -209,5 +211,27 @@ extension V2SDK {
             }
         }
         return topic
+    }
+    
+    // has performance issue
+    class func parseNodeNavigations(_ doc: Document) {
+        
+        do {
+            print("begin....")
+            print(CFAbsoluteTimeGetCurrent())
+            let planes = try doc.select("a[href=/planes]")
+            
+            print(CFAbsoluteTimeGetCurrent())
+            let div = planes.parents().parents()
+            print(CFAbsoluteTimeGetCurrent())
+            let nodes = try div.select("a[href*=/go/]")
+            print(CFAbsoluteTimeGetCurrent())
+            for node in nodes {
+                print(try node.text())
+            }
+        } catch {
+            print(error)
+        }
+        
     }
 }

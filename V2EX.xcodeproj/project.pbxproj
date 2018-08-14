@@ -22,6 +22,8 @@
 		A379E9BC210DF33900FA2169 /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = A379E9BB210DF33900FA2169 /* style.css */; };
 		A379EA3A2121C48800FA2169 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379EA392121C48800FA2169 /* SearchViewController.swift */; };
 		A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379EA3C2121C4DC00FA2169 /* ProfileViewController.swift */; };
+		A379EA3F212259C500FA2169 /* NodeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379EA3E212259C500FA2169 /* NodeListViewController.swift */; };
+		A379EA41212259E400FA2169 /* NodeListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A379EA40212259E400FA2169 /* NodeListViewCell.swift */; };
 		A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971121212A37000DFF1E /* UIViewExtensions.swift */; };
 		A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */; };
 		A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971521212C56000DFF1E /* UIColorExtensions.swift */; };
@@ -53,6 +55,8 @@
 		A379E9BB210DF33900FA2169 /* style.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
 		A379EA392121C48800FA2169 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		A379EA3C2121C4DC00FA2169 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		A379EA3E212259C500FA2169 /* NodeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeListViewController.swift; sourceTree = "<group>"; };
+		A379EA40212259E400FA2169 /* NodeListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeListViewCell.swift; sourceTree = "<group>"; };
 		A37A971121212A37000DFF1E /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		A37A971521212C56000DFF1E /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
@@ -161,6 +165,8 @@
 			isa = PBXGroup;
 			children = (
 				A3704DD720E1084F0052576D /* NodeViewController.swift */,
+				A379EA3E212259C500FA2169 /* NodeListViewController.swift */,
+				A379EA40212259E400FA2169 /* NodeListViewCell.swift */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -384,6 +390,7 @@
 				A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */,
 				A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
+				A379EA41212259E400FA2169 /* NodeListViewCell.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
@@ -395,6 +402,7 @@
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
 				A379EA3A2121C48800FA2169 /* SearchViewController.swift in Sources */,
+				A379EA3F212259C500FA2169 /* NodeListViewController.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A3DF1DF0211A8DEB00D1390C /* ScrollableViewController.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
