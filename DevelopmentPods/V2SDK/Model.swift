@@ -149,8 +149,6 @@ public struct Topic: SQLiteCodable {
     
     public var tab: String = ""
     
-    public var testURL: URL? = nil
-    
     public init() {
         
     }
@@ -214,5 +212,5 @@ public struct V2Node {
 
 public struct V2NodeGroup {
     public let title: String
-    public let nodes: [V2NodeGroup]
+    public let nodes: [V2Node]
 }

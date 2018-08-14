@@ -49,8 +49,7 @@ struct TableMapping {
         }
         self.createFlags = createFlags
         
-        SQLiteDecoder.decode(T.CodingKeys.root.self)
-        
+        //SQLiteDecoder.decode(T.CodingKeys.root.self)
         
         var cols: [Column] = []
         let mirror = Mirror(reflecting: type.init())
@@ -112,7 +111,6 @@ struct TableMapping {
             isAutoInc = columnAttr.contains(where: { $0.attribute == Attribute.autoInc })
             isIndexed = columnAttr.contains(where: { $0.attribute == Attribute.indexed })
             columnType = type(of: propertyInfo.value)
-            //print(columnType)
         }
         
         

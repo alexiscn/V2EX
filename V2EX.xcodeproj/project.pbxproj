@@ -37,6 +37,7 @@
 		A3DF1DF0211A8DEB00D1390C /* ScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 		A3DFFDF7211C31DD005818BC /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */; };
+		A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F969002122AD7E00F69940 /* NodeListSectionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
+		A3F969002122AD7E00F69940 /* NodeListSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeListSectionHeaderView.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		B4AC35F723942C404A14CBA3 /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +169,7 @@
 				A3704DD720E1084F0052576D /* NodeViewController.swift */,
 				A379EA3E212259C500FA2169 /* NodeListViewController.swift */,
 				A379EA40212259E400FA2169 /* NodeListViewCell.swift */,
+				A3F969002122AD7E00F69940 /* NodeListSectionHeaderView.swift */,
 			);
 			path = Node;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3DFFDF7211C31DD005818BC /* MainHeaderView.swift in Sources */,
+				A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
 				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
 				A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */,

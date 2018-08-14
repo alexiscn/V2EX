@@ -66,8 +66,14 @@ public class SQLiteTableQuery<T: SQLiteCodable> {
     /// - Returns: All objects that match the predicate
     public func filter<T: SQLiteCodable>(using predicate: NSPredicate) -> [T] {
         let predication = predicate.predicateFormat
-        let cmdText = "SELECT * FROM \(table.tableName) WHERE \(predication)"
-        return conn.createCommand(cmdText, parameters: []).executeQuery()
+        print(predication.description)
+        let cmdText = "SELECT * FROM \(table.tableName)"
+        let result: [T] = conn.createCommand(cmdText, parameters: []).executeQuery()
+        if result.count == 0 {
+            return []
+        }
+        let r = (result as! NSMutableArray).filtered(using: predicate) as! [T]
+        return r
     }
     
     
