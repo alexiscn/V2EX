@@ -1,5 +1,5 @@
 //
-//  SQLiteCommand.swift
+//  Command.swift
 //  SQLiteKit
 //
 //  Created by xu.shuifeng on 2018/7/14.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-internal class SQLiteCommand {
+class Command {
     
     struct Binding {
         public let name: String?
@@ -49,7 +49,7 @@ internal class SQLiteCommand {
                 index += 1
                 bind.index = index
             }
-            try SQLiteCommand.bindParameter(stmt, index: index, value: bind.value)
+            try Command.bindParameter(stmt, index: index, value: bind.value)
         }
     }
     
@@ -227,7 +227,7 @@ class PreparedSqliteInsertCommand {
             return 0
         }
         for (index, arg) in args.enumerated() {
-            try SQLiteCommand.bindParameter(stmt, index: index + 1, value: arg)
+            try Command.bindParameter(stmt, index: index + 1, value: arg)
         }
         let r = SQLite3.step(stmt)
         if r == SQLite3.Result.done {

@@ -124,7 +124,7 @@ public struct Topic: SQLiteCodable {
         case tab
     }
     
-    public static func attributes() -> [SQLiteAttribute] {
+    public static func attributes() -> [AttributeInfo] {
         return []
     }
     
@@ -182,7 +182,7 @@ public struct Reply: SQLiteCodable {
         case avatarURL = "avatar_url"
     }
     
-    public static func attributes() -> [SQLiteAttribute] {
+    public static func attributes() -> [AttributeInfo] {
         return []
     }
     

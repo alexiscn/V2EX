@@ -1,5 +1,5 @@
 //
-//  SQLiteAttribute.swift
+//  AttributeInfo.swift
 //  SQLiteKit
 //
 //  Created by xu.shuifeng on 2018/7/16.
@@ -10,7 +10,7 @@ import Foundation
 /// Specified column attributes with your codable model
 /// eg: Specifiy `Primary Key` with Attribute.isPK
 /// eg: Specifiy `AUTOINCREMENT Key` with Attribute.autoInc
-public struct SQLiteAttribute {
+public struct AttributeInfo {
     
     /// Name of property
     public let name: String

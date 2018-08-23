@@ -32,7 +32,7 @@ public class V2DataManager {
     }
     
     public func loadTopics(forTab tab: String) -> [Topic] {
-        let tableQuery: SQLiteTableQuery<Topic> = db.table(of: Topic.self)
+        let tableQuery: TableQuery<Topic> = db.table(of: Topic.self)
         return tableQuery.toList()
     }
     

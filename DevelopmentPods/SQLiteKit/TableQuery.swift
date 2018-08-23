@@ -1,5 +1,5 @@
 //
-//  SQLiteTableQuery.swift
+//  TableQuery.swift
 //  SQLiteKit
 //
 //  Created by xu.shuifeng on 2018/7/21.
@@ -8,7 +8,7 @@
 import Foundation
 
 /// A query interface of table
-public class SQLiteTableQuery<T: SQLiteCodable> {
+public class TableQuery<T: SQLiteCodable> {
     
     private let conn: SQLiteConnection
     private let table: TableMapping
@@ -32,7 +32,7 @@ public class SQLiteTableQuery<T: SQLiteCodable> {
         return 0
     }
     
-    private func generateCommand(_ selection: String) -> SQLiteCommand {
+    private func generateCommand(_ selection: String) -> Command {
         var cmdText = "SELECT \(selection) FROM \(table.tableName)"
         
         if let orderBy = _orderBys, orderBy.count > 0 {
@@ -81,14 +81,14 @@ public class SQLiteTableQuery<T: SQLiteCodable> {
     ///
     /// - Parameter limit: Limit number that your want to select.
     /// - Returns: SQLiteTableQuery
-    public func limit<T: SQLiteCodable>(_ limit: Int) -> SQLiteTableQuery<T> {
-        let q: SQLiteTableQuery<T> = clone()
+    public func limit<T: SQLiteCodable>(_ limit: Int) -> TableQuery<T> {
+        let q: TableQuery<T> = clone()
         q._limit = limit
         return q
     }
     
-    public func `where`(_ condition: String) -> SQLiteTableQuery<T> {
-        let q: SQLiteTableQuery<T> = clone()
+    public func `where`(_ condition: String) -> TableQuery<T> {
+        let q: TableQuery<T> = clone()
         return q
     }
     
@@ -97,18 +97,18 @@ public class SQLiteTableQuery<T: SQLiteCodable> {
     ///
     /// - Parameter order: order
     /// - Returns: SQLiteTableQuery
-    public func orderBy(_ order: SQLiteConnection.Ordering) -> SQLiteTableQuery<T> {
-        let q: SQLiteTableQuery<T> = clone()
+    public func orderBy(_ order: SQLiteConnection.Ordering) -> TableQuery<T> {
+        let q: TableQuery<T> = clone()
         return q
     }
     
-    public func distinct(_ columns: String...) -> SQLiteTableQuery<T> {
-        let q: SQLiteTableQuery<T> = clone()
+    public func distinct(_ columns: String...) -> TableQuery<T> {
+        let q: TableQuery<T> = clone()
         return q
     }
     
-    fileprivate func clone<T: SQLiteCodable>() -> SQLiteTableQuery<T> {
-        let query = SQLiteTableQuery<T>(connection: conn, table: table)
+    fileprivate func clone<T: SQLiteCodable>() -> TableQuery<T> {
+        let query = TableQuery<T>(connection: conn, table: table)
         query._limit = _limit
         query._offset = _offset
         query._orderBys = _orderBys

@@ -57,7 +57,7 @@ public protocol SQLiteCodable: Codable, RootCodable where CodingKeys.root == Sel
     /// Specifiy column attributes of a table, eg: isPK
     ///
     /// - Returns: column attributes
-    static func attributes() -> [SQLiteAttribute]
+    static func attributes() -> [AttributeInfo]
     
     init()
 }

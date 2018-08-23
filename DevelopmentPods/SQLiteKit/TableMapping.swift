@@ -101,7 +101,7 @@ struct TableMapping {
         
         let columnType: Any.Type
         
-        init(propertyInfo: Mirror.Child, attributes: [SQLiteAttribute]) {
+        init(propertyInfo: Mirror.Child, attributes: [AttributeInfo]) {
             let columnName = propertyInfo.label!
             name = columnName
             value = propertyInfo.value

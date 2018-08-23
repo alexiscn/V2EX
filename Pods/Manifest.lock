@@ -23,7 +23,7 @@ DEPENDENCIES:
   - V2SDK (from `DevelopmentPods/V2SDK`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Alamofire
     - GenericNetworking
     - Kingfisher
@@ -49,4 +49,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 19e2225ee4fa77ea1de470e95b51b8080cac9e3f
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3

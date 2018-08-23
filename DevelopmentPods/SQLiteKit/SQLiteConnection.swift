@@ -265,9 +265,9 @@ public class SQLiteConnection {
     /// Returns a queryable interface to the table represented by the given type.
     ///
     /// - Returns: A queryable object that is able to translate Where, OrderBy, and Take queries into native SQL.
-    public func table<T>() -> SQLiteTableQuery<T> where T: SQLiteCodable {
+    public func table<T>() -> TableQuery<T> where T: SQLiteCodable {
         let map = getMapping(of: T.self)
-        return SQLiteTableQuery<T>(connection: self, table: map)
+        return TableQuery<T>(connection: self, table: map)
     }
     
     
@@ -275,9 +275,9 @@ public class SQLiteConnection {
     ///
     /// - Parameter Type to reflect to a database table
     /// - Returns: A queryable object that is able to translate Where, OrderBy, and Take queries into native SQL.
-    public func table<T: SQLiteCodable>(of type: T.Type) -> SQLiteTableQuery<T> where T: SQLiteCodable {
+    public func table<T: SQLiteCodable>(of type: T.Type) -> TableQuery<T> where T: SQLiteCodable {
         let map = getMapping(of: type)
-        return SQLiteTableQuery<T>(connection: self, table: map)
+        return TableQuery<T>(connection: self, table: map)
     }
     
     // MARK: - Transcation
@@ -383,8 +383,8 @@ extension SQLiteConnection {
         return query(sql)
     }
     
-    internal func createCommand(_ cmdText: String, parameters: [Any]) -> SQLiteCommand {
-        let cmd = SQLiteCommand(connection: self)
+    internal func createCommand(_ cmdText: String, parameters: [Any]) -> Command {
+        let cmd = Command(connection: self)
         cmd.commandText = cmdText
         for param in parameters {
             cmd.bind(param)
@@ -425,7 +425,7 @@ internal class _ColumnInfo: SQLiteCodable {
         case notnull
     }
     
-    static func attributes() -> [SQLiteAttribute] {
+    static func attributes() -> [AttributeInfo] {
         return []
     }
     
