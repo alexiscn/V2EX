@@ -33,7 +33,7 @@ class NodeListViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(NodeListViewCell.self, forCellWithReuseIdentifier: NSStringFromClass(NodeListViewCell.self))
-        collectionView.register(NodeListSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NSStringFromClass(NodeListSectionHeaderView.self))
+        collectionView.register(NodeListSectionHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: NSStringFromClass(NodeListSectionHeaderView.self))
         view.addSubview(collectionView)
         // Do any additional setup after loading the view.
         
@@ -72,7 +72,7 @@ extension NodeListViewController: UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(NodeListSectionHeaderView.self), for: indexPath) as! NodeListSectionHeaderView
             let group = dataSource[indexPath.section]
             headerView.update(group.title)

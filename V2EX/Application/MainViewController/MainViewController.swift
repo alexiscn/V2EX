@@ -28,9 +28,9 @@ class MainViewController: UIViewController {
         }
         let frame = CGRect(x: 0, y: 60 + statusBarHeight, width: view.bounds.width, height: view.bounds.height - 60 - statusBarHeight)
         scrollViewController = ScrollableViewController(frame: frame, viewControllers: viewControllers, startIndex: 0)
-        addChildViewController(scrollViewController)
+        addChild(scrollViewController)
         view.addSubview(scrollViewController.view)
-        scrollViewController.didMove(toParentViewController: self)
+        scrollViewController.didMove(toParent: self)
         scrollViewController.scrollViewControllerPageDidChanged = { [weak self] index in
             self?.headerView.select(at: index)
         }

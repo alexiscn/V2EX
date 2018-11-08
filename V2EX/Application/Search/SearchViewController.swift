@@ -18,10 +18,10 @@ class SearchViewController: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let nodeViewController = NodeListViewController()
-        addChildViewController(nodeViewController)
+        addChild(nodeViewController)
         view.addSubview(nodeViewController.view)
         nodeViewController.view.frame = view.bounds
-        nodeViewController.didMove(toParentViewController: self)
+        nodeViewController.didMove(toParent: self)
     }
 
     override func didReceiveMemoryWarning() {

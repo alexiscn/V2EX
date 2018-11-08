@@ -25,7 +25,7 @@ class TopicDetailViewCell: UITableViewCell {
     
     private let webView: WKWebView
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         avatarView = UIImageView()
         usernameButton = UIButton(type: .system)

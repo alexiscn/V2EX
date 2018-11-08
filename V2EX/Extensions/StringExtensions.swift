@@ -11,17 +11,17 @@ import UIKit
 
 extension String {
     
-    func size(withAttributes attributes: [NSAttributedStringKey: Any]) -> CGSize {
+    func size(withAttributes attributes: [NSAttributedString.Key: Any]) -> CGSize {
         let str = self as NSString
         return str.size(withAttributes: attributes)
     }
     
     func size(withFont font: UIFont) -> CGSize {
-        let attributes: [NSAttributedStringKey: Any] = [.font: font as Any]
+        let attributes: [NSAttributedString.Key: Any] = [.font: font as Any]
         return size(withAttributes: attributes)
     }
     
-    func boundingRectWithSize(_ size: CGSize, attributes: [NSAttributedStringKey: Any]) -> CGRect {
+    func boundingRectWithSize(_ size: CGSize, attributes: [NSAttributedString.Key: Any]) -> CGRect {
         let str = self as NSString
         return str.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
     }

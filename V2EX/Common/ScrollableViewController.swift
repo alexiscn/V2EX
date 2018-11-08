@@ -126,11 +126,11 @@ class ScrollableViewController: UIViewController, UICollectionViewDataSource, UI
         self.scrollViewControllerDidScroll?(scrollView.contentOffset)
     }
     
-    override var childViewControllerForStatusBarStyle: UIViewController? {
+    override var childForStatusBarStyle: UIViewController? {
         return currentViewController()
     }
     
-    override var childViewControllerForStatusBarHidden: UIViewController? {
+    override var childForStatusBarHidden: UIViewController? {
         return currentViewController()
     }
     
@@ -147,17 +147,17 @@ fileprivate class ScrollableListViewCell: UICollectionViewCell {
     
     public weak var viewController: UIViewController? {
         willSet {
-            self.viewController?.willMove(toParentViewController: nil)
+            self.viewController?.willMove(toParent: nil)
             self.viewController?.view.removeFromSuperview()
-            self.viewController?.removeFromParentViewController()
+            self.viewController?.removeFromParent()
         }
         didSet {
             if let controller = self.viewController, let container = self.containerViewController {
-                container.addChildViewController(controller)
+                container.addChild(controller)
                 controller.view.autoresizingMask = [.flexibleHeight, .flexibleWidth]
                 controller.view.frame = self.contentView.bounds
                 self.contentView.addSubview(controller.view)
-                controller.didMove(toParentViewController: container)
+                controller.didMove(toParent: container)
                 container.setNeedsStatusBarAppearanceUpdate()
             }
         }
