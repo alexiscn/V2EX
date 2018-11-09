@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
+		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
 		A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548520E1D5A000C76393 /* LoginViewController.swift */; };
 		A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */; };
@@ -27,7 +28,7 @@
 		A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971121212A37000DFF1E /* UIViewExtensions.swift */; };
 		A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */; };
 		A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971521212C56000DFF1E /* UIColorExtensions.swift */; };
-		A37A971821212C74000DFF1E /* MainMenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37A971721212C74000DFF1E /* MainMenuItemCell.swift */; };
+		A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384528C2195749A0097A6A9 /* MenuTableViewCell.swift */; };
 		A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */; };
 		A38D0EAF20DCEA4000F7C932 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EAD20DCEA4000F7C932 /* Main.storyboard */; };
 		A38D0EB120DCEA4100F7C932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB020DCEA4100F7C932 /* Assets.xcassets */; };
@@ -36,12 +37,12 @@
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
 		A3DF1DF0211A8DEB00D1390C /* ScrollableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
-		A3DFFDF7211C31DD005818BC /* MainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */; };
 		A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F969002122AD7E00F69940 /* NodeListSectionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		A358548520E1D5A000C76393 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCommentViewCell.swift; sourceTree = "<group>"; };
@@ -61,7 +62,7 @@
 		A37A971121212A37000DFF1E /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
 		A37A971521212C56000DFF1E /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
-		A37A971721212C74000DFF1E /* MainMenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuItemCell.swift; sourceTree = "<group>"; };
+		A384528C2195749A0097A6A9 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		A38D0EA620DCEA4000F7C932 /* V2EX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = V2EX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A38D0EAE20DCEA4000F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -72,7 +73,6 @@
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollableViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHeaderView.swift; sourceTree = "<group>"; };
 		A3F969002122AD7E00F69940 /* NodeListSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeListSectionHeaderView.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		B4AC35F723942C404A14CBA3 /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +99,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		A33C4E2121943BC70039E347 /* MenuViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A33C4E2221943BF00039E347 /* MenuViewController.swift */,
+				A384528C2195749A0097A6A9 /* MenuTableViewCell.swift */,
+			);
+			path = MenuViewController;
+			sourceTree = "<group>";
+		};
 		A358548720E1D65A00C76393 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -117,6 +126,7 @@
 				A379EA3B2121C4CE00FA2169 /* Profile */,
 				A379EA382121C47800FA2169 /* Search */,
 				A3DFFDF3211C3049005818BC /* MainViewController */,
+				A33C4E2121943BC70039E347 /* MenuViewController */,
 				A358548920E1D69900C76393 /* Account */,
 				A358548A20E1D6AE00C76393 /* Timeline */,
 				A358548E20E1D72400C76393 /* Node */,
@@ -245,8 +255,6 @@
 			isa = PBXGroup;
 			children = (
 				A3DFFDF4211C3063005818BC /* MainViewController.swift */,
-				A3DFFDF6211C31DD005818BC /* MainHeaderView.swift */,
-				A37A971721212C74000DFF1E /* MainMenuItemCell.swift */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
@@ -343,6 +351,7 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
 				"${BUILT_PRODUCTS_DIR}/SQLiteKit/SQLiteKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
 				"${BUILT_PRODUCTS_DIR}/V2SDK/V2SDK.framework",
@@ -354,6 +363,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SQLiteKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/V2SDK.framework",
@@ -388,7 +398,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3DFFDF7211C31DD005818BC /* MainHeaderView.swift in Sources */,
 				A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
 				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
@@ -399,7 +408,6 @@
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
-				A37A971821212C74000DFF1E /* MainMenuItemCell.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
 				A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */,
@@ -408,8 +416,10 @@
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
 				A379EA3A2121C48800FA2169 /* SearchViewController.swift in Sources */,
 				A379EA3F212259C500FA2169 /* NodeListViewController.swift in Sources */,
+				A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A3DF1DF0211A8DEB00D1390C /* ScrollableViewController.swift in Sources */,
+				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,

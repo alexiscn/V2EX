@@ -19,31 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         V2SDK.setup()
         
-        tabViewController = UITabBarController()
-        
-        let timelineViewController = TimelineViewController(tab: .hotTab)
-        let timelineNav = UINavigationController(rootViewController: timelineViewController)
-        timelineNav.tabBarItem = UITabBarItem(title:nil, image: UIImage(named: "tabbar-home"), tag: 0)
-        
-        
-        let searchViewController = SearchViewController()
-        let searchNav = UINavigationController(rootViewController: searchViewController)
-        searchNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-search"), tag: 1)
-        
-        let profileViewController = ProfileViewController()
-        let profileNav = UINavigationController(rootViewController: profileViewController)
-        profileNav.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "tabbar-profile"), tag: 2)
-        
-        tabViewController.viewControllers = [timelineNav, searchNav, profileNav]
-        
-        window?.rootViewController = tabViewController
-        
-        tabViewController.tabBar.tintColor = UIColor(red: 47.0/255, green: 51.0/255, blue: 60.0/255, alpha: 1.0)
-        tabViewController.tabBar.items?.forEach({ item in
-            item.title = ""
-            item.imageInsets = UIEdgeInsets(top: 9, left: 0, bottom: -9, right: 0)
-        })
-        
         return true
     }
 

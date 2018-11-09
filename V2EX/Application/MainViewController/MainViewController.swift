@@ -7,47 +7,66 @@
 //
 
 import UIKit
+import SideMenu
 import V2SDK
 
 class MainViewController: UIViewController {
-
-    private var headerView: MainHeaderView!
     
-    private var scrollViewController: ScrollableViewController!
+    private var menuVC: MenuViewController?
+    private var timelineVC: TimelineViewController?
+    
+    var tab: V2Tab = .hotTab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let statusBarHeight = isXScreenLayout ? view.keyWindowSafeAreaInsets.top: 20
-        headerView = MainHeaderView(frame: CGRect(x: 0, y: statusBarHeight, width: view.bounds.width, height: 60), tabs: V2Tab.tabs())
-        view.addSubview(headerView)
         
-        var viewControllers: [UIViewController] = []
-        for tab in V2Tab.tabs() {
-            viewControllers.append(TimelineViewController(tab: tab))
+        setupChildViewController()
+        setupSideMenu()
+    }
+    
+    private func updateTab(_ tab: V2Tab) {
+        timelineVC?.updateTab(tab)
+        title = tab.title
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupChildViewController() {
+        
+        let timelineViewController = TimelineViewController(tab: .hotTab)
+        timelineViewController.view.frame = view.bounds
+        view.addSubview(timelineViewController.view)
+        addChild(timelineViewController)
+        timelineViewController.didMove(toParent: self)
+        timelineVC = timelineViewController
+        
+        title = V2Tab.hotTab.title
+    }
+    
+    private func setupSideMenu() {
+        let menuController = MenuViewController()
+        menuController.selectionChangedHandler = { [weak self] tab in
+            self?.updateTab(tab)
         }
-        let frame = CGRect(x: 0, y: 60 + statusBarHeight, width: view.bounds.width, height: view.bounds.height - 60 - statusBarHeight)
-        scrollViewController = ScrollableViewController(frame: frame, viewControllers: viewControllers, startIndex: 0)
-        addChild(scrollViewController)
-        view.addSubview(scrollViewController.view)
-        scrollViewController.didMove(toParent: self)
-        scrollViewController.scrollViewControllerPageDidChanged = { [weak self] index in
-            self?.headerView.select(at: index)
-        }
+        menuVC = menuController
+        let menuNav = UISideMenuNavigationController(rootViewController: menuController)
+        menuNav.isNavigationBarHidden = true
+        SideMenuManager.default.menuLeftNavigationController = menuNav
+        
+        // Enable gestures. The left and/or right menus must be set up above for these to work.
+        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
+        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
+        SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
+        
+        SideMenuManager.default.menuWidth = 120.0
+        SideMenuManager.default.menuFadeStatusBar = false
+        SideMenuManager.default.menuPresentMode = .viewSlideOut
+        SideMenuManager.default.menuBlurEffectStyle = nil
+        SideMenuManager.default.menuAnimationFadeStrength = 0
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillDisappear(animated)
     }
 }

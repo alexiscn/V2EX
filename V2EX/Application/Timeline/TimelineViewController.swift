@@ -18,7 +18,7 @@ class TimelineViewController: UIViewController {
     
     fileprivate var currentPage: Int = 0
     
-    fileprivate let tab: V2Tab
+    fileprivate var tab: V2Tab
     
     init(tab: V2Tab) {
         self.tab = tab
@@ -33,6 +33,11 @@ class TimelineViewController: UIViewController {
         super.viewDidLoad()
         navigationItem.title = tab.title
         setupTableView()
+        loadData()
+    }
+    
+    func updateTab(_ tab: V2Tab) {
+        self.tab = tab
         loadData()
     }
 
