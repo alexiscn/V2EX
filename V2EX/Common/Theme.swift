@@ -17,7 +17,7 @@ enum Theme {
         case .light:
             return .black
         case .dark:
-            return UIColor(white: 240.0/255, alpha: 1.0)
+            return .white
         }
     }
     
@@ -26,16 +26,25 @@ enum Theme {
         case .light:
             return .white
         case .dark:
-            return UIColor(white: 46.0/255, alpha: 1.0)
+            return UIColor(red: 23.0/255, green: 32.0/255, blue: 42.0/255, alpha: 1)
         }
     }
     
-    var grayTextColor: UIColor {
+    var subTitleColor: UIColor {
         switch self {
         case .light:
             return UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1)
         case .dark:
-            return UIColor(white: 210.0/255, alpha: 1.0)
+            return UIColor(red: 139.0/255, green: 152.0/255, blue: 164.0/255, alpha: 1)
+        }
+    }
+    
+    var cellHighlightColor: UIColor {
+        switch self {
+        case .light:
+            return .white
+        case .dark:
+            return UIColor(red: 18.0/255, green: 25.0/255, blue: 33.0/255, alpha: 1.0)
         }
     }
     

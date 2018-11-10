@@ -117,6 +117,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TimelineViewCell.self), for: indexPath) as! TimelineViewCell
         cell.backgroundColor = .clear
+//        cell.selectionStyle = .none
         let topic = dataSource[indexPath.row]
         cell.update(topic)
         return cell

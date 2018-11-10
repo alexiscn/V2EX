@@ -31,7 +31,7 @@ class TimelineViewCell: UITableViewCell {
         avatarView = UIImageView()
         
         usernameLabel = UILabel()
-        usernameLabel.textColor = Theme.current.grayTextColor
+        usernameLabel.textColor = Theme.current.subTitleColor
         usernameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         
         titleLabel = UILabel()
@@ -41,7 +41,7 @@ class TimelineViewCell: UITableViewCell {
         
         timeLabel = UILabel()
         timeLabel.font = UIFont.systemFont(ofSize: 11)
-        timeLabel.textColor = Theme.current.grayTextColor
+        timeLabel.textColor = Theme.current.subTitleColor
         
         nodeButton = UIButton(type: .system)
         nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
@@ -50,7 +50,7 @@ class TimelineViewCell: UITableViewCell {
         nodeButton.backgroundColor = .clear//UIColor(red: 245.0/255, green: 245.0/255, blue: 245.0/255, alpha: 1.0)
         
         commentCountLabel = UILabel()
-        commentCountLabel.textColor = Theme.current.grayTextColor
+        commentCountLabel.textColor = Theme.current.subTitleColor
         commentCountLabel.font = UIFont.systemFont(ofSize: 13)
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -105,6 +105,10 @@ class TimelineViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-10)
             make.centerY.equalTo(nodeButton)
         }
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Theme.current.cellHighlightColor
+        selectedBackgroundView = backgroundView
     }
     
     required init?(coder aDecoder: NSCoder) {
