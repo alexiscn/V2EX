@@ -31,6 +31,8 @@ class TimelineViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = Theme.current.backgroundColor
         navigationItem.title = tab.title
         setupTableView()
         loadData()
@@ -81,8 +83,10 @@ class TimelineViewController: UIViewController {
     
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds)
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         tableView.register(TimelineViewCell.self, forCellReuseIdentifier: NSStringFromClass(TimelineViewCell.self))
         view.addSubview(tableView)
@@ -112,6 +116,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TimelineViewCell.self), for: indexPath) as! TimelineViewCell
+        cell.backgroundColor = .clear
         let topic = dataSource[indexPath.row]
         cell.update(topic)
         return cell

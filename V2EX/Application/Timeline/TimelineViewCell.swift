@@ -37,6 +37,7 @@ class TimelineViewCell: UITableViewCell {
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 15)
         titleLabel.numberOfLines = 0
+        titleLabel.textColor = Theme.current.titleColor
         
         timeLabel = UILabel()
         timeLabel.font = UIFont.systemFont(ofSize: 11)
@@ -45,7 +46,8 @@ class TimelineViewCell: UITableViewCell {
         nodeButton = UIButton(type: .system)
         nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         nodeButton.setTitleColor(UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1.0), for: .normal)
-        nodeButton.backgroundColor = UIColor(red: 245.0/255, green: 245.0/255, blue: 245.0/255, alpha: 1.0)
+        
+        nodeButton.backgroundColor = .clear//UIColor(red: 245.0/255, green: 245.0/255, blue: 245.0/255, alpha: 1.0)
         
         commentCountLabel = UILabel()
         commentCountLabel.textColor = Theme.current.grayTextColor
@@ -131,10 +133,10 @@ class TimelineViewCell: UITableViewCell {
         if let nodeTitle = topic.nodeTitle {
             let size = (nodeTitle as NSString).size(withAttributes: [.font: nodeButton.titleLabel?.font! as Any])
             
-            nodeButton.snp.updateConstraints { make in
-                make.height.equalTo(size.height + 4)
-                make.width.equalTo(size.width + 10)
-            }
+//            nodeButton.snp.updateConstraints { make in
+//                make.height.equalTo(size.height + 4)
+//                make.width.equalTo(size.width + 10)
+//            }
         }
     }
     

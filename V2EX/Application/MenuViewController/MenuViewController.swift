@@ -20,9 +20,12 @@ class MenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = Theme.current.backgroundColor
 
         // Do any additional setup after loading the view.
         tableView = UITableView(frame: .zero)
+        tableView.backgroundColor = .clear
         tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: NSStringFromClass(MenuTableViewCell.self))
         tableView.delegate = self
         tableView.dataSource = self
@@ -31,7 +34,7 @@ class MenuViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(100)
+            make.top.equalToSuperview().offset(150)
             make.bottom.equalToSuperview().offset(-100)
         }
     }
@@ -53,13 +56,14 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(MenuTableViewCell.self), for: indexPath) as! MenuTableViewCell
+        cell.backgroundColor = .clear
         let menu = dataSource[indexPath.row]
         cell.updateMenu(menu)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40.0
+        return 44.0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

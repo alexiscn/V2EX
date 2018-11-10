@@ -19,7 +19,6 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupChildViewController()
         setupSideMenu()
     }
@@ -58,7 +57,7 @@ class MainViewController: UIViewController {
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
         
-        SideMenuManager.default.menuWidth = 120.0
+        SideMenuManager.default.menuWidth = 150.0
         SideMenuManager.default.menuFadeStatusBar = false
         SideMenuManager.default.menuPresentMode = .viewSlideOut
         SideMenuManager.default.menuBlurEffectStyle = nil
@@ -68,5 +67,9 @@ class MainViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }

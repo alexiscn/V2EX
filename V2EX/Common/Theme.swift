@@ -15,9 +15,18 @@ enum Theme {
     var titleColor: UIColor {
         switch self {
         case .light:
+            return .black
+        case .dark:
+            return UIColor(white: 240.0/255, alpha: 1.0)
+        }
+    }
+    
+    var backgroundColor: UIColor {
+        switch self {
+        case .light:
             return .white
         case .dark:
-            return .black
+            return UIColor(white: 46.0/255, alpha: 1.0)
         }
     }
     
@@ -26,11 +35,11 @@ enum Theme {
         case .light:
             return UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1)
         case .dark:
-            return .black
+            return UIColor(white: 210.0/255, alpha: 1.0)
         }
     }
     
-    static let current: Theme = .light
+    static let current: Theme = .dark
 }
 
 class ThemeManager {
