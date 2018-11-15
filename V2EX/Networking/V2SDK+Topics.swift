@@ -1,6 +1,6 @@
 //
 //  V2SDK+Topics.swift
-//  V2SDK
+//  V2EX
 //
 //  Created by xu.shuifeng on 2018/6/22.
 //
@@ -28,7 +28,7 @@ extension V2SDK {
         let path = "/api/topics/latest.json"
         GenericNetworking.getJSON(path: path, completion: completion)
     }
-
+    
     /// 根据用户名获取用户的主题列表
     ///
     /// - Parameters:
@@ -213,6 +213,10 @@ extension V2SDK {
             if let name = try? nodeElement?.attr("href"), let nodename = name {
                 topic.nodeName = nodename.replacingOccurrences(of: "/go/", with: "")
             }
+        }
+        if let text = try? cell.text() {
+            let components = text.split(separator: "•")
+            print(components.map { return String($0) })
         }
         return topic
     }

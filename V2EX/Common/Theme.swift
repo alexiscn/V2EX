@@ -17,7 +17,7 @@ enum Theme {
         case .light:
             return .black
         case .dark:
-            return .white
+            return UIColor(red: 185.0/255, green: 200.0/255, blue: 243.0/255, alpha: 1.0)
         }
     }
     
@@ -26,7 +26,7 @@ enum Theme {
         case .light:
             return .white
         case .dark:
-            return UIColor(red: 23.0/255, green: 32.0/255, blue: 42.0/255, alpha: 1)
+            return UIColor(red: 43.0/255, green: 57.0/255, blue: 83.0/255, alpha: 1.0)
         }
     }
     
@@ -35,7 +35,7 @@ enum Theme {
         case .light:
             return UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1)
         case .dark:
-            return UIColor(red: 139.0/255, green: 152.0/255, blue: 164.0/255, alpha: 1)
+            return UIColor(red: 141.0/255, green: 155.0/255, blue: 193.0/255, alpha: 1)
         }
     }
     
@@ -45,6 +45,24 @@ enum Theme {
             return .white
         case .dark:
             return UIColor(red: 18.0/255, green: 25.0/255, blue: 33.0/255, alpha: 1.0)
+        }
+    }
+    
+    var cellBackgroundColor: UIColor {
+        switch self {
+        case .light:
+            return .white
+        case .dark:
+            return UIColor(red: 52.0/255, green: 66.0/255, blue: 93.0/255, alpha: 1.0)
+        }
+    }
+    
+    var navigationBarBackgroundColor: UIColor {
+        switch self {
+        case .light:
+            return UIColor(white: 248.0/255, alpha: 1.0)
+        case .dark:
+            return UIColor(red: 43.0/255, green: 57.0/255, blue: 83.0/255, alpha: 1.0)
         }
     }
     

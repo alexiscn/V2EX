@@ -1,6 +1,0 @@
-framework module V2SDK {
-  umbrella header "V2SDK-umbrella.h"
-
-  export *
-  module * { export * }
-}

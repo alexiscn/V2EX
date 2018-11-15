@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import V2SDK
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

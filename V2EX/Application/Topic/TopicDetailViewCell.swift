@@ -8,7 +8,6 @@
 
 import UIKit
 import SnapKit
-import V2SDK
 import WebKit
 
 class TopicDetailViewCell: UITableViewCell {

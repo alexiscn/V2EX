@@ -1,8 +1,9 @@
 //
-//  Model.swift
-//  V2SDK
+//  V2Model.swift
+//  V2EX
 //
 //  Created by xu.shuifeng on 2018/6/22.
+//  Copyright © 2018 shuifeng.me. All rights reserved.
 //
 
 import Foundation
@@ -46,7 +47,7 @@ public struct V2Tab {
         creativeTab.subTabs.append(V2Tab(key: "create", title: "分享创造"))
         creativeTab.subTabs.append(V2Tab(key: "design", title: "设计"))
         creativeTab.subTabs.append(V2Tab(key: "ideas", title: "奇思妙想"))
-
+        
         var playTab = V2Tab(key: "play", title: "好玩")
         playTab.subTabs.append(V2Tab(key: "share", title: "分享发现"))
         playTab.subTabs.append(V2Tab(key: "games", title: "电子游戏"))

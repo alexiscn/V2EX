@@ -1,6 +1,6 @@
 //
 //  V2SDK+Search.swift
-//  V2SDK
+//  V2EX
 //
 //  Created by xushuifeng on 2018/6/26.
 //

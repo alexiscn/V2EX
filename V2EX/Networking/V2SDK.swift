@@ -1,6 +1,6 @@
 //
 //  V2SDK.swift
-//  Pods
+//  V2EX
 //
 //  Created by xu.shuifeng on 2018/6/22.
 //
@@ -19,7 +19,7 @@ public class V2SDK {
     
     static let baseURLString = "https://www.v2ex.com"
     
-    public class func setup() {    
+    public class func setup() {
         GenericNetworking.baseURLString = baseURLString
     }
     

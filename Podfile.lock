@@ -8,10 +8,6 @@ PODS:
   - SnapKit (4.2.0)
   - SQLiteKit (0.0.13)
   - SwiftSoup (1.7.4)
-  - V2SDK (0.0.3):
-    - GenericNetworking
-    - SQLiteKit
-    - SwiftSoup
 
 DEPENDENCIES:
   - Alamofire
@@ -22,7 +18,6 @@ DEPENDENCIES:
   - SnapKit
   - SQLiteKit (from `DevelopmentPods/SQLiteKit`)
   - SwiftSoup
-  - V2SDK (from `DevelopmentPods/V2SDK`)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -37,8 +32,6 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   SQLiteKit:
     :path: DevelopmentPods/SQLiteKit
-  V2SDK:
-    :path: DevelopmentPods/V2SDK
 
 SPEC CHECKSUMS:
   Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
@@ -49,8 +42,7 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   SQLiteKit: 85b6981d192d6e972f02a745ee76ce7b00612855
   SwiftSoup: 92f5b348c131aed8af04f4326db1579ab19fa08c
-  V2SDK: 43a2cd999c17d149efc0e764f2b847aa6fe5f4f6
 
-PODFILE CHECKSUM: e73119006e41bd07e873abe0cbe5c3a51a588ae0
+PODFILE CHECKSUM: 89c45da43dabdb38d952e4077be4b0dbb7839463
 
 COCOAPODS: 1.5.3

@@ -8,7 +8,6 @@
 
 import UIKit
 import SnapKit
-import V2SDK
 import Kingfisher
 
 class TopicCommentViewCell: UITableViewCell {

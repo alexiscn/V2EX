@@ -1,6 +1,6 @@
 //
 //  V2SDK+Nodes.swift
-//  V2SDK
+//  V2EX
 //
 //  Created by xu.shuifeng on 2018/6/22.
 //

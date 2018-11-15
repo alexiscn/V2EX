@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import V2SDK
 import SnapKit
 
 class MenuViewController: UIViewController {

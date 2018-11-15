@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
+		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
 		A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548520E1D5A000C76393 /* LoginViewController.swift */; };
@@ -16,6 +17,14 @@
 		A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549420E2048300C76393 /* OpenSourceViewController.swift */; };
 		A358549720E205E600C76393 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549620E205E600C76393 /* SettingsViewController.swift */; };
 		A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549820E2071900C76393 /* UIStoryboardExtensions.swift */; };
+		A36D0FA9219D809800E20EFB /* V2SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FA8219D809800E20EFB /* V2SDK.swift */; };
+		A36D0FAB219D80BC00E20EFB /* V2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FAA219D80BC00E20EFB /* V2Model.swift */; };
+		A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FAC219D80E400E20EFB /* V2DataManager.swift */; };
+		A36D0FAF219D810000E20EFB /* V2SDK+Members.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FAE219D810000E20EFB /* V2SDK+Members.swift */; };
+		A36D0FB1219D811800E20EFB /* V2SDK+Nodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FB0219D811800E20EFB /* V2SDK+Nodes.swift */; };
+		A36D0FB3219D814200E20EFB /* V2SDK+Replies.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FB2219D814200E20EFB /* V2SDK+Replies.swift */; };
+		A36D0FB5219D81B500E20EFB /* V2SDK+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FB4219D81B500E20EFB /* V2SDK+Search.swift */; };
+		A36D0FB7219D81D600E20EFB /* V2SDK+Topics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FB6219D81D600E20EFB /* V2SDK+Topics.swift */; };
 		A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */; };
 		A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD520E0FA950052576D /* StringExtensions.swift */; };
 		A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3704DD720E1084F0052576D /* NodeViewController.swift */; };
@@ -42,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		A358548520E1D5A000C76393 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +60,14 @@
 		A358549420E2048300C76393 /* OpenSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceViewController.swift; sourceTree = "<group>"; };
 		A358549620E205E600C76393 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A358549820E2071900C76393 /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
+		A36D0FA8219D809800E20EFB /* V2SDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2SDK.swift; sourceTree = "<group>"; };
+		A36D0FAA219D80BC00E20EFB /* V2Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2Model.swift; sourceTree = "<group>"; };
+		A36D0FAC219D80E400E20EFB /* V2DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2DataManager.swift; sourceTree = "<group>"; };
+		A36D0FAE219D810000E20EFB /* V2SDK+Members.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Members.swift"; sourceTree = "<group>"; };
+		A36D0FB0219D811800E20EFB /* V2SDK+Nodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Nodes.swift"; sourceTree = "<group>"; };
+		A36D0FB2219D814200E20EFB /* V2SDK+Replies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Replies.swift"; sourceTree = "<group>"; };
+		A36D0FB4219D81B500E20EFB /* V2SDK+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Search.swift"; sourceTree = "<group>"; };
+		A36D0FB6219D81D600E20EFB /* V2SDK+Topics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Topics.swift"; sourceTree = "<group>"; };
 		A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewCell.swift; sourceTree = "<group>"; };
 		A3704DD520E0FA950052576D /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		A3704DD720E1084F0052576D /* NodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeViewController.swift; sourceTree = "<group>"; };
@@ -193,6 +211,21 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		A36D0FA7219D808000E20EFB /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				A36D0FAA219D80BC00E20EFB /* V2Model.swift */,
+				A36D0FAC219D80E400E20EFB /* V2DataManager.swift */,
+				A36D0FA8219D809800E20EFB /* V2SDK.swift */,
+				A36D0FAE219D810000E20EFB /* V2SDK+Members.swift */,
+				A36D0FB0219D811800E20EFB /* V2SDK+Nodes.swift */,
+				A36D0FB2219D814200E20EFB /* V2SDK+Replies.swift */,
+				A36D0FB4219D81B500E20EFB /* V2SDK+Search.swift */,
+				A36D0FB6219D81D600E20EFB /* V2SDK+Topics.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 		A3704DD420E0FA7D0052576D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -201,6 +234,7 @@
 				A37A971121212A37000DFF1E /* UIViewExtensions.swift */,
 				A37A971321212A58000DFF1E /* UIViewControllerExtensions.swift */,
 				A37A971521212C56000DFF1E /* UIColorExtensions.swift */,
+				A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -243,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				A358548820E1D68F00C76393 /* Application */,
+				A36D0FA7219D808000E20EFB /* Networking */,
 				A358548B20E1D6D200C76393 /* Common */,
 				A3704DD420E0FA7D0052576D /* Extensions */,
 				A358548720E1D65A00C76393 /* Supporting Files */,
@@ -354,7 +389,6 @@
 				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework",
-				"${BUILT_PRODUCTS_DIR}/V2SDK/V2SDK.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -366,7 +400,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftSoup.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/V2SDK.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -398,30 +431,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
 				A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
 				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
 				A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */,
+				A36D0FA9219D809800E20EFB /* V2SDK.swift in Sources */,
+				A36D0FB5219D81B500E20EFB /* V2SDK+Search.swift in Sources */,
 				A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
+				A36D0FAF219D810000E20EFB /* V2SDK+Members.swift in Sources */,
 				A379EA41212259E400FA2169 /* NodeListViewCell.swift in Sources */,
+				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
 				A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */,
+				A36D0FB7219D81D600E20EFB /* V2SDK+Topics.swift in Sources */,
 				A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
 				A379EA3A2121C48800FA2169 /* SearchViewController.swift in Sources */,
 				A379EA3F212259C500FA2169 /* NodeListViewController.swift in Sources */,
 				A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */,
+				A36D0FB3219D814200E20EFB /* V2SDK+Replies.swift in Sources */,
+				A36D0FAB219D80BC00E20EFB /* V2Model.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A3DF1DF0211A8DEB00D1390C /* ScrollableViewController.swift in Sources */,
 				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
+				A36D0FB1219D811800E20EFB /* V2SDK+Nodes.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

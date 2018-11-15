@@ -8,7 +8,6 @@
 
 import UIKit
 import SideMenu
-import V2SDK
 
 class MainViewController: UIViewController {
     
@@ -19,8 +18,20 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupChildViewController()
         setupSideMenu()
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: .white)
+        let menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_menu_24x24_"), style: .done, target: self, action: #selector(handleLeftBarButtonItemTapped(_:)))
+        navigationItem.leftBarButtonItem = menuBarButtonItem
+    }
+    
+    @objc private func handleLeftBarButtonItemTapped(_ sender: Any) {
+        
     }
     
     private func updateTab(_ tab: V2Tab) {

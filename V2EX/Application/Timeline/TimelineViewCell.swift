@@ -10,9 +10,10 @@ import Foundation
 import UIKit
 import SnapKit
 import Kingfisher
-import V2SDK
 
 class TimelineViewCell: UITableViewCell {
+    
+    private let containerView: UIView
     
     private let avatarView: UIImageView
     
@@ -27,6 +28,9 @@ class TimelineViewCell: UITableViewCell {
     private let commentCountLabel: UILabel
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
+        containerView = UIView()
+        containerView.backgroundColor = Theme.current.cellBackgroundColor
         
         avatarView = UIImageView()
         
@@ -46,25 +50,32 @@ class TimelineViewCell: UITableViewCell {
         nodeButton = UIButton(type: .system)
         nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         nodeButton.setTitleColor(UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1.0), for: .normal)
-        
-        nodeButton.backgroundColor = .clear//UIColor(red: 245.0/255, green: 245.0/255, blue: 245.0/255, alpha: 1.0)
+        nodeButton.backgroundColor = .clear
         
         commentCountLabel = UILabel()
         commentCountLabel.textColor = Theme.current.subTitleColor
-        commentCountLabel.font = UIFont.systemFont(ofSize: 13)
+        commentCountLabel.font = UIFont.systemFont(ofSize: 11)
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(avatarView)
-        contentView.addSubview(usernameLabel)
-        contentView.addSubview(timeLabel)
+        contentView.addSubview(containerView)
         
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(nodeButton)
-        contentView.addSubview(commentCountLabel)
+        containerView.addSubview(avatarView)
+        containerView.addSubview(usernameLabel)
+        containerView.addSubview(timeLabel)
+        
+        containerView.addSubview(titleLabel)
+        containerView.addSubview(nodeButton)
+        containerView.addSubview(commentCountLabel)
         
         let commentImageView = UIImageView(image: UIImage(named: "comment"))
         contentView.addSubview(commentImageView)
+        
+        containerView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(3)
+            make.bottom.equalToSuperview().offset(-3)
+        }
         
         avatarView.snp.makeConstraints { make in
             make.height.width.equalTo(40)
