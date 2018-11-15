@@ -8,6 +8,7 @@
 
 import UIKit
 import SideMenu
+import MJRefresh
 
 class MainViewController: UIViewController {
     
@@ -18,6 +19,7 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupNavigationBar()
         setupChildViewController()
         setupSideMenu()

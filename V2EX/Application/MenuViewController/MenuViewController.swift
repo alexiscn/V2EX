@@ -17,6 +17,8 @@ class MenuViewController: UIViewController {
     
     var dataSource: [V2Tab] = V2Tab.tabs()
     
+    private var isFirstViewDidAppear = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,6 +37,19 @@ class MenuViewController: UIViewController {
             make.leading.equalToSuperview()
             make.top.equalToSuperview().offset(150)
             make.bottom.equalToSuperview().offset(-100)
+        }
+        tableView.reloadData()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if !isFirstViewDidAppear {
+            isFirstViewDidAppear = true
+            if let index = self.dataSource.firstIndex(where: { $0.title == "最热" }) {
+                tableView.selectRow(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .top)
+            }
         }
     }
 
@@ -56,6 +71,7 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(MenuTableViewCell.self), for: indexPath) as! MenuTableViewCell
         cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         let menu = dataSource[indexPath.row]
         cell.updateMenu(menu)
         return cell

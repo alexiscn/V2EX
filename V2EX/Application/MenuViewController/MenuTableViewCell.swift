@@ -37,6 +37,10 @@ class MenuTableViewCell: UITableViewCell {
             make.width.equalTo(3)
             make.height.equalTo(44)
         }
+        
+//        let backgroundView = UIView()
+//        backgroundView.backgroundColor = Theme.current.cellHighlightColor
+//        selectedBackgroundView = backgroundView
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -59,6 +63,12 @@ class MenuTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
         lineView.isHidden = !selected
+        
+        if isSelected {
+            contentView.backgroundColor = Theme.current.cellBackgroundColor
+        } else {
+            contentView.backgroundColor = Theme.current.backgroundColor
+        }
     }
 
     public func updateMenu(_ menu: V2Tab) {

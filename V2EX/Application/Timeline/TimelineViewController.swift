@@ -92,6 +92,7 @@ class TimelineViewController: UIViewController {
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             self?.loadData()
         })
+        header?.stateLabel.textColor = Theme.current.subTitleColor
         header?.lastUpdatedTimeLabel.isHidden = true
         tableView.mj_header = header
         

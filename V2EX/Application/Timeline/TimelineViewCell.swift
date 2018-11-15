@@ -36,7 +36,7 @@ class TimelineViewCell: UITableViewCell {
         
         usernameLabel = UILabel()
         usernameLabel.textColor = Theme.current.subTitleColor
-        usernameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        usernameLabel.font = UIFont.systemFont(ofSize: 12)
         
         titleLabel = UILabel()
         titleLabel.font = UIFont.systemFont(ofSize: 15)
@@ -44,17 +44,18 @@ class TimelineViewCell: UITableViewCell {
         titleLabel.textColor = Theme.current.titleColor
         
         timeLabel = UILabel()
-        timeLabel.font = UIFont.systemFont(ofSize: 11)
+        timeLabel.font = UIFont.systemFont(ofSize: 12)
         timeLabel.textColor = Theme.current.subTitleColor
         
         nodeButton = UIButton(type: .system)
-        nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        nodeButton.setTitleColor(UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1.0), for: .normal)
-        nodeButton.backgroundColor = .clear
+        nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        nodeButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        nodeButton.backgroundColor = Theme.current.backgroundColor
+        nodeButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5)
         
         commentCountLabel = UILabel()
         commentCountLabel.textColor = Theme.current.subTitleColor
-        commentCountLabel.font = UIFont.systemFont(ofSize: 11)
+        commentCountLabel.font = UIFont.systemFont(ofSize: 12)
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -90,7 +91,7 @@ class TimelineViewCell: UITableViewCell {
         }
         
         nodeButton.snp.makeConstraints { make in
-            make.height.width.equalTo(0)
+            make.height.equalTo(18)
             make.leading.equalToSuperview().offset(60)
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
@@ -98,7 +99,6 @@ class TimelineViewCell: UITableViewCell {
         usernameLabel.snp.makeConstraints { make in
             make.leading.equalTo(nodeButton.snp.trailing).offset(5)
             make.centerY.equalTo(nodeButton)
-            make.height.equalTo(15)
         }
         
         commentImageView.snp.makeConstraints { make in
@@ -133,7 +133,7 @@ class TimelineViewCell: UITableViewCell {
         usernameLabel.text = nil
         timeLabel.text = nil
         titleLabel.text = nil
-        nodeButton.setTitle(nil, for: .normal)
+        //nodeButton.setTitle(nil, for: .normal)
     }
     
     func update(_ topic: Topic) {
