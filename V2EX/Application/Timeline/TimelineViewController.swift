@@ -131,7 +131,7 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: false)
         
         let topic = dataSource[indexPath.row]
-        let detailViewController = TopicDetailViewController(url: topic.url)
+        let detailViewController = TopicDetailViewController(url: topic.url, title: topic.title)
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

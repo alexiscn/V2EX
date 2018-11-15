@@ -20,8 +20,11 @@ class TopicDetailViewController: UIViewController {
     
     fileprivate var webViewHeightCaculated = false
     
-    init(url: URL?) {
+    fileprivate let titleString: String? 
+    
+    init(url: URL?, title: String?) {
         topicURL = url
+        titleString = title
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -32,6 +35,7 @@ class TopicDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = titleString
         view.backgroundColor = Theme.current.backgroundColor
         setupTableView()
         

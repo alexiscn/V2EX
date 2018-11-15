@@ -70,12 +70,12 @@ class TopicCommentViewCell: UITableViewCell {
         avatarView.snp.makeConstraints { make in
             make.height.width.equalTo(42)
             make.leading.equalToSuperview().offset(12)
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview().offset(12)
         }
         
         usernameButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(64)
-            make.top.equalTo(avatarView)
+            make.top.equalTo(avatarView).offset(-2)
         }
         
         timeAgoLabel.snp.makeConstraints { make in
@@ -128,7 +128,7 @@ class TopicCommentViewCell: UITableViewCell {
         if let title = reply.content {
             let maxSize = CGSize(width: width, height: CGFloat.infinity)
             let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
-            let height = 12 + 29 + rect.height + 9 // 12: top, 29: button height, 9: bottom
+            let height = 12 + 29 + rect.height + 9 + 6 // 12: top, 29: button height, 9: bottom
             reply._rowHeight = height
             return height
         }
