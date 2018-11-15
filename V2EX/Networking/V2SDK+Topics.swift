@@ -216,7 +216,12 @@ extension V2SDK {
         }
         if let text = try? cell.text() {
             let components = text.split(separator: "•")
-            print(components.map { return String($0) })
+            if components.count >= 3 {
+                topic.lastUpdatedTime = String(components[2]).replacingOccurrences(of: " ", with: "")
+//                if components.count >= 4 {
+//
+//                }
+            }
         }
         return topic
     }

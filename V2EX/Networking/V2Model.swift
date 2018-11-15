@@ -150,6 +150,8 @@ public struct Topic: SQLiteCodable {
     
     public var tab: String = ""
     
+    public var lastUpdatedTime: String? = nil
+    
     public init() {
         
     }

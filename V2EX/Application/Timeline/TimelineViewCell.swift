@@ -102,13 +102,13 @@ class TimelineViewCell: UITableViewCell {
         }
         
         commentImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(16)
+            make.height.width.equalTo(12)
             make.centerY.equalTo(nodeButton)
             make.leading.equalTo(usernameLabel.snp.trailing).offset(10)
         }
         
         commentCountLabel.snp.makeConstraints { make in
-            make.leading.equalTo(commentImageView.snp.trailing).offset(2)
+            make.leading.equalTo(commentImageView.snp.trailing).offset(5)
             make.centerY.equalTo(nodeButton)
         }
         
@@ -140,19 +140,10 @@ class TimelineViewCell: UITableViewCell {
         
         avatarView.kf.setImage(with: topic.avatar)
         usernameLabel.text = topic.username
-        timeLabel.text = "5分钟前"
+        timeLabel.text = topic.lastUpdatedTime
         titleLabel.text = topic.title
         commentCountLabel.text = "\(topic.replies)"
         nodeButton.setTitle(topic.nodeTitle, for: .normal)
-        
-        if let nodeTitle = topic.nodeTitle {
-            let size = (nodeTitle as NSString).size(withAttributes: [.font: nodeButton.titleLabel?.font! as Any])
-            
-//            nodeButton.snp.updateConstraints { make in
-//                make.height.equalTo(size.height + 4)
-//                make.width.equalTo(size.width + 10)
-//            }
-        }
     }
     
     class func heightForRowWithTopic(_ topic: inout Topic) -> CGFloat {

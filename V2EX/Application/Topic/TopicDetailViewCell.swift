@@ -29,15 +29,16 @@ class TopicDetailViewCell: UITableViewCell {
         avatarView = UIImageView()
         usernameButton = UIButton(type: .system)
         usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        usernameButton.setTitleColor(UIColor(red: 108.0/255, green: 108.0/255, blue: 108.0/255, alpha: 1.0), for: .normal)
+        usernameButton.setTitleColor(Theme.current.titleColor, for: .normal)
         
         titleLabel = UILabel()
         titleLabel.numberOfLines = 0
         titleLabel.font = UIFont.systemFont(ofSize: 20)
+        titleLabel.textColor = Theme.current.titleColor
         
         timeAgoLabel = UILabel()
         timeAgoLabel.font = UIFont.systemFont(ofSize: 11)
-        timeAgoLabel.textColor = UIColor(red: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
+        timeAgoLabel.textColor = Theme.current.subTitleColor
         
         let configuration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: configuration)

@@ -12,6 +12,8 @@ import Kingfisher
 
 class TopicCommentViewCell: UITableViewCell {
 
+    private let containerView: UIView
+    
     private let avatarView: UIImageView
     
     private let floorLabel: UILabel
@@ -29,40 +31,51 @@ class TopicCommentViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
+        containerView = UIView()
+        containerView.backgroundColor = Theme.current.cellBackgroundColor
+        
         avatarView = UIImageView()
         
         floorLabel = UILabel()
         floorLabel.font = UIFont.systemFont(ofSize: 11)
-        floorLabel.textColor = UIColor(red: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
+        floorLabel.textColor = Theme.current.subTitleColor
         
         usernameButton = UIButton(type: .system)
         usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        usernameButton.setTitleColor(UIColor(red: 108.0/255, green: 108.0/255, blue: 108.0/255, alpha: 1.0), for: .normal)
+        usernameButton.setTitleColor(Theme.current.titleColor, for: .normal)
         
         timeAgoLabel = UILabel()
         timeAgoLabel.font = UIFont.systemFont(ofSize: 11)
-        timeAgoLabel.textColor = UIColor(red: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1)
+        timeAgoLabel.textColor = Theme.current.subTitleColor
         
         contentLabel = UILabel()
         contentLabel.numberOfLines = 0
         contentLabel.font = UIFont.systemFont(ofSize: 14)
+        contentLabel.textColor = Theme.current.titleColor
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(containerView)
+        containerView.addSubview(avatarView)
+        containerView.addSubview(usernameButton)
+        containerView.addSubview(timeAgoLabel)
+        containerView.addSubview(floorLabel)
+        containerView.addSubview(contentLabel)
         
-        contentView.addSubview(avatarView)
-        contentView.addSubview(usernameButton)
-        contentView.addSubview(timeAgoLabel)
-        contentView.addSubview(floorLabel)
-        contentView.addSubview(contentLabel)
+        containerView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(3)
+            make.bottom.equalToSuperview().offset(-3)
+        }
         
         avatarView.snp.makeConstraints { make in
             make.height.width.equalTo(42)
-            make.leading.top.equalToSuperview().offset(12)
+            make.leading.equalToSuperview().offset(12)
+            make.centerY.equalToSuperview()
         }
         
         usernameButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(64)
-            make.top.equalToSuperview().offset(12)
+            make.top.equalTo(avatarView)
         }
         
         timeAgoLabel.snp.makeConstraints { make in
@@ -80,6 +93,10 @@ class TopicCommentViewCell: UITableViewCell {
             make.leading.equalToSuperview().offset(64)
             make.top.equalTo(usernameButton.snp.bottom)
         }
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Theme.current.cellHighlightColor
+        selectedBackgroundView = backgroundView
     }
     
     required init?(coder aDecoder: NSCoder) {

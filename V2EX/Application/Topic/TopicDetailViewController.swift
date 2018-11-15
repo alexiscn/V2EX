@@ -32,7 +32,7 @@ class TopicDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        view.backgroundColor = Theme.current.backgroundColor
         setupTableView()
         
         if let url = topicURL {
@@ -53,6 +53,8 @@ class TopicDetailViewController: UIViewController {
 
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
@@ -80,6 +82,7 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TopicDetailViewCell.self), for: indexPath) as! TopicDetailViewCell
             cell.selectionStyle = .none
+            cell.backgroundColor = .clear
             cell.webViewHeightChangedHandler = { [weak self] height in
                 guard let strongSelf = self else {
                     return
@@ -96,7 +99,7 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TopicCommentViewCell.self), for: indexPath) as! TopicCommentViewCell
-            cell.selectionStyle = .none
+            cell.backgroundColor = .clear
             let reply = comments[indexPath.row]
             cell.update(reply)
             return cell

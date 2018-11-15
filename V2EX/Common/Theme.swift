@@ -44,7 +44,7 @@ enum Theme {
         case .light:
             return .white
         case .dark:
-            return UIColor(red: 18.0/255, green: 25.0/255, blue: 33.0/255, alpha: 1.0)
+            return UIColor(red: 43.0/255, green: 57.0/255, blue: 83.0/255, alpha: 1.0)
         }
     }
     
