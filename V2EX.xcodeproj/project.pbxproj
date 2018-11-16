@@ -17,6 +17,7 @@
 		A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549420E2048300C76393 /* OpenSourceViewController.swift */; };
 		A358549720E205E600C76393 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549620E205E600C76393 /* SettingsViewController.swift */; };
 		A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549820E2071900C76393 /* UIStoryboardExtensions.swift */; };
+		A3691745219E911A002DA8E3 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3691744219E911A002DA8E3 /* ActionSheet.swift */; };
 		A36D0FA9219D809800E20EFB /* V2SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FA8219D809800E20EFB /* V2SDK.swift */; };
 		A36D0FAB219D80BC00E20EFB /* V2Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FAA219D80BC00E20EFB /* V2Model.swift */; };
 		A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FAC219D80E400E20EFB /* V2DataManager.swift */; };
@@ -60,6 +61,7 @@
 		A358549420E2048300C76393 /* OpenSourceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceViewController.swift; sourceTree = "<group>"; };
 		A358549620E205E600C76393 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A358549820E2071900C76393 /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
+		A3691744219E911A002DA8E3 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
 		A36D0FA8219D809800E20EFB /* V2SDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2SDK.swift; sourceTree = "<group>"; };
 		A36D0FAA219D80BC00E20EFB /* V2Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2Model.swift; sourceTree = "<group>"; };
 		A36D0FAC219D80E400E20EFB /* V2DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2DataManager.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				A3A39CA420E181A4000B07F0 /* Theme.swift */,
 				A379E9BB210DF33900FA2169 /* style.css */,
 				A3DF1DEF211A8DEB00D1390C /* ScrollableViewController.swift */,
+				A3691744219E911A002DA8E3 /* ActionSheet.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
 				A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
+				A3691745219E911A002DA8E3 /* ActionSheet.swift in Sources */,
 				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
 				A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */,
 				A36D0FA9219D809800E20EFB /* V2SDK.swift in Sources */,

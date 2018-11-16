@@ -112,18 +112,19 @@ public struct V2Tab {
 
 public struct Topic: SQLiteCodable {
     
-    public enum CodingKeys: String, SQLiteCodingKey {
-        public typealias root = Topic
-        case title
-        case url
-        case replies
-        case username
-        case avatar
-        case lastReplyedUserName = "last_reply_username"
-        case nodeName = "node_name"
-        case nodeTitle = "node_title"
-        case tab
-    }
+//    public enum CodingKeys: String, SQLiteCodingKey {
+//        public typealias root = Topic
+//        case title
+//        case url
+//        case replies
+//        case username
+//        case avatar
+//        case lastReplyedUserName
+//        case nodeName
+//        case nodeTitle
+//        case tab
+//        case lastUpdatedTime
+//    }
     
     public static func attributes() -> [AttributeInfo] {
         return []
@@ -175,15 +176,15 @@ public struct TopicDetail {
 
 public struct Reply: SQLiteCodable {
     
-    public enum CodingKeys: String, SQLiteCodingKey {
-        public typealias root = Reply
-        case timeAgo = "time_ago"
-        case content
-        case floor
-        case userLinkURL = "user_link_url"
-        case username
-        case avatarURL = "avatar_url"
-    }
+//    public enum CodingKeys: String, SQLiteCodingKey {
+//        public typealias root = Reply
+//        case timeAgo = "time_ago"
+//        case content
+//        case floor
+//        case userLinkURL = "user_link_url"
+//        case username
+//        case avatarURL = "avatar_url"
+//    }
     
     public static func attributes() -> [AttributeInfo] {
         return []

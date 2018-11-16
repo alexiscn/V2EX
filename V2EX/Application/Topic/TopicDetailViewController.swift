@@ -66,6 +66,11 @@ class TopicDetailViewController: UIViewController {
         tableView.register(TopicCommentViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicCommentViewCell.self))
         tableView.register(TopicDetailViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicDetailViewCell.self))
         view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
+        }
     }
 }
 
@@ -121,5 +126,9 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
         }
         var reply = comments[indexPath.row]
         return TopicCommentViewCell.heightForRowWithReply(&reply)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
     }
 }

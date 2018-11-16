@@ -49,10 +49,10 @@ public protocol SQLiteDecodable: Decodable {
 }
 
 /// Type to reflect to a database table
-public protocol SQLiteCodable: Codable, RootCodable where CodingKeys.root == Self {
+public protocol SQLiteCodable: Codable { //, RootCodable where CodingKeys.root == Self {
 
-    associatedtype CodingKeys: SQLiteCodingKey
-    typealias Columns = CodingKeys
+//    associatedtype CodingKeys: SQLiteCodingKey
+//    typealias Columns = CodingKeys
     
     /// Specifiy column attributes of a table, eg: isPK
     ///

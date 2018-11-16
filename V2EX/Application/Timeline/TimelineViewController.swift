@@ -38,21 +38,32 @@ class TimelineViewController: UIViewController {
     }
     
     func updateTab(_ tab: V2Tab) {
-        self.tab = tab
-        loadData()
+        if tab.key != self.tab.key {
+            self.tab = tab
+            if dataSource.count > 0 {
+                UIView.animate(withDuration: 0.3, animations: {
+                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                }) { _ in
+                    self.loadData(loadCache: false)
+                }
+            } else {
+                loadData()
+            }
+        }
     }
 
-    private func loadData() {
-        
+    private func loadData(loadCache: Bool = true) {
         DispatchQueue.global().async {
-            
-            let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
-            if topics.count > 0 {
+            if loadCache {
                 DispatchQueue.main.async {
-                    self.dataSource = topics
-                    self.tableView.reloadData()
+                    let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
+                    if topics.count > 0 {
+                        self.dataSource = topics
+                        self.tableView.reloadData()
+                    }
                 }
             }
+            
             V2SDK.getTopicList(tab: self.tab) { [weak self] (topics, error) in
                 DispatchQueue.main.async {
                     guard let strongSelf = self else {
@@ -82,6 +93,7 @@ class TimelineViewController: UIViewController {
     
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds)
+        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
@@ -117,7 +129,6 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TimelineViewCell.self), for: indexPath) as! TimelineViewCell
         cell.backgroundColor = .clear
-//        cell.selectionStyle = .none
         let topic = dataSource[indexPath.row]
         cell.update(topic)
         return cell

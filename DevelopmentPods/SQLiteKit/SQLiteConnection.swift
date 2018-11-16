@@ -419,11 +419,11 @@ extension SQLiteConnection {
 
 internal class _ColumnInfo: SQLiteCodable {
     
-    enum CodingKeys: String, SQLiteCodingKey {
-        typealias root = _ColumnInfo
-        case name
-        case notnull
-    }
+//    enum CodingKeys: String, SQLiteCodingKey {
+//        typealias root = _ColumnInfo
+//        case name
+//        case notnull
+//    }
     
     static func attributes() -> [AttributeInfo] {
         return []

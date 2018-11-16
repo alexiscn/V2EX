@@ -37,10 +37,10 @@ class MainViewController: UIViewController {
     }
     
     private func updateTab(_ tab: V2Tab) {
-        timelineVC?.updateTab(tab)
-        title = tab.title
-        
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true) {
+            self.timelineVC?.updateTab(tab)
+            self.title = tab.title
+        }
     }
     
     private func setupChildViewController() {
