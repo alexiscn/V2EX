@@ -28,11 +28,24 @@ class MainViewController: UIViewController {
     private func setupNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: .white)
-        let menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_menu_24x24_"), style: .done, target: self, action: #selector(handleLeftBarButtonItemTapped(_:)))
+        let menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_menu_24x24_"), style: .done, target: self, action: #selector(menuBarButtonItemTapped(_:)))
         navigationItem.leftBarButtonItem = menuBarButtonItem
+        
+        let searchBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_search_24x24_"), style: .done, target: self, action: #selector(searchBarButtonItemTapped(_:)))
+        searchBarButtonItem.imageInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0)
+        let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
+        navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
     }
     
-    @objc private func handleLeftBarButtonItemTapped(_ sender: Any) {
+    @objc private func menuBarButtonItemTapped(_ sender: Any) {
+        
+    }
+    
+    @objc private func searchBarButtonItemTapped(_ sender: Any) {
+        
+    }
+    
+    @objc private func moreBarButtonItemTapped(_ sender: Any) {
         
     }
     
