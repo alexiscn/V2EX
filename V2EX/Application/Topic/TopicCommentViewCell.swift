@@ -63,8 +63,8 @@ class TopicCommentViewCell: UITableViewCell {
         
         containerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(3)
-            make.bottom.equalToSuperview().offset(-3)
+            make.top.equalToSuperview().offset(0.5)
+            make.bottom.equalToSuperview()//.offset(-0.5)
         }
         
         avatarView.snp.makeConstraints { make in

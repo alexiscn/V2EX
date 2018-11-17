@@ -58,7 +58,8 @@ class TopicDetailViewController: UIViewController {
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.backgroundColor = .clear
-        tableView.separatorStyle = .none
+//        tableView.separatorStyle = .none
+        tableView.separatorColor = Theme.current.cellHighlightColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
