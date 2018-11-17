@@ -30,8 +30,8 @@ class V2DataManager {
         database = Database(withPath: path)
         do {
             
-            try database.create(table: "topics", of: Topic.self)
-            try database.create(table: "reply", of: Reply.self)
+            try database.create(table: Tables.topic, of: Topic.self)
+            try database.create(table: Tables.reply, of: Reply.self)
         } catch {
             print(error)
         }
