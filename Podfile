@@ -10,5 +10,6 @@ target 'V2EX' do
     pod 'MJRefresh'
     pod 'SideMenu'
     
-    pod 'SQLiteKit', :path => 'DevelopmentPods/SQLiteKit'
+    pod 'WCDB.swift'
+#    pod 'SQLiteKit', :path => 'DevelopmentPods/SQLiteKit'
 end

@@ -1,6 +1,0 @@
-framework module SQLiteKit {
-  umbrella header "SQLiteKit-umbrella.h"
-
-  export *
-  module * { export * }
-}

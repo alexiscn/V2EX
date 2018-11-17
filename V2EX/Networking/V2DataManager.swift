@@ -7,44 +7,53 @@
 
 import Foundation
 import AVFoundation
-import SQLiteKit
+import WCDBSwift
 
-public class V2DataManager {
+class V2DataManager {
     
-    public static let shared = V2DataManager()
+    struct Tables {
+        static let topic = "tb_topic"
+        static let reply = "tb_reply"
+    }
     
-    public var nodeGroups: [V2NodeGroup] = []
+    static let shared = V2DataManager()
     
-    fileprivate var db: SQLiteConnection!
+    var nodeGroups: [V2NodeGroup] = []
+    
+    fileprivate let database: Database
     
     fileprivate let queue = DispatchQueue(label: "com.v2ex.datamanager")
     
-    init() {
-        let path = NSHomeDirectory().appending("/Documents/db.sqlite")
+    private init() {
+        let path = NSHomeDirectory().appending("/Documents/v2.sqlite")
         //try? FileManager.default.removeItem(atPath: path)
+        database = Database(withPath: path)
         do {
-            db = try SQLiteConnection(databasePath: path)
-            try db.createTable(Topic.self)
-            try db.createTable(Reply.self)
+            
+            try database.create(table: "topics", of: Topic.self)
+            try database.create(table: "reply", of: Reply.self)
         } catch {
             print(error)
         }
     }
     
-    public func loadTopics(forTab tab: String) -> [Topic] {
-        let tableQuery: TableQuery<Topic> = db.table(of: Topic.self)
-        return tableQuery.toList()
+    func loadTopics(forTab tab: String) -> [Topic] {
+        do {
+            let condition = Topic.Properties.tab == tab
+            let objects: [Topic] = try database.getObjects(fromTable: Tables.topic, where: condition)
+            return objects
+        } catch {
+            print(error)
+        }
+        return []
     }
     
     func saveTopics(_ topics: [Topic], forTab tab: String) {
-        if db == nil {
-            return
-        }
-        
         queue.async {
             do {
-                try self.db.delete(using: NSPredicate(format: "tab=%@", tab), on: Topic.self)
-                try self.db.insertAll(topics)
+                let condition = Topic.Properties.tab == tab
+                try self.database.delete(fromTable: Tables.topic, where: condition)
+                try self.database.insert(objects: topics, intoTable: Tables.topic)
             } catch {
                 print(error)
             }
@@ -52,3 +61,4 @@ public class V2DataManager {
     }
     
 }
+
