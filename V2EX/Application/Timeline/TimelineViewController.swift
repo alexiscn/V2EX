@@ -53,6 +53,7 @@ class TimelineViewController: UIViewController {
     }
 
     private func loadData(loadCache: Bool = true) {
+        tableView.mj_header.beginRefreshing()
         DispatchQueue.global().async {
             if loadCache {
                 DispatchQueue.main.async {
