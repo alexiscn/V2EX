@@ -38,7 +38,9 @@ class MainViewController: UIViewController {
     }
     
     @objc private func menuBarButtonItemTapped(_ sender: Any) {
-        
+        if let menuVC = SideMenuManager.default.menuLeftNavigationController {
+            present(menuVC, animated: true, completion: nil)
+        }
     }
     
     @objc private func searchBarButtonItemTapped(_ sender: Any) {

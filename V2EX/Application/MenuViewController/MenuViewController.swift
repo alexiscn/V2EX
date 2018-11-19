@@ -13,18 +13,20 @@ class MenuViewController: UIViewController {
 
     var selectionChangedHandler: ((_ tab: V2Tab) -> Void)?
     
-    var tableView: UITableView!
-    
-    var dataSource: [V2Tab] = V2Tab.tabs()
-    
+    private var tableView: UITableView!
+    private var settingButton: UIButton!
+    private var dataSource: [V2Tab] = V2Tab.tabs()
     private var isFirstViewDidAppear = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = Theme.current.backgroundColor
-
-        // Do any additional setup after loading the view.
+        setupTableView()
+        setupSettingButton()
+    }
+    
+    private func setupTableView() {
         tableView = UITableView(frame: .zero)
         tableView.backgroundColor = .clear
         tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: NSStringFromClass(MenuTableViewCell.self))
@@ -39,7 +41,26 @@ class MenuViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-100)
         }
         tableView.reloadData()
+    }
+    
+    private func setupSettingButton() {
+        settingButton = UIButton(type: .system)
+        settingButton.tintColor = Theme.current.titleColor
+        settingButton.setImage(UIImage(named: "icon_settings_24x24_"), for: .normal)
+        view.addSubview(settingButton)
         
+        settingButton.snp.makeConstraints { make in
+            make.width.height.equalTo(24)
+            make.bottom.equalToSuperview().offset(-30)
+            make.trailing.equalToSuperview().offset(-30)
+        }
+        settingButton.addTarget(self, action: #selector(settingButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func settingButtonTapped(_ sender: Any) {
+        let settingsController = UIStoryboard.settings.instantiateViewController(ofType: SettingsViewController.self)
+        let nav = SettingsNavigationController(rootViewController: settingsController)
+        present(nav, animated: true, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {

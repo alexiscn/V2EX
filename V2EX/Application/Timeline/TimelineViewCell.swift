@@ -33,6 +33,8 @@ class TimelineViewCell: UITableViewCell {
         containerView.backgroundColor = Theme.current.cellBackgroundColor
         
         avatarView = UIImageView()
+        avatarView.layer.cornerRadius = 5.0
+        avatarView.layer.masksToBounds = true
         
         usernameLabel = UILabel()
         usernameLabel.textColor = Theme.current.subTitleColor

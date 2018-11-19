@@ -36,6 +36,8 @@ class TopicCommentViewCell: UITableViewCell {
         containerView.backgroundColor = Theme.current.cellBackgroundColor
         
         avatarView = UIImageView()
+        avatarView.layer.cornerRadius = 5.0
+        avatarView.layer.masksToBounds = true
         
         floorLabel = UILabel()
         floorLabel.font = UIFont.systemFont(ofSize: 11)

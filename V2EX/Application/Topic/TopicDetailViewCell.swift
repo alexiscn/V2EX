@@ -27,6 +27,8 @@ class TopicDetailViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         avatarView = UIImageView()
+        avatarView.layer.cornerRadius = 5.0
+        avatarView.layer.masksToBounds = true
         usernameButton = UIButton(type: .system)
         usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         usernameButton.setTitleColor(Theme.current.titleColor, for: .normal)

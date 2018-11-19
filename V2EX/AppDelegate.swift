@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias RelayCommand = () -> Void
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

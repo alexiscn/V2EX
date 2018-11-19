@@ -29,10 +29,11 @@ class OpenSourceViewController: UIViewController, UITableViewDataSource, UITable
         dataSource.append(OpenSource(title: "CRRefresh", url: "https://github.com/CRAnimation/CRRefresh"))
         dataSource.append(OpenSource(title: "GenericNetworking", url: "https://github.com/alexiscn/GenericNetworking"))
         dataSource.append(OpenSource(title: "Kingfisher", url: "https://github.com/onevcat/Kingfisher"))
-        dataSource.append(OpenSource(title: "SlideMenuControllerSwift", url: "https://github.com/dekatotoro/SlideMenuControllerSwift"))
+        dataSource.append(OpenSource(title: "SlideMenu", url: "https://github.com/jonkykong/SideMenu"))
         dataSource.append(OpenSource(title: "SnapKit", url: "https://github.com/snapkit/snapkit"))
         dataSource.append(OpenSource(title: "SwiftSoup", url: "https://github.com/scinfu/SwiftSoup"))
         
+        dataSource.sort(by: { $0.title > $1.title })
     }
 
     override func didReceiveMemoryWarning() {

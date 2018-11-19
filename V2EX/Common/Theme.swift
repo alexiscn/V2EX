@@ -69,7 +69,13 @@ enum Theme {
     static let current: Theme = .dark
     
     func webViewStyle() -> String {
-        if let path = Bundle.main.path(forResource: "style", ofType: "css"),
+        let baseCss = loadStyle(name: "style")
+        let dark = loadStyle(name: "dark")
+        return baseCss + dark
+    }
+    
+    func loadStyle(name: String) -> String {
+        if let path = Bundle.main.path(forResource: name, ofType: "css"),
             let style = try? String(contentsOf: URL(fileURLWithPath: path), encoding: .utf8) {
             return style
         }
