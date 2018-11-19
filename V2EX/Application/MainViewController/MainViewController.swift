@@ -27,7 +27,8 @@ class MainViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: .white)
+        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor,
+                                                               textColor: Theme.current.navigationBarTextColor)
         let menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_menu_24x24_"), style: .done, target: self, action: #selector(menuBarButtonItemTapped(_:)))
         navigationItem.leftBarButtonItem = menuBarButtonItem
         
@@ -99,6 +100,6 @@ class MainViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return Theme.current.statusBarStyle
     }
 }

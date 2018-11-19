@@ -12,6 +12,17 @@ enum Theme {
     case light
     case dark
     
+    static let current: Theme = .dark
+    
+    var statusBarStyle: UIStatusBarStyle {
+        switch self {
+        case .light:
+            return .default
+        case .dark:
+            return .lightContent
+        }
+    }
+    
     var titleColor: UIColor {
         switch self {
         case .light:
@@ -42,7 +53,7 @@ enum Theme {
     var cellHighlightColor: UIColor {
         switch self {
         case .light:
-            return .white
+            return UIColor(white: 222.0/255, alpha: 1.0)
         case .dark:
             return UIColor(red: 43.0/255, green: 57.0/255, blue: 83.0/255, alpha: 1.0)
         }
@@ -66,12 +77,24 @@ enum Theme {
         }
     }
     
-    static let current: Theme = .dark
+    var navigationBarTextColor: UIColor {
+        switch self {
+        case .light:
+            return .black
+        case .dark:
+            return .white
+        }
+    }
     
     func webViewStyle() -> String {
-        let baseCss = loadStyle(name: "style")
-        let dark = loadStyle(name: "dark")
-        return baseCss + dark
+        var style = loadStyle(name: "style")
+        switch self {
+        case .light:
+            style += loadStyle(name: "light")
+        case .dark:
+            style += loadStyle(name: "dark")
+        }
+        return style
     }
     
     func loadStyle(name: String) -> String {

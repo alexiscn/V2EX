@@ -166,6 +166,7 @@ extension TopicDetailViewCell: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url, url.scheme == "v2ex-img" {
             let src = url.absoluteString.replacingOccurrences(of: "v2ex-img", with: "")
+            print(src)
             decisionHandler(.cancel)
             return
         }
@@ -177,10 +178,4 @@ extension TopicDetailViewCell: WKNavigationDelegate {
         decisionHandler(.allow)
     }
     
-}
-
-enum H: Int {
-    case h1 = 22
-    case h2 = 18
-    case h3 = 16
 }
