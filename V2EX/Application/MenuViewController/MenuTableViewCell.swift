@@ -17,7 +17,7 @@ class MenuTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         titleLabel = UILabel()
-        titleLabel.textColor = UIColor(white: 240.0/255, alpha: 1.0)
+        titleLabel.textColor = Theme.current.titleColor
         lineView = UIView(frame: .zero)
         lineView.backgroundColor = .red
         
@@ -25,7 +25,7 @@ class MenuTableViewCell: UITableViewCell {
         
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(24)
+            make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
             make.centerY.equalToSuperview()
         }
@@ -37,10 +37,6 @@ class MenuTableViewCell: UITableViewCell {
             make.width.equalTo(3)
             make.height.equalTo(44)
         }
-        
-//        let backgroundView = UIView()
-//        backgroundView.backgroundColor = Theme.current.cellHighlightColor
-//        selectedBackgroundView = backgroundView
     }
     
     required init?(coder aDecoder: NSCoder) {

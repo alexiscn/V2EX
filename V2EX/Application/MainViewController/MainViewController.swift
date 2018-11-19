@@ -44,7 +44,9 @@ class MainViewController: UIViewController {
     }
     
     @objc private func searchBarButtonItemTapped(_ sender: Any) {
-        
+        let searchVC = SearchViewController()
+        let nav = SettingsNavigationController(rootViewController: searchVC)
+        present(nav, animated: true, completion: nil)
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {

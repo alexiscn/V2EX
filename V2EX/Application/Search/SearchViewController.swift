@@ -13,15 +13,9 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
+        view.backgroundColor = Theme.current.backgroundColor
         navigationItem.title = "搜索"
         navigationController?.navigationBar.prefersLargeTitles = true
-        
-        let nodeViewController = NodeListViewController()
-        addChild(nodeViewController)
-        view.addSubview(nodeViewController.view)
-        nodeViewController.view.frame = view.bounds
-        nodeViewController.didMove(toParent: self)
     }
 
     override func didReceiveMemoryWarning() {

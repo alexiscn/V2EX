@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import WebKit
+import SafariServices
 
 class TopicDetailViewCell: UITableViewCell {
  
@@ -168,7 +169,11 @@ extension TopicDetailViewCell: WKNavigationDelegate {
             decisionHandler(.cancel)
             return
         }
-        
+        if let url = navigationAction.request.url, url.absoluteString != "https://www.v2ex.com/" {
+            presentSafariViewController(url: url)
+            decisionHandler(.cancel)
+            return
+        }
         decisionHandler(.allow)
     }
     

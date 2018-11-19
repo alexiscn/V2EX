@@ -116,8 +116,6 @@ class TopicCommentViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func update(_ reply: Reply) {
@@ -151,12 +149,7 @@ class TopicCommentViewCell: UITableViewCell {
 extension TopicCommentViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        
-        let controller = SFSafariViewController(url: URL)
-        controller.modalPresentationCapturesStatusBarAppearance = true
-        controller.modalPresentationStyle = .overCurrentContext
-        UIApplication.shared.keyWindow?.rootViewController?.present(controller, animated: true, completion: nil)
-        
+        presentSafariViewController(url: URL)
         return false
     }
     

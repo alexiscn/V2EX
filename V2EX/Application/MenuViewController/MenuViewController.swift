@@ -13,6 +13,8 @@ class MenuViewController: UIViewController {
 
     var selectionChangedHandler: ((_ tab: V2Tab) -> Void)?
     
+    private var avatarButton: UIButton!
+    private var userLabel: UILabel!
     private var tableView: UITableView!
     private var settingButton: UIButton!
     private var dataSource: [V2Tab] = V2Tab.tabs()
@@ -22,8 +24,34 @@ class MenuViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = Theme.current.backgroundColor
+        setupAvatarButton()
         setupTableView()
         setupSettingButton()
+    }
+    
+    private func setupAvatarButton() {
+        avatarButton = UIButton(type: .system)
+        avatarButton.backgroundColor = Theme.current.subTitleColor
+        avatarButton.layer.cornerRadius = 35
+        avatarButton.layer.borderColor = UIColor.white.cgColor
+        avatarButton.layer.borderWidth = 1.5
+        view.addSubview(avatarButton)
+        avatarButton.snp.makeConstraints { make in
+            make.height.width.equalTo(70)
+            make.centerX.equalToSuperview()
+            make.top.equalToSuperview().offset(60)
+        }
+        
+        userLabel = UILabel()
+        userLabel.font = UIFont.systemFont(ofSize: 14.0)
+        userLabel.textColor = Theme.current.titleColor
+        userLabel.text = "请先登录"
+        userLabel.textAlignment = .center
+        view.addSubview(userLabel)
+        userLabel.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalTo(avatarButton.snp.bottom).offset(6)
+        }
     }
     
     private func setupTableView() {
@@ -37,7 +65,7 @@ class MenuViewController: UIViewController {
         tableView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(150)
+            make.top.equalTo(avatarButton.snp.bottom).offset(50)
             make.bottom.equalToSuperview().offset(-100)
         }
         tableView.reloadData()
@@ -93,6 +121,7 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(MenuTableViewCell.self), for: indexPath) as! MenuTableViewCell
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
+        cell.titleLabel.textAlignment = .center
         let menu = dataSource[indexPath.row]
         cell.updateMenu(menu)
         return cell

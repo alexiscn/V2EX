@@ -22,7 +22,6 @@ class SettingsViewController: UITableViewController {
         title = "设置"
         view.backgroundColor = Theme.current.backgroundColor
         setupNavigationBar()
-        //tableView.backgroundColor = .clear
         tableView.tableFooterView = UIView()
     }
     
