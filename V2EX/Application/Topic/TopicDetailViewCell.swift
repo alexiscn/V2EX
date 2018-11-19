@@ -42,7 +42,7 @@ class TopicDetailViewCell: UITableViewCell {
         
         let configuration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: configuration)
-        
+        webView.backgroundColor = .clear
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -98,7 +98,7 @@ class TopicDetailViewCell: UITableViewCell {
     
     func htmlContent(_ contentHTML: String?) -> String {
         var html = "<html><head><meta name=\"viewport\" content=\"width=device-width, user-scalable=no\">"
-        html += "<style>\(ThemeManager.shared.webViewStyle())</style></head>"
+        html += "<style>\(Theme.current.webViewStyle())</style></head>"
         if let content = contentHTML {
             html += content
         }

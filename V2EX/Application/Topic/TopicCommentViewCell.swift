@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import Kingfisher
+import SafariServices
 
 class TopicCommentViewCell: UITableViewCell {
 
@@ -22,7 +23,7 @@ class TopicCommentViewCell: UITableViewCell {
     
     private let timeAgoLabel: UILabel
     
-    private let contentLabel: UILabel
+    private let contentTextView: UITextView
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,10 +49,15 @@ class TopicCommentViewCell: UITableViewCell {
         timeAgoLabel.font = UIFont.systemFont(ofSize: 11)
         timeAgoLabel.textColor = Theme.current.subTitleColor
         
-        contentLabel = UILabel()
-        contentLabel.numberOfLines = 0
-        contentLabel.font = UIFont.systemFont(ofSize: 14)
-        contentLabel.textColor = Theme.current.titleColor
+        contentTextView = UITextView()
+        contentTextView.textContainerInset = UIEdgeInsets(top: -2, left: -5, bottom: 0, right: 0)
+        contentTextView.backgroundColor = .clear
+        contentTextView.dataDetectorTypes = .link
+        contentTextView.isEditable = false
+        contentTextView.isSelectable = true
+        contentTextView.isScrollEnabled = false
+        contentTextView.font = UIFont.systemFont(ofSize: 14)
+        contentTextView.textColor = Theme.current.titleColor
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(containerView)
@@ -59,7 +65,7 @@ class TopicCommentViewCell: UITableViewCell {
         containerView.addSubview(usernameButton)
         containerView.addSubview(timeAgoLabel)
         containerView.addSubview(floorLabel)
-        containerView.addSubview(contentLabel)
+        containerView.addSubview(contentTextView)
         
         containerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
@@ -88,15 +94,18 @@ class TopicCommentViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-12)
         }
         
-        contentLabel.snp.makeConstraints { make in
+        contentTextView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-12)
             make.leading.equalToSuperview().offset(64)
-            make.top.equalTo(usernameButton.snp.bottom)
+            make.top.equalToSuperview().offset(41)
+            make.bottom.equalToSuperview().offset(-9)
         }
         
         let backgroundView = UIView()
         backgroundView.backgroundColor = Theme.current.cellHighlightColor
         selectedBackgroundView = backgroundView
+        
+        contentTextView.delegate = self
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -112,7 +121,7 @@ class TopicCommentViewCell: UITableViewCell {
     func update(_ reply: Reply) {
         usernameButton.setTitle(reply.username, for: .normal)
         avatarView.kf.setImage(with: reply.avatarURL)
-        contentLabel.text = reply.content
+        contentTextView.text = reply.content
         timeAgoLabel.text = reply.timeAgo
         if let floor = reply.floor {
             floorLabel.text = "\(floor)楼"
@@ -135,4 +144,18 @@ class TopicCommentViewCell: UITableViewCell {
         return 80
         
     }
+}
+
+extension TopicCommentViewCell: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        
+        let controller = SFSafariViewController(url: URL)
+        controller.modalPresentationCapturesStatusBarAppearance = true
+        controller.modalPresentationStyle = .overCurrentContext
+        UIApplication.shared.keyWindow?.rootViewController?.present(controller, animated: true, completion: nil)
+        
+        return false
+    }
+    
 }

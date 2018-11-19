@@ -67,15 +67,6 @@ enum Theme {
     }
     
     static let current: Theme = .dark
-}
-
-class ThemeManager {
-    
-    static let shared = ThemeManager()
-    
-    public class func setTheme(_ theme: Theme) {
-        
-    }
     
     func webViewStyle() -> String {
         if let path = Bundle.main.path(forResource: "style", ofType: "css"),
@@ -84,5 +75,4 @@ class ThemeManager {
         }
         return ""
     }
-    
 }
