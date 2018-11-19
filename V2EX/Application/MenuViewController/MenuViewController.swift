@@ -16,6 +16,7 @@ class MenuViewController: UIViewController {
     private var avatarButton: UIButton!
     private var userLabel: UILabel!
     private var tableView: UITableView!
+    private var themeButton: UIButton!
     private var settingButton: UIButton!
     private var dataSource: [V2Tab] = V2Tab.tabs()
     private var isFirstViewDidAppear = false
@@ -26,6 +27,7 @@ class MenuViewController: UIViewController {
         view.backgroundColor = Theme.current.backgroundColor
         setupAvatarButton()
         setupTableView()
+        setupThemeButton()
         setupSettingButton()
     }
     
@@ -71,6 +73,25 @@ class MenuViewController: UIViewController {
         tableView.reloadData()
     }
     
+    private func setupThemeButton() {
+        themeButton = UIButton(type: .system)
+        themeButton.contentMode = .center
+        themeButton.setImage(UIImage(named: "icon_light"), for: .normal)
+        themeButton.tintColor = Theme.current.titleColor
+        view.addSubview(themeButton)
+        themeButton.snp.makeConstraints { make in
+            make.height.width.equalTo(24)
+            make.leading.equalToSuperview().offset(30)
+            make.bottom.equalToSuperview().offset(-30)
+        }
+        themeButton.addTarget(self, action: #selector(themeButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func themeButtonTapped(_ sender: Any) {
+        let feedback = UIImpactFeedbackGenerator(style: .medium)
+        feedback.impactOccurred()
+    }
+    
     private func setupSettingButton() {
         settingButton = UIButton(type: .system)
         settingButton.tintColor = Theme.current.titleColor
@@ -79,7 +100,7 @@ class MenuViewController: UIViewController {
         
         settingButton.snp.makeConstraints { make in
             make.width.height.equalTo(24)
-            make.bottom.equalToSuperview().offset(-30)
+            make.centerY.equalTo(themeButton)
             make.trailing.equalToSuperview().offset(-30)
         }
         settingButton.addTarget(self, action: #selector(settingButtonTapped(_:)), for: .touchUpInside)

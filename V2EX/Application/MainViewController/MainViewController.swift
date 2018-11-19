@@ -20,6 +20,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = Theme.current.backgroundColor
         setupNavigationBar()
         setupChildViewController()
         setupSideMenu()
@@ -81,12 +82,8 @@ class MainViewController: UIViewController {
         let menuNav = UISideMenuNavigationController(rootViewController: menuController)
         menuNav.isNavigationBarHidden = true
         SideMenuManager.default.menuLeftNavigationController = menuNav
-        
-        // Enable gestures. The left and/or right menus must be set up above for these to work.
-        // Note that these continue to work on the Navigation Controller independent of the View Controller it displays!
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-        
         SideMenuManager.default.menuWidth = 150.0
         SideMenuManager.default.menuFadeStatusBar = false
         SideMenuManager.default.menuPresentMode = .viewSlideOut
