@@ -12,19 +12,16 @@ import MJRefresh
 class TopicDetailViewController: UIViewController {
 
     fileprivate var tableView: UITableView!
+    fileprivate var loadingIndicator: UIActivityIndicatorView!
     
     fileprivate var comments: [Reply] = []
-    
     fileprivate var detail: TopicDetail?
-    
     fileprivate let topicURL: URL?
-    
-    fileprivate var webViewHeightCaculated = false
-    
     fileprivate let titleString: String?
-    
     fileprivate var currentPage = 1
     
+    fileprivate var webViewHeightCaculated = false
+
     init(url: URL?, title: String?) {
         topicURL = url
         titleString = title
@@ -40,17 +37,33 @@ class TopicDetailViewController: UIViewController {
 
         title = titleString
         view.backgroundColor = Theme.current.backgroundColor
+        setupLoadingView()
         setupTableView()
         loadTopicDetail()
+    }
+    
+    private func setupLoadingView() {
+        loadingIndicator = UIActivityIndicatorView(style: Theme.current.activityIndicatorViewStyle)
+        view.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-60)
+        }
+        loadingIndicator.startAnimating()
     }
     
     private func loadTopicDetail() {
         if let url = topicURL {
             V2SDK.getTopicDetail(url) { (detail, replyList, error) in
                 DispatchQueue.main.async { [weak self] in
-                    self?.comments = replyList
-                    self?.detail = detail
-                    self?.tableView.reloadData()
+                    guard let strongSelf = self else { return }
+                    strongSelf.comments = replyList
+                    strongSelf.detail = detail
+                    strongSelf.tableView.reloadData()
+                    if let detail = detail, detail.page == 1 {
+                        strongSelf.setNoMoreData()
+                    }
+                    strongSelf.loadingIndicator.stopAnimating()
                 }
             }
         }
@@ -59,6 +72,7 @@ class TopicDetailViewController: UIViewController {
     private func loadMoreComments() {
         guard let url = topicURL, let detail = detail else { return }
         if currentPage >= detail.page {
+            setNoMoreData()
             return
         }
         currentPage += 1
@@ -68,12 +82,19 @@ class TopicDetailViewController: UIViewController {
                     strongSelf.comments.append(contentsOf: replies)
                     strongSelf.tableView.reloadData()
                     if strongSelf.currentPage == detail.page {
-                        strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
+                        strongSelf.setNoMoreData()
                     } else {
                         strongSelf.tableView.mj_footer.endRefreshing()
                     }
                 }
             }
+        }
+    }
+    
+    private func setNoMoreData() {
+        if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
+            footer.endRefreshingWithNoMoreData()
+            footer.stateLabel.isHidden = false
         }
     }
 
@@ -90,10 +111,15 @@ class TopicDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         
-        let footer = MJRefreshAutoFooter { [weak self] in
+        let footer = MJRefreshAutoNormalFooter { [weak self] in
             self?.loadMoreComments()
         }
+        footer?.stateLabel.isHidden = true
+        footer?.stateLabel.textColor = Theme.current.subTitleColor
+        footer?.setTitle(NSLocalizedString("没有更多回复了", comment: ""), for: .noMoreData)
+        footer?.isRefreshingTitleHidden = true
         footer?.triggerAutomaticallyRefreshPercent = 0.9
+        footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         tableView.mj_footer = footer
         
         tableView.register(TopicCommentViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicCommentViewCell.self))

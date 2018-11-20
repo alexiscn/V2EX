@@ -105,7 +105,7 @@ class TimelineViewController: UIViewController {
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             self?.loadData()
         })
-        header?.activityIndicatorViewStyle = Theme.current == .dark ? .white: .gray
+        header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         header?.stateLabel.isHidden = true
         header?.stateLabel.textColor = Theme.current.subTitleColor
         header?.lastUpdatedTimeLabel.isHidden = true

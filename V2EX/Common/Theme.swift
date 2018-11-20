@@ -23,6 +23,16 @@ enum Theme {
         }
     }
     
+    var activityIndicatorViewStyle: UIActivityIndicatorView.Style {
+        switch self {
+        case .light:
+            return .gray
+        case .dark:
+            return .white
+        
+        }
+    }
+    
     var titleColor: UIColor {
         switch self {
         case .light:
