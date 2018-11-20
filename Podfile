@@ -2,6 +2,8 @@ platform:ios,'11.0'
 use_frameworks!
 
 target 'V2EX' do
+    pod 'Fabric'
+    pod 'Crashlytics'
     pod 'Alamofire'
     pod 'GenericNetworking'
     pod 'SnapKit'
