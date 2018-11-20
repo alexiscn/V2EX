@@ -15,6 +15,8 @@ typealias V2SDKLoadTimelineCompletion = (TopicList, Error?) -> Void
 
 typealias V2SDKLoadTopicDetailCompletion = (TopicDetail?, [Reply], Error?) -> Void
 
+typealias V2SDKLoadTopicReplyCompletion = ([Reply], Error?) -> Void
+
 class V2SDK {
     
     static let baseURLString = "https://www.v2ex.com"

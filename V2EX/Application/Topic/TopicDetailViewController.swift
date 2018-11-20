@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MJRefresh
 
 class TopicDetailViewController: UIViewController {
 
@@ -20,7 +21,9 @@ class TopicDetailViewController: UIViewController {
     
     fileprivate var webViewHeightCaculated = false
     
-    fileprivate let titleString: String? 
+    fileprivate let titleString: String?
+    
+    fileprivate var currentPage = 1
     
     init(url: URL?, title: String?) {
         topicURL = url
@@ -38,13 +41,37 @@ class TopicDetailViewController: UIViewController {
         title = titleString
         view.backgroundColor = Theme.current.backgroundColor
         setupTableView()
-        
+        loadTopicDetail()
+    }
+    
+    private func loadTopicDetail() {
         if let url = topicURL {
             V2SDK.getTopicDetail(url) { (detail, replyList, error) in
                 DispatchQueue.main.async { [weak self] in
                     self?.comments = replyList
                     self?.detail = detail
                     self?.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    private func loadMoreComments() {
+        guard let url = topicURL, let detail = detail else { return }
+        if currentPage >= detail.page {
+            return
+        }
+        currentPage += 1
+        V2SDK.loadMoreReplies(topicURL: url, page: currentPage) { (replies, error) in
+            DispatchQueue.main.async { [weak self] in
+                if error == nil, let strongSelf = self {
+                    strongSelf.comments.append(contentsOf: replies)
+                    strongSelf.tableView.reloadData()
+                    if strongSelf.currentPage == detail.page {
+                        strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
+                    } else {
+                        strongSelf.tableView.mj_footer.endRefreshing()
+                    }
                 }
             }
         }
@@ -62,6 +89,12 @@ class TopicDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        
+        let footer = MJRefreshAutoFooter { [weak self] in
+            self?.loadMoreComments()
+        }
+        footer?.triggerAutomaticallyRefreshPercent = 0.9
+        tableView.mj_footer = footer
         
         tableView.register(TopicCommentViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicCommentViewCell.self))
         tableView.register(TopicDetailViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicDetailViewCell.self))

@@ -23,4 +23,6 @@ struct TopicDetail {
     
     var small: String?
     
+    var page: Int = 0
+    
 }

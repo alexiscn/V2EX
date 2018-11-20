@@ -84,7 +84,7 @@ extension V2SDK {
     /// - Parameters:
     ///   - topicURL: 主题URL
     ///   - completion: 请求回调
-    public class func getTopicDetail(_ topicURL: URL, page: Int = 1, completion: @escaping V2SDKLoadTopicDetailCompletion) {
+    public class func getTopicDetail(_ topicURL: URL, completion: @escaping V2SDKLoadTopicDetailCompletion) {
         
         let urlString = topicURL.absoluteString.appending("?p=1")
         let url = URL(string: urlString)!
@@ -106,6 +106,23 @@ extension V2SDK {
         }
     }
     
+    public class func loadMoreReplies(topicURL: URL, page: Int, completion: @escaping V2SDKLoadTopicReplyCompletion) {
+        let urlString = topicURL.absoluteString.appending("?p=\(page)")
+        let url = URL(string: urlString)!
+        loadHTMLString(url: url) { (html, error) in
+            guard let html = html else {
+                completion([], error)
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                let replyList = parseTopicReply(doc)
+                completion(replyList, nil)
+            } catch {
+                completion([], error)
+            }
+        }
+    }
 }
 
 extension V2SDK {
@@ -149,6 +166,22 @@ extension V2SDK {
             detail.author = try header.select("small a").text()
             detail.small = try header.select("small").text()
             detail.contentHTML = try doc.select("div.topic_content").html()
+            
+            let cells = try doc.select("div.cell")
+            for cell in cells {
+                let divID = try? cell.attr("id")
+                if divID == nil || divID == "" {
+                    if let lastLink = try cell.select("a.page_normal").last() {
+                        let href = try lastLink.attr("href")
+                        if href.hasPrefix("?p=") {
+                            detail.page = Int(href.replacingOccurrences(of: "?p=", with: "")) ?? 0
+                        }
+                        break
+                    }
+                } else {
+                    continue
+                }
+            }
             
             return detail
         } catch {
