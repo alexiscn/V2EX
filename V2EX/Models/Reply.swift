@@ -31,6 +31,8 @@ struct Reply: TableCodable {
     
     var content: String? = nil
     
+    var likesInfo: String? = nil
+    
     var floor: String? = nil
     
     var userLinkURL: URL? = nil

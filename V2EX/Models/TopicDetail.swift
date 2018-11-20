@@ -23,6 +23,8 @@ struct TopicDetail {
     
     var small: String?
     
+    var likes: String?
+    
     var page: Int = 0
     
 }

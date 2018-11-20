@@ -145,6 +145,9 @@ extension V2SDK {
                 let userLink = try cell.select("a.dark")
                 reply.username = try userLink.text()
                 reply.floor = try cell.select("span.no").text()
+                if let like = try cell.select(".small.fade").first() {
+                    reply.likesInfo = try like.text()
+                }
                 
                 replyList.append(reply)
             }
@@ -164,7 +167,13 @@ extension V2SDK {
             detail.authorAvatarURL = avatarURLWithSource(authorAvatarSrc)
             detail.title = try header.select("h1").text()
             detail.author = try header.select("small a").text()
-            detail.small = try header.select("small").text()
+            let small = try header.select("small").text()
+            if let author = detail.author {
+                detail.small = small.replacingOccurrences(of: "\(author) · ", with: "")
+            } else {
+                detail.small = small
+            }
+            
             detail.contentHTML = try doc.select("div.topic_content").html()
             
             let cells = try doc.select("div.cell")

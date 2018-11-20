@@ -12,7 +12,7 @@ import MJRefresh
 
 class MainViewController: UIViewController {
     
-    private var menuVC: MenuViewController?
+    private var rightMenuVC: RightMenuViewController?
     private var timelineVC: TimelineViewController?
     
     var tab: V2Tab = .hotTab
@@ -52,13 +52,16 @@ class MainViewController: UIViewController {
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        
+        if let vc = SideMenuManager.default.menuRightNavigationController {
+            present(vc, animated: true, completion: nil)
+        }
     }
     
     private func updateTab(_ tab: V2Tab) {
         dismiss(animated: true, completion: nil)
         self.timelineVC?.updateTab(tab)
         self.title = tab.title
+        rightMenuVC?.updateDataSource(tab.subTabs)
     }
     
     private func setupChildViewController() {
@@ -78,10 +81,16 @@ class MainViewController: UIViewController {
         menuController.selectionChangedHandler = { [weak self] tab in
             self?.updateTab(tab)
         }
-        menuVC = menuController
         let menuNav = UISideMenuNavigationController(rootViewController: menuController)
         menuNav.isNavigationBarHidden = true
+        
+        let rightMenuController = RightMenuViewController()
+        rightMenuVC = rightMenuController
+        let rightNav = UISideMenuNavigationController(rootViewController: rightMenuController)
+        rightNav.isNavigationBarHidden = true
+        
         SideMenuManager.default.menuLeftNavigationController = menuNav
+        SideMenuManager.default.menuRightNavigationController = rightNav
         SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
         SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
         SideMenuManager.default.menuWidth = 150.0

@@ -34,4 +34,12 @@ class V2SDK {
             completion(html, nil)
         }
     }
+    
+    class func checkIfNeedsSignIn(dataResponse: DataResponse<Data>) -> Bool {
+        let path = "/signin"
+        if dataResponse.response?.url?.path == path && dataResponse.request?.url?.path != path {
+            return true
+        }
+        return false
+    }
 }

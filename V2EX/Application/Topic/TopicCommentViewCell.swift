@@ -23,6 +23,8 @@ class TopicCommentViewCell: UITableViewCell {
     
     private let timeAgoLabel: UILabel
     
+    private let likesLabel: UILabel
+    
     private let contentTextView: UITextView
     
     override func awakeFromNib() {
@@ -51,6 +53,10 @@ class TopicCommentViewCell: UITableViewCell {
         timeAgoLabel.font = UIFont.systemFont(ofSize: 11)
         timeAgoLabel.textColor = Theme.current.subTitleColor
         
+        likesLabel = UILabel()
+        likesLabel.font = UIFont.systemFont(ofSize: 11)
+        likesLabel.textColor = Theme.current.subTitleColor
+        
         contentTextView = UITextView()
         contentTextView.textContainerInset = UIEdgeInsets(top: -2, left: -5, bottom: 0, right: 0)
         contentTextView.backgroundColor = .clear
@@ -66,6 +72,7 @@ class TopicCommentViewCell: UITableViewCell {
         containerView.addSubview(avatarView)
         containerView.addSubview(usernameButton)
         containerView.addSubview(timeAgoLabel)
+        containerView.addSubview(likesLabel)
         containerView.addSubview(floorLabel)
         containerView.addSubview(contentTextView)
         
@@ -89,6 +96,11 @@ class TopicCommentViewCell: UITableViewCell {
         timeAgoLabel.snp.makeConstraints { make in
             make.centerY.equalTo(usernameButton)
             make.leading.equalTo(usernameButton.snp.trailing).offset(5)
+        }
+        
+        likesLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(usernameButton)
+            make.leading.equalTo(timeAgoLabel.snp.trailing).offset(5)
         }
         
         floorLabel.snp.makeConstraints { make in
@@ -123,6 +135,7 @@ class TopicCommentViewCell: UITableViewCell {
         avatarView.kf.setImage(with: reply.avatarURL)
         contentTextView.text = reply.content
         timeAgoLabel.text = reply.timeAgo
+        likesLabel.text = reply.likesInfo
         if let floor = reply.floor {
             floorLabel.text = "\(floor)楼"
         }
