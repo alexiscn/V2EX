@@ -104,7 +104,17 @@ public struct V2Tab {
         allTab.subTabs.append(V2Tab(key: "ideas", title: "奇思妙想"))
         allTab.subTabs.append(V2Tab(key: "deals", title: "优惠信息"))
         
-        return [techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, hotTab, allTab]
+        var r2Tab = V2Tab(key: "r2", title: "R2")
+        r2Tab.subTabs.append(V2Tab(key: "share", title: "分享发现"))
+        r2Tab.subTabs.append(V2Tab(key: "create", title: "分享创造"))
+        r2Tab.subTabs.append(V2Tab(key: "qna", title: "问与答"))
+        r2Tab.subTabs.append(V2Tab(key: "jobs", title: "酷工作"))
+        r2Tab.subTabs.append(V2Tab(key: "programmer", title: "程序员"))
+        r2Tab.subTabs.append(V2Tab(key: "career", title: "职场话题"))
+        r2Tab.subTabs.append(V2Tab(key: "ideas", title: "奇思妙想"))
+        r2Tab.subTabs.append(V2Tab(key: "deals", title: "优惠信息"))
+        
+        return [techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, hotTab, allTab, r2Tab]
     }
 }
 

@@ -8,14 +8,27 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController, UISearchControllerDelegate {
 
+    private var searchBar: UISearchBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = Theme.current.backgroundColor
-        navigationItem.title = "搜索"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        setupNavigationBar()
+        
+        
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: Theme.current.navigationBarTextColor)
     }
 
     override func didReceiveMemoryWarning() {
