@@ -6,6 +6,7 @@ PODS:
   - GenericNetworking (0.1.10):
     - Alamofire
   - Kingfisher (4.10.1)
+  - MBProgressHUD (1.1.0)
   - MJRefresh (3.1.15.7)
   - SideMenu (5.0.3)
   - SnapKit (4.2.0)
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - Fabric
   - GenericNetworking
   - Kingfisher
+  - MBProgressHUD
   - MJRefresh
   - SideMenu
   - SnapKit
@@ -36,6 +38,7 @@ SPEC REPOS:
     - Fabric
     - GenericNetworking
     - Kingfisher
+    - MBProgressHUD
     - MJRefresh
     - SideMenu
     - SnapKit
@@ -50,6 +53,7 @@ SPEC CHECKSUMS:
   Fabric: d2b22f443ba195d8a7cc204da230977c72733b40
   GenericNetworking: 7572de096279ff117f92b5e5612dd61c4b2be244
   Kingfisher: c148cd7b47ebde9989f6bc7c27dcaa79d81279a0
+  MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   MJRefresh: 697f8ec75ebdbe9207767bb682cf0f51b0d8a41f
   SideMenu: 1dcaabce84538c53325c287f7fe62999379a641c
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
@@ -58,6 +62,6 @@ SPEC CHECKSUMS:
   WCDB.swift: 87aee41f5ca3aded9c6f9b68b0ef3e88918a5ee2
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
 
-PODFILE CHECKSUM: 2297964c872c0604f70ccacbcf486d3de38f1c6a
+PODFILE CHECKSUM: f93a3b07678f2637b38216bb19f7b9e8c2e1b7d0
 
 COCOAPODS: 1.5.3

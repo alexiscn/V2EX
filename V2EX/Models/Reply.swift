@@ -20,6 +20,7 @@ struct Reply: TableCodable {
         case content
         case contentHTML
         case floor
+        case likesInfo
         case userLinkURL = "user_link_url"
         case username
         case avatarURL = "avatar_url"
@@ -44,7 +45,5 @@ struct Reply: TableCodable {
     
     var avatarURL: URL? = nil
     
-    init() {
-        
-    }
+    init() { }
 }

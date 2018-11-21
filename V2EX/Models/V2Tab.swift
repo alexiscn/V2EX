@@ -114,7 +114,7 @@ public struct V2Tab {
         r2Tab.subTabs.append(V2Tab(key: "ideas", title: "奇思妙想"))
         r2Tab.subTabs.append(V2Tab(key: "deals", title: "优惠信息"))
         
-        return [techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, hotTab, allTab, r2Tab]
+        return [hotTab, allTab, techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, r2Tab]
     }
 }
 

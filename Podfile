@@ -11,7 +11,6 @@ target 'V2EX' do
     pod 'Kingfisher'
     pod 'MJRefresh'
     pod 'SideMenu'
-    
     pod 'WCDB.swift'
-#    pod 'SQLiteKit', :path => 'DevelopmentPods/SQLiteKit'
+    pod 'MBProgressHUD'
 end
