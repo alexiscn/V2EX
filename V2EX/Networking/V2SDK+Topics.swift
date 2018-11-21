@@ -141,6 +141,7 @@ extension V2SDK {
                 let avatarSrc = try cell.select("img").first()?.attr("src")
                 reply.avatarURL = avatarURLWithSource(avatarSrc)
                 reply.content = try cell.select("div.reply_content").text()
+                reply.contentHTML = try cell.select("div.reply_content").html()
                 reply.timeAgo = try cell.select("span.ago").text()
                 let userLink = try cell.select("a.dark")
                 reply.username = try userLink.text()

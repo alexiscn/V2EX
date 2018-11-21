@@ -18,6 +18,7 @@ struct Reply: TableCodable {
         
         case timeAgo = "time_ago"
         case content
+        case contentHTML
         case floor
         case userLinkURL = "user_link_url"
         case username
@@ -30,6 +31,8 @@ struct Reply: TableCodable {
     var timeAgo: String? = nil
     
     var content: String? = nil
+    
+    var contentHTML: String? = nil
     
     var likesInfo: String? = nil
     
