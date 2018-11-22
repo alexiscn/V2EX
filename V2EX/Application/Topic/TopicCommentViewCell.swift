@@ -25,6 +25,8 @@ class TopicCommentViewCell: UITableViewCell {
     
     private let likesLabel: UILabel
     
+    private let ownerLabel: TagLabel
+    
     private let contentTextView: UITextView
     
     override func awakeFromNib() {
@@ -57,6 +59,11 @@ class TopicCommentViewCell: UITableViewCell {
         likesLabel.font = UIFont.systemFont(ofSize: 11)
         likesLabel.textColor = Theme.current.subTitleColor
         
+        ownerLabel = TagLabel()
+        ownerLabel.backgroundColor = Theme.current.backgroundColor
+        ownerLabel.textColor = Theme.current.titleColor
+        ownerLabel.font = UIFont.systemFont(ofSize: 10)
+        
         contentTextView = UITextView()
         contentTextView.textContainerInset = UIEdgeInsets(top: -2, left: -5, bottom: 0, right: 0)
         contentTextView.backgroundColor = .clear
@@ -73,6 +80,7 @@ class TopicCommentViewCell: UITableViewCell {
         containerView.addSubview(usernameButton)
         containerView.addSubview(timeAgoLabel)
         containerView.addSubview(likesLabel)
+        containerView.addSubview(ownerLabel)
         containerView.addSubview(floorLabel)
         containerView.addSubview(contentTextView)
         
@@ -101,6 +109,11 @@ class TopicCommentViewCell: UITableViewCell {
         likesLabel.snp.makeConstraints { make in
             make.centerY.equalTo(usernameButton)
             make.leading.equalTo(timeAgoLabel.snp.trailing).offset(5)
+        }
+        
+        ownerLabel.snp.makeConstraints { make in
+            make.centerY.equalTo(usernameButton)
+            make.leading.equalTo(likesLabel.snp.trailing).offset(5)
         }
         
         floorLabel.snp.makeConstraints { make in
@@ -139,6 +152,14 @@ class TopicCommentViewCell: UITableViewCell {
         if let floor = reply.floor {
             floorLabel.text = "\(floor)楼"
         }
+        if reply.isTopicAuthor {
+            ownerLabel.isHidden = false
+            ownerLabel.text = "楼主"
+            ownerLabel.setNeedsLayout()
+        } else {
+            ownerLabel.isHidden = true
+            ownerLabel.text = nil
+        }
     }
 
     class func heightForRowWithReply(_ reply: inout Reply) -> CGFloat {
@@ -166,4 +187,15 @@ extension TopicCommentViewCell: UITextViewDelegate {
         return false
     }
     
+}
+
+class TagLabel: UILabel {
+    override func drawText(in rect: CGRect) {
+        super.drawText(in: rect.insetBy(dx: 5, dy: 2))
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        let size = super.intrinsicContentSize
+        return CGSize(width: size.width + 10, height: size.height + 4)
+    }
 }

@@ -97,8 +97,8 @@ extension V2SDK {
             
             do {
                 let doc = try SwiftSoup.parse(html)
-                let replyList = parseTopicReply(doc)
                 let detail = parseTopicDetail(doc)
+                let replyList = parseTopicReply(doc)
                 completion(detail, replyList, nil)
             } catch {
                 completion(nil, [], error)

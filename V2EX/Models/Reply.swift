@@ -9,7 +9,7 @@
 import Foundation
 import WCDBSwift
 
-struct Reply: TableCodable {
+class Reply: TableCodable {
     
     enum CodingKeys: String, CodingTableKey {
         
@@ -44,6 +44,8 @@ struct Reply: TableCodable {
     var username: String? = nil
     
     var avatarURL: URL? = nil
+    
+    var isTopicAuthor: Bool = false
     
     init() { }
 }

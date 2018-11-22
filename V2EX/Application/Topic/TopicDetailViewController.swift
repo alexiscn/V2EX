@@ -57,8 +57,15 @@ class TopicDetailViewController: UIViewController {
             V2SDK.getTopicDetail(url) { (detail, replyList, error) in
                 DispatchQueue.main.async { [weak self] in
                     guard let strongSelf = self else { return }
-                    strongSelf.comments = replyList
                     strongSelf.detail = detail
+                    for r in replyList {
+                        if r.username == detail?.author {
+                            r.isTopicAuthor = true
+                        }
+                    }
+                    
+                    strongSelf.comments = replyList
+                    
                     strongSelf.tableView.reloadData()
                     if let detail = detail, detail.page == 1 {
                         strongSelf.setNoMoreData()
@@ -79,6 +86,11 @@ class TopicDetailViewController: UIViewController {
         V2SDK.loadMoreReplies(topicURL: url, page: currentPage) { (replies, error) in
             DispatchQueue.main.async { [weak self] in
                 if error == nil, let strongSelf = self {
+                    for r in replies {
+                        if r.username == strongSelf.detail?.author {
+                            r.isTopicAuthor = true
+                        }
+                    }
                     strongSelf.comments.append(contentsOf: replies)
                     strongSelf.tableView.reloadData()
                     if strongSelf.currentPage == detail.page {
