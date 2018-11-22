@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
 		A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */; };
+		A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70921A6B51100618AD5 /* SettingTableModel.swift */; };
+		A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */; };
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
@@ -60,6 +62,8 @@
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
+		A31DF70921A6B51100618AD5 /* SettingTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableModel.swift; sourceTree = "<group>"; };
+		A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewCell.swift; sourceTree = "<group>"; };
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +230,8 @@
 		A358549120E2043900C76393 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				A31DF70921A6B51100618AD5 /* SettingTableModel.swift */,
+				A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */,
 				A358549620E205E600C76393 /* SettingsViewController.swift */,
 				A358549420E2048300C76393 /* OpenSourceViewController.swift */,
 			);
@@ -494,6 +500,7 @@
 				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
 				A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
+				A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */,
 				A3691745219E911A002DA8E3 /* ActionSheet.swift in Sources */,
 				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
 				A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */,
@@ -524,6 +531,7 @@
 				A379EA3F212259C500FA2169 /* NodeListViewController.swift in Sources */,
 				A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */,
 				A36D0FB3219D814200E20EFB /* V2SDK+Replies.swift in Sources */,
+				A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */,
 				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,

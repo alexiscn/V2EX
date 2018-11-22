@@ -107,7 +107,7 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func settingButtonTapped(_ sender: Any) {
-        let settingsController = UIStoryboard.settings.instantiateViewController(ofType: SettingsViewController.self)
+        let settingsController = SettingsViewController()
         let nav = SettingsNavigationController(rootViewController: settingsController)
         present(nav, animated: true, completion: nil)
     }
