@@ -9,31 +9,47 @@
 import UIKit
 import SafariServices
 
-fileprivate struct OpenSource {
+fileprivate struct OpenSource: Codable {
     let title: String
+    let subTitle: String
     let url: String
 }
 
-class OpenSourceViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+fileprivate class OpenSourceViewCell: UITableViewCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Theme.current.cellHighlightColor
+        selectedBackgroundView = backgroundView
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class OpenSourceViewController: UITableViewController {
 
     fileprivate var dataSource: [OpenSource] = []
-    
-    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        title = NSLocalizedString("感谢", comment: "")
+        tableView.register(OpenSourceViewCell.self, forCellReuseIdentifier: NSStringFromClass(OpenSourceViewCell.self))
+        tableView.backgroundColor = Theme.current.backgroundColor
+        tableView.separatorColor = Theme.current.cellBackgroundColor
+        tableView.tableFooterView = UIView()
         
-        dataSource.append(OpenSource(title: "Alamofire", url: "https://github.com/alamofire/alamofire"))
-        dataSource.append(OpenSource(title: "CRRefresh", url: "https://github.com/CRAnimation/CRRefresh"))
-        dataSource.append(OpenSource(title: "GenericNetworking", url: "https://github.com/alexiscn/GenericNetworking"))
-        dataSource.append(OpenSource(title: "Kingfisher", url: "https://github.com/onevcat/Kingfisher"))
-        dataSource.append(OpenSource(title: "SlideMenu", url: "https://github.com/jonkykong/SideMenu"))
-        dataSource.append(OpenSource(title: "SnapKit", url: "https://github.com/snapkit/snapkit"))
-        dataSource.append(OpenSource(title: "SwiftSoup", url: "https://github.com/scinfu/SwiftSoup"))
-        
-        dataSource.sort(by: { $0.title > $1.title })
+        if let path = Bundle.main.path(forResource: "opensource", ofType: "json"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+            if let list = try? JSONDecoder().decode([OpenSource].self, from: data) {
+                dataSource = list
+                dataSource.sort(by: { $0.title < $1.title })
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,19 +57,25 @@ class OpenSourceViewController: UIViewController, UITableViewDataSource, UITable
         // Dispose of any resources that can be recreated.
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(OpenSourceViewCell.self), for: indexPath)
+        cell.backgroundColor = .clear
+        cell.textLabel?.textColor = Theme.current.titleColor
+        cell.detailTextLabel?.textColor = Theme.current.subTitleColor
+        cell.accessoryType = .disclosureIndicator
+        
+        let source = dataSource[indexPath.row]
+        cell.textLabel?.text = source.title
+        cell.detailTextLabel?.text = source.subTitle
+        
+        return cell
     }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
         let source = dataSource[indexPath.row]

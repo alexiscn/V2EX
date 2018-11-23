@@ -14,10 +14,6 @@ extension UIStoryboard {
         return UIStoryboard(name: "Main", bundle: nil)
     }
     
-    static var settings: UIStoryboard {
-        return UIStoryboard(name: "Settings", bundle: nil)
-    }
-    
     func instantiateViewController<T>(ofType type: T.Type) -> T {
         return instantiateViewController(withIdentifier: String(describing: type)) as! T
     }

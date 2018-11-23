@@ -115,3 +115,18 @@ enum Theme {
         return ""
     }
 }
+
+extension Theme {
+    
+    func applyTheme() {
+        
+        for window in UIApplication.shared.windows {
+            for view in window.subviews {
+                view.removeFromSuperview()
+                window.addSubview(view)
+            }
+        }
+        
+    }
+    
+}

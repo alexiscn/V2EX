@@ -1,0 +1,57 @@
+[
+    {
+        "title": "Fabric",
+        "subTitle": "Fabric is a platform that helps your mobile team build better apps",
+        "url": "https://get.fabric.io/"
+    },
+    {
+        "title": "Crashlytics",
+        "subTitle": "Used to collection crashes",
+        "url": "https://try.crashlytics.com/"
+    },
+    {
+        "title": "Alamofire",
+        "subTitle": "Elegant HTTP Networking in Swift",
+        "url": "https://github.com/Alamofire/Alamofire"
+    },
+    {
+        "title": "GenericNetworking",
+        "subTitle": "Generic Networking Framework base on Alamofire and Codable",
+        "url": "https://github.com/alexiscn/GenericNetworking"
+    },
+    {
+        "title": "SnapKit",
+        "subTitle": "A Swift Autolayout DSL for iOS & OS X",
+        "url": "https://github.com/SnapKit/SnapKit"
+    },
+    {
+        "title": "SwiftSoup",
+        "subTitle": "Pure Swift HTML Parser",
+        "url": "https://github.com/scinfu/SwiftSoup"
+    },
+    {
+        "title": "Kingfisher",
+        "subTitle": "A lightweight, pure-Swift library for downloading and caching images from the web.",
+        "url": "https://github.com/onevcat/Kingfisher"
+    },
+    {
+        "title": "MJRefresh",
+        "subTitle": "An easy way to use pull-to-refresh.",
+        "url": "https://github.com/CoderMJLee/MJRefresh"
+    },
+    {
+        "title": "SideMenu",
+        "subTitle": "Simple side/slide menu control for iOS",
+        "url": "https://github.com/jonkykong/SideMenu"
+    },
+    {
+        "title": "WCDB.swift",
+        "subTitle": "WCDB is a cross-platform database framework developed by WeChat.",
+        "url": "https://github.com/tencent/wcdb"
+    },
+    {
+        "title": "MBProgressHUD",
+        "subTitle": "MBProgressHUD + Customizations",
+        "url": "https://github.com/jdg/MBProgressHUD"
+    }
+]

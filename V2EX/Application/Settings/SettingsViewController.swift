@@ -66,8 +66,9 @@ class SettingsViewController: UIViewController {
         let generalSection = SettingTableSectionModel(title: nil, items: [viewOption, viewOption2, viewOption3, viewOption4])
         dataSource.append(generalSection)
         
-        let openSource = SettingTableModel(title: "Open Source") {
-            
+        let openSource = SettingTableModel(title: "Open Source") { [weak self] in
+            let controller = OpenSourceViewController()
+            self?.navigationController?.pushViewController(controller, animated: true)
         }
         let about = SettingTableModel(title: "关于V2EX") {
             
@@ -112,7 +113,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         
-        
+        let group = dataSource[indexPath.section]
+        let item = group.items[indexPath.row]
+        item.action?()
     }
     
 }
