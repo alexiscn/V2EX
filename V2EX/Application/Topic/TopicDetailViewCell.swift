@@ -15,6 +15,8 @@ class TopicDetailViewCell: UITableViewCell {
  
     var webViewHeightChangedHandler: ((CGFloat) -> Void)?
     
+    var topicButtonHandler: RelayCommand?
+    
     private let avatarView: UIImageView
     
     private let usernameButton: UIButton
@@ -24,6 +26,8 @@ class TopicDetailViewCell: UITableViewCell {
     private let timeAgoLabel: UILabel
     
     private let webView: WKWebView
+    
+    private let nodeButton: UIButton
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
@@ -43,6 +47,13 @@ class TopicDetailViewCell: UITableViewCell {
         timeAgoLabel.font = UIFont.systemFont(ofSize: 11)
         timeAgoLabel.textColor = Theme.current.subTitleColor
         
+        nodeButton = UIButton(type: .system)
+        nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        nodeButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        nodeButton.backgroundColor = Theme.current.cellBackgroundColor
+        nodeButton.isHidden = true
+        nodeButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5)
+        
         let configuration = WKWebViewConfiguration()
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.backgroundColor = .clear
@@ -53,6 +64,7 @@ class TopicDetailViewCell: UITableViewCell {
         contentView.addSubview(usernameButton)
         contentView.addSubview(timeAgoLabel)
         contentView.addSubview(titleLabel)
+        contentView.addSubview(nodeButton)
         contentView.addSubview(webView)
         
         webView.navigationDelegate = self
@@ -73,6 +85,11 @@ class TopicDetailViewCell: UITableViewCell {
             make.leading.equalToSuperview().offset(64)
         }
         
+        nodeButton.snp.makeConstraints { make in
+            make.centerY.equalTo(usernameButton)
+            make.trailing.equalToSuperview().offset(-12)
+        }
+        
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(12)
             make.top.equalTo(avatarView.snp.bottom).offset(12)
@@ -85,6 +102,12 @@ class TopicDetailViewCell: UITableViewCell {
             make.trailing.equalToSuperview()
             make.height.equalTo(0)
         }
+        
+        nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func handleNodeButtonTapped(_ sender: Any) {
+        topicButtonHandler?()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -96,6 +119,12 @@ class TopicDetailViewCell: UITableViewCell {
         usernameButton.setTitle(detail.author, for: .normal)
         titleLabel.text = detail.title
         timeAgoLabel.text = detail.small
+        if let nodeName = detail.nodeName {
+            nodeButton.isHidden = false
+            nodeButton.setTitle(nodeName, for: .normal)
+        } else {
+            nodeButton.isHidden = true
+        }
         webView.loadHTMLString(htmlContent(detail.contentHTML), baseURL: URL(string: "https://www.v2ex.com"))
     }
     

@@ -27,4 +27,8 @@ struct TopicDetail {
     
     var page: Int = 0
     
+    var nodeName: String?
+    
+    var nodeTag: String?
+    
 }

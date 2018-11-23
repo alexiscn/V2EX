@@ -173,6 +173,12 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                     strongSelf.tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
                 }
             }
+            cell.topicButtonHandler = { [weak self] in
+                if let detail = self?.detail, let node = detail.nodeTag, let nodeName = detail.nodeName {
+                    let controller = TimelineViewController(node: node, nodeName: nodeName)
+                    self?.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
             if let detail = detail {
                 cell.update(detail)
             }

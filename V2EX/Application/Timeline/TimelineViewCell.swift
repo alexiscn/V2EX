@@ -145,7 +145,12 @@ class TimelineViewCell: UITableViewCell {
         timeLabel.text = topic.lastUpdatedTime
         titleLabel.text = topic.title
         commentCountLabel.text = "\(topic.replies)"
-        nodeButton.setTitle(topic.nodeTitle, for: .normal)
+        if let title = topic.nodeTitle {
+            nodeButton.isHidden = false
+            nodeButton.setTitle(title, for: .normal)
+        } else {
+            nodeButton.isHidden = true
+        }
     }
     
     class func heightForRowWithTopic(_ topic: inout Topic) -> CGFloat {

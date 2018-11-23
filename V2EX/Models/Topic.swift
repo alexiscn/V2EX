@@ -9,7 +9,7 @@
 import Foundation
 import WCDBSwift
 
-struct Topic: TableCodable {
+class Topic: TableCodable {
     
     enum CodingKeys: String, CodingTableKey {
         typealias Root = Topic

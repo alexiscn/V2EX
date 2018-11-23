@@ -60,7 +60,7 @@ extension V2SDK {
                     if !cell.hasClass("cell item") {
                         continue
                     }
-                    var topic = self.parseTopicListCell(cell)
+                    let topic = self.parseTopicListCell(cell)
                     topic.tab = tab.key
                     topics.append(topic)
                 }
@@ -76,6 +76,37 @@ extension V2SDK {
             }
         }
         
+    }
+    
+    public class func loadTopics(topicName: String, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
+        let urlString = "https://www.v2ex.com/go/\(topicName)?p=\(page)"
+        let url = URL(string: urlString)!
+        loadHTMLString(url: url) { (html, error) in
+            guard let html = html else {
+                completion([], error)
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                if let topicNodes = try doc.select("#TopicsNode").first() {
+                    var topics: TopicList = []
+                    for cell in topicNodes.children() {
+                        let cellContent = try cell.html()
+                        if cellContent == "" || cellContent == "(adsbygoogle = window.adsbygoogle || []).push({});" {
+                            continue
+                        }
+                        let topic = self.parseTopicListCell(cell)
+                        topics.append(topic)
+                    }
+                    completion(topics, nil)
+                } else {
+                    completion([], error)
+                }
+                
+            } catch {
+                completion([], error)
+            }
+        }
     }
     
     
@@ -137,7 +168,7 @@ extension V2SDK {
                 if divID == nil || divID == "" {
                     continue
                 }
-                var reply = Reply()
+                let reply = Reply()
                 let avatarSrc = try cell.select("img").first()?.attr("src")
                 reply.avatarURL = avatarURLWithSource(avatarSrc)
                 reply.content = try cell.select("div.reply_content").text()
@@ -176,6 +207,8 @@ extension V2SDK {
             }
             
             detail.contentHTML = try doc.select("div.topic_content").html()
+            detail.nodeTag = try doc.select("meta[property='article:tag'").attr("content")
+            detail.nodeName = try doc.select("meta[property='article:section'").attr("content")
             
             let cells = try doc.select("div.cell")
             for cell in cells {
@@ -212,7 +245,7 @@ extension V2SDK {
     }
     
     class func parseTopicListCell(_ cell: Element) -> Topic {
-        var topic = Topic()
+        let topic = Topic()
         // parse avatar
         if let img = try? cell.select("img").first(), let imgEle = img, let src = try? imgEle.attr("src") {
             topic.avatar = avatarURLWithSource(src)

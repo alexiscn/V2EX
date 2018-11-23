@@ -91,7 +91,7 @@ class TopicCommentViewCell: UITableViewCell {
         }
         
         avatarView.snp.makeConstraints { make in
-            make.height.width.equalTo(42)
+            make.height.width.equalTo(32)
             make.leading.equalToSuperview().offset(12)
             make.top.equalToSuperview().offset(12)
         }

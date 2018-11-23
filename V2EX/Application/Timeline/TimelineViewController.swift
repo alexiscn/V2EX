@@ -9,6 +9,11 @@
 import UIKit
 import MJRefresh
 
+enum TimelineType {
+    case tab
+    case node
+}
+
 class TimelineViewController: UIViewController {
 
     fileprivate var dataSource: [Topic] = []
@@ -17,10 +22,23 @@ class TimelineViewController: UIViewController {
     
     fileprivate var currentPage: Int = 0
     
-    fileprivate var tab: V2Tab
+    fileprivate var tab: V2Tab = V2Tab.hotTab
+    
+    fileprivate var type: TimelineType = .tab
+    
+    fileprivate var node: String = ""
+    fileprivate var nodeName: String = ""
     
     init(tab: V2Tab) {
         self.tab = tab
+        self.type = .tab
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    init(node: String, nodeName: String) {
+        self.node = node
+        self.nodeName = nodeName
+        self.type = .node
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -31,10 +49,16 @@ class TimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = Theme.current.backgroundColor
-        navigationItem.title = tab.title
         setupTableView()
-        loadData()
+        
+        switch type {
+        case .tab:
+            navigationItem.title = tab.title
+            loadData()
+        case .node:
+            navigationItem.title = nodeName
+            loadNodeTopics()
+        }
     }
     
     func updateTab(_ tab: V2Tab) {
@@ -86,6 +110,23 @@ class TimelineViewController: UIViewController {
     fileprivate func loadMoreData() {
         
     }
+    
+    fileprivate func loadNodeTopics() {
+        V2SDK.loadTopics(topicName: node, page: 1) { (topics, error) in
+            DispatchQueue.main.async { [weak self] in
+                guard let strongSelf = self else { return }
+                
+                strongSelf.dataSource = topics
+                strongSelf.tableView.reloadData()
+                strongSelf.tableView.mj_header.endRefreshing()
+                if strongSelf.tab.key == V2Tab.allTab.key {
+                    strongSelf.tableView.mj_footer.resetNoMoreData()
+                } else {
+                    strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
+                }
+            }
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -95,7 +136,7 @@ class TimelineViewController: UIViewController {
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds)
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = Theme.current.backgroundColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
