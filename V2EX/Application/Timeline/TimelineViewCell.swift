@@ -92,31 +92,31 @@ class TimelineViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(10)
         }
         
-        nodeButton.snp.makeConstraints { make in
-            make.height.equalTo(18)
-            make.leading.equalToSuperview().offset(60)
+        timeLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(57)
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         
         usernameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(nodeButton.snp.trailing).offset(5)
+            make.leading.equalTo(timeLabel.snp.trailing).offset(5)
             make.centerY.equalTo(nodeButton)
         }
         
         commentImageView.snp.makeConstraints { make in
             make.height.width.equalTo(12)
-            make.centerY.equalTo(nodeButton)
+            make.centerY.equalTo(timeLabel)
             make.leading.equalTo(usernameLabel.snp.trailing).offset(10)
         }
         
         commentCountLabel.snp.makeConstraints { make in
             make.leading.equalTo(commentImageView.snp.trailing).offset(5)
-            make.centerY.equalTo(nodeButton)
+            make.centerY.equalTo(timeLabel)
         }
         
-        timeLabel.snp.makeConstraints { make in
+        nodeButton.snp.makeConstraints { make in
+            make.height.equalTo(18)
             make.trailing.equalToSuperview().offset(-10)
-            make.centerY.equalTo(nodeButton)
+            make.centerY.equalTo(timeLabel)
         }
         
         let backgroundView = UIView()
