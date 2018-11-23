@@ -16,6 +16,8 @@ enum TimelineType {
 
 class TimelineViewController: UIViewController {
 
+    var topicSelectionHandler: ((Topic?) -> Void)?
+    
     fileprivate var dataSource: [Topic] = []
     
     fileprivate var tableView: UITableView!
@@ -50,15 +52,13 @@ class TimelineViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
-        
         switch type {
         case .tab:
             navigationItem.title = tab.title
-            loadData()
         case .node:
             navigationItem.title = nodeName
-            loadNodeTopics()
         }
+        loadData()
     }
     
     func updateTab(_ tab: V2Tab) {
@@ -78,6 +78,15 @@ class TimelineViewController: UIViewController {
 
     private func loadData(loadCache: Bool = true) {
         tableView.mj_header.beginRefreshing()
+        switch type {
+        case .tab:
+            loadTopicList()
+        case .node:
+            loadNodeTopics()
+        }
+    }
+    
+    private func loadTopicList(loadCache: Bool = true) {
         DispatchQueue.global().async {
             if loadCache {
                 DispatchQueue.main.async {
@@ -175,6 +184,9 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         cell.backgroundColor = .clear
         let topic = dataSource[indexPath.row]
         cell.update(topic)
+        cell.nodeHandler = { [weak topic, weak self] in
+            self?.topicSelectionHandler?(topic)
+        }
         return cell
     }
     

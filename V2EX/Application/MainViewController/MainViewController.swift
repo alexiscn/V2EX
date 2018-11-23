@@ -73,6 +73,13 @@ class MainViewController: UIViewController {
         timelineViewController.didMove(toParent: self)
         timelineVC = timelineViewController
         
+        timelineVC?.topicSelectionHandler = { [weak self] topic in
+            if let topic = topic, let node = topic.nodeName, let name = topic.nodeTitle {
+                let controller = TimelineViewController(node: node, nodeName: name)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
+        }
+        
         title = V2Tab.hotTab.title
     }
     

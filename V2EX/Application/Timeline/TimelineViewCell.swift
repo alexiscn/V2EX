@@ -13,6 +13,8 @@ import Kingfisher
 
 class TimelineViewCell: UITableViewCell {
     
+    var nodeHandler: RelayCommand?
+    
     private let containerView: UIView
     
     private let avatarView: UIImageView
@@ -122,6 +124,12 @@ class TimelineViewCell: UITableViewCell {
         let backgroundView = UIView()
         backgroundView.backgroundColor = Theme.current.cellHighlightColor
         selectedBackgroundView = backgroundView
+        
+        nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func handleNodeButtonTapped(_ sender: Any) {
+        nodeHandler?()
     }
     
     required init?(coder aDecoder: NSCoder) {
