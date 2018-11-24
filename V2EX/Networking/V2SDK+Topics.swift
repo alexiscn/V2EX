@@ -78,8 +78,8 @@ extension V2SDK {
         
     }
     
-    public class func loadTopics(topicName: String, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
-        let urlString = "https://www.v2ex.com/go/\(topicName)?p=\(page)"
+    public class func loadNodeTopics(nodeName: String, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
+        let urlString = "https://www.v2ex.com/go/\(nodeName)?p=\(page)"
         let url = URL(string: urlString)!
         loadHTMLString(url: url) { (html, error) in
             guard let html = html else {
@@ -95,7 +95,7 @@ extension V2SDK {
                         if cellContent == "" || cellContent == "(adsbygoogle = window.adsbygoogle || []).push({});" {
                             continue
                         }
-                        let topic = self.parseTopicListCell(cell)
+                        let topic = self.parseTopicListCell(cell, isNodeList: true)
                         topics.append(topic)
                     }
                     completion(topics, nil)
@@ -244,7 +244,7 @@ extension V2SDK {
         }
     }
     
-    class func parseTopicListCell(_ cell: Element) -> Topic {
+    class func parseTopicListCell(_ cell: Element, isNodeList: Bool = false) -> Topic {
         let topic = Topic()
         // parse avatar
         if let img = try? cell.select("img").first(), let imgEle = img, let src = try? imgEle.attr("src") {
@@ -293,10 +293,11 @@ extension V2SDK {
         if let text = try? cell.text() {
             let components = text.split(separator: "•")
             if components.count >= 3 {
-                topic.lastUpdatedTime = String(components[2]).replacingOccurrences(of: " ", with: "")
-//                if components.count >= 4 {
-//
-//                }
+                if isNodeList {
+                    topic.lastUpdatedTime = String(components[1]).replacingOccurrences(of: " ", with: "")
+                } else {
+                    topic.lastUpdatedTime = String(components[2]).replacingOccurrences(of: " ", with: "")
+                }
             }
         }
         return topic

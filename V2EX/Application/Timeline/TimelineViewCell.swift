@@ -27,6 +27,7 @@ class TimelineViewCell: UITableViewCell {
     
     private let nodeButton: UIButton
     
+    private let commentImageView: UIImageView
     private let commentCountLabel: UILabel
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -57,6 +58,8 @@ class TimelineViewCell: UITableViewCell {
         nodeButton.backgroundColor = Theme.current.backgroundColor
         nodeButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5)
         
+        commentImageView = UIImageView(image: UIImage(named: "comment"))
+        
         commentCountLabel = UILabel()
         commentCountLabel.textColor = Theme.current.subTitleColor
         commentCountLabel.font = UIFont.systemFont(ofSize: 12)
@@ -71,11 +74,9 @@ class TimelineViewCell: UITableViewCell {
         
         containerView.addSubview(titleLabel)
         containerView.addSubview(nodeButton)
+        containerView.addSubview(commentImageView)
         containerView.addSubview(commentCountLabel)
-        
-        let commentImageView = UIImageView(image: UIImage(named: "comment"))
-        contentView.addSubview(commentImageView)
-        
+    
         containerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(3)
@@ -152,7 +153,15 @@ class TimelineViewCell: UITableViewCell {
         usernameLabel.text = topic.username
         timeLabel.text = topic.lastUpdatedTime
         titleLabel.text = topic.title
-        commentCountLabel.text = "\(topic.replies)"
+        
+        if topic.replies == 0 {
+            commentImageView.isHidden = true
+            commentCountLabel.isHidden = true
+        } else {
+            commentImageView.isHidden = false
+            commentCountLabel.isHidden = false
+            commentCountLabel.text = "\(topic.replies)"
+        }
         if let title = topic.nodeTitle {
             nodeButton.isHidden = false
             nodeButton.setTitle(title, for: .normal)

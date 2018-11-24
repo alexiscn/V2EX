@@ -117,18 +117,28 @@ class TimelineViewController: UIViewController {
     }
     
     fileprivate func loadMoreData() {
-        
+        if type == .node {
+            loadNodeTopics(isLoadMore: true)
+        }
     }
     
-    fileprivate func loadNodeTopics() {
-        V2SDK.loadTopics(topicName: node, page: 1) { (topics, error) in
+    fileprivate func loadNodeTopics(isLoadMore: Bool = false) {
+        
+        currentPage = isLoadMore ? (currentPage + 1): 1
+        
+        V2SDK.loadNodeTopics(nodeName: node, page: currentPage) { (topics, error) in
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
+                if isLoadMore {
+                    strongSelf.dataSource.append(contentsOf: topics)
+                } else {
+                    strongSelf.dataSource = topics
+                }
                 
-                strongSelf.dataSource = topics
                 strongSelf.tableView.reloadData()
                 strongSelf.tableView.mj_header.endRefreshing()
-                if strongSelf.tab.key == V2Tab.allTab.key {
+                
+                if topics.count > 0 {
                     strongSelf.tableView.mj_footer.resetNoMoreData()
                 } else {
                     strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
@@ -164,6 +174,9 @@ class TimelineViewController: UIViewController {
         let footer = MJRefreshAutoNormalFooter(refreshingBlock: { [weak self] in
             self?.loadMoreData()
         })
+        footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
+        footer?.isRefreshingTitleHidden = true
+        footer?.triggerAutomaticallyRefreshPercent = 0.9
         footer?.stateLabel.isHidden = true
         tableView.mj_footer = footer
     }
