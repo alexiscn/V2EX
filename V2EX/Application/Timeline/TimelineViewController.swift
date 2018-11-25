@@ -56,7 +56,7 @@ class TimelineViewController: UIViewController {
         case .tab:
             navigationItem.title = tab.title
         case .node:
-            navigationItem.title = nodeName
+            navigationItem.title = "#\(nodeName)"
         }
         loadData()
     }
@@ -137,6 +137,7 @@ class TimelineViewController: UIViewController {
                 
                 strongSelf.tableView.reloadData()
                 strongSelf.tableView.mj_header.endRefreshing()
+                strongSelf.tableView.mj_footer.endRefreshing()
                 
                 if topics.count > 0 {
                     strongSelf.tableView.mj_footer.resetNoMoreData()

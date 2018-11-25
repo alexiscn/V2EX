@@ -55,6 +55,7 @@
 		A38D0EB420DCEA4100F7C932 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */; };
 		A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EC720DD060900F7C932 /* TimelineViewController.swift */; };
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
+		A3DCB07F21AA9D8A005FD955 /* allnodes.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB07E21AA9D8A005FD955 /* allnodes.json */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 		A3F969012122AD7E00F69940 /* NodeListSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F969002122AD7E00F69940 /* NodeListSectionHeaderView.swift */; };
 /* End PBXBuildFile section */
@@ -110,6 +111,7 @@
 		A38D0EB520DCEA4100F7C932 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A38D0EC720DD060900F7C932 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		A3DCB07E21AA9D8A005FD955 /* allnodes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allnodes.json; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A3F969002122AD7E00F69940 /* NodeListSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeListSectionHeaderView.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */,
 				A38D0EB020DCEA4100F7C932 /* Assets.xcassets */,
 				A30A78EF21A7DA590041A744 /* opensource.json */,
+				A3DCB07E21AA9D8A005FD955 /* allnodes.json */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -409,6 +412,7 @@
 				A37F193221A2A469001BCC0A /* light.css in Resources */,
 				A30A78F021A7DA590041A744 /* opensource.json in Resources */,
 				A37F193021A28A55001BCC0A /* dark.css in Resources */,
+				A3DCB07F21AA9D8A005FD955 /* allnodes.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

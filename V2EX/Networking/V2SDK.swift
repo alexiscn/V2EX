@@ -43,3 +43,11 @@ class V2SDK {
         return false
     }
 }
+
+extension String {
+    
+    func trimed() -> String {
+        return self.replacingOccurrences(of: " ", with: "")
+    }
+    
+}

@@ -294,9 +294,13 @@ extension V2SDK {
             let components = text.split(separator: "•")
             if components.count >= 3 {
                 if isNodeList {
-                    topic.lastUpdatedTime = String(components[1]).replacingOccurrences(of: " ", with: "")
+                    topic.lastUpdatedTime = String(components[1]).trimed()
+                    topic.lastReplyedUserName = String(components[2]).trimed()
                 } else {
-                    topic.lastUpdatedTime = String(components[2]).replacingOccurrences(of: " ", with: "")
+                    topic.lastUpdatedTime = String(components[2]).trimed()
+                    if components.count >= 4 {
+                        topic.lastReplyedUserName = String(components[3]).trimed()
+                    }
                 }
             }
         }
