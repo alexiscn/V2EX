@@ -35,7 +35,7 @@ class MenuTableViewCell: UITableViewCell {
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
             make.width.equalTo(3)
-            make.height.equalTo(44)
+            make.height.equalToSuperview()
         }
     }
     

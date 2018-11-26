@@ -25,4 +25,8 @@ extension String {
         let str = self as NSString
         return str.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
     }
+    
+    var isLetter: Bool {
+        return range(of: "[^a-zA-Z]", options: String.CompareOptions.regularExpression) == nil
+    }
 }

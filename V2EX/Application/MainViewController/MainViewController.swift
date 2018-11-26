@@ -61,7 +61,7 @@ class MainViewController: UIViewController {
         dismiss(animated: true, completion: nil)
         self.timelineVC?.updateTab(tab)
         self.title = tab.title
-        rightMenuVC?.updateDataSource(tab.subTabs)
+        //rightMenuVC?.updateDataSource(tab.subTabs)
     }
     
     private func setupChildViewController() {
