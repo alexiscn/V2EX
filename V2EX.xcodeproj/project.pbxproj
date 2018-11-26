@@ -15,7 +15,6 @@
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
 		A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6B21AB9BCD00ED2F88 /* Node.swift */; };
-		A34A5D6E21ABAF9B00ED2F88 /* RightMenuViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6D21ABAF9B00ED2F88 /* RightMenuViewCell.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
 		A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548520E1D5A000C76393 /* LoginViewController.swift */; };
 		A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */; };
@@ -71,7 +70,6 @@
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A34A5D6B21AB9BCD00ED2F88 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
-		A34A5D6D21ABAF9B00ED2F88 /* RightMenuViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightMenuViewCell.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		A358548520E1D5A000C76393 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCommentViewCell.swift; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				A33C4E2221943BF00039E347 /* MenuViewController.swift */,
 				A384528C2195749A0097A6A9 /* MenuTableViewCell.swift */,
 				A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */,
-				A34A5D6D21ABAF9B00ED2F88 /* RightMenuViewCell.swift */,
 			);
 			path = MenuViewController;
 			sourceTree = "<group>";
@@ -531,7 +528,6 @@
 				A37F193421A2B671001BCC0A /* Utility.swift in Sources */,
 				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
 				A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */,
-				A34A5D6E21ABAF9B00ED2F88 /* RightMenuViewCell.swift in Sources */,
 				A36D0FB7219D81D600E20EFB /* V2SDK+Topics.swift in Sources */,
 				A36EAFCF219FEF01000DA4A3 /* TopicDetail.swift in Sources */,
 				A3704DD820E1084F0052576D /* NodeViewController.swift in Sources */,

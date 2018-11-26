@@ -29,7 +29,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                 
                 let letterNodes = nodes.filter { $0.letter.isLetter }
                 let dict = Dictionary(grouping: letterNodes, by: { $0.letter })
-                var letters = dict.map { return NodeGroup(nodes: $0.value, title: $0.key) }
+                var letters = dict.map { return NodeGroup(nodes: $0.value.sorted(by: { $0.title < $1.title }), title: $0.key) }
                 letters.sort(by: { $0.title < $1.title })
                 dataSource.append(contentsOf: letters)
                 
@@ -46,20 +46,20 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
-        tableView.register(MenuTableViewCell.self, forCellReuseIdentifier: NSStringFromClass(MenuTableViewCell.self))
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: NSStringFromClass(UITableViewCell.self))
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.sectionIndexColor = Theme.current.subTitleColor
         tableView.sectionIndexBackgroundColor = .clear
-        tableView.sectionIndexTrackingBackgroundColor = Theme.current.titleColor
+        tableView.sectionIndexTrackingBackgroundColor = Theme.current.backgroundColor
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(150)
-            make.bottom.equalToSuperview().offset(-150)
+            make.top.equalToSuperview().offset(100)
+            make.bottom.equalToSuperview()
         }
         tableView.reloadData()
     }
@@ -81,12 +81,13 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         let group = dataSource[indexPath.section]
         let node = group.nodes[indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(MenuTableViewCell.self), for: indexPath) as! MenuTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(UITableViewCell.self), for: indexPath)
         cell.backgroundColor = .clear
         cell.selectionStyle = .none
-        cell.titleLabel.text = node.title
-        cell.titleLabel.textAlignment = .left
-        cell.titleLabel.font = UIFont.systemFont(ofSize: 13)
+        cell.textLabel?.text = node.title
+        cell.textLabel?.textAlignment = .left
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
+        cell.textLabel?.textColor = Theme.current.titleColor
         return cell
     }
     
@@ -99,6 +100,6 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 24.0
+        return 30.0
     }
 }
