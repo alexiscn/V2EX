@@ -10,11 +10,25 @@ import Foundation
 
 class Node: Codable {
     
-    public let name: String
+    var name: String
     
-    public let title: String
+    var title: String
  
-    public let letter: String
+    var letter: String
+    
+    init(name: String, title: String) {
+        self.name = name
+        self.title = title
+        
+        let str = NSMutableString(string: title) as CFMutableString
+        if CFStringTransform(str, nil, kCFStringTransformToLatin, false) && CFStringTransform(str, nil, kCFStringTransformStripDiacritics, false) {
+            self.letter = String(((str as NSString) as String).first!).uppercased()
+        } else {
+            self.letter = ""
+        }
+    }
+    
+    static let `default` = Node(name: "v2ex", title: "V2EX")
 }
 
 struct NodeGroup {

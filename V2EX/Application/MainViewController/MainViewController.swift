@@ -74,8 +74,9 @@ class MainViewController: UIViewController {
         timelineVC = timelineViewController
         
         timelineVC?.topicSelectionHandler = { [weak self] topic in
-            if let topic = topic, let node = topic.nodeName, let name = topic.nodeTitle {
-                let controller = TimelineViewController(node: node, nodeName: name)
+            if let topic = topic, let name = topic.nodeName, let title = topic.nodeTitle {
+                let node = Node(name: name, title: title)
+                let controller = TimelineViewController(node: node)
                 self?.navigationController?.pushViewController(controller, animated: true)
             }
         }
@@ -93,6 +94,11 @@ class MainViewController: UIViewController {
         
         let rightMenuController = RightMenuViewController()
         rightMenuVC = rightMenuController
+        rightMenuVC?.nodeDidSelectedHandler = { [weak self] node in
+            self?.dismiss(animated: true, completion: nil)
+            self?.timelineVC?.updateNode(node)
+            self?.title = "#\(node.title)"
+        }
         let rightNav = UISideMenuNavigationController(rootViewController: rightMenuController)
         rightNav.isNavigationBarHidden = true
         

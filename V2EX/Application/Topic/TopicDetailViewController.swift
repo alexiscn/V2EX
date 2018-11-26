@@ -174,8 +174,9 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 }
             }
             cell.topicButtonHandler = { [weak self] in
-                if let detail = self?.detail, let node = detail.nodeTag, let nodeName = detail.nodeName {
-                    let controller = TimelineViewController(node: node, nodeName: nodeName)
+                if let detail = self?.detail, let name = detail.nodeTag, let title = detail.nodeName {
+                    let node = Node(name: name, title: title)
+                    let controller = TimelineViewController(node: node)
                     self?.navigationController?.pushViewController(controller, animated: true)
                 }
             }

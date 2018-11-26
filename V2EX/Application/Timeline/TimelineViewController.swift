@@ -28,8 +28,7 @@ class TimelineViewController: UIViewController {
     
     fileprivate var type: TimelineType = .tab
     
-    fileprivate var node: String = ""
-    fileprivate var nodeName: String = ""
+    fileprivate var node: Node = Node.default
     
     init(tab: V2Tab) {
         self.tab = tab
@@ -37,9 +36,8 @@ class TimelineViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    init(node: String, nodeName: String) {
+    init(node: Node) {
         self.node = node
-        self.nodeName = nodeName
         self.type = .node
         super.init(nibName: nil, bundle: nil)
     }
@@ -52,27 +50,45 @@ class TimelineViewController: UIViewController {
         super.viewDidLoad()
         
         setupTableView()
+        updateTitle()
+        loadData()
+    }
+    
+    private func updateTitle() {
         switch type {
         case .tab:
             navigationItem.title = tab.title
         case .node:
-            navigationItem.title = "#\(nodeName)"
+            navigationItem.title = "#\(node.title)"
         }
-        loadData()
     }
     
     func updateTab(_ tab: V2Tab) {
-        if tab.key != self.tab.key {
-            self.tab = tab
-            if dataSource.count > 0 {
-                UIView.animate(withDuration: 0.3, animations: {
-                    self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                }) { _ in
-                    self.loadData(loadCache: false)
-                }
-            } else {
-                loadData()
+        self.type = .tab
+        self.tab = tab
+        if dataSource.count > 0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }) { _ in
+                self.loadData(loadCache: false)
             }
+        } else {
+            loadData()
+        }
+    }
+    
+    func updateNode(_ node: Node) {
+        self.type = .node
+        self.node = node
+        updateTitle()
+        if dataSource.count > 0 {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }) { _ in
+                self.loadData(loadCache: false)
+            }
+        } else {
+            loadData()
         }
     }
 
@@ -126,7 +142,7 @@ class TimelineViewController: UIViewController {
         
         currentPage = isLoadMore ? (currentPage + 1): 1
         
-        V2SDK.loadNodeTopics(nodeName: node, page: currentPage) { (topics, error) in
+        V2SDK.loadNodeTopics(nodeName: node.name, page: currentPage) { (topics, error) in
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
                 if isLoadMore {
@@ -177,7 +193,7 @@ class TimelineViewController: UIViewController {
         })
         footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         footer?.isRefreshingTitleHidden = true
-        footer?.triggerAutomaticallyRefreshPercent = 0.9
+        footer?.triggerAutomaticallyRefreshPercent = 0.8
         footer?.stateLabel.isHidden = true
         tableView.mj_footer = footer
     }

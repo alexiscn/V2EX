@@ -10,6 +10,8 @@ import UIKit
 
 class RightMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    var nodeDidSelectedHandler: ((_ node: Node) -> Void)?
+    
     private var tableView: UITableView!
     private var dataSource: [NodeGroup] = []
     
@@ -19,27 +21,39 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         view.backgroundColor = Theme.current.backgroundColor
         setupTableView()
         
-        if let path = Bundle.main.path(forResource: "allnodes", ofType: "json"),
-            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
-            do {
-                let nodes = try JSONDecoder().decode([Node].self, from: data)
-                
-                let otherNodes = nodes.filter { $0.letter != "" && !$0.letter.isLetter }
-                dataSource.append(NodeGroup(nodes: otherNodes, title: "#"))
-                
-                let letterNodes = nodes.filter { $0.letter.isLetter }
-                let dict = Dictionary(grouping: letterNodes, by: { $0.letter })
-                var letters = dict.map { return NodeGroup(nodes: $0.value.sorted(by: { $0.title < $1.title }), title: $0.key) }
-                letters.sort(by: { $0.title < $1.title })
-                dataSource.append(contentsOf: letters)
-                
-                let appleNodes = nodes.filter { $0.letter == "" }
-                dataSource.append(NodeGroup(nodes: appleNodes, title: ""))
-                
-                tableView.reloadData()
-            } catch {
-                print(error)
+        DispatchQueue.global(qos: .background).async {
+            self.loadAllNodes()
+        }
+    }
+    
+    private func loadAllNodes() {
+        guard let path = Bundle.main.path(forResource: "allnodes", ofType: "json"),
+            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
+                return
+        }
+        do {
+            var groups: [NodeGroup] = []
+            let nodes = try JSONDecoder().decode([Node].self, from: data)
+            
+            let appleNodes = nodes.filter { $0.letter == "" }
+            let otherNodes = nodes.filter { $0.letter != "" && !$0.letter.isLetter }
+            let letterNodes = nodes.filter { $0.letter.isLetter }
+            
+            groups.append(NodeGroup(nodes: otherNodes, title: "#"))
+            
+            let dict = Dictionary(grouping: letterNodes, by: { $0.letter })
+            var letters = dict.map { return NodeGroup(nodes: $0.value.sorted(by: { $0.title < $1.title }), title: $0.key) }
+            letters.sort(by: { $0.title < $1.title })
+            groups.append(contentsOf: letters)
+            
+            groups.append(NodeGroup(nodes: appleNodes, title: ""))
+            
+            DispatchQueue.main.async {
+                self.dataSource = groups
+                self.tableView.reloadData()
             }
+        } catch {
+            print(error)
         }
     }
     
@@ -101,5 +115,11 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30.0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let group = dataSource[indexPath.section]
+        let node = group.nodes[indexPath.row]
+        nodeDidSelectedHandler?(node)
     }
 }
