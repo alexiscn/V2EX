@@ -29,6 +29,7 @@ class TimelineViewController: UIViewController {
     fileprivate var type: TimelineType = .tab
     
     fileprivate var node: Node = Node.default
+    fileprivate var nodeDetail: NodeDetail?
     
     init(tab: V2Tab) {
         self.tab = tab
@@ -80,6 +81,7 @@ class TimelineViewController: UIViewController {
     func updateNode(_ node: Node) {
         self.type = .node
         self.node = node
+        self.nodeDetail = nil
         updateTitle()
         if dataSource.count > 0 {
             UIView.animate(withDuration: 0.3, animations: {
@@ -140,27 +142,41 @@ class TimelineViewController: UIViewController {
     
     fileprivate func loadNodeTopics(isLoadMore: Bool = false) {
         
+        let totalPage = nodeDetail?.page ?? Int.max
+        if currentPage >= totalPage {
+            setNoMoreNodeTopics()
+            return
+        }
+    
         currentPage = isLoadMore ? (currentPage + 1): 1
         
-        V2SDK.loadNodeTopics(nodeName: node.name, page: currentPage) { (topics, error) in
+        V2SDK.loadNodeTopics(nodeName: node.name, page: currentPage) { (nodeDetail, error) in
             DispatchQueue.main.async { [weak self] in
                 guard let strongSelf = self else { return }
+                strongSelf.nodeDetail = nodeDetail
                 if isLoadMore {
-                    strongSelf.dataSource.append(contentsOf: topics)
+                    strongSelf.dataSource.append(contentsOf: nodeDetail.topics)
                 } else {
-                    strongSelf.dataSource = topics
+                    strongSelf.dataSource = nodeDetail.topics
                 }
                 
                 strongSelf.tableView.reloadData()
                 strongSelf.tableView.mj_header.endRefreshing()
                 strongSelf.tableView.mj_footer.endRefreshing()
                 
-                if topics.count > 0 {
+                if nodeDetail.topics.count > 0 {
                     strongSelf.tableView.mj_footer.resetNoMoreData()
                 } else {
                     strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
                 }
             }
+        }
+    }
+    
+    fileprivate func setNoMoreNodeTopics() {
+        if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
+            footer.endRefreshingWithNoMoreData()
+            footer.stateLabel.isHidden = false
         }
     }
 
@@ -194,6 +210,7 @@ class TimelineViewController: UIViewController {
         footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         footer?.isRefreshingTitleHidden = true
         footer?.triggerAutomaticallyRefreshPercent = 0.8
+        footer?.stateLabel.textColor = Theme.current.subTitleColor
         footer?.stateLabel.isHidden = true
         tableView.mj_footer = footer
     }

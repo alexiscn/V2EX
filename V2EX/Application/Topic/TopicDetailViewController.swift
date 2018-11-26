@@ -130,7 +130,7 @@ class TopicDetailViewController: UIViewController {
         footer?.stateLabel.textColor = Theme.current.subTitleColor
         footer?.setTitle(NSLocalizedString("没有更多回复了", comment: ""), for: .noMoreData)
         footer?.isRefreshingTitleHidden = true
-        footer?.triggerAutomaticallyRefreshPercent = 0.9
+        footer?.triggerAutomaticallyRefreshPercent = 0.8
         footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         tableView.mj_footer = footer
         

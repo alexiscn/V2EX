@@ -50,8 +50,6 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    
-    
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
         tableView.backgroundColor = .clear
@@ -90,6 +88,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         let controller = AllNodesViewController()
         controller.nodeDidSelectedHandler = { [weak self] node in
             self?.dismiss(animated: true, completion: nil)
+            self?.nodeDidSelectedHandler?(node)
         }
         let nav = SettingsNavigationController(rootViewController: controller)
         present(nav, animated: true, completion: nil)
@@ -131,13 +130,31 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 20)))
-        let label = UILabel(frame: CGRect(x: 16, y: 0, width: view.bounds.width - 16, height: 20))
+        let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 44)))
+        header.backgroundColor = Theme.current.cellBackgroundColor
+        let label = UILabel(frame: .zero)
         label.text = dataSource[section].title
         label.textColor = Theme.current.subTitleColor
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         header.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
         return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.000001
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

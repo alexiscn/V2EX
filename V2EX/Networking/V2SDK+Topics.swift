@@ -78,16 +78,20 @@ extension V2SDK {
         
     }
     
-    public class func loadNodeTopics(nodeName: String, page: Int, completion: @escaping V2SDKLoadTimelineCompletion) {
+    public class func loadNodeTopics(nodeName: String, page: Int, completion: @escaping V2SDKLoadNodeTopicsCompletion) {
         let urlString = "https://www.v2ex.com/go/\(nodeName)?p=\(page)"
         let url = URL(string: urlString)!
+        let detail = NodeDetail()
         loadHTMLString(url: url) { (html, error) in
             guard let html = html else {
-                completion([], error)
+                completion(detail, error)
                 return
             }
             do {
                 let doc = try SwiftSoup.parse(html)
+                if let max = try doc.select(".page_input").first()?.attr("max") {
+                    detail.page = Int(max) ?? 1
+                }
                 if let topicNodes = try doc.select("#TopicsNode").first() {
                     var topics: TopicList = []
                     for cell in topicNodes.children() {
@@ -98,13 +102,14 @@ extension V2SDK {
                         let topic = self.parseTopicListCell(cell, isNodeList: true)
                         topics.append(topic)
                     }
-                    completion(topics, nil)
+                    detail.topics = topics
+                    completion(detail, nil)
                 } else {
-                    completion([], error)
+                    completion(detail, error)
                 }
                 
             } catch {
-                completion([], error)
+                completion(detail, error)
             }
         }
     }

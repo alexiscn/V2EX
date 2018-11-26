@@ -9,6 +9,14 @@
 import Foundation
 import WCDBSwift
 
+class NodeDetail {
+
+    var topics: [Topic] = []
+    
+    var page: Int = 1
+    
+}
+
 class Node: TableCodable {
     
     enum CodingKeys: String, CodingTableKey {
