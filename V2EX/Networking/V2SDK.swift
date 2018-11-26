@@ -21,6 +21,8 @@ class V2SDK {
     
     static let baseURLString = "https://www.v2ex.com"
     
+    static var shouldParseHotNodes: Bool = true
+    
     class func setup() {
         GenericNetworking.baseURLString = baseURLString
     }

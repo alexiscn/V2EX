@@ -65,10 +65,10 @@ extension V2SDK {
                     topics.append(topic)
                 }
                 
-                if V2DataManager.shared.nodeGroups.count == 0 {
-                    V2SDK.parseNodeNavigations(doc)
+                if V2SDK.shouldParseHotNodes {
+                    V2SDK.parseHotNodes(doc)
+                    V2SDK.shouldParseHotNodes = false
                 }
-                
                 V2DataManager.shared.saveTopics(topics, forTab: tab.key)
                 completion(topics, nil)
             } catch {
@@ -307,36 +307,5 @@ extension V2SDK {
         return topic
     }
     
-    // has performance issue
-    class func parseNodeNavigations(_ doc: Document) {
-        
-        do {
-            var groups: [V2NodeGroup] = []
-            let cells = try doc.select("div.cell")
-            for cell in cells {
-                let table = try cell.select("table")
-                if table.isEmpty() {
-                    continue
-                }
-                let name = try cell.select("span.fade").text()
-                if name.isEmpty {
-                    continue
-                }
-                var nodes: [V2Node] = []
-                let nodeElements = try cell.select("a")
-                for node in nodeElements {
-                    let title = try node.text()
-                    let href = try node.attr("href")
-                    let url = URL(string: baseURLString.appending("/\(href)"))
-                    nodes.append(V2Node(title: title, url: url))
-                }
-                let group = V2NodeGroup(title: name, nodes: nodes)
-                groups.append(group)
-            }
-            V2DataManager.shared.nodeGroups = groups
-        } catch {
-            print(error)
-        }
-        
-    }
+    
 }

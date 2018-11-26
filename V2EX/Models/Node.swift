@@ -7,8 +7,22 @@
 //
 
 import Foundation
+import WCDBSwift
 
-class Node: Codable {
+class Node: TableCodable {
+    
+    enum CodingKeys: String, CodingTableKey {
+        typealias Root = Node
+        static let objectRelationalMapping = TableBinding(CodingKeys.self)
+        
+        case name
+        case title
+        case letter
+        
+        static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
+            return [:]
+        }
+    }
     
     var name: String
     
@@ -16,24 +30,29 @@ class Node: Codable {
  
     var letter: String
     
-    init(name: String, title: String) {
+    init(name: String, title: String, letter: String) {
         self.name = name
         self.title = title
-        
-        let str = NSMutableString(string: title) as CFMutableString
-        if CFStringTransform(str, nil, kCFStringTransformToLatin, false) && CFStringTransform(str, nil, kCFStringTransformStripDiacritics, false) {
-            self.letter = String(((str as NSString) as String).first!).uppercased()
-        } else {
-            self.letter = ""
-        }
+        self.letter = letter
     }
     
-    static let `default` = Node(name: "v2ex", title: "V2EX")
+    static let `default` = Node.nodeWithName("v2ex", title: "V2EX")
+    
+    class func nodeWithName(_ name: String, title: String) -> Node {
+        var letter = ""
+        let str = NSMutableString(string: title) as CFMutableString
+        if CFStringTransform(str, nil, kCFStringTransformToLatin, false) && CFStringTransform(str, nil, kCFStringTransformStripDiacritics, false) {
+            letter = String(((str as NSString) as String).first!).uppercased()
+        } else {
+            letter = ""
+        }
+        return Node(name: name, title: title, letter: title)
+    }
 }
 
 struct NodeGroup {
     
-    var nodes: [Node]
-    
     var title: String
+    
+    var nodes: [Node]
 }

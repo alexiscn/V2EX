@@ -19,41 +19,33 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         super.viewDidLoad()
         
         view.backgroundColor = Theme.current.backgroundColor
-        setupTableView()
         
-        DispatchQueue.global(qos: .background).async {
-            self.loadAllNodes()
+        setupHeader()
+        setupTableView()
+        setupFooter()
+        
+        V2DataManager.shared.hotNodesChangesCommand = { [weak self] in
+            DispatchQueue.main.async {
+                self?.dataSource = V2DataManager.shared.loadHotNodes()
+                self?.tableView.reloadData()
+            }
         }
+        dataSource = V2DataManager.shared.loadHotNodes()
+        tableView.reloadData()
     }
     
-    private func loadAllNodes() {
-        guard let path = Bundle.main.path(forResource: "allnodes", ofType: "json"),
-            let data = try? Data(contentsOf: URL(fileURLWithPath: path)) else {
-                return
-        }
-        do {
-            var groups: [NodeGroup] = []
-            let nodes = try JSONDecoder().decode([Node].self, from: data)
-            
-            let appleNodes = nodes.filter { $0.letter == "" }
-            let otherNodes = nodes.filter { $0.letter != "" && !$0.letter.isLetter }
-            let letterNodes = nodes.filter { $0.letter.isLetter }
-            
-            groups.append(NodeGroup(nodes: otherNodes, title: "#"))
-            
-            let dict = Dictionary(grouping: letterNodes, by: { $0.letter })
-            var letters = dict.map { return NodeGroup(nodes: $0.value.sorted(by: { $0.title < $1.title }), title: $0.key) }
-            letters.sort(by: { $0.title < $1.title })
-            groups.append(contentsOf: letters)
-            
-            groups.append(NodeGroup(nodes: appleNodes, title: ""))
-            
-            DispatchQueue.main.async {
-                self.dataSource = groups
-                self.tableView.reloadData()
-            }
-        } catch {
-            print(error)
+    private func setupHeader() {
+        let headerLabel = UILabel(frame: .zero)
+        headerLabel.text = NSLocalizedString("节点导航", comment: "")
+        headerLabel.textColor = Theme.current.subTitleColor
+        headerLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        view.addSubview(headerLabel)
+        
+        headerLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview()
+            make.height.equalTo(20)
+            make.top.equalToSuperview().offset(70)
         }
     }
     
@@ -64,18 +56,35 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.sectionIndexColor = Theme.current.subTitleColor
-        tableView.sectionIndexBackgroundColor = .clear
-        tableView.sectionIndexTrackingBackgroundColor = Theme.current.backgroundColor
         
         view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.width.equalToSuperview()
             make.leading.equalToSuperview()
             make.top.equalToSuperview().offset(100)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-100)
         }
-        tableView.reloadData()
+    }
+    
+    private func setupFooter() {
+        let allNodesButton = UIButton(type: .system)
+        allNodesButton.setTitle(NSLocalizedString("所有节点", comment: ""), for: .normal)
+        allNodesButton.backgroundColor = Theme.current.cellBackgroundColor
+        allNodesButton.tintColor = Theme.current.titleColor
+        allNodesButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        allNodesButton.layer.cornerRadius = 20
+        view.addSubview(allNodesButton)
+        allNodesButton.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.top.equalTo(tableView.snp.bottom).offset(20)
+            make.height.equalTo(40)
+            make.width.equalTo(110)
+        }
+        allNodesButton.addTarget(self, action: #selector(handleAllNodesTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func handleAllNodesTapped(_ sender: Any) {
+        
     }
     
     override var prefersStatusBarHidden: Bool {
@@ -109,12 +118,18 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         return dataSource[section].title
     }
     
-    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return dataSource.map { return $0.title }
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30.0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 20)))
+        let label = UILabel(frame: CGRect(x: 16, y: 0, width: view.bounds.width - 16, height: 20))
+        label.text = dataSource[section].title
+        label.textColor = Theme.current.subTitleColor
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        header.addSubview(label)
+        return header
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

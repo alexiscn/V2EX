@@ -75,7 +75,7 @@ class MainViewController: UIViewController {
         
         timelineVC?.topicSelectionHandler = { [weak self] topic in
             if let topic = topic, let name = topic.nodeName, let title = topic.nodeTitle {
-                let node = Node(name: name, title: title)
+                let node = Node.nodeWithName(name, title: title)
                 let controller = TimelineViewController(node: node)
                 self?.navigationController?.pushViewController(controller, animated: true)
             }

@@ -14,11 +14,12 @@ class V2DataManager {
     struct Tables {
         static let topic = "tb_topic"
         static let reply = "tb_reply"
+        static let nodes = "tb_hot_nodes"
     }
     
     static let shared = V2DataManager()
     
-    var nodeGroups: [V2NodeGroup] = []
+    var hotNodesChangesCommand: RelayCommand?
     
     fileprivate let database: Database
     
@@ -29,9 +30,9 @@ class V2DataManager {
         //try? FileManager.default.removeItem(atPath: path)
         database = Database(withPath: path)
         do {
-            
             try database.create(table: Tables.topic, of: Topic.self)
             try database.create(table: Tables.reply, of: Reply.self)
+            try database.create(table: Tables.nodes, of: Node.self)
         } catch {
             print(error)
         }
@@ -60,5 +61,25 @@ class V2DataManager {
         }
     }
     
+    func loadHotNodes() -> [NodeGroup] {
+        do {
+            let objects: [Node] = try database.getObjects(fromTable: Tables.nodes)
+            let dict = Dictionary(grouping: objects, by: { $0.letter })
+            let groups = dict.map { return NodeGroup(title: $0.key, nodes: $0.value.sorted { $0.title < $1.title }) }
+            return groups
+        } catch {
+            print(error)
+        }
+        return []
+    }
+    
+    func saveHotNodes(_ nodes: [Node]) {
+        do {
+            try database.delete(fromTable: Tables.nodes)
+            try database.insert(objects: nodes, intoTable: Tables.nodes)
+        } catch {
+            print(error)
+        }
+    }
 }
 
