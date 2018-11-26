@@ -46,13 +46,18 @@ class Node: TableCodable {
         } else {
             letter = ""
         }
-        return Node(name: name, title: title, letter: title)
+        return Node(name: name, title: title, letter: letter)
     }
 }
 
-struct NodeGroup {
+class NodeGroup {
     
     var title: String
     
     var nodes: [Node]
+    
+    init(title: String, nodes: [Node]) {
+        self.title = title
+        self.nodes = nodes
+    }
 }

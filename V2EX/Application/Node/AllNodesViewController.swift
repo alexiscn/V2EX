@@ -10,6 +10,8 @@ import UIKit
 
 class AllNodesViewController: UIViewController {
 
+    var nodeDidSelectedHandler: ((_ node: Node) -> Void)?
+    
     fileprivate var tableView: UITableView!
     
     fileprivate var dataSource: [NodeGroup] = []
@@ -21,11 +23,24 @@ class AllNodesViewController: UIViewController {
 
         view.backgroundColor = Theme.current.backgroundColor
         title = NSLocalizedString("所有节点", comment: "")
+        setupNavigationBar()
         setupTableView()
-        
         DispatchQueue.global(qos: .background).async {
             self.loadAllNodes()
         }
+        
+    }
+    
+    private func setupNavigationBar() {
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: .white)
+        
+        let leftItem = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(leftNavigationButtonTapped(_:)))
+        navigationItem.leftBarButtonItem = leftItem
+    }
+    
+    @objc private func leftNavigationButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     private func setupTableView() {
@@ -44,6 +59,7 @@ class AllNodesViewController: UIViewController {
             make.width.equalToSuperview()
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
     
@@ -125,6 +141,6 @@ extension AllNodesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let group = dataSource[indexPath.section]
         let node = group.nodes[indexPath.row]
-        //nodeDidSelectedHandler?(node)
+        nodeDidSelectedHandler?(node)
     }
 }

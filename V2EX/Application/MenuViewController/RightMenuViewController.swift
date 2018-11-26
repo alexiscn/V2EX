@@ -11,6 +11,7 @@ import UIKit
 class RightMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var nodeDidSelectedHandler: ((_ node: Node) -> Void)?
+    var allNodesHandler: RelayCommand?
     
     private var tableView: UITableView!
     private var dataSource: [NodeGroup] = []
@@ -38,16 +39,18 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         let headerLabel = UILabel(frame: .zero)
         headerLabel.text = NSLocalizedString("节点导航", comment: "")
         headerLabel.textColor = Theme.current.subTitleColor
-        headerLabel.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+        headerLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         view.addSubview(headerLabel)
         
         headerLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
+            make.leading.equalToSuperview().offset(14)
             make.trailing.equalToSuperview()
-            make.height.equalTo(20)
-            make.top.equalToSuperview().offset(70)
+            make.height.equalTo(25)
+            make.top.equalToSuperview().offset(65)
         }
     }
+    
+    
     
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .grouped)
@@ -84,7 +87,12 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     @objc private func handleAllNodesTapped(_ sender: Any) {
-        
+        let controller = AllNodesViewController()
+        controller.nodeDidSelectedHandler = { [weak self] node in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        let nav = SettingsNavigationController(rootViewController: controller)
+        present(nav, animated: true, completion: nil)
     }
     
     override var prefersStatusBarHidden: Bool {
