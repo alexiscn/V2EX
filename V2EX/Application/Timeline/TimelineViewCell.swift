@@ -89,14 +89,15 @@ class TimelineViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(10)
         }
         
+        let titleLeading: CGFloat = AppSettings.shared.displayAvatar ? 60: 10
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(60)
+            make.leading.equalToSuperview().offset(titleLeading)
             make.trailing.equalToSuperview().offset(-10)
             make.top.equalToSuperview().offset(10)
         }
         
         timeLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(57)
+            make.leading.equalTo(titleLabel.snp.leading).offset(-3)
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         
@@ -150,6 +151,7 @@ class TimelineViewCell: UITableViewCell {
     func update(_ topic: Topic) {
         
         avatarView.kf.setImage(with: topic.avatar)
+        avatarView.isHidden = !AppSettings.shared.displayAvatar
         usernameLabel.text = topic.username
         timeLabel.text = topic.lastUpdatedTime
         titleLabel.text = topic.title

@@ -61,12 +61,19 @@ class MainViewController: UIViewController {
         dismiss(animated: true, completion: nil)
         self.timelineVC?.updateTab(tab)
         self.title = tab.title
-        //rightMenuVC?.updateDataSource(tab.subTabs)
+        AppSettings.shared.lastViewedTab = tab.key
+        AppSettings.shared.lastViewedNode = nil
     }
     
     private func setupChildViewController() {
         
-        let timelineViewController = TimelineViewController(tab: .hotTab)
+        if let lastViewedTab = AppSettings.shared.lastViewedTab {
+            if let t = V2Tab.tabs().first(where: { $0.key == lastViewedTab }) {
+                tab = t
+            }
+        }
+        
+        let timelineViewController = TimelineViewController(tab: tab)
         timelineViewController.view.frame = view.bounds
         view.addSubview(timelineViewController.view)
         addChild(timelineViewController)
@@ -81,11 +88,12 @@ class MainViewController: UIViewController {
             }
         }
         
-        title = V2Tab.hotTab.title
+        title = tab.title
     }
     
     private func setupSideMenu() {
         let menuController = MenuViewController()
+        menuController.currentTab = tab
         menuController.selectionChangedHandler = { [weak self] tab in
             self?.updateTab(tab)
         }

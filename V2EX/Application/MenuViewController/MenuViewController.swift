@@ -12,6 +12,7 @@ import SnapKit
 class MenuViewController: UIViewController {
 
     var selectionChangedHandler: ((_ tab: V2Tab) -> Void)?
+    var currentTab: V2Tab?
     
     private var avatarButton: UIButton!
     private var userLabel: UILabel!
@@ -117,7 +118,7 @@ class MenuViewController: UIViewController {
         
         if !isFirstViewDidAppear {
             isFirstViewDidAppear = true
-            if let index = self.dataSource.firstIndex(where: { $0.title == "最热" }) {
+            if let index = self.dataSource.firstIndex(where: { $0.title == currentTab?.title }) {
                 tableView.selectRow(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .top)
             }
         }
@@ -155,5 +156,6 @@ extension MenuViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let menu = dataSource[indexPath.row]
         selectionChangedHandler?(menu)
+        currentTab = menu
     }
 }

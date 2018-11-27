@@ -9,6 +9,8 @@
 import Foundation
 
 class AppContext {
-    
-    
+    static let current = AppContext()
+    private init() {
+        
+    }
 }
