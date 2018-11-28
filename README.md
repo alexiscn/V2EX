@@ -17,7 +17,7 @@ just another V2EX iOS Client
 
 # Features
 
-* Dark mode browsering
+* Dark mode browsing
 * Fast navigations with tabs and hot nodes
 
 # On-Working
