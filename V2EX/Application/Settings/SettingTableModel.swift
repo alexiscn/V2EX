@@ -20,14 +20,19 @@ class SettingTableSectionModel {
     }
 }
 
+enum SettingType {
+    case actionCommand(RelayCommand?)
+    case switchButton(Bool)
+}
+
 class SettingTableModel {
     
     var title: String
     
-    var action: RelayCommand?
+    var type: SettingType
     
-    init(title: String, action: RelayCommand?) {
+    init(title: String, type: SettingType) {
         self.title = title
-        self.action = action
+        self.type = type
     }
 }

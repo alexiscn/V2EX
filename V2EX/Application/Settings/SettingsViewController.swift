@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class SettingsNavigationController: UINavigationController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -51,29 +52,40 @@ class SettingsViewController: UIViewController {
     
     private func setupDataSource() {
         
-        let viewOption = SettingTableModel(title: "浏览偏好设置") {
-            
-        }
-        let viewOption2 = SettingTableModel(title: "浏览偏好设置") {
-            
-        }
-        let viewOption3 = SettingTableModel(title: "浏览偏好设置") {
-            
-        }
-        let viewOption4 = SettingTableModel(title: "浏览偏好设置") {
-            
-        }
-        let generalSection = SettingTableSectionModel(title: nil, items: [viewOption, viewOption2, viewOption3, viewOption4])
-        dataSource.append(generalSection)
+        setupGenerals()
         
-        let openSource = SettingTableModel(title: "Open Source") { [weak self] in
+        let autoRefresh = SettingTableModel(title: "自动刷新列表", type: SettingType.switchButton(true))
+        
+        let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh])
+        dataSource.append(switchesSection)
+        setupAbouts()
+    }
+    
+    private func setupGenerals() {
+        let viewOption = SettingTableModel(title: "浏览偏好设置", type: .actionCommand { [weak self] in
+            let controller = DisplaySettingsViewController()
+            self?.navigationController?.pushViewController(controller, animated: true)
+        })
+        
+        let generalSection = SettingTableSectionModel(title: nil, items: [viewOption])
+        dataSource.append(generalSection)
+    }
+    
+    private func setupAbouts() {
+        let sourceCode = SettingTableModel(title: "Source Code", type: .actionCommand { [weak self] in
+            let url = URL(string: "https://github.com/alexiscn/V2EX")!
+            let controller = SFSafariViewController(url: url)
+            self?.navigationController?.pushViewController(controller, animated: true)
+        })
+        
+        let openSource = SettingTableModel(title: "Open Source Libraries", type: .actionCommand { [weak self] in
             let controller = OpenSourceViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
-        }
-        let about = SettingTableModel(title: "关于V2EX") {
+        })
+        let about = SettingTableModel(title: "关于V2EX", type: .actionCommand {
             
-        }
-        let aboutSection = SettingTableSectionModel(title: "关于", items: [openSource, about])
+        })
+        let aboutSection = SettingTableSectionModel(title: "关于", items: [sourceCode, openSource, about])
         dataSource.append(aboutSection)
     }
     
@@ -99,13 +111,22 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingViewCell.self), for: indexPath)
-        cell.backgroundColor = Theme.current.cellBackgroundColor
-        cell.accessoryType = .disclosureIndicator
-        cell.textLabel?.textColor = Theme.current.titleColor
-        
         let group = dataSource[indexPath.section]
         let item = group.items[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SettingViewCell.self), for: indexPath)
+        cell.backgroundColor = Theme.current.cellBackgroundColor
+        cell.textLabel?.textColor = Theme.current.titleColor
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0)
+        
+        switch item.type {
+        case .actionCommand(_):
+            cell.accessoryType = .disclosureIndicator
+        case .switchButton(let value):
+            let switchButton = UISwitch()
+            switchButton.isOn = value
+            cell.accessoryView = switchButton
+        }
         cell.textLabel?.text = item.title
         return cell
     }
@@ -115,7 +136,39 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let group = dataSource[indexPath.section]
         let item = group.items[indexPath.row]
-        item.action?()
+        switch item.type {
+        case .actionCommand(let action):
+            action?()
+        case .switchButton(let value):
+            print(value)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 40)))
+        let label = UILabel(frame: .zero)
+        label.text = dataSource[section].title
+        label.textColor = Theme.current.subTitleColor
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        header.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(16)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+        }
+        return header
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0.00001
     }
     
 }

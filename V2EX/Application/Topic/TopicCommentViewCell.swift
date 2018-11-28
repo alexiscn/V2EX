@@ -96,8 +96,9 @@ class TopicCommentViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(12)
         }
         
+        let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
         usernameButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(54)
+            make.leading.equalToSuperview().offset(usernameLeading)
             make.top.equalTo(avatarView).offset(-5)
         }
         
@@ -123,7 +124,7 @@ class TopicCommentViewCell: UITableViewCell {
         
         contentTextView.snp.makeConstraints { make in
             make.trailing.equalToSuperview().offset(-12)
-            make.leading.equalToSuperview().offset(54)
+            make.leading.equalToSuperview().offset(usernameLeading)
             make.top.equalToSuperview().offset(38)
             make.bottom.equalToSuperview().offset(-9)
         }
@@ -146,6 +147,7 @@ class TopicCommentViewCell: UITableViewCell {
     func update(_ reply: Reply) {
         usernameButton.setTitle(reply.username, for: .normal)
         avatarView.kf.setImage(with: reply.avatarURL)
+        avatarView.isHidden = !AppSettings.shared.displayAvatar
         contentTextView.text = reply.content
         timeAgoLabel.text = reply.timeAgo
         likesLabel.text = reply.likesInfo
