@@ -20,6 +20,10 @@ class SettingsViewController: UIViewController {
     private var tableView: UITableView!
     private var dataSource: [SettingTableSectionModel] = []
     
+    enum Tags: Int {
+        case autoRefreshListOnAppLaunch
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,7 +58,8 @@ class SettingsViewController: UIViewController {
         
         setupGenerals()
         
-        let autoRefresh = SettingTableModel(title: "自动刷新列表", type: SettingType.switchButton(true))
+        
+        let autoRefresh = SettingTableModel(title: "自动刷新列表", value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
         
         let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh])
         dataSource.append(switchesSection)
@@ -62,7 +67,7 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupGenerals() {
-        let viewOption = SettingTableModel(title: "浏览偏好设置", type: .actionCommand { [weak self] in
+        let viewOption = SettingTableModel(title: "浏览偏好设置", value: .actionCommand { [weak self] in
             let controller = DisplaySettingsViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
@@ -72,17 +77,17 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupAbouts() {
-        let sourceCode = SettingTableModel(title: "Source Code", type: .actionCommand { [weak self] in
+        let sourceCode = SettingTableModel(title: "Source Code", value: .actionCommand { [weak self] in
             let url = URL(string: "https://github.com/alexiscn/V2EX")!
             let controller = SFSafariViewController(url: url)
             self?.navigationController?.pushViewController(controller, animated: true)
         })
         
-        let openSource = SettingTableModel(title: "Open Source Libraries", type: .actionCommand { [weak self] in
+        let openSource = SettingTableModel(title: "Open Source Libraries", value: .actionCommand { [weak self] in
             let controller = OpenSourceViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        let about = SettingTableModel(title: "关于V2EX", type: .actionCommand {
+        let about = SettingTableModel(title: "关于V2EX", value: .actionCommand {
             
         })
         let aboutSection = SettingTableSectionModel(title: "关于", items: [sourceCode, openSource, about])
@@ -91,6 +96,9 @@ class SettingsViewController: UIViewController {
     
     @objc private func leftNavigationButtonTapped(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func switchValueDidChanged(_ sender: UISwitch) {
     }
 
     override func didReceiveMemoryWarning() {
@@ -119,12 +127,14 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.textColor = Theme.current.titleColor
         cell.textLabel?.font = UIFont.systemFont(ofSize: 15.0)
         
-        switch item.type {
+        switch item.value {
         case .actionCommand(_):
             cell.accessoryType = .disclosureIndicator
-        case .switchButton(let value):
+        case .switchButton(let isOn, let tag):
             let switchButton = UISwitch()
-            switchButton.isOn = value
+            switchButton.isOn = isOn
+            switchButton.tag = tag
+            switchButton.addTarget(self, action: #selector(switchValueDidChanged(_:)), for: .valueChanged)
             cell.accessoryView = switchButton
         }
         cell.textLabel?.text = item.title
@@ -136,7 +146,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         
         let group = dataSource[indexPath.section]
         let item = group.items[indexPath.row]
-        switch item.type {
+        switch item.value {
         case .actionCommand(let action):
             action?()
         case .switchButton(let value):

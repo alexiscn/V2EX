@@ -127,7 +127,7 @@ class TimelineViewController: UIViewController {
                     if strongSelf.tab.key == V2Tab.allTab.key {
                         strongSelf.tableView.mj_footer.resetNoMoreData()
                     } else {
-                        strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
+                        strongSelf.setNoMoreData()
                     }
                 }
             }
@@ -144,7 +144,7 @@ class TimelineViewController: UIViewController {
         
         let totalPage = nodeDetail?.page ?? Int.max
         if currentPage >= totalPage {
-            setNoMoreNodeTopics()
+            setNoMoreData()
             return
         }
     
@@ -167,14 +167,20 @@ class TimelineViewController: UIViewController {
                 if nodeDetail.topics.count > 0 {
                     strongSelf.tableView.mj_footer.resetNoMoreData()
                 } else {
-                    strongSelf.tableView.mj_footer.endRefreshingWithNoMoreData()
+                    strongSelf.setNoMoreData()
                 }
             }
         }
     }
     
-    fileprivate func setNoMoreNodeTopics() {
+    fileprivate func setNoMoreData() {
         if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
+            switch type {
+            case .node:
+                footer.setTitle(NSLocalizedString("没有更多了", comment: ""), for: .noMoreData)
+            case .tab:
+                footer.setTitle(NSLocalizedString("只有节点才能加载更多", comment: ""), for: .noMoreData)
+            }
             footer.endRefreshingWithNoMoreData()
             footer.stateLabel.isHidden = false
         }

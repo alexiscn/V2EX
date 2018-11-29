@@ -41,19 +41,19 @@ class TimelineViewCell: UITableViewCell {
         
         usernameLabel = UILabel()
         usernameLabel.textColor = Theme.current.subTitleColor
-        usernameLabel.font = UIFont.systemFont(ofSize: 12)
+        usernameLabel.font = AppContext.current.font.subTitleFont //UIFont.systemFont(ofSize: 12)
         
         titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 15)
+        titleLabel.font = AppContext.current.font.titleFont
         titleLabel.numberOfLines = 0
         titleLabel.textColor = Theme.current.titleColor
         
         timeLabel = UILabel()
-        timeLabel.font = UIFont.systemFont(ofSize: 12)
+        timeLabel.font = AppContext.current.font.subTitleFont
         timeLabel.textColor = Theme.current.subTitleColor
         
         nodeButton = UIButton(type: .system)
-        nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        nodeButton.titleLabel?.font = AppContext.current.font.subTitleFont
         nodeButton.setTitleColor(Theme.current.titleColor, for: .normal)
         nodeButton.backgroundColor = Theme.current.backgroundColor
         nodeButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5)
@@ -62,7 +62,7 @@ class TimelineViewCell: UITableViewCell {
         
         commentCountLabel = UILabel()
         commentCountLabel.textColor = Theme.current.subTitleColor
-        commentCountLabel.font = UIFont.systemFont(ofSize: 12)
+        commentCountLabel.font = AppContext.current.font.subTitleFont
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -176,10 +176,14 @@ class TimelineViewCell: UITableViewCell {
         if topic._rowHeight > 0 {
            return topic._rowHeight
         }
-        let width = UIScreen.main.bounds.width - 70
+        var width = UIScreen.main.bounds.width - 70
+        if !AppSettings.shared.displayAvatar {
+            width += 50.0
+        }
         if let title = topic.title {
             let maxSize = CGSize(width: width, height: CGFloat.infinity)
-            let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 15) as Any])
+            let font = AppContext.current.font.titleFont
+            let rect = title.boundingRectWithSize(maxSize, attributes: [.font: font as Any])
             let height = 10 + rect.height + 10 + 30
             topic._rowHeight = height
             return height

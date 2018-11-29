@@ -9,7 +9,11 @@
 import Foundation
 
 class AppContext {
+    
     static let current = AppContext()
+    
+    var font: AppFont = NormalFonts()
+    
     private init() {
         
     }
