@@ -37,9 +37,19 @@ class TopicDetailViewController: UIViewController {
 
         title = titleString
         view.backgroundColor = Theme.current.backgroundColor
+        setupNavigationBar()
         setupLoadingView()
         setupTableView()
         loadTopicDetail()
+    }
+    
+    private func setupNavigationBar() {
+        let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
+        navigationItem.rightBarButtonItem = moreBarButtonItem
+    }
+    
+    @objc private func moreBarButtonItemTapped(_ sender: Any) {
+        
     }
     
     private func setupLoadingView() {

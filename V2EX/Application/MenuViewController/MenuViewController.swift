@@ -55,6 +55,8 @@ class MenuViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.top.equalTo(avatarButton.snp.bottom).offset(6)
         }
+        
+        avatarButton.addTarget(self, action: #selector(avatarButtonTapped(_:)), for: .touchUpInside)
     }
     
     private func setupTableView() {
@@ -86,6 +88,10 @@ class MenuViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-30)
         }
         themeButton.addTarget(self, action: #selector(themeButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func avatarButtonTapped(_ sender: Any) {
+        
     }
     
     @objc private func themeButtonTapped(_ sender: Any) {

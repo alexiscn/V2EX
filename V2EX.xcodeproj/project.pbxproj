@@ -207,10 +207,6 @@
 		A358548B20E1D6D200C76393 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				A3A39CA420E181A4000B07F0 /* Theme.swift */,
-				A379E9BB210DF33900FA2169 /* style.css */,
-				A37F192F21A28A55001BCC0A /* dark.css */,
-				A37F193121A2A469001BCC0A /* light.css */,
 				A3691744219E911A002DA8E3 /* ActionSheet.swift */,
 				A37F193321A2B671001BCC0A /* Utility.swift */,
 			);
@@ -328,11 +324,23 @@
 				A36D0FA7219D808000E20EFB /* Networking */,
 				A36EAFC9219FEE8E000DA4A3 /* Models */,
 				A358548B20E1D6D200C76393 /* Common */,
+				A3A9E62F21AE901C00680FC5 /* Theme */,
 				A358548720E1D65A00C76393 /* Supporting Files */,
 				A3704DD420E0FA7D0052576D /* Extensions */,
 				A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */,
 			);
 			path = V2EX;
+			sourceTree = "<group>";
+		};
+		A3A9E62F21AE901C00680FC5 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				A3A39CA420E181A4000B07F0 /* Theme.swift */,
+				A37F192F21A28A55001BCC0A /* dark.css */,
+				A37F193121A2A469001BCC0A /* light.css */,
+				A379E9BB210DF33900FA2169 /* style.css */,
+			);
+			path = Theme;
 			sourceTree = "<group>";
 		};
 		A3DFFDF3211C3049005818BC /* MainViewController */ = {

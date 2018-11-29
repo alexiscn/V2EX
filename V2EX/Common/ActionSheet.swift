@@ -25,27 +25,40 @@ class Action {
     }
 }
 
-class ActionSheet: UIView {
+class ActionSheetController: UIView, UIGestureRecognizerDelegate {
+    
+    public var durationOfDismiss: TimeInterval = 0.3
     
     private var actions: [Action] = []
-    private let backgroundView: UIView
-    private let containerView: UIView
+    lazy var backgroundView: UIView = {
+        let bg = UIView()
+        return bg
+    }()
+    private var containerView: UIView = {
+        let container = UIView()
+        return container
+    }()
+    
     
     public func addAction(_ action: Action) {
         actions.append(action)
+        
     }
     
-    public init(title: String? = nil) {
-        backgroundView = UIView()
-        containerView = UIView()
-        super.init(frame: CGRect.zero)
+    public init(title: String?, message: String?) {
         
+        let frame = UIScreen.main.bounds
+        
+        super.init(frame: frame)
+
         addSubview(backgroundView)
         addSubview(containerView)
-        
+
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        tapGesture.delegate = self
         backgroundView.addGestureRecognizer(tapGesture)
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -58,26 +71,25 @@ class ActionSheet: UIView {
         }
     }
     
-    public func showInView(_ view: UIView) {
+    public func show() {
         
-        frame = view.bounds
-        
-        buildUI(parentView: view)
-        
-        view.addSubview(self)
-        
-        UIView.animate(withDuration: 0.3) {
-            self.backgroundView.alpha = 1.0
-            let y = view.frame.height - self.containerView.frame.height
-            self.containerView.frame.origin = CGPoint(x: 0.0, y: y)
+        buildUI()
+
+        UIView.animate(withDuration: 0.1, animations: {
+            UIApplication.shared.keyWindow?.addSubview(self)
+        }) { _ in
+            UIView.animate(withDuration: 0.3) {
+                self.backgroundView.alpha = 1.0
+                let y = self.frame.height - self.containerView.frame.height
+                self.containerView.frame.origin = CGPoint(x: 0.0, y: y)
+            }
         }
     }
     
-    private func buildUI(parentView: UIView) {
+    private func buildUI() {
         
-        isUserInteractionEnabled = true
         backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.4)
-        backgroundView.frame = parentView.bounds
+        backgroundView.frame = bounds
         backgroundView.alpha = 0
         containerView.backgroundColor = UIColor(white: 1, alpha: 0.8)
         
@@ -99,7 +111,7 @@ class ActionSheet: UIView {
             if action.style == .cancel {
                 y += 10.0
             }
-            actionButton.frame = CGRect(x: 0, y: y, width: parentView.frame.width, height: 50)
+            actionButton.frame = CGRect(x: 0, y: y, width: frame.width, height: 50)
             
             y += actionButton.frame.height
         }
@@ -111,7 +123,7 @@ class ActionSheet: UIView {
 //            y += keyWindowSafeAreaInsets.bottom
 //        }
         
-        containerView.frame = CGRect(x: 0.0, y: parentView.frame.height, width: parentView.frame.width, height: y)
+        containerView.frame = CGRect(x: 0.0, y: frame.height, width: frame.width, height: y)
         
         let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         effectView.frame = containerView.bounds
@@ -126,12 +138,19 @@ class ActionSheet: UIView {
     }
     
     public func hide() {
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: durationOfDismiss, animations: {
             self.backgroundView.alpha = 0
-            let y = self.superview?.frame.height ?? UIScreen.main.bounds.height
+            let y = UIScreen.main.bounds.height
             self.containerView.frame.origin = CGPoint(x: 0.0, y: y)
         }) { _ in
             self.removeFromSuperview()
         }
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view == self.containerView {
+            return false
+        }
+        return true
     }
 }

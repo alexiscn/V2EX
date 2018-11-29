@@ -169,7 +169,10 @@ class TopicCommentViewCell: UITableViewCell {
         if reply._rowHeight > 0 {
             return reply._rowHeight
         }
-        let width = UIScreen.main.bounds.width - 68
+        var width = UIScreen.main.bounds.width - 68
+        if !AppSettings.shared.displayAvatar {
+            width += 44
+        }
         if let title = reply.content {
             let maxSize = CGSize(width: width, height: CGFloat.infinity)
             let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
