@@ -13,6 +13,7 @@ class AppSettings {
     fileprivate struct Keys {
         static let displayAvatar = "displayAvatar"
         static let autoRefreshOnAppLaunch = "autoRefreshOnAppLaunch"
+        static let enableFullScreenGesture = "enableFullScreenGesture"
         static let lastViewedTab = "lastViewedTab"
     }
     
@@ -28,6 +29,11 @@ class AppSettings {
     var autoRefreshOnAppLaunch: Bool {
         get { return UserDefaults.standard.value(forKey: Keys.autoRefreshOnAppLaunch) as? Bool ?? true }
         set { UserDefaults.standard.set(newValue, forKey: Keys.autoRefreshOnAppLaunch) }
+    }
+    
+    var enableFullScreenGesture: Bool {
+        get { return UserDefaults.standard.value(forKey: Keys.enableFullScreenGesture) as? Bool ?? false }
+        set { UserDefaults.standard.set(newValue, forKey: Keys.enableFullScreenGesture) }
     }
 
     var lastViewedTab: String? {

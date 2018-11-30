@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FDFullscreenPopGesture
 
 class RightMenuViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -24,6 +25,8 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         setupHeader()
         setupTableView()
         setupFooter()
+        
+        self.fd_prefersNavigationBarHidden = true
         
         V2DataManager.shared.hotNodesChangesCommand = { [weak self] in
             DispatchQueue.main.async {

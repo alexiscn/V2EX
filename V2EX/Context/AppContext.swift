@@ -12,6 +12,10 @@ class AppContext {
     
     static let current = AppContext()
     
+    var userID: String?
+    
+    var isLogined: Bool { return userID != nil }
+    
     var font: AppFont = NormalFonts()
     
     private init() {

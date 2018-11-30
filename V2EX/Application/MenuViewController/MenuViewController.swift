@@ -8,6 +8,7 @@
 
 import UIKit
 import SnapKit
+import FDFullscreenPopGesture
 
 class MenuViewController: UIViewController {
 
@@ -30,6 +31,7 @@ class MenuViewController: UIViewController {
         setupTableView()
         setupThemeButton()
         setupSettingButton()
+        self.fd_prefersNavigationBarHidden = true
     }
     
     private func setupAvatarButton() {
@@ -91,7 +93,12 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func avatarButtonTapped(_ sender: Any) {
-        
+        if AppContext.current.isLogined {
+            
+        } else {
+            let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
+            present(loginVC, animated: true, completion: nil)
+        }
     }
     
     @objc private func themeButtonTapped(_ sender: Any) {

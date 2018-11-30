@@ -53,5 +53,10 @@
         "title": "MBProgressHUD",
         "subTitle": "MBProgressHUD + Customizations",
         "url": "https://github.com/jdg/MBProgressHUD"
+    },
+    {
+        "title": "FDFullscreenPopGesture",
+        "subTitle": "A UINavigationController's category to enable fullscreen pop gesture with iOS7+ system style.",
+        "url": "https://github.com/forkingdog/FDFullscreenPopGesture"
     }
 ]

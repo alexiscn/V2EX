@@ -21,7 +21,8 @@ class SettingsViewController: UIViewController {
     private var dataSource: [SettingTableSectionModel] = []
     
     enum Tags: Int {
-        case autoRefreshListOnAppLaunch
+        case autoRefreshListOnAppLaunch = 1
+        case enableFullScreenGesture = 2
     }
     
     override func viewDidLoad() {
@@ -61,7 +62,9 @@ class SettingsViewController: UIViewController {
         
         let autoRefresh = SettingTableModel(title: "自动刷新列表", value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
         
-        let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh])
+        let enableFullScreenGesture = SettingTableModel(title: "全屏返回手势", value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
+        
+        let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh, enableFullScreenGesture])
         dataSource.append(switchesSection)
         setupAbouts()
     }
@@ -99,6 +102,14 @@ class SettingsViewController: UIViewController {
     }
     
     @objc func switchValueDidChanged(_ sender: UISwitch) {
+        switch sender.tag {
+        case Tags.autoRefreshListOnAppLaunch.rawValue:
+            AppSettings.shared.autoRefreshOnAppLaunch = sender.isOn
+        case Tags.enableFullScreenGesture.rawValue:
+            AppSettings.shared.enableFullScreenGesture = sender.isOn
+        default:
+            break
+        }
     }
 
     override func didReceiveMemoryWarning() {

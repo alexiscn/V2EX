@@ -13,4 +13,5 @@ target 'V2EX' do
     pod 'SideMenu'
     pod 'WCDB.swift'
     pod 'MBProgressHUD'
+    pod 'FDFullscreenPopGesture'
 end
