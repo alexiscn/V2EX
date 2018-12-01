@@ -58,6 +58,8 @@
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
 		A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */; };
 		A3DCB07F21AA9D8A005FD955 /* allnodes.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB07E21AA9D8A005FD955 /* allnodes.json */; };
+		A3DCB08121B2AF30005FD955 /* V2SDK+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08021B2AF30005FD955 /* V2SDK+Account.swift */; };
+		A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08221B2B270005FD955 /* LoginFormData.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +117,8 @@
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingsViewController.swift; sourceTree = "<group>"; };
 		A3DCB07E21AA9D8A005FD955 /* allnodes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allnodes.json; sourceTree = "<group>"; };
+		A3DCB08021B2AF30005FD955 /* V2SDK+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Account.swift"; sourceTree = "<group>"; };
+		A3DCB08221B2B270005FD955 /* LoginFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormData.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		B4AC35F723942C404A14CBA3 /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
@@ -250,6 +254,7 @@
 			children = (
 				A36D0FAC219D80E400E20EFB /* V2DataManager.swift */,
 				A36D0FA8219D809800E20EFB /* V2SDK.swift */,
+				A3DCB08021B2AF30005FD955 /* V2SDK+Account.swift */,
 				A36D0FAE219D810000E20EFB /* V2SDK+Members.swift */,
 				A36D0FB0219D811800E20EFB /* V2SDK+Nodes.swift */,
 				A36D0FB2219D814200E20EFB /* V2SDK+Replies.swift */,
@@ -267,6 +272,7 @@
 				A36EAFCE219FEF01000DA4A3 /* TopicDetail.swift */,
 				A36EAFD0219FEF46000DA4A3 /* Reply.swift */,
 				A34A5D6B21AB9BCD00ED2F88 /* Node.swift */,
+				A3DCB08221B2B270005FD955 /* LoginFormData.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -542,6 +548,7 @@
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
 				A36EAFCD219FEEDB000DA4A3 /* Topic.swift in Sources */,
 				A36EAFD1219FEF46000DA4A3 /* Reply.swift in Sources */,
+				A3DCB08121B2AF30005FD955 /* V2SDK+Account.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A37F193421A2B671001BCC0A /* Utility.swift in Sources */,
 				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
@@ -561,6 +568,7 @@
 				A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */,
 				A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */,
 				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,
+				A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
 				A36D0FB1219D811800E20EFB /* V2SDK+Nodes.swift in Sources */,

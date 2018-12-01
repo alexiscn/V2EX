@@ -19,11 +19,24 @@ typealias V2SDKLoadTopicDetailCompletion = (TopicDetail?, [Reply], Error?) -> Vo
 
 typealias V2SDKLoadTopicReplyCompletion = ([Reply], Error?) -> Void
 
+typealias AccountCompletion = (LoginFormData?, Error?) -> Void
+
 class V2SDK {
     
     static let baseURLString = "https://www.v2ex.com"
     
     static var shouldParseHotNodes: Bool = true
+    
+    class func httpHeaders(path: String) -> [String: String]? {
+        
+        var headers: [String: String] = Alamofire.SessionManager.defaultHTTPHeaders
+        if path == "/signin" {
+            headers["Referer"] = baseURLString
+            headers["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
+            return headers
+        }
+        return nil
+    }
     
     class func setup() {
         GenericNetworking.baseURLString = baseURLString
@@ -39,12 +52,14 @@ class V2SDK {
         }
     }
     
-    class func checkIfNeedsSignIn(dataResponse: DataResponse<Data>) -> Bool {
-        let path = "/signin"
-        if dataResponse.response?.url?.path == path && dataResponse.request?.url?.path != path {
-            return true
+    class func post(url: URL, params: Parameters?, headers: HTTPHeaders? = nil, completion: @escaping (String?, Error?) -> Void) {
+        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseData { dataResponse in
+            guard let data = dataResponse.data, let html = String(data: data, encoding: .utf8) else {
+                completion(nil, dataResponse.error)
+                return
+            }
+            completion(html, nil)
         }
-        return false
     }
 }
 
