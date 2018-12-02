@@ -13,6 +13,8 @@ import SafariServices
 
 class TopicCommentViewCell: UITableViewCell {
 
+    var userTappedHandler: RelayCommand?
+    
     private let containerView: UIView
     
     private let avatarView: UIImageView
@@ -134,6 +136,12 @@ class TopicCommentViewCell: UITableViewCell {
         selectedBackgroundView = backgroundView
         
         contentTextView.delegate = self
+        
+        usernameButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func usernameButtonTapped(_ sender: Any) {
+        userTappedHandler?()
     }
     
     required init?(coder aDecoder: NSCoder) {

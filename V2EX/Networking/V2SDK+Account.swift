@@ -62,7 +62,8 @@ extension V2SDK {
         params[formData.password] = password
         params[formData.captcha] = captcha
         
-        post(url: url, params: params, headers: httpHeaders(path: "/signin")) { (html, error) in
+        let headers = ApiPath.signin.httpHeaders
+        post(url: url, params: params, headers: headers) { (html, error) in
             guard let html = html else {
                 completion(nil, error)
                 return

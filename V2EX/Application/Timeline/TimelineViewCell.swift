@@ -15,9 +15,11 @@ class TimelineViewCell: UITableViewCell {
     
     var nodeHandler: RelayCommand?
     
+    var avatarHandler: RelayCommand?
+    
     private let containerView: UIView
     
-    private let avatarView: UIImageView
+    private let avatarButton: UIButton
     
     private let usernameLabel: UILabel
     
@@ -35,9 +37,9 @@ class TimelineViewCell: UITableViewCell {
         containerView = UIView()
         containerView.backgroundColor = Theme.current.cellBackgroundColor
         
-        avatarView = UIImageView()
-        avatarView.layer.cornerRadius = 5.0
-        avatarView.layer.masksToBounds = true
+        avatarButton = UIButton()
+        avatarButton.layer.cornerRadius = 5.0
+        avatarButton.layer.masksToBounds = true
         
         usernameLabel = UILabel()
         usernameLabel.textColor = Theme.current.subTitleColor
@@ -68,7 +70,7 @@ class TimelineViewCell: UITableViewCell {
         
         contentView.addSubview(containerView)
         
-        containerView.addSubview(avatarView)
+        containerView.addSubview(avatarButton)
         containerView.addSubview(usernameLabel)
         containerView.addSubview(timeLabel)
         
@@ -83,7 +85,7 @@ class TimelineViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-3)
         }
         
-        avatarView.snp.makeConstraints { make in
+        avatarButton.snp.makeConstraints { make in
             make.height.width.equalTo(40)
             make.leading.equalToSuperview().offset(10)
             make.top.equalToSuperview().offset(10)
@@ -127,7 +129,12 @@ class TimelineViewCell: UITableViewCell {
         backgroundView.backgroundColor = Theme.current.cellHighlightColor
         selectedBackgroundView = backgroundView
         
-        nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
+        nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)        
+        avatarButton.addTarget(self, action: #selector(handleAvatarTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func handleAvatarTapped(_ sender: Any) {
+        avatarHandler?()
     }
     
     @objc private func handleNodeButtonTapped(_ sender: Any) {
@@ -141,17 +148,15 @@ class TimelineViewCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        avatarView.image = nil
+        avatarButton.setImage(nil, for: .normal)
         usernameLabel.text = nil
         timeLabel.text = nil
         titleLabel.text = nil
-        //nodeButton.setTitle(nil, for: .normal)
     }
     
     func update(_ topic: Topic) {
-        
-        avatarView.kf.setImage(with: topic.avatar)
-        avatarView.isHidden = !AppSettings.shared.displayAvatar
+        avatarButton.kf.setImage(with: topic.avatar, for: .normal)
+        avatarButton.isHidden = !AppSettings.shared.displayAvatar
         usernameLabel.text = topic.username
         timeLabel.text = topic.lastUpdatedTime
         titleLabel.text = topic.title

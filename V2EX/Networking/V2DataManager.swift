@@ -64,11 +64,7 @@ class V2DataManager {
     func loadHotNodes() -> [NodeGroup] {
         do {
             let objects: [Node] = try database.getObjects(fromTable: Tables.nodes)
-            //let dict = Dictionary(grouping: objects, by: { $0.letter })
-            //let groups = dict.map { return NodeGroup(title: $0.key, nodes: $0.value.sorted { $0.title < $1.title }) }
-            
             var groups: [NodeGroup] = []
-            
             for node in objects {
                 if let g = groups.first(where: { $0.title == node.letter }) {
                     g.nodes.append(node)
@@ -76,7 +72,6 @@ class V2DataManager {
                     groups.append(NodeGroup(title: node.letter, nodes: [node]))
                 }
             }
-            
             return groups
         } catch {
             print(error)

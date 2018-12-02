@@ -199,6 +199,12 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
             cell.backgroundColor = .clear
             let reply = comments[indexPath.row]
             cell.update(reply)
+            cell.userTappedHandler = { [weak self, weak reply] in
+                if let name = reply?.username {
+                    let controller = UserProfileViewController(username: name)
+                    self?.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
             return cell
         }
     }

@@ -34,7 +34,7 @@ extension V2SDK {
         GenericNetworking.getJSON(path: path, parameters: params, completion: completion)
     }
     
-    class func userProfile(name: String) {
+    class func getUserProfile(name: String) {
         let url = baseURLString + "/member/" + name
         loadHTMLString(urlString: url) { (html, error) in
             guard let html = html else {
@@ -42,7 +42,14 @@ extension V2SDK {
             }
             do {
                 let doc = try SwiftSoup.parse(html)
-                print(doc)
+                let mainDiv = try doc.select("div#Main").first()
+                let username = try mainDiv?.select("h1").first()?.text()
+                let info = try mainDiv?.select("span.gray").first()?.text()
+                let avatar = try mainDiv?.select("img.avatar").first()?.attr("src")
+                
+                if let n = username, let info = info, let a = avatar {
+                    print("username:\(n), info:\(info), avatar:\(a)")
+                }
             } catch {
                 print(error)
             }

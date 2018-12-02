@@ -18,6 +18,8 @@ class TimelineViewController: UIViewController {
 
     var topicSelectionHandler: ((Topic?) -> Void)?
     
+    var userTappedHandler: ((String?) -> Void)?
+    
     fileprivate var dataSource: [Topic] = []
     
     fileprivate var tableView: UITableView!
@@ -239,6 +241,9 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         cell.update(topic)
         cell.nodeHandler = { [weak topic, weak self] in
             self?.topicSelectionHandler?(topic)
+        }
+        cell.avatarHandler = { [weak topic, weak self] in
+            self?.userTappedHandler?(topic?.username)
         }
         return cell
     }

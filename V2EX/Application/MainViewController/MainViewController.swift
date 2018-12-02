@@ -24,6 +24,8 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupChildViewController()
         setupSideMenu()
+        
+        V2SDK.getUserProfile(name: "xshf12345")
     }
     
     private func setupNavigationBar() {
@@ -84,6 +86,12 @@ class MainViewController: UIViewController {
             if let topic = topic, let name = topic.nodeName, let title = topic.nodeTitle {
                 let node = Node.nodeWithName(name, title: title)
                 let controller = TimelineViewController(node: node)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
+        }
+        timelineVC?.userTappedHandler = { [weak self] username in
+            if let name = username {
+                let controller = UserProfileViewController(username: name)
                 self?.navigationController?.pushViewController(controller, animated: true)
             }
         }

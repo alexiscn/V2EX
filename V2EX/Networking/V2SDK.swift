@@ -9,12 +9,29 @@ import Foundation
 import GenericNetworking
 import Alamofire
 
+struct UserAgents {
+    static let phone = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
+}
+
 enum ApiPath: String {
-    case signin = "/signin"
-    
+    case signin = "signin"
+    case member
+    case missionDaily = "/mission/daily"
     
     var urlString: String {
         return V2SDK.baseURLString + rawValue
+    }
+    
+    var httpHeaders: [String: String] {
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        switch self {
+        case .signin:
+            headers["Referer"] = V2SDK.baseURLString + "/signin"
+            headers["User-Agent"] = UserAgents.phone
+        default:
+            break
+        }
+        return headers
     }
 }
 
@@ -42,17 +59,6 @@ class V2SDK {
     static let baseURLString = "https://www.v2ex.com"
     
     static var shouldParseHotNodes: Bool = true
-    
-    class func httpHeaders(path: String) -> [String: String]? {
-        
-        var headers: [String: String] = Alamofire.SessionManager.defaultHTTPHeaders
-        if path == "/signin" {
-            headers["Referer"] = baseURLString + "/signin"
-            headers["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
-            return headers
-        }
-        return nil
-    }
     
     class func setup() {
         GenericNetworking.baseURLString = baseURLString
