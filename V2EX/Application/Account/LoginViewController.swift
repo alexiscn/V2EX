@@ -76,23 +76,24 @@ class LoginViewController: UIViewController {
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         
-        guard let username = usernameTextField.text else {
+        guard let username = usernameTextField.text, !username.isEmpty else {
             return
         }
         
-        guard let password = passwordTextField.text else {
+        guard let password = passwordTextField.text, !password.isEmpty else {
             return
         }
         
-        guard let captcha = captchaTextField.text else {
+        guard let captcha = captchaTextField.text, !captcha.isEmpty else {
             return
         }
         
         guard let formData = loginForm else {
             return
         }
-        // TODO: check
-        V2SDK.login(username: username, password: password, captcha: captcha, formData: formData)
+        V2SDK.login(username: username, password: password, captcha: captcha, formData: formData) { (account, error) in
+            
+        }
     }
     
 }

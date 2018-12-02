@@ -9,6 +9,15 @@ import Foundation
 import GenericNetworking
 import Alamofire
 
+enum ApiPath: String {
+    case signin = "/signin"
+    
+    
+    var urlString: String {
+        return V2SDK.baseURLString + rawValue
+    }
+}
+
 enum ServerError: Error {
     case needsSignIn
     case needsTwoFactor
@@ -47,6 +56,22 @@ class V2SDK {
     
     class func setup() {
         GenericNetworking.baseURLString = baseURLString
+    }
+    
+    class func avatarURLWithSource(_ src: String?) -> URL? {
+        guard let src = src else {
+            return nil
+        }
+        if src.hasPrefix("//") {
+            return URL(string: "https:" + src)
+        } else {
+            return URL(string: src)
+        }
+    }
+    
+    class func loadHTMLString(urlString: String, completion: @escaping (String?, Error?) -> Void) {
+        let url = URL(string: urlString)!
+        loadHTMLString(url: url, completion: completion)
     }
     
     class func loadHTMLString(url: URL, completion: @escaping (String?, Error?) -> Void) {

@@ -26,9 +26,8 @@ extension V2SDK {
     }
     
     class func refreshCode(completion: @escaping AccountCompletion) {
-        let urlString =  baseURLString + "/signin"
-        let url = URL(string: urlString)!
-        loadHTMLString(url: url) { (html, error) in
+        let url =  baseURLString + "/signin"
+        loadHTMLString(urlString: url) { (html, error) in
             guard let html = html else {
                 completion(nil, error)
                 return
@@ -74,13 +73,15 @@ extension V2SDK {
                 if title.contains("两步验证登录") {
                     return
                 }
-                
+    
                 if html.contains("/mission/daily") {
-                    if let imgElement = try doc.select("img.avatar").first() {
+                    if let imgElement = try doc.select("img.avatar").first(),
+                        let member = try imgElement.parent()?.attr("href") {
                         let src = try imgElement.attr("src")
-                        let member = try imgElement.parent()?.attr("href")
-                        
-                        let account = Account(username: member, avatarURL: nil)
+                        let avatarURLString = avatarURLWithSource(src)
+                        let name = member.replacingOccurrences(of: "/member/", with: "")
+                        let account = Account(username: name, avatarURLString: avatarURLString?.absoluteString)
+                        completion(account, nil)
                     }
                 }
                 

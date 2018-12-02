@@ -7,6 +7,7 @@
 
 import Foundation
 import GenericNetworking
+import SwiftSoup
 
 extension V2SDK {
     
@@ -31,6 +32,21 @@ extension V2SDK {
         let path = "/api/members/show.json"
         let params = ["id": userID]
         GenericNetworking.getJSON(path: path, parameters: params, completion: completion)
+    }
+    
+    class func userProfile(name: String) {
+        let url = baseURLString + "/member/" + name
+        loadHTMLString(urlString: url) { (html, error) in
+            guard let html = html else {
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                print(doc)
+            } catch {
+                print(error)
+            }
+        }
     }
     
 }

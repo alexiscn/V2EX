@@ -61,6 +61,7 @@
 		A3DCB08121B2AF30005FD955 /* V2SDK+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08021B2AF30005FD955 /* V2SDK+Account.swift */; };
 		A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08221B2B270005FD955 /* LoginFormData.swift */; };
 		A3DCB08521B392FB005FD955 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08421B392FA005FD955 /* Account.swift */; };
+		A3DCB08721B3FB2E005FD955 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +122,7 @@
 		A3DCB08021B2AF30005FD955 /* V2SDK+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Account.swift"; sourceTree = "<group>"; };
 		A3DCB08221B2B270005FD955 /* LoginFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormData.swift; sourceTree = "<group>"; };
 		A3DCB08421B392FA005FD955 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		B4AC35F723942C404A14CBA3 /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
@@ -305,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				A379EA3C2121C4DC00FA2169 /* ProfileViewController.swift */,
+				A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -577,6 +580,7 @@
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
 				A36D0FB1219D811800E20EFB /* V2SDK+Nodes.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,
+				A3DCB08721B3FB2E005FD955 /* UserProfileViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -45,8 +45,8 @@ extension V2SDK {
     ///   - tab: tab
     ///   - completion: 请求回调
     public class func getTopicList(tab: V2Tab, completion: @escaping V2SDKLoadTimelineCompletion) {
-        let url = URL(string: String(format: "https://www.v2ex.com/?tab=%@", tab.key))!
-        loadHTMLString(url: url) { (html, error) in
+        let url = baseURLString + "/?tab=" + tab.key
+        loadHTMLString(urlString: url) { (html, error) in
             guard let html = html else {
                 completion([], error)
                 return
@@ -75,14 +75,12 @@ extension V2SDK {
                 completion([], error)
             }
         }
-        
     }
     
     public class func loadNodeTopics(nodeName: String, page: Int, completion: @escaping V2SDKLoadNodeTopicsCompletion) {
-        let urlString = "https://www.v2ex.com/go/\(nodeName)?p=\(page)"
-        let url = URL(string: urlString)!
+        let url = "https://www.v2ex.com/go/\(nodeName)?p=\(page)"
         let detail = NodeDetail()
-        loadHTMLString(url: url) { (html, error) in
+        loadHTMLString(urlString: url) { (html, error) in
             guard let html = html else {
                 completion(detail, error)
                 return
@@ -121,11 +119,8 @@ extension V2SDK {
     ///   - topicURL: 主题URL
     ///   - completion: 请求回调
     public class func getTopicDetail(_ topicURL: URL, completion: @escaping V2SDKLoadTopicDetailCompletion) {
-        
-        let urlString = topicURL.absoluteString.appending("?p=1")
-        let url = URL(string: urlString)!
-        
-        loadHTMLString(url: url) { (html, error) in
+        let url = topicURL.absoluteString.appending("?p=1")
+        loadHTMLString(urlString: url) { (html, error) in
             guard let html = html else {
                 completion(nil, [], error)
                 return
@@ -143,9 +138,8 @@ extension V2SDK {
     }
     
     public class func loadMoreReplies(topicURL: URL, page: Int, completion: @escaping V2SDKLoadTopicReplyCompletion) {
-        let urlString = topicURL.absoluteString.appending("?p=\(page)")
-        let url = URL(string: urlString)!
-        loadHTMLString(url: url) { (html, error) in
+        let url = topicURL.absoluteString.appending("?p=\(page)")
+        loadHTMLString(urlString: url) { (html, error) in
             guard let html = html else {
                 completion([], error)
                 return
@@ -235,17 +229,6 @@ extension V2SDK {
         } catch {
             print(error)
             return nil
-        }
-    }
-    
-    class func avatarURLWithSource(_ src: String?) -> URL? {
-        guard let src = src else {
-            return nil
-        }
-        if src.hasPrefix("//") {
-            return URL(string: "https:" + src)
-        } else {
-            return URL(string: src)
         }
     }
     

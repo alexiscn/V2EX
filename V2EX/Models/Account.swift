@@ -12,6 +12,6 @@ struct Account {
     
     var username: String?
     
-    var avatarURL: URL?
+    var avatarURLString: String?
     
 }

@@ -14,3 +14,9 @@ struct LoginFormData {
     let captcha: String
     let once: String
 }
+
+struct LoginPostData {
+    let username: String
+    let password: String
+    let captcha: String
+}
