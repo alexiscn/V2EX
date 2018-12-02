@@ -59,7 +59,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     private func loadUserProfile() {
-        
+        V2SDK.getUserProfile(name: username)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

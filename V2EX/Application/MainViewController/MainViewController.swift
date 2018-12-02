@@ -24,8 +24,6 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupChildViewController()
         setupSideMenu()
-        
-        V2SDK.getUserProfile(name: "xshf12345")
     }
     
     private func setupNavigationBar() {
