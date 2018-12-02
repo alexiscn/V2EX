@@ -55,7 +55,7 @@ extension V2SDK {
             do {
                 let doc = try SwiftSoup.parse(html)
                 let cells = try doc.select("div")
-                var topics: TopicList = []
+                var topics: [Topic] = []
                 for cell in cells {
                     if !cell.hasClass("cell item") {
                         continue
@@ -93,7 +93,7 @@ extension V2SDK {
                     detail.page = Int(max) ?? 1
                 }
                 if let topicNodes = try doc.select("#TopicsNode").first() {
-                    var topics: TopicList = []
+                    var topics: [Topic] = []
                     for cell in topicNodes.children() {
                         let cellContent = try cell.html()
                         if cellContent == "" || cellContent == "(adsbygoogle = window.adsbygoogle || []).push({});" {

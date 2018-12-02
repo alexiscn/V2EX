@@ -60,6 +60,7 @@
 		A3DCB07F21AA9D8A005FD955 /* allnodes.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB07E21AA9D8A005FD955 /* allnodes.json */; };
 		A3DCB08121B2AF30005FD955 /* V2SDK+Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08021B2AF30005FD955 /* V2SDK+Account.swift */; };
 		A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08221B2B270005FD955 /* LoginFormData.swift */; };
+		A3DCB08521B392FB005FD955 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08421B392FA005FD955 /* Account.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,7 @@
 		A3DCB07E21AA9D8A005FD955 /* allnodes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allnodes.json; sourceTree = "<group>"; };
 		A3DCB08021B2AF30005FD955 /* V2SDK+Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Account.swift"; sourceTree = "<group>"; };
 		A3DCB08221B2B270005FD955 /* LoginFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormData.swift; sourceTree = "<group>"; };
+		A3DCB08421B392FA005FD955 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A5FB8519D0C8263AA786EE50 /* Pods-V2EX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.debug.xcconfig"; sourceTree = "<group>"; };
 		B4AC35F723942C404A14CBA3 /* Pods-V2EX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-V2EX.release.xcconfig"; path = "Pods/Target Support Files/Pods-V2EX/Pods-V2EX.release.xcconfig"; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				A36EAFD0219FEF46000DA4A3 /* Reply.swift */,
 				A34A5D6B21AB9BCD00ED2F88 /* Node.swift */,
 				A3DCB08221B2B270005FD955 /* LoginFormData.swift */,
+				A3DCB08421B392FA005FD955 /* Account.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				A37F192E21A25CE7001BCC0A /* AppSettings.swift in Sources */,
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
 				A379EA3A2121C48800FA2169 /* SearchViewController.swift in Sources */,
+				A3DCB08521B392FB005FD955 /* Account.swift in Sources */,
 				A379EA3F212259C500FA2169 /* AllNodesViewController.swift in Sources */,
 				A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */,
 				A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */,

@@ -53,7 +53,7 @@ extension V2SDK {
         }
     }
     
-    class func login(username: String, password: String, captcha: String, formData: LoginFormData) {
+    class func login(username: String, password: String, captcha: String, formData: LoginFormData, completion: @escaping LoginCompletion) {
         let urlString =  baseURLString + "/signin"
         let url = URL(string: urlString)!
         var params: [String: String] = [:]
@@ -64,7 +64,30 @@ extension V2SDK {
         params[formData.captcha] = captcha
         
         post(url: url, params: params, headers: httpHeaders(path: "/signin")) { (html, error) in
-            print(html)
+            guard let html = html else {
+                completion(nil, error)
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                let title = try doc.title()
+                if title.contains("两步验证登录") {
+                    return
+                }
+                
+                if html.contains("/mission/daily") {
+                    if let imgElement = try doc.select("img.avatar").first() {
+                        let src = try imgElement.attr("src")
+                        let member = try imgElement.parent()?.attr("href")
+                        
+                        let account = Account(username: member, avatarURL: nil)
+                    }
+                }
+                
+            } catch {
+                print(error)
+                completion(nil, error)
+            }
         }
     }
 }

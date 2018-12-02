@@ -9,9 +9,14 @@ import Foundation
 import GenericNetworking
 import Alamofire
 
-typealias TopicList = [Topic]
+enum ServerError: Error {
+    case needsSignIn
+    case needsTwoFactor
+}
 
-typealias V2SDKLoadTimelineCompletion = (TopicList, Error?) -> Void
+protocol ServerResponse { }
+
+typealias V2SDKLoadTimelineCompletion = ([Topic], Error?) -> Void
 
 typealias V2SDKLoadNodeTopicsCompletion = (NodeDetail, Error?) -> Void
 
@@ -20,6 +25,8 @@ typealias V2SDKLoadTopicDetailCompletion = (TopicDetail?, [Reply], Error?) -> Vo
 typealias V2SDKLoadTopicReplyCompletion = ([Reply], Error?) -> Void
 
 typealias AccountCompletion = (LoginFormData?, Error?) -> Void
+
+typealias LoginCompletion = (Account?, Error?) -> Void
 
 class V2SDK {
     
@@ -31,7 +38,7 @@ class V2SDK {
         
         var headers: [String: String] = Alamofire.SessionManager.defaultHTTPHeaders
         if path == "/signin" {
-            headers["Referer"] = baseURLString
+            headers["Referer"] = baseURLString + "/signin"
             headers["User-Agent"] = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
             return headers
         }

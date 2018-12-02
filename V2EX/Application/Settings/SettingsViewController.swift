@@ -83,7 +83,7 @@ class SettingsViewController: UIViewController {
         let sourceCode = SettingTableModel(title: "Source Code", value: .actionCommand { [weak self] in
             let url = URL(string: "https://github.com/alexiscn/V2EX")!
             let controller = SFSafariViewController(url: url)
-            self?.navigationController?.pushViewController(controller, animated: true)
+            self?.present(controller, animated: true, completion: nil)
         })
         
         let openSource = SettingTableModel(title: "Open Source Libraries", value: .actionCommand { [weak self] in
