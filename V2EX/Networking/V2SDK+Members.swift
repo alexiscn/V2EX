@@ -60,9 +60,21 @@ extension V2SDK {
                     topic.avatar = avatarURL
                     topics.append(topic)
                 }
+                
+                var comments: [UserProfileComment] = []
+                let commentsCells = try doc.select("div.dock_area")
+                for cell in commentsCells {
+                    var comment = UserProfileComment()
+                    comment.timeAgo = try cell.select("span.fade").first()?.text()
+                    comment.conent = try cell.select("div.reply_content").first()?.text()
+                    comment.conentHTML = try cell.select("div.reply_content").first()?.html()
+                    comments.append(comment)
+                }
+                
                 var profile = UserProfileResponse()
                 profile.info = info
                 profile.topics = topics
+                profile.comments = comments
                 completion(profile, nil)
             } catch {
                 print(error)

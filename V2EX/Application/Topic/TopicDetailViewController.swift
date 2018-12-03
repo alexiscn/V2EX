@@ -41,6 +41,44 @@ class TopicDetailViewController: UIViewController {
         setupLoadingView()
         setupTableView()
         loadTopicDetail()
+        setupLongPressGesture()
+    }
+    
+    private func setupLongPressGesture() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
+        gesture.minimumPressDuration = 0.5
+        tableView.addGestureRecognizer(gesture)
+    }
+    
+    @objc private func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            
+            let feedback = UIImpactFeedbackGenerator(style: .light)
+            feedback.impactOccurred()
+            
+            let point = gesture.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: point), indexPath.section == 1 {
+                let comment = comments[indexPath.row]
+                showCommentSheet(comment)
+            }
+        }
+    }
+    
+    private func showCommentSheet(_ comment: Reply) {
+        let actionSheet = ActionSheet(title: NSLocalizedString("更多操作", comment: ""), message: nil)
+        actionSheet.addAction(Action(title: NSLocalizedString("评论", comment: ""), style: .default, handler: { _ in
+            
+        }))
+        actionSheet.addAction(Action(title: NSLocalizedString("复制评论", comment: ""), style: .default, handler: { _ in
+            UIPasteboard.general.string = comment.content
+        }))
+        actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
+            
+        }))
+        actionSheet.addAction(Action(title: NSLocalizedString("取消", comment: ""), style: .cancel, handler: { _ in
+            
+        }))
+        actionSheet.show()
     }
     
     private func setupNavigationBar() {
