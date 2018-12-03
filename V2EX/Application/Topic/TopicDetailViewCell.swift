@@ -17,7 +17,9 @@ class TopicDetailViewCell: UITableViewCell {
     
     var topicButtonHandler: RelayCommand?
     
-    private let avatarView: UIImageView
+    var avatarHandler: RelayCommand?
+    
+    private let avatarButton: UIButton
     
     private let usernameButton: UIButton
     
@@ -31,9 +33,9 @@ class TopicDetailViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
-        avatarView = UIImageView()
-        avatarView.layer.cornerRadius = 5.0
-        avatarView.layer.masksToBounds = true
+        avatarButton = UIButton()
+        avatarButton.layer.cornerRadius = 5.0
+        avatarButton.layer.masksToBounds = true
         usernameButton = UIButton(type: .system)
         usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         usernameButton.setTitleColor(Theme.current.titleColor, for: .normal)
@@ -60,7 +62,7 @@ class TopicDetailViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(avatarView)
+        contentView.addSubview(avatarButton)
         contentView.addSubview(usernameButton)
         contentView.addSubview(timeAgoLabel)
         contentView.addSubview(titleLabel)
@@ -69,7 +71,7 @@ class TopicDetailViewCell: UITableViewCell {
         
         webView.navigationDelegate = self
         
-        avatarView.snp.makeConstraints { make in
+        avatarButton.snp.makeConstraints { make in
             make.height.width.equalTo(40)
             make.leading.equalToSuperview().offset(12)
             make.top.equalToSuperview().offset(12)
@@ -92,7 +94,7 @@ class TopicDetailViewCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(12)
-            make.top.equalTo(avatarView.snp.bottom).offset(12)
+            make.top.equalTo(avatarButton.snp.bottom).offset(12)
             make.trailing.equalToSuperview().offset(-12)
         }
         
@@ -104,10 +106,15 @@ class TopicDetailViewCell: UITableViewCell {
         }
         
         nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
+        avatarButton.addTarget(self, action: #selector(userAvatarButtonTapped(_:)), for: .touchUpInside)
     }
     
     @objc private func handleNodeButtonTapped(_ sender: Any) {
         topicButtonHandler?()
+    }
+    
+    @objc private func userAvatarButtonTapped(_ sender: Any) {
+        avatarHandler?()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -115,7 +122,7 @@ class TopicDetailViewCell: UITableViewCell {
     }
 
     func update(_ detail: TopicDetail) {
-        avatarView.kf.setImage(with: detail.authorAvatarURL)
+        avatarButton.kf.setBackgroundImage(with: detail.authorAvatarURL, for: .normal)
         usernameButton.setTitle(detail.author, for: .normal)
         titleLabel.text = detail.title
         timeAgoLabel.text = detail.small

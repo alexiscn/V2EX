@@ -49,7 +49,19 @@ class TopicDetailViewController: UIViewController {
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        
+        let actionSheet = ActionSheet(title: NSLocalizedString("更多操作", comment: ""), message: nil)
+        actionSheet.addAction(Action(title: NSLocalizedString("在Safari中打开", comment: ""), style: .default, handler: { _ in
+            if let url = self.topicURL {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }))
+        actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
+            
+        }))
+        actionSheet.addAction(Action(title: NSLocalizedString("取消", comment: ""), style: .cancel, handler: { _ in
+            
+        }))
+        actionSheet.show()
     }
     
     private func setupLoadingView() {
@@ -63,6 +75,7 @@ class TopicDetailViewController: UIViewController {
     }
     
     private func loadTopicDetail() {
+        webViewHeightCaculated = false
         if let url = topicURL {
             V2SDK.getTopicDetail(url) { (detail, replyList, error) in
                 DispatchQueue.main.async { [weak self] in
@@ -75,6 +88,7 @@ class TopicDetailViewController: UIViewController {
                     }
                     
                     strongSelf.comments = replyList
+                    strongSelf.tableView.mj_header.endRefreshing()
                     
                     strongSelf.tableView.reloadData()
                     if let detail = detail, detail.page == 1 {
@@ -133,6 +147,15 @@ class TopicDetailViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         
+        let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            self?.loadTopicDetail()
+        })
+        header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
+        header?.stateLabel.isHidden = true
+        header?.stateLabel.textColor = Theme.current.subTitleColor
+        header?.lastUpdatedTimeLabel.isHidden = true
+        tableView.mj_header = header
+        
         let footer = MJRefreshAutoNormalFooter { [weak self] in
             self?.loadMoreComments()
         }
@@ -187,6 +210,12 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 if let detail = self?.detail, let name = detail.nodeTag, let title = detail.nodeName {
                     let node = Node.nodeWithName(name, title: title)
                     let controller = TimelineViewController(node: node)
+                    self?.navigationController?.pushViewController(controller, animated: true)
+                }
+            }
+            cell.avatarHandler = { [weak self] in
+                if let detail = self?.detail, let author = detail.author {
+                    let controller = UserProfileViewController(username: author)
                     self?.navigationController?.pushViewController(controller, animated: true)
                 }
             }

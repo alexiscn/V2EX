@@ -54,11 +54,15 @@ typealias AccountCompletion = (LoginFormData?, Error?) -> Void
 
 typealias LoginCompletion = (Account?, Error?) -> Void
 
+typealias UserProfileRequestCompletion = (UserProfileResponse?, Error?) -> Void
+
 class V2SDK {
     
     static let baseURLString = "https://www.v2ex.com"
     
     static var shouldParseHotNodes: Bool = true
+    
+    static var shouldParseAccount: Bool = true
     
     class func setup() {
         GenericNetworking.baseURLString = baseURLString

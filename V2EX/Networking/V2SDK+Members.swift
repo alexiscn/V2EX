@@ -34,24 +34,39 @@ extension V2SDK {
         GenericNetworking.getJSON(path: path, parameters: params, completion: completion)
     }
     
-    class func getUserProfile(name: String) {
+    class func getUserProfile(name: String, completion: @escaping UserProfileRequestCompletion) {
         let url = baseURLString + "/member/" + name
         loadHTMLString(urlString: url) { (html, error) in
             guard let html = html else {
+                completion(nil, error)
                 return
             }
             do {
                 let doc = try SwiftSoup.parse(html)
                 let mainDiv = try doc.select("div#Main").first()
                 let username = try mainDiv?.select("h1").first()?.text()
-                let info = try mainDiv?.select("span.gray").first()?.text()
+                let created = try mainDiv?.select("span.gray").first()?.text()
                 let avatar = try mainDiv?.select("img.avatar").first()?.attr("src")
+                let avatarURL = avatarURLWithSource(avatar)
+                let info = UserInfo(username: username, avatarURL: avatarURL, createdInfo: created)
                 
-                if let n = username, let info = info, let a = avatar {
-                    print("username:\(n), info:\(info), avatar:\(a)")
+                var topics: [Topic] = []
+                let cells = try doc.select("div.cell")
+                for cell in cells {
+                    if !cell.hasClass("cell item") {
+                        continue
+                    }
+                    let topic = parseTopicListCell(cell)
+                    topic.avatar = avatarURL
+                    topics.append(topic)
                 }
+                var profile = UserProfileResponse()
+                profile.info = info
+                profile.topics = topics
+                completion(profile, nil)
             } catch {
                 print(error)
+                completion(nil, error)
             }
         }
     }

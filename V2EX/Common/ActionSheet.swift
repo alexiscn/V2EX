@@ -25,7 +25,7 @@ class Action {
     }
 }
 
-class ActionSheetController: UIView, UIGestureRecognizerDelegate {
+class ActionSheet: UIView, UIGestureRecognizerDelegate {
     
     public var durationOfDismiss: TimeInterval = 0.3
     
@@ -42,7 +42,6 @@ class ActionSheetController: UIView, UIGestureRecognizerDelegate {
     
     public func addAction(_ action: Action) {
         actions.append(action)
-        
     }
     
     public init(title: String?, message: String?) {
@@ -59,7 +58,6 @@ class ActionSheetController: UIView, UIGestureRecognizerDelegate {
         backgroundView.addGestureRecognizer(tapGesture)
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -72,9 +70,7 @@ class ActionSheetController: UIView, UIGestureRecognizerDelegate {
     }
     
     public func show() {
-        
         buildUI()
-
         UIView.animate(withDuration: 0.1, animations: {
             UIApplication.shared.keyWindow?.addSubview(self)
         }) { _ in
@@ -91,7 +87,7 @@ class ActionSheetController: UIView, UIGestureRecognizerDelegate {
         backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.4)
         backgroundView.frame = bounds
         backgroundView.alpha = 0
-        containerView.backgroundColor = UIColor(white: 1, alpha: 0.8)
+        containerView.backgroundColor = Theme.current.backgroundColor
         
         var y: CGFloat = 0.0
         for (index, action) in actions.enumerated() {
@@ -109,19 +105,21 @@ class ActionSheetController: UIView, UIGestureRecognizerDelegate {
             containerView.addSubview(actionButton)
             
             if action.style == .cancel {
-                y += 10.0
+                y += 8.0
+            } else {
+                y += 0.5
             }
-            actionButton.frame = CGRect(x: 0, y: y, width: frame.width, height: 50)
+            
+            var height: CGFloat = 50.0
+            if index == actions.count - 1 {
+                height = 50.0 + keyWindowSafeAreaInsets.bottom
+                actionButton.titleEdgeInsets = UIEdgeInsets(top: -keyWindowSafeAreaInsets.bottom/2.0, left: 0, bottom: 0, right: 0)
+            }
+            
+            actionButton.frame = CGRect(x: 0, y: y, width: frame.width, height: height)
             
             y += actionButton.frame.height
         }
-//        if UserInterfaceConstants.isXScreenLayout {
-//            let holderView = UIView(frame: CGRect(x: 0, y: y, width: parentView.frame.width, height: keyWindowSafeAreaInsets.bottom))
-//            holderView.backgroundColor = UIColor.white.withAlphaComponent(0.1)
-//            containerView.addSubview(holderView)
-//
-//            y += keyWindowSafeAreaInsets.bottom
-//        }
         
         containerView.frame = CGRect(x: 0.0, y: frame.height, width: frame.width, height: y)
         
@@ -152,5 +150,15 @@ class ActionSheetController: UIView, UIGestureRecognizerDelegate {
             return false
         }
         return true
+    }
+
+    var isPhoneX: Bool {
+        if UIDevice.current.userInterfaceIdiom != .phone {
+            return false
+        }
+        if let bottom = UIApplication.shared.keyWindow?.safeAreaInsets.bottom, bottom > 0 {
+            return true
+        }
+        return false
     }
 }

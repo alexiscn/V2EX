@@ -17,7 +17,7 @@ class TopicCommentViewCell: UITableViewCell {
     
     private let containerView: UIView
     
-    private let avatarView: UIImageView
+    private let avatarButton: UIButton
     
     private let floorLabel: UILabel
     
@@ -41,9 +41,9 @@ class TopicCommentViewCell: UITableViewCell {
         containerView = UIView()
         containerView.backgroundColor = Theme.current.cellBackgroundColor
         
-        avatarView = UIImageView()
-        avatarView.layer.cornerRadius = 5.0
-        avatarView.layer.masksToBounds = true
+        avatarButton = UIButton(type: .system)
+        avatarButton.layer.cornerRadius = 5.0
+        avatarButton.layer.masksToBounds = true
         
         floorLabel = UILabel()
         floorLabel.font = UIFont.systemFont(ofSize: 11)
@@ -78,7 +78,7 @@ class TopicCommentViewCell: UITableViewCell {
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(containerView)
-        containerView.addSubview(avatarView)
+        containerView.addSubview(avatarButton)
         containerView.addSubview(usernameButton)
         containerView.addSubview(timeAgoLabel)
         containerView.addSubview(likesLabel)
@@ -92,7 +92,7 @@ class TopicCommentViewCell: UITableViewCell {
             make.bottom.equalToSuperview()//.offset(-0.5)
         }
         
-        avatarView.snp.makeConstraints { make in
+        avatarButton.snp.makeConstraints { make in
             make.height.width.equalTo(32)
             make.leading.equalToSuperview().offset(12)
             make.top.equalToSuperview().offset(12)
@@ -101,7 +101,7 @@ class TopicCommentViewCell: UITableViewCell {
         let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
         usernameButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(usernameLeading)
-            make.top.equalTo(avatarView).offset(-5)
+            make.top.equalTo(avatarButton).offset(-5)
         }
         
         timeAgoLabel.snp.makeConstraints { make in
@@ -137,6 +137,7 @@ class TopicCommentViewCell: UITableViewCell {
         
         contentTextView.delegate = self
         
+        avatarButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
     }
     
@@ -154,8 +155,8 @@ class TopicCommentViewCell: UITableViewCell {
     
     func update(_ reply: Reply) {
         usernameButton.setTitle(reply.username, for: .normal)
-        avatarView.kf.setImage(with: reply.avatarURL)
-        avatarView.isHidden = !AppSettings.shared.displayAvatar
+        avatarButton.kf.setBackgroundImage(with: reply.avatarURL, for: .normal)
+        avatarButton.isHidden = !AppSettings.shared.displayAvatar
         contentTextView.text = reply.content
         timeAgoLabel.text = reply.timeAgo
         likesLabel.text = reply.likesInfo

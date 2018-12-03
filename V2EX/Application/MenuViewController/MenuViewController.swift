@@ -32,6 +32,18 @@ class MenuViewController: UIViewController {
         setupThemeButton()
         setupSettingButton()
         self.fd_prefersNavigationBarHidden = true
+        setupAccount()
+    }
+    
+    private func setupAccount() {
+        if let account = AppContext.current.account, let avatar = account.avatarURLString {
+            let url = URL(string: avatar)
+            avatarButton.kf.setBackgroundImage(with: url, for: .normal)
+            userLabel.text = account.username
+        } else {
+            avatarButton.setBackgroundImage(UIImage(), for: .normal)
+            userLabel.text = NSLocalizedString("请先登录", comment: "")
+        }
     }
     
     private func setupAvatarButton() {
@@ -40,6 +52,7 @@ class MenuViewController: UIViewController {
         avatarButton.layer.cornerRadius = 35
         avatarButton.layer.borderColor = UIColor.white.cgColor
         avatarButton.layer.borderWidth = 1.5
+        avatarButton.clipsToBounds = true
         view.addSubview(avatarButton)
         avatarButton.snp.makeConstraints { make in
             make.height.width.equalTo(70)
@@ -50,7 +63,7 @@ class MenuViewController: UIViewController {
         userLabel = UILabel()
         userLabel.font = UIFont.systemFont(ofSize: 14.0)
         userLabel.textColor = Theme.current.titleColor
-        userLabel.text = "请先登录"
+        userLabel.text = NSLocalizedString("请先登录", comment: "")
         userLabel.textAlignment = .center
         view.addSubview(userLabel)
         userLabel.snp.makeConstraints { make in
@@ -135,6 +148,7 @@ class MenuViewController: UIViewController {
                 tableView.selectRow(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .top)
             }
         }
+        setupAccount()
     }
 
     override var prefersStatusBarHidden: Bool {

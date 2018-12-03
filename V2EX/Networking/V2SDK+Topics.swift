@@ -69,6 +69,11 @@ extension V2SDK {
                     V2SDK.parseHotNodes(doc)
                     V2SDK.shouldParseHotNodes = false
                 }
+                if V2SDK.shouldParseAccount {
+                    let account = V2SDK.parseAccount(doc: doc)
+                    AppContext.current.account = account
+                    V2SDK.shouldParseAccount = false
+                }
                 V2DataManager.shared.saveTopics(topics, forTab: tab.key)
                 completion(topics, nil)
             } catch {
