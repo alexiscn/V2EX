@@ -62,13 +62,37 @@ extension V2SDK {
                 }
                 
                 var comments: [UserProfileComment] = []
-                let commentsCells = try doc.select("div.dock_area")
-                for cell in commentsCells {
-                    var comment = UserProfileComment()
-                    comment.timeAgo = try cell.select("span.fade").first()?.text()
-                    comment.conent = try cell.select("div.reply_content").first()?.text()
-                    comment.conentHTML = try cell.select("div.reply_content").first()?.html()
-                    comments.append(comment)
+                let commentsCells = try doc.select("div.dock_area").array()
+                let replyCells = try doc.select("div.reply_content").array()
+                if commentsCells.count == replyCells.count {
+                    for (index, cell) in commentsCells.enumerated() {
+                        var comment = UserProfileComment()
+                        comment.avatarURL = avatarURL
+                        comment.username = username
+                        comment.timeAgo = try cell.select("span.fade").first()?.text()
+                        
+                        let links = try cell.select("a").array()
+                        if links.count == 3 {
+                            comment.originAuthor = try links[0].text()
+                            
+                            let nodeLink = links[1]
+                            comment.originTopicTitle = try nodeLink.text()
+                            comment.originNodename = try nodeLink.attr("href").replacingOccurrences(of: "/go/", with: "")
+                            
+                            let topicLink = links[2]
+                            
+                            comment.originTopicTitle = try topicLink.text()
+                            let topicHref = try topicLink.attr("href")
+                            if let url = URL(string: baseURLString + topicHref) {
+                                comment.originTopicURL = URL(string: baseURLString + url.path)
+                            }
+                        }
+                        
+                        let reply = replyCells[index]
+                        comment.commentContent = try reply.text()
+                        comment.commentContentHTML = try reply.html()
+                        comments.append(comment)
+                    }
                 }
                 
                 var profile = UserProfileResponse()

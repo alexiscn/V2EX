@@ -36,15 +36,25 @@ struct UserProfileComment {
     
     var _rowHeight: CGFloat = 0.0
     
+    var username: String?
+    
+    var avatarURL: URL?
+    
     var timeAgo: String?
     
-    var title: String?
+    var originAuthor: String?
     
-    var topicURL: URL?
+    var originNodename: String?
     
-    var conent: String?
+    var originNodeTitle: String?
     
-    var conentHTML: String?
+    var originTopicTitle: String?
+    
+    var originTopicURL: URL?
+    
+    var commentContent: String?
+    
+    var commentContentHTML: String?
     
     init() {}
 }

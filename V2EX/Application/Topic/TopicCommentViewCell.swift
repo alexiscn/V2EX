@@ -165,7 +165,7 @@ class TopicCommentViewCell: UITableViewCell {
         }
         if reply.isTopicAuthor {
             ownerLabel.isHidden = false
-            ownerLabel.text = "楼主"
+            ownerLabel.text = NSLocalizedString("楼主", comment: "")
             ownerLabel.setNeedsLayout()
         } else {
             ownerLabel.isHidden = true

@@ -29,6 +29,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     private let username: String
     
     private var headerView: UserProfileHeaderView?
+    private var loadingIndicator: UIActivityIndicatorView!
     
     let headerHeight: CGFloat = 150.0
     
@@ -48,17 +49,30 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        setupLoadingView()
         loadUserProfile()
         setupNavigationBar()
     }
     
     private func setupNavigationBar() {
+        
+        navigationItem.title = username
+        
         let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
         navigationItem.rightBarButtonItem = moreBarButtonItem
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
         let actionSheet = ActionSheet(title: NSLocalizedString("更多操作", comment: ""), message: nil)
+        
+        if AppContext.current.isLogined {
+            actionSheet.addAction(Action(title: NSLocalizedString("加入特别关注", comment: ""), style: .default, handler: { _ in
+                
+            }))
+            actionSheet.addAction(Action(title: NSLocalizedString("拉黑", comment: ""), style: .default, handler: { _ in
+                
+            }))
+        }
         actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
             
         }))
@@ -66,6 +80,16 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             
         }))
         actionSheet.show()
+    }
+    
+    private func setupLoadingView() {
+        loadingIndicator = UIActivityIndicatorView(style: Theme.current.activityIndicatorViewStyle)
+        view.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-60)
+        }
+        loadingIndicator.startAnimating()
     }
     
     private func setupTableView() {
@@ -93,6 +117,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             if let info = profileRes?.info {
                 self?.headerView?.update(info: info)
             }
+            self?.loadingIndicator.stopAnimating()
         }
     }
     
@@ -120,6 +145,13 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(UserCommentViewCell.self), for: indexPath) as! UserCommentViewCell
+            cell.backgroundColor = .clear
+            let comment = profile.comments[indexPath.row]
+            cell.update(comment)
+            cell.topicHandler = { [weak self] in
+                let controller = TopicDetailViewController(url: comment.originTopicURL, title: comment.originTopicTitle)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
             return cell
         }
     }
@@ -132,7 +164,8 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             var topic = profile.topics[indexPath.row]
             return TimelineViewCell.heightForRowWithTopic(&topic)
         } else {
-            return 0.0
+            var comment = profile.comments[indexPath.row]
+            return UserCommentViewCell.heightForComment(&comment)
         }
     }
     
