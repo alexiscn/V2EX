@@ -32,7 +32,7 @@ struct UserProfileResponse {
     }
 }
 
-struct UserProfileComment {
+class UserProfileComment {
     
     var _rowHeight: CGFloat = 0.0
     
