@@ -60,6 +60,11 @@ class V2SDK {
         }
     }
     
+    class func captchaURL(once: String) -> URL {
+        let urlString = baseURLString + "/_captcha?once=" + once
+        return URL(string: urlString)!
+    }
+    
     class func loadHTMLString(urlString: String, completion: @escaping (String?, Error?) -> Void) {
         let url = URL(string: urlString)!
         loadHTMLString(url: url, completion: completion)

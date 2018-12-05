@@ -108,6 +108,69 @@ struct NodeTopicsParser: HTMLParser {
         }
         return nil
     }
+    
+    static func parseTopicListCell(_ cell: Element, isNodeList: Bool = false) -> Topic {
+        let topic = Topic()
+        // parse avatar
+        if let img = try? cell.select("img").first(), let imgEle = img, let src = try? imgEle.attr("src") {
+            topic.avatar = avatarURLWithSource(src)
+        }
+        // parse members
+        if let members = try? cell.select("strong") {
+            if let m1 = members.first() {
+                topic.username = try? m1.text()
+                if let m2 = members.last(), m1 != m2 {
+                    topic.lastReplyedUserName = try? m2.text()
+                }
+            }
+        }
+        
+        // parse topic title
+        if let titleElement = try? cell.select("span.item_title").first() {
+            if let title = try? titleElement?.text() {
+                topic.title = title
+            }
+            if let href = try? titleElement?.select("a").attr("href"), let link = href {
+                if link.contains("#") {
+                    topic.url = URL(string: V2SDK.baseURLString + String(link.split(separator: "#")[0]))
+                } else {
+                    topic.url = URL(string: V2SDK.baseURLString + link)
+                }
+            }
+        }
+        
+        // parse reply count
+        if let countElement = try? cell.select("a.count_livid").first() {
+            if let count = try? countElement?.text(), let c = count {
+                topic.replies = Int(c)!
+            }
+        }
+        
+        // parse node
+        if let nodeElement = try? cell.select("a.node").first() {
+            if let title = try? nodeElement?.text() {
+                topic.nodeTitle = title
+            }
+            if let name = try? nodeElement?.attr("href"), let nodename = name {
+                topic.nodeName = nodename.replacingOccurrences(of: "/go/", with: "")
+            }
+        }
+        if let text = try? cell.text() {
+            let components = text.split(separator: "•")
+            if components.count >= 3 {
+                if isNodeList {
+                    topic.lastUpdatedTime = String(components[1]).trimed()
+                    topic.lastReplyedUserName = String(components[2]).trimed()
+                } else {
+                    topic.lastUpdatedTime = String(components[2]).trimed()
+                    if components.count >= 4 {
+                        topic.lastReplyedUserName = String(components[3]).trimed()
+                    }
+                }
+            }
+        }
+        return topic
+    }
 }
 
 /// 话题明细页面HTML解析
@@ -152,9 +215,38 @@ struct TopicDetailParser: HTMLParser {
     
 }
 
+struct TopicReplyParser: HTMLParser {
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        let cells = try doc.select("div.cell")
+        var replyList: [Reply] = []
+        for cell in cells {
+            let divID = try? cell.attr("id")
+            if divID == nil || divID == "" {
+                continue
+            }
+            let reply = Reply()
+            let avatarSrc = try cell.select("img").first()?.attr("src")
+            reply.avatarURL = avatarURLWithSource(avatarSrc)
+            reply.content = try cell.select("div.reply_content").text()
+            reply.contentHTML = try cell.select("div.reply_content").html()
+            reply.timeAgo = try cell.select("span.ago").text()
+            let userLink = try cell.select("a.dark")
+            reply.username = try userLink.text()
+            reply.floor = try cell.select("span.no").text()
+            if let like = try cell.select(".small.fade").first() {
+                reply.likesInfo = try like.text()
+            }
+            
+            replyList.append(reply)
+        }
+        return replyList as? T
+    }
+}
+
 
 /// 他人资料页面HTML解析
-struct UserProfileParser: HTMLParser {
+struct MemberProfileParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
         let mainDiv = try doc.select("div#Main").first()

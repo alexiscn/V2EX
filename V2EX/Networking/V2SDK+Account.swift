@@ -12,11 +12,6 @@ import SwiftSoup
 
 extension V2SDK {
     
-    class func captchaURL(once: String) -> URL {
-        let urlString = baseURLString + "/_captcha?once=" + once
-        return URL(string: urlString)!
-    }
-    
     class func refreshCode(completion: @escaping AccountCompletion) {
         let url =  baseURLString + "/signin"
         loadHTMLString(urlString: url) { (html, error) in
