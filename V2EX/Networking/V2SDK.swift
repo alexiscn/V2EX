@@ -17,6 +17,8 @@ struct UserAgents {
 enum ServerError: Error {
     case needsSignIn
     case needsTwoFactor
+    case parseHTMLError
+    case signInFailed
 }
 
 typealias RequestCompletionHandler<T> = (T?, Error?) -> Void
@@ -80,10 +82,16 @@ class V2SDK {
                 completion(nil, ServerError.needsSignIn)
                 return
             }
+            // 需要登录才能访问
+            if response.response?.url?.path == "/signin" && response.request?.url?.path != "/signin" {
+                completion(nil, ServerError.needsSignIn)
+                return
+            }
+            
             do {
                 let doc = try SwiftSoup.parse(html)
-                let result: (T?, Error?) = parser.handle(doc)
-                completion(result.0, result.1)
+                let result: T? = try parser.handle(doc)
+                completion(result, nil)
             } catch {
                 print(error)
                 completion(nil, error)
@@ -99,6 +107,11 @@ class V2SDK {
             }
             completion(html, nil)
         }
+    }
+    
+    public class func getAllNodes(completion: @escaping GenericNetworkingCompletion<Int>) {
+        let path = "/api/nodes/all.json"
+        GenericNetworking.getJSON(path: path, completion: completion)
     }
 }
 

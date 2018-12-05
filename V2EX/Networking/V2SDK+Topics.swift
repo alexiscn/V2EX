@@ -12,33 +12,7 @@ import SwiftSoup
 import AVFoundation
 
 extension V2SDK {
-    
-    /// 获取社区每天最热的10个主题
-    ///
-    /// - Parameter completion: 请求回调
-    public class func getHotTopics(completion: @escaping GenericNetworkingCompletion<Int>) {
-        let path = "/api/topics/hot.json"
-        GenericNetworking.getJSON(path: path, completion: completion)
-    }
-    
-    /// 获取最新的主题
-    ///
-    /// - Parameter completion: 请求回调
-    public class func getLatestTopics(completion: @escaping GenericNetworkingCompletion<Int>) {
-        let path = "/api/topics/latest.json"
-        GenericNetworking.getJSON(path: path, completion: completion)
-    }
-    
-    /// 根据用户名获取用户的主题列表
-    ///
-    /// - Parameters:
-    ///   - username: 用户名
-    ///   - completion: 请求回调
-    public class func showUserTopics(username: String, completion: @escaping GenericNetworkingCompletion<Int>) {
-        let path = "/api/topics/show.json?username=" + username
-        GenericNetworking.getJSON(path: path, completion: completion)
-    }
-    
+        
     /// 获取主题列表
     ///
     /// - Parameters:

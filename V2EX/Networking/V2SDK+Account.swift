@@ -17,14 +17,6 @@ extension V2SDK {
         return URL(string: urlString)!
     }
     
-    class func checkIfNeedsSignIn(dataResponse: DataResponse<Data>) -> Bool {
-        let path = "/signin"
-        if dataResponse.response?.url?.path == path && dataResponse.request?.url?.path != path {
-            return true
-        }
-        return false
-    }
-    
     class func refreshCode(completion: @escaping AccountCompletion) {
         let url =  baseURLString + "/signin"
         loadHTMLString(urlString: url) { (html, error) in

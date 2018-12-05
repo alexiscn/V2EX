@@ -11,11 +11,6 @@ import SwiftSoup
 
 extension V2SDK {
     
-    public class func getAllNodes(completion: @escaping GenericNetworkingCompletion<Int>) {
-        let path = "/api/nodes/all.json"
-        GenericNetworking.getJSON(path: path, completion: completion)
-    }
-    
     // has performance issue
     class func parseHotNodes(_ doc: Document) {
         do {
