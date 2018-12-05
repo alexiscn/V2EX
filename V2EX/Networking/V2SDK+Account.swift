@@ -82,21 +82,4 @@ extension V2SDK {
             }
         }
     }
-    
-//    class func parseAccount(doc: Document) -> Account? {
-//        do {
-//            let div = try doc.select("div#Rightbar").first()
-//            if let img = try div?.select("img.avatar").first(), let member = try img.parent()?.attr("href") {
-//                let src = try img.attr("src")
-//                let avatarURLString = avatarURLWithSource(src)
-//                let name = member.replacingOccurrences(of: "/member/", with: "")
-//                let account = Account(username: name, avatarURLString: avatarURLString?.absoluteString)
-//                return account
-//            }
-//        } catch {
-//            print(error)
-//        }
-//        
-//        return nil
-//    }
 }

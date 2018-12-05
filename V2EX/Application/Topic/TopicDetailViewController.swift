@@ -114,27 +114,25 @@ class TopicDetailViewController: UIViewController {
     
     private func loadTopicDetail() {
         webViewHeightCaculated = false
-        if let url = topicURL {
-            V2SDK.getTopicDetail(url) { (detail, replyList, error) in
-                DispatchQueue.main.async { [weak self] in
-                    guard let strongSelf = self else { return }
-                    strongSelf.detail = detail
-                    for r in replyList {
-                        if r.username == detail?.author {
-                            r.isTopicAuthor = true
-                        }
-                    }
-                    
-                    strongSelf.comments = replyList
-                    strongSelf.tableView.mj_header.endRefreshing()
-                    
-                    strongSelf.tableView.reloadData()
-                    if let detail = detail, detail.page == 1 {
-                        strongSelf.setNoMoreData()
-                    }
-                    strongSelf.loadingIndicator.stopAnimating()
+        guard let url = topicURL else { return }
+        let topicID = url.lastPathComponent
+        V2SDK.request(EndPoint.topicDetail(topicID), parser: TopicDetailParser.self) { [weak self] (detail: TopicDetail?, error) in
+            guard let strongSelf = self, let detail = detail else { return }
+            strongSelf.detail = detail
+            for r in detail.replyList {
+                if r.username == detail.author {
+                    r.isTopicAuthor = true
                 }
             }
+            
+            strongSelf.comments = detail.replyList
+            strongSelf.tableView.mj_header.endRefreshing()
+            
+            strongSelf.tableView.reloadData()
+            if detail.page == 1 {
+                strongSelf.setNoMoreData()
+            }
+            strongSelf.loadingIndicator.stopAnimating()
         }
     }
     
@@ -144,22 +142,21 @@ class TopicDetailViewController: UIViewController {
             setNoMoreData()
             return
         }
-        currentPage += 1
-        V2SDK.loadMoreReplies(topicURL: url, page: currentPage) { (replies, error) in
-            DispatchQueue.main.async { [weak self] in
-                if error == nil, let strongSelf = self {
-                    for r in replies {
-                        if r.username == strongSelf.detail?.author {
-                            r.isTopicAuthor = true
-                        }
+        currentPage += 1        
+        let endPoint = EndPoint.topicDetail(url.lastPathComponent, page: currentPage)
+        V2SDK.request(endPoint, parser: TopicReplyParser.self) { [weak self] (replies: [Reply]?, error) in
+            if let strongSelf = self, let replies = replies {
+                for r in replies {
+                    if r.username == strongSelf.detail?.author {
+                        r.isTopicAuthor = true
                     }
-                    strongSelf.comments.append(contentsOf: replies)
-                    strongSelf.tableView.reloadData()
-                    if strongSelf.currentPage == detail.page {
-                        strongSelf.setNoMoreData()
-                    } else {
-                        strongSelf.tableView.mj_footer.endRefreshing()
-                    }
+                }
+                strongSelf.comments.append(contentsOf: replies)
+                strongSelf.tableView.reloadData()
+                if strongSelf.currentPage == detail.page {
+                    strongSelf.setNoMoreData()
+                } else {
+                    strongSelf.tableView.mj_footer.endRefreshing()
                 }
             }
         }

@@ -36,7 +36,7 @@ struct TabParser: HTMLParser {
             if !cell.hasClass("cell item") {
                 continue
             }
-            let topic = V2SDK.parseTopicListCell(cell)
+            let topic = NodeTopicsParser.parseTopicListCell(cell)
             topics.append(topic)
         }
         
@@ -129,7 +129,7 @@ struct NodeTopicsParser: HTMLParser {
                 if cellContent == "" || cellContent == "(adsbygoogle = window.adsbygoogle || []).push({});" {
                     continue
                 }
-                let topic = V2SDK.parseTopicListCell(cell, isNodeList: true)
+                let topic = parseTopicListCell(cell, isNodeList: true)
                 topics.append(topic)
             }
             detail.topics = topics
@@ -238,6 +238,10 @@ struct TopicDetailParser: HTMLParser {
                 continue
             }
         }
+        let list: [Reply]? = try TopicReplyParser.handle(doc)
+        if let list = list {
+            detail.replyList = list
+        }
         
         return detail as? T
     }
@@ -294,7 +298,7 @@ struct MemberProfileParser: HTMLParser {
             if !cell.hasClass("cell item") {
                 continue
             }
-            let topic = V2SDK.parseTopicListCell(cell)
+            let topic = NodeTopicsParser.parseTopicListCell(cell)
             topic.avatar = avatarURL
             topics.append(topic)
         }

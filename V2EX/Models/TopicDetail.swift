@@ -31,4 +31,5 @@ struct TopicDetail {
     
     var nodeTag: String?
     
+    var replyList: [Reply] = []
 }

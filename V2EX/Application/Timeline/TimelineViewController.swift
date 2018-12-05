@@ -152,26 +152,25 @@ class TimelineViewController: UIViewController {
         }
     
         currentPage = isLoadMore ? (currentPage + 1): 1
-        
-        V2SDK.loadNodeTopics(nodeName: node.name, page: currentPage) { (nodeDetail, error) in
-            DispatchQueue.main.async { [weak self] in
-                guard let strongSelf = self else { return }
-                strongSelf.nodeDetail = nodeDetail
-                if isLoadMore {
-                    strongSelf.dataSource.append(contentsOf: nodeDetail.topics)
-                } else {
-                    strongSelf.dataSource = nodeDetail.topics
-                }
                 
-                strongSelf.tableView.reloadData()
-                strongSelf.tableView.mj_header.endRefreshing()
-                strongSelf.tableView.mj_footer.endRefreshing()
-                
-                if nodeDetail.topics.count > 0 {
-                    strongSelf.tableView.mj_footer.resetNoMoreData()
-                } else {
-                    strongSelf.setNoMoreData()
-                }
+        let endPoint = EndPoint.node(node.name, page: currentPage)
+        V2SDK.request(endPoint, parser: NodeTopicsParser.self) { [weak self] (nodeDetail: NodeDetail?, error) in
+            guard let strongSelf = self, let nodeDetail = nodeDetail else { return }
+            strongSelf.nodeDetail = nodeDetail
+            if isLoadMore {
+                strongSelf.dataSource.append(contentsOf: nodeDetail.topics)
+            } else {
+                strongSelf.dataSource = nodeDetail.topics
+            }
+            
+            strongSelf.tableView.reloadData()
+            strongSelf.tableView.mj_header.endRefreshing()
+            strongSelf.tableView.mj_footer.endRefreshing()
+            
+            if nodeDetail.topics.count > 0 {
+                strongSelf.tableView.mj_footer.resetNoMoreData()
+            } else {
+                strongSelf.setNoMoreData()
             }
         }
     }

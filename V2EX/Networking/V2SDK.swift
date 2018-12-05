@@ -23,19 +23,9 @@ enum ServerError: Error {
 
 typealias RequestCompletionHandler<T> = (T?, Error?) -> Void
 
-typealias V2SDKLoadTimelineCompletion = ([Topic], Error?) -> Void
-
-typealias V2SDKLoadNodeTopicsCompletion = (NodeDetail, Error?) -> Void
-
-typealias V2SDKLoadTopicDetailCompletion = (TopicDetail?, [Reply], Error?) -> Void
-
-typealias V2SDKLoadTopicReplyCompletion = ([Reply], Error?) -> Void
-
 typealias AccountCompletion = (LoginFormData?, Error?) -> Void
 
 typealias LoginCompletion = (Account?, Error?) -> Void
-
-typealias UserProfileRequestCompletion = (UserProfileResponse?, Error?) -> Void
 
 class V2SDK {
     
