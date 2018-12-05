@@ -117,24 +117,10 @@ class TimelineViewController: UIViewController {
                     }
                 }
             }
-//            V2SDK.request(.tab(self.tab.key), parser: TabParser.self, completion: { [weak self] (topics: [Topic]?, error) in
-//                DispatchQueue.main.async {
-//                    guard let strongSelf = self, let topics = topics else {
-//                        return
-//                    }
-//                    strongSelf.dataSource = topics
-//                    strongSelf.tableView.reloadData()
-//                    strongSelf.tableView.mj_header.endRefreshing()
-//                    if strongSelf.tab.key == V2Tab.allTab.key {
-//                        strongSelf.tableView.mj_footer.resetNoMoreData()
-//                    } else {
-//                        strongSelf.setNoMoreData()
-//                    }
-//                }
-//            })
-            V2SDK.getTopicList(tab: self.tab) { [weak self] (topics, error) in
+            let key = self.tab.key
+            V2SDK.request(.tab(key), parser: TabParser.self, completion: { [weak self] (topics: [Topic]?, error) in
                 DispatchQueue.main.async {
-                    guard let strongSelf = self else {
+                    guard let strongSelf = self, let topics = topics else {
                         return
                     }
                     strongSelf.dataSource = topics
@@ -145,8 +131,9 @@ class TimelineViewController: UIViewController {
                     } else {
                         strongSelf.setNoMoreData()
                     }
+                    V2DataManager.shared.saveTopics(topics, forTab: key)
                 }
-            }
+            })
         }
     }
     

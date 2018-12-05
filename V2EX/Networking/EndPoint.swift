@@ -51,7 +51,7 @@ extension EndPoint {
     }
     
     static func memberProfile(_ username: String) -> EndPoint {
-        let path = "/memeber/" + username
+        let path = "/member/" + username
         return EndPoint(path: path)
     }
     

@@ -39,6 +39,20 @@ struct TabParser: HTMLParser {
             let topic = V2SDK.parseTopicListCell(cell)
             topics.append(topic)
         }
+        
+        if V2SDK.shouldParseHotNodes {
+            if let nodes: [Node] = try NodeNavigationParser.handle(doc) {
+                V2DataManager.shared.saveHotNodes(nodes)
+            }
+            V2SDK.shouldParseHotNodes = false
+        }
+        if V2SDK.shouldParseAccount {
+            if let account: Account? = try AccountInfoParser.handle(doc) {
+                AppContext.current.account = account
+            }
+            V2SDK.shouldParseAccount = false
+        }
+        
         return topics as? T
     }
 }
@@ -81,6 +95,21 @@ struct SignInParser: HTMLParser {
             }
         }
         throw ServerError.signInFailed
+    }
+}
+
+struct AccountInfoParser: HTMLParser {
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        let div = try doc.select("div#Rightbar").first()
+        if let img = try div?.select("img.avatar").first(), let member = try img.parent()?.attr("href") {
+            let src = try img.attr("src")
+            let avatarURLString = avatarURLWithSource(src)
+            let name = member.replacingOccurrences(of: "/member/", with: "")
+            let account = Account(username: name, avatarURLString: avatarURLString?.absoluteString)
+            return account as? T
+        }
+        return nil
     }
 }
 
@@ -215,6 +244,7 @@ struct TopicDetailParser: HTMLParser {
     
 }
 
+/// 主题回复解析
 struct TopicReplyParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
@@ -314,5 +344,36 @@ struct MemberProfileParser: HTMLParser {
             }
         }
         return comments
+    }
+}
+
+
+/// 节点导航解析
+struct NodeNavigationParser: HTMLParser {
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        var groups: [NodeGroup] = []
+        let cells = try doc.select("div.cell")
+        for cell in cells {
+            let table = try cell.select("table")
+            if table.isEmpty() {
+                continue
+            }
+            let name = try cell.select("span.fade").text()
+            if name.isEmpty {
+                continue
+            }
+            var nodes: [Node] = []
+            let nodeElements = try cell.select("a")
+            for node in nodeElements {
+                let title = try node.text()
+                let nodeName = try node.attr("href").replacingOccurrences(of: "/go/", with: "")
+                nodes.append(Node(name: nodeName, title: title, letter: name))
+            }
+            let group = NodeGroup(title: name, nodes: nodes)
+            groups.append(group)
+        }
+        let allNodes = groups.flatMap { return $0.nodes }
+        return allNodes as? T
     }
 }
