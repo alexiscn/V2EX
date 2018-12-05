@@ -9,14 +9,22 @@
 import Foundation
 import UIKit
 
-struct UserInfo {
+class UserInfo {
     
     var username: String?
     
     var avatarURL: URL?
     
     var createdInfo: String?
-
+    
+    var website: String?
+    var github: String?
+    var psn: String?
+    var bio: String?
+    var twitter: String?
+    var location: String?
+    
+    init() { }
 }
 
 struct UserProfileResponse {

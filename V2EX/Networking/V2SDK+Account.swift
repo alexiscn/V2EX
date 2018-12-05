@@ -62,7 +62,10 @@ extension V2SDK {
         params[formData.password] = password
         params[formData.captcha] = captcha
         
-        let headers = ApiPath.signin.httpHeaders
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Referer"] = V2SDK.baseURLString + "/signin"
+        headers["User-Agent"] = UserAgents.phone
+        
         post(url: url, params: params, headers: headers) { (html, error) in
             guard let html = html else {
                 completion(nil, error)

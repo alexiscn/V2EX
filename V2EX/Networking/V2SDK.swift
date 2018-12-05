@@ -8,31 +8,10 @@
 import Foundation
 import GenericNetworking
 import Alamofire
+import SwiftSoup
 
 struct UserAgents {
     static let phone = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
-}
-
-enum ApiPath: String {
-    case signin = "signin"
-    case member
-    case missionDaily = "/mission/daily"
-    
-    var urlString: String {
-        return V2SDK.baseURLString + rawValue
-    }
-    
-    var httpHeaders: [String: String] {
-        var headers = Alamofire.SessionManager.defaultHTTPHeaders
-        switch self {
-        case .signin:
-            headers["Referer"] = V2SDK.baseURLString + "/signin"
-            headers["User-Agent"] = UserAgents.phone
-        default:
-            break
-        }
-        return headers
-    }
 }
 
 enum ServerError: Error {
@@ -40,7 +19,7 @@ enum ServerError: Error {
     case needsTwoFactor
 }
 
-protocol ServerResponse { }
+typealias RequestCompletionHandler<T> = (T?, Error?) -> Void
 
 typealias V2SDKLoadTimelineCompletion = ([Topic], Error?) -> Void
 
@@ -91,6 +70,24 @@ class V2SDK {
                 return
             }
             completion(html, nil)
+        }
+    }
+    
+    class func request<T>(_ endPoint: EndPoint, parser: HTMLParser.Type, completion: @escaping RequestCompletionHandler<T>) {
+        let dataResponse = Alamofire.request(endPoint)
+        dataResponse.responseString { response in
+            guard let html = response.value else {
+                completion(nil, ServerError.needsSignIn)
+                return
+            }
+            do {
+                let doc = try SwiftSoup.parse(html)
+                let result: (T?, Error?) = parser.handle(doc)
+                completion(result.0, result.1)
+            } catch {
+                print(error)
+                completion(nil, error)
+            }
         }
     }
     

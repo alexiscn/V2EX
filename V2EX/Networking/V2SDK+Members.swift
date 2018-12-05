@@ -10,30 +10,7 @@ import GenericNetworking
 import SwiftSoup
 
 extension V2SDK {
-    
-    /// 获取用户信息
-    ///
-    /// - Parameters:
-    ///   - username: 用户名称
-    ///   - completion: 请求回调
-    public class func getMember(username: String, completion: @escaping GenericNetworkingCompletion<Int>) {
-        let path = "/api/members/show.json"
-        let params = ["username": username]
-        GenericNetworking.getJSON(path: path, parameters: params, completion: completion)
-    }
-    
-    
-    /// 获取用户信息
-    ///
-    /// - Parameters:
-    ///   - userID: 用户ID
-    ///   - completion: 请求回调
-    public class func getMember(userID: Int, completion: @escaping GenericNetworkingCompletion<Int>) {
-        let path = "/api/members/show.json"
-        let params = ["id": userID]
-        GenericNetworking.getJSON(path: path, parameters: params, completion: completion)
-    }
-    
+        
     class func getUserProfile(name: String, completion: @escaping UserProfileRequestCompletion) {
         let url = baseURLString + "/member/" + name
         loadHTMLString(urlString: url) { (html, error) in
@@ -44,11 +21,14 @@ extension V2SDK {
             do {
                 let doc = try SwiftSoup.parse(html)
                 let mainDiv = try doc.select("div#Main").first()
-                let username = try mainDiv?.select("h1").first()?.text()
-                let created = try mainDiv?.select("span.gray").first()?.text()
+                
                 let avatar = try mainDiv?.select("img.avatar").first()?.attr("src")
                 let avatarURL = avatarURLWithSource(avatar)
-                let info = UserInfo(username: username, avatarURL: avatarURL, createdInfo: created)
+                let info = UserInfo()
+                let username = try mainDiv?.select("h1").first()?.text()
+                info.username = username
+                info.avatarURL = avatarURL
+                info.createdInfo = try mainDiv?.select("span.gray").first()?.text()
                 
                 var topics: [Topic] = []
                 let cells = try doc.select("div.cell")
