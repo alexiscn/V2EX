@@ -14,12 +14,13 @@ class TopicDetailViewController: UIViewController {
     fileprivate var tableView: UITableView!
     fileprivate var loadingIndicator: UIActivityIndicatorView!
     
+    //fileprivate var commentsDataSouce: [Reply] = []
     fileprivate var comments: [Reply] = []
     fileprivate var detail: TopicDetail?
     fileprivate let topicURL: URL?
     fileprivate let titleString: String?
     fileprivate var currentPage = 1
-    
+    fileprivate var viewAuthorOnly = false
     fileprivate var webViewHeightCaculated = false
 
     init(url: URL?, title: String?) {
@@ -93,8 +94,9 @@ class TopicDetailViewController: UIViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("只看楼主", comment: ""), style: .default, handler: { _ in
-            
+        let viewOptionTitle = viewAuthorOnly ? NSLocalizedString("查看全部评论", comment: ""): NSLocalizedString("只看楼主", comment: "")
+        actionSheet.addAction(Action(title: viewOptionTitle, style: .default, handler: { [weak self] _ in
+            self?.resortReplies()
         }))
         actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
             
@@ -103,6 +105,15 @@ class TopicDetailViewController: UIViewController {
             
         }))
         actionSheet.show()
+    }
+    
+    private func resortReplies() {
+        viewAuthorOnly = !viewAuthorOnly
+        if viewAuthorOnly {
+            
+        } else {
+            
+        }
     }
     
     private func setupLoadingView() {
