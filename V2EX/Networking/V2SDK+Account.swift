@@ -12,33 +12,6 @@ import SwiftSoup
 
 extension V2SDK {
     
-    class func refreshCode(completion: @escaping AccountCompletion) {
-        let url =  baseURLString + "/signin"
-        loadHTMLString(urlString: url) { (html, error) in
-            guard let html = html else {
-                completion(nil, error)
-                return
-            }
-            do {
-                let doc = try SwiftSoup.parse(html)
-                let keys = try doc.select("input.sl").array()
-                if keys.count == 3 {
-                    let username = try keys[0].attr("name")
-                    let password = try keys[1].attr("name")
-                    let captcha = try keys[2].attr("name")
-                    let once = try doc.select("input[name=once]").attr("value")
-                    let form = LoginFormData(username: username, password: password, captcha: captcha, once: once)
-                    completion(form, nil)
-                } else {
-                    completion(nil, NSError(domain: "v2ex", code: 10001, userInfo: [NSLocalizedDescriptionKey: "不能解析网页内容"]))
-                }
-            } catch {
-                print(error)
-                completion(nil, error)
-            }
-        }
-    }
-    
     class func login(username: String, password: String, captcha: String, formData: LoginFormData, completion: @escaping LoginCompletion) {
         let urlString =  baseURLString + "/signin"
         let url = URL(string: urlString)!

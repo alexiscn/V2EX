@@ -37,7 +37,7 @@ class LoginViewController: UIViewController {
     private func loadCaptcha() {
         activityIndicator.isHidden = false
         captchaButton.setImage(UIImage(), for: .normal)
-        V2SDK.refreshCode { [weak self] (formData, error) in
+        V2SDK.request(EndPoint.onceToken(), parser: OnceTokenParser.self) { [weak self] (formData: LoginFormData?, error) in
             self?.activityIndicator.isHidden = true
             if let formData = formData {
                 self?.loginForm = formData

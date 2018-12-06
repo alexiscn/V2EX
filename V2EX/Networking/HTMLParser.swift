@@ -101,8 +101,10 @@ struct SignInParser: HTMLParser {
 struct AccountInfoParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
-        let div = try doc.select("div#Rightbar").first()
-        if let img = try div?.select("img.avatar").first(), let member = try img.parent()?.attr("href") {
+        let rightBar = try doc.select("div#Rightbar").first()
+        let box = try rightBar?.select("div.box").first()
+        
+        if let img = try box?.select("img.avatar").first(), let member = try img.parent()?.attr("href") {
             let src = try img.attr("src")
             let avatarURLString = avatarURLWithSource(src)
             let name = member.replacingOccurrences(of: "/member/", with: "")
