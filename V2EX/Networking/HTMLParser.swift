@@ -24,6 +24,10 @@ extension HTMLParser {
             return URL(string: src)
         }
     }
+    
+    static func trimNode(_ nodeName: String) -> String {
+        return nodeName.replacingOccurrences(of: "/go/", with: "")
+    }
 }
 
 /// 主题列表HTML解析
@@ -183,7 +187,7 @@ struct NodeTopicsParser: HTMLParser {
                 topic.nodeTitle = title
             }
             if let name = try? nodeElement?.attr("href"), let nodename = name {
-                topic.nodeName = nodename.replacingOccurrences(of: "/go/", with: "")
+                topic.nodeName = trimNode(nodename)
             }
         }
         if let text = try? cell.text() {
@@ -221,7 +225,17 @@ struct TopicDetailParser: HTMLParser {
             detail.small = small
         }
         
-        detail.contentHTML = try doc.select("div.topic_content").html()
+        var contentHTML = try doc.select("div.topic_content").first()?.html()
+        let subtles = try doc.select("div.subtle").array()
+        if subtles.count > 0 {
+            for subtle in subtles {
+                let title = try subtle.select("span.fade").text()
+                let html = try subtle.select("div.topic_content").html()
+                contentHTML?.append("<hr><p>\(title)</p>\(html)")
+            }
+        }
+        detail.contentHTML = contentHTML
+        
         detail.nodeTag = try doc.select("meta[property='article:tag'").attr("content")
         detail.nodeName = try doc.select("meta[property='article:section'").attr("content")
         
@@ -333,7 +347,7 @@ struct MemberProfileParser: HTMLParser {
                     
                     let nodeLink = links[1]
                     comment.originTopicTitle = try nodeLink.text()
-                    comment.originNodename = try nodeLink.attr("href").replacingOccurrences(of: "/go/", with: "")
+                    comment.originNodename = trimNode(try nodeLink.attr("href"))
                     
                     let topicLink = links[2]
                     comment.originTopicTitle = try topicLink.text()
@@ -359,25 +373,27 @@ struct NodeNavigationParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
         var groups: [NodeGroup] = []
-        let cells = try doc.select("div.cell")
-        for cell in cells {
-            let table = try cell.select("table")
-            if table.isEmpty() {
-                continue
+        let main = try doc.select("div#Main").first()
+        if let cells = try main?.select("div.cell") {
+            for cell in cells {
+                let table = try cell.select("table")
+                if table.isEmpty() {
+                    continue
+                }
+                let name = try cell.select("span.fade").text()
+                if name.isEmpty {
+                    continue
+                }
+                var nodes: [Node] = []
+                let nodeElements = try cell.select("a")
+                for node in nodeElements {
+                    let title = try node.text()
+                    let nodeName = trimNode(try node.attr("href"))
+                    nodes.append(Node(name: nodeName, title: title, letter: name))
+                }
+                let group = NodeGroup(title: name, nodes: nodes)
+                groups.append(group)
             }
-            let name = try cell.select("span.fade").text()
-            if name.isEmpty {
-                continue
-            }
-            var nodes: [Node] = []
-            let nodeElements = try cell.select("a")
-            for node in nodeElements {
-                let title = try node.text()
-                let nodeName = try node.attr("href").replacingOccurrences(of: "/go/", with: "")
-                nodes.append(Node(name: nodeName, title: title, letter: name))
-            }
-            let group = NodeGroup(title: name, nodes: nodes)
-            groups.append(group)
         }
         let allNodes = groups.flatMap { return $0.nodes }
         return allNodes as? T

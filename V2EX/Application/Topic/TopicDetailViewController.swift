@@ -93,6 +93,9 @@ class TopicDetailViewController: UIViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }))
+        actionSheet.addAction(Action(title: NSLocalizedString("只看楼主", comment: ""), style: .default, handler: { _ in
+            
+        }))
         actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
             
         }))

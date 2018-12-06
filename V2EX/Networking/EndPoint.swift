@@ -80,6 +80,36 @@ extension EndPoint {
         return EndPoint(path: "/signin", method: .post, parameters: params)
     }
     
+    static func googleSignIn(once: String) -> EndPoint {
+        let path = "/auth/google?once=" + once
+        return EndPoint(path: path)
+    }
+    
+    static func signOut(once: String) -> EndPoint {
+        let path = "/signout?once=" + once
+        return EndPoint(path: path)
+    }
+    
+    static func dailyMission(once: String) -> EndPoint {
+        let path = "/mission/daily/redeem?once=" + once
+        return EndPoint(path: path)
+    }
+    
+    static func myNodes() -> EndPoint {
+        let path = "/my/nodes"
+        return EndPoint(path: path)
+    }
+    
+    static func myFollowing() -> EndPoint {
+        let path = "/my/following"
+        return EndPoint(path: path)
+    }
+    
+    static func myFavorites(page: Int = 1) -> EndPoint {
+        let path = "/my/topics?p=\(page)"
+        return EndPoint(path: path)
+    }
+    
     static func favoriteTopic(_ topicID: String, token: String) -> EndPoint {
         let path = "/favorite/topic/\(topicID)?t=\(token)"
         return EndPoint(path: path)
@@ -105,4 +135,20 @@ extension EndPoint {
         return EndPoint(path: path)
     }
     
+    static func commentTopic(_ topicID: String, once: String, content: String) -> EndPoint {
+        let path = "/t/" + topicID
+        var params: [String: String] = [:]
+        params["content"] = content
+        params["once"] = once
+        return EndPoint(path: path, method: .post, parameters: params)
+    }
+    
+    static func createTopic(_ nodeName: String, title: String, body: String, once: String) -> EndPoint {
+        let path = "/new/" + nodeName
+        var params: [String: String] = [:]
+        params["title"] = title
+        params["topic_content"] = body
+        params["once"] = once
+        return EndPoint(path: path, method: .post, parameters: params)
+    }
 }
