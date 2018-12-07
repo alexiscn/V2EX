@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
 		A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */; };
+		A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A2A9D21BA557600D014C5 /* AboutViewController.swift */; };
 		A30A78F021A7DA590041A744 /* opensource.json in Resources */ = {isa = PBXBuildFile; fileRef = A30A78EF21A7DA590041A744 /* opensource.json */; };
 		A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70921A6B51100618AD5 /* SettingTableModel.swift */; };
 		A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */; };
@@ -70,6 +71,7 @@
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
+		A30A2A9D21BA557600D014C5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A30A78EF21A7DA590041A744 /* opensource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = opensource.json; sourceTree = "<group>"; };
 		A31DF70921A6B51100618AD5 /* SettingTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableModel.swift; sourceTree = "<group>"; };
 		A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewCell.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 				A358549620E205E600C76393 /* SettingsViewController.swift */,
 				A358549420E2048300C76393 /* OpenSourceViewController.swift */,
 				A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */,
+				A30A2A9D21BA557600D014C5 /* AboutViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -558,6 +561,7 @@
 				A373C68A21B5411C00C919AD /* UserCommentViewCell.swift in Sources */,
 				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
+				A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
 				A36EAFCD219FEEDB000DA4A3 /* Topic.swift in Sources */,

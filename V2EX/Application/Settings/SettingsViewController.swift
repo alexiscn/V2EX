@@ -90,8 +90,9 @@ class SettingsViewController: UIViewController {
             let controller = OpenSourceViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        let about = SettingTableModel(title: "关于V2EX", value: .actionCommand {
-            
+        let about = SettingTableModel(title: "关于V2EX", value: .actionCommand { [weak self] in
+            let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
+            self?.navigationController?.pushViewController(controller, animated: true)
         })
         let aboutSection = SettingTableSectionModel(title: "关于", items: [sourceCode, openSource, about])
         dataSource.append(aboutSection)

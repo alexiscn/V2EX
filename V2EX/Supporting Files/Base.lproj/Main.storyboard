@@ -268,6 +268,52 @@
             </objects>
             <point key="canvasLocation" x="120.8" y="180.35982008995504"/>
         </scene>
+        <!--About View Controller-->
+        <scene sceneID="MWE-ch-uDt">
+            <objects>
+                <viewController storyboardIdentifier="AboutViewController" id="Jeq-33-WD9" customClass="AboutViewController" customModule="V2EX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jLS-hW-yfX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BiA-fe-dvg">
+                                <rect key="frame" x="12" y="20" width="351" height="647"/>
+                                <mutableString key="text">
+V2EX is a community of start-ups, designers, developers and creative people. 
+
+V2EX 是创意工作者们的社区。这里目前汇聚了超过 250,000 名主要来自互联网行业、游戏行业和媒体行业的创意工作者。V2EX 希望能够成为创意工作者们的生活和事业的一部分。 
+
+希望大家能够多多分享自己正在做的有趣事物、交流想法，在这里找到朋友甚至新的机会。并且，最重要的是，在这一切的过程中，保持对他人的友善。 
+
+为了保持这里的良好氛围，V2EX 有自己的明确规则： 
+
+• 这里绝对不讨论任何有关盗版软件、音乐、电影如何获得的问题 
+• 这里绝对不会全文转载任何文章，而只会以链接方式分享1 
+• 这里绝对不会有任何教人如何钻空子的讨论 
+• 这里感激和崇尚美的事物 
+• 这里尊重原创 
+• 这里反对中文互联网上的无信息量习惯如“顶”，“沙发”，“前排”，“留名”，“路过”，“不明觉厉” 
+• 这里禁止发布人身攻击、仇恨、暴力、侮辱性的言辞、暴露他人隐私的“人肉贴” 
+• 遵守中国的法律 </mutableString>
+                                <color key="textColor" red="0.72549019609999998" green="0.7843137255" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.16862745100000001" green="0.22352941179999999" blue="0.32549019610000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="v81-Rt-gMx" firstAttribute="trailing" secondItem="BiA-fe-dvg" secondAttribute="trailing" constant="12" id="6yO-ip-aOF"/>
+                            <constraint firstItem="v81-Rt-gMx" firstAttribute="bottom" secondItem="BiA-fe-dvg" secondAttribute="bottom" id="Sw1-Nd-FOE"/>
+                            <constraint firstItem="BiA-fe-dvg" firstAttribute="leading" secondItem="v81-Rt-gMx" secondAttribute="leading" constant="12" id="X5K-Y7-8Qp"/>
+                            <constraint firstItem="BiA-fe-dvg" firstAttribute="top" secondItem="v81-Rt-gMx" secondAttribute="top" id="n2f-a1-cpc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v81-Rt-gMx"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8se-SD-eEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="120.8" y="853.22338830584715"/>
+        </scene>
     </scenes>
     <resources>
         <image name="login_close_30x30_" width="30" height="30"/>
