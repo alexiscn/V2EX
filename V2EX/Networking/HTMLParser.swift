@@ -280,6 +280,34 @@ struct TopicReplyParser: HTMLParser {
             reply.avatarURL = avatarURLWithSource(avatarSrc)
             reply.content = try cell.select("div.reply_content").text()
             reply.contentHTML = try cell.select("div.reply_content").html()
+            
+//            let body = NSMutableAttributedString()
+//            if let replyContent = try cell.select("div.reply_content").first() {
+//                
+//                let nodes = replyContent.getChildNodes()
+//                
+//                for node in nodes {
+//                    if let textNode = node as? TextNode {
+//                        body.append(NSAttributedString(string: textNode.text()))
+//                    } else if let element = node as? Element {
+//                        switch element.tagName() {
+//                        case "br":
+//                            body.append(NSAttributedString(string: "\n"))
+//                        case "a":
+//                            print("aaaaa")
+//                            print(try element.outerHtml())
+//                        case "img":
+//                            print("img")
+//                            print(try element.outerHtml())
+//                        default:
+//                            print(element.tagName())
+//                            print(try element.outerHtml())
+//                            break
+//                        }
+//                    }
+//                }
+//            }
+            
             reply.timeAgo = try cell.select("span.ago").text()
             let userLink = try cell.select("a.dark")
             reply.username = try userLink.text()

@@ -14,7 +14,7 @@ class TopicDetailViewController: UIViewController {
     fileprivate var tableView: UITableView!
     fileprivate var loadingIndicator: UIActivityIndicatorView!
     
-    //fileprivate var commentsDataSouce: [Reply] = []
+    fileprivate var allComments: [Reply] = []
     fileprivate var comments: [Reply] = []
     fileprivate var detail: TopicDetail?
     fileprivate let topicURL: URL?
@@ -67,9 +67,14 @@ class TopicDetailViewController: UIViewController {
     
     private func showCommentSheet(_ comment: Reply) {
         let actionSheet = ActionSheet(title: NSLocalizedString("更多操作", comment: ""), message: nil)
-        actionSheet.addAction(Action(title: NSLocalizedString("评论", comment: ""), style: .default, handler: { _ in
-            
-        }))
+        if AppContext.current.isLogined {
+            actionSheet.addAction(Action(title: NSLocalizedString("评论", comment: ""), style: .default, handler: { _ in
+                
+            }))
+        }        
+//        actionSheet.addAction(Action(title: NSLocalizedString("查看该作者的所有回复", comment: ""), style: .default, handler: { _ in
+//
+//        }))
         actionSheet.addAction(Action(title: NSLocalizedString("复制评论", comment: ""), style: .default, handler: { _ in
             UIPasteboard.general.string = comment.content
         }))
@@ -110,10 +115,11 @@ class TopicDetailViewController: UIViewController {
     private func resortReplies() {
         viewAuthorOnly = !viewAuthorOnly
         if viewAuthorOnly {
-            
+            comments = allComments.filter { return $0.isTopicAuthor }
         } else {
-            
+            comments = allComments
         }
+        tableView.reloadData()
     }
     
     private func setupLoadingView() {
@@ -138,6 +144,7 @@ class TopicDetailViewController: UIViewController {
                     r.isTopicAuthor = true
                 }
             }
+            strongSelf.allComments = detail.replyList
             
             strongSelf.comments = detail.replyList
             strongSelf.tableView.mj_header.endRefreshing()
@@ -165,6 +172,7 @@ class TopicDetailViewController: UIViewController {
                         r.isTopicAuthor = true
                     }
                 }
+                strongSelf.allComments.append(contentsOf: replies)
                 strongSelf.comments.append(contentsOf: replies)
                 strongSelf.tableView.reloadData()
                 if strongSelf.currentPage == detail.page {
