@@ -55,7 +55,7 @@ class TimelineViewController: UIViewController {
         
         setupTableView()
         updateTitle()
-        tableView.mj_header.beginRefreshing()
+        refresh()
     }
     
     private func updateTitle() {
@@ -72,15 +72,7 @@ class TimelineViewController: UIViewController {
         self.tab = tab
         updateTitle()
         recentPage = 1
-        if dataSource.count > 0 {
-            UIView.animate(withDuration: 0.3, animations: {
-                self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-            }) { _ in
-                self.loadData()
-            }
-        } else {
-            loadData()
-        }
+        refreshSwitchingTimeline()
     }
     
     func updateNode(_ node: Node) {
@@ -89,24 +81,24 @@ class TimelineViewController: UIViewController {
         self.nodeDetail = nil
         updateTitle()
         currentPage = 1
+        refreshSwitchingTimeline()
+    }
+    
+    func refreshSwitchingTimeline() {
         if dataSource.count > 0 {
             UIView.animate(withDuration: 0.3, animations: {
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }) { _ in
-                self.loadData()
+                self.refresh()
             }
         } else {
-            loadData()
+            refresh()
         }
-        
     }
-
-    private func loadData() {
-        switch type {
-        case .tab:
-            loadTabTopics()
-        case .node:
-            loadNodeTopics()
+    
+    private func refresh(){
+        if tableView != nil {
+            tableView.mj_header.beginRefreshing()
         }
     }
     
@@ -142,7 +134,7 @@ class TimelineViewController: UIViewController {
                     }
                     V2DataManager.shared.saveTopics(topics, forTab: key)
                 case .error(let error):
-                    print(error)
+                    HUD.show(message: error.description)
                 }
             })
         }
@@ -191,7 +183,7 @@ class TimelineViewController: UIViewController {
                     strongSelf.setNoMoreData()
                 }
             case .error(let error):
-                print(error)
+                HUD.show(message: error.description)
             }
         }
     }
@@ -225,7 +217,13 @@ class TimelineViewController: UIViewController {
         tableView.register(TimelineViewCell.self, forCellReuseIdentifier: NSStringFromClass(TimelineViewCell.self))
         view.addSubview(tableView)
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
-            self?.loadData()
+            guard let strongSelf = self else { return }
+            switch strongSelf.type {
+            case .tab:
+                strongSelf.loadTabTopics()
+            case .node:
+                strongSelf.loadNodeTopics()
+            }
         })
         header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         header?.stateLabel.isHidden = true

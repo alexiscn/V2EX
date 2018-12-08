@@ -50,7 +50,7 @@ class LoginViewController: UIViewController {
                     }
                 })
             case .error(let error):
-                print(error)
+                HUD.show(message: error.description)
             }
         }
     }
@@ -101,8 +101,9 @@ class LoginViewController: UIViewController {
             switch response {
             case .success(let account):
                 print(account)
+                self.dismiss(animated: true, completion: nil)
             case .error(let error):
-                print(error)
+                HUD.show(message: error.description)
             }
         }
     }

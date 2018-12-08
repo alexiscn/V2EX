@@ -14,13 +14,27 @@ struct UserAgents {
     static let phone = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
 }
 
-enum ServerError: Error {
+enum ServerError: Error, CustomStringConvertible {
     case needsSignIn
     case needsTwoFactor
     case parseHTMLError
     case signInFailed
     case severNotFound
-    case htmlDecodeError(Error)
+    
+    var description: String {
+        switch self {
+        case .needsSignIn:
+            return NSLocalizedString("需要登录后才能查看", comment: "")
+        case .needsTwoFactor:
+            return NSLocalizedString("开启了两步验证", comment: "")
+        case .parseHTMLError:
+            return NSLocalizedString("服务器解析错误", comment: "")
+        case .signInFailed:
+            return NSLocalizedString("登录失败", comment: "")
+        case .severNotFound:
+            return NSLocalizedString("服务器暂时开小差了，请稍后再试", comment: "")
+        }
+    }
 }
 
 enum V2Response<T> {
@@ -29,8 +43,6 @@ enum V2Response<T> {
 }
 
 typealias RequestCompletionHandler<T> = (V2Response<T>) -> Void
-
-typealias LoginCompletion = (Account?, Error?) -> Void
 
 class V2SDK {
     
@@ -98,7 +110,7 @@ class V2SDK {
                 }
             } catch {
                 print(error)
-                completion(V2Response.error(.htmlDecodeError(error)))
+                completion(V2Response.error(.parseHTMLError))
             }
         }
     }

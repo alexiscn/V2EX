@@ -157,8 +157,8 @@ class TopicDetailViewController: UIViewController {
                     strongSelf.setNoMoreData()
                 }
                 strongSelf.loadingIndicator.stopAnimating()
-            case .error:
-                print("123")
+            case .error(let error):
+                HUD.show(message: error.description)
             }
         }
     }
@@ -189,7 +189,7 @@ class TopicDetailViewController: UIViewController {
                     strongSelf.tableView.mj_footer.endRefreshing()
                 }
             case .error(let error):
-                print(error)
+                HUD.show(message: error.description)
             }
         }
     }

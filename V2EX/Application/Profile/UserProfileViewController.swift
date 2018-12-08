@@ -122,7 +122,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 }
                 self?.loadingIndicator.stopAnimating()
             case .error(let error):
-                print(error)
+                HUD.show(message: error.description)
             }
             
         }
