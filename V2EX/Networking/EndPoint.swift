@@ -17,10 +17,13 @@ struct EndPoint {
     
     let parameters: Parameters?
     
-    init(path: String, method: HTTPMethod = .get, parameters: Parameters? = nil) {
+    let headers: HTTPHeaders?
+    
+    init(path: String, method: HTTPMethod = .get, parameters: Parameters? = nil, headers: HTTPHeaders? = nil) {
         self.path = path
         self.method = method
         self.parameters = parameters
+        self.headers = headers
     }
 }
 
@@ -31,8 +34,10 @@ extension EndPoint: URLRequestConvertible {
     }
     
     func asURLRequest() throws -> URLRequest {
-        let request = URLRequest(url: url)
-        let urlRequest = try URLEncoding().encode(request, with: parameters)
+        var request = URLRequest(url: url)
+        request.httpMethod = method.rawValue
+        var urlRequest = try URLEncoding().encode(request, with: parameters)
+        urlRequest.allHTTPHeaderFields = headers
         return urlRequest
     }
 }
@@ -41,7 +46,7 @@ extension EndPoint: URLRequestConvertible {
 extension EndPoint {
     
     static func tab(_ tab: String) -> EndPoint {
-        let path = "/?tab=" + tab
+        let path = "/?tab=\(tab)"
         return EndPoint(path: path)
     }
     
@@ -71,13 +76,19 @@ extension EndPoint {
     }
     
     static func signIn(username: String, password: String, captcha: String, formData: LoginFormData) -> EndPoint {
+        let path = "/signin"
         var params: [String: String] = [:]
         params["next"] = "/"
         params["once"] = formData.once
         params[formData.username] = username
         params[formData.password] = password
         params[formData.captcha] = captcha
-        return EndPoint(path: "/signin", method: .post, parameters: params)
+        
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Referer"] = V2SDK.baseURLString + path
+        headers["User-Agent"] = UserAgents.phone
+        
+        return EndPoint(path: path, method: .post, parameters: params, headers: headers)
     }
     
     static func googleSignIn(once: String) -> EndPoint {
@@ -140,7 +151,12 @@ extension EndPoint {
         var params: [String: String] = [:]
         params["content"] = content
         params["once"] = once
-        return EndPoint(path: path, method: .post, parameters: params)
+        
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Referer"] = V2SDK.baseURLString + path
+        headers["User-Agent"] = UserAgents.phone
+        
+        return EndPoint(path: path, method: .post, parameters: params, headers: headers)
     }
     
     static func createTopic(_ nodeName: String, title: String, body: String, once: String) -> EndPoint {
@@ -149,6 +165,11 @@ extension EndPoint {
         params["title"] = title
         params["topic_content"] = body
         params["once"] = once
-        return EndPoint(path: path, method: .post, parameters: params)
+        
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Referer"] = V2SDK.baseURLString + path
+        headers["User-Agent"] = UserAgents.phone
+        
+        return EndPoint(path: path, method: .post, parameters: params, headers: headers)
     }
 }

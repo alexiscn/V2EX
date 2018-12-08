@@ -136,24 +136,30 @@ class TopicDetailViewController: UIViewController {
         webViewHeightCaculated = false
         guard let url = topicURL else { return }
         let topicID = url.lastPathComponent
-        V2SDK.request(EndPoint.topicDetail(topicID), parser: TopicDetailParser.self) { [weak self] (detail: TopicDetail?, error) in
-            guard let strongSelf = self, let detail = detail else { return }
-            strongSelf.detail = detail
-            for r in detail.replyList {
-                if r.username == detail.author {
-                    r.isTopicAuthor = true
+        let endPoint = EndPoint.topicDetail(topicID)
+        V2SDK.request(endPoint, parser: TopicDetailParser.self) { [weak self] (response: V2Response<TopicDetail>) in
+            guard let strongSelf = self else { return }
+            
+            switch response {
+            case .success(let detail):
+                strongSelf.detail = detail
+                for r in detail.replyList {
+                    if r.username == detail.author {
+                        r.isTopicAuthor = true
+                    }
                 }
+                strongSelf.allComments = detail.replyList
+    
+                strongSelf.comments = detail.replyList
+                strongSelf.tableView.mj_header.endRefreshing()
+                strongSelf.tableView.reloadData()
+                if detail.page == 1 {
+                    strongSelf.setNoMoreData()
+                }
+                strongSelf.loadingIndicator.stopAnimating()
+            case .error:
+                print("123")
             }
-            strongSelf.allComments = detail.replyList
-            
-            strongSelf.comments = detail.replyList
-            strongSelf.tableView.mj_header.endRefreshing()
-            
-            strongSelf.tableView.reloadData()
-            if detail.page == 1 {
-                strongSelf.setNoMoreData()
-            }
-            strongSelf.loadingIndicator.stopAnimating()
         }
     }
     
@@ -165,8 +171,10 @@ class TopicDetailViewController: UIViewController {
         }
         currentPage += 1        
         let endPoint = EndPoint.topicDetail(url.lastPathComponent, page: currentPage)
-        V2SDK.request(endPoint, parser: TopicReplyParser.self) { [weak self] (replies: [Reply]?, error) in
-            if let strongSelf = self, let replies = replies {
+        V2SDK.request(endPoint, parser: TopicReplyParser.self) { [weak self] (response: V2Response<[Reply]>) in
+            guard let strongSelf = self else { return }
+            switch response {
+            case .success(let replies):
                 for r in replies {
                     if r.username == strongSelf.detail?.author {
                         r.isTopicAuthor = true
@@ -180,6 +188,8 @@ class TopicDetailViewController: UIViewController {
                 } else {
                     strongSelf.tableView.mj_footer.endRefreshing()
                 }
+            case .error(let error):
+                print(error)
             }
         }
     }

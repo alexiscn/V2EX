@@ -111,13 +111,20 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     private func loadUserProfile() {
-        V2SDK.request(EndPoint.memberProfile(username), parser: MemberProfileParser.self) { [weak self] (profileRes: UserProfileResponse?, error) in
-            self?.profile = profileRes
-            self?.tableView.reloadData()
-            if let info = profileRes?.info {
-                self?.headerView?.update(info: info)
+        let endPoint = EndPoint.memberProfile(username)
+        V2SDK.request(endPoint, parser: MemberProfileParser.self) { [weak self] (response: V2Response<UserProfileResponse>) in
+            switch response {
+            case .success(let profileRes):
+                self?.profile = profileRes
+                self?.tableView.reloadData()
+                if let info = profileRes.info {
+                    self?.headerView?.update(info: info)
+                }
+                self?.loadingIndicator.stopAnimating()
+            case .error(let error):
+                print(error)
             }
-            self?.loadingIndicator.stopAnimating()
+            
         }
     }
     

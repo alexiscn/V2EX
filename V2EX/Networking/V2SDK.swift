@@ -19,11 +19,16 @@ enum ServerError: Error {
     case needsTwoFactor
     case parseHTMLError
     case signInFailed
+    case severNotFound
+    case htmlDecodeError(Error)
 }
 
-typealias RequestCompletionHandler<T> = (T?, Error?) -> Void
+enum V2Response<T> {
+    case success(T)
+    case error(ServerError)
+}
 
-typealias AccountCompletion = (LoginFormData?, Error?) -> Void
+typealias RequestCompletionHandler<T> = (V2Response<T>) -> Void
 
 typealias LoginCompletion = (Account?, Error?) -> Void
 
@@ -74,22 +79,26 @@ class V2SDK {
         let dataResponse = Alamofire.request(endPoint)
         dataResponse.responseString { response in
             guard let html = response.value else {
-                completion(nil, ServerError.needsSignIn)
+                completion(V2Response.error(.severNotFound))
                 return
             }
             // 需要登录才能访问
             if response.response?.url?.path == "/signin" && response.request?.url?.path != "/signin" {
-                completion(nil, ServerError.needsSignIn)
+                completion(V2Response.error(.needsSignIn))
                 return
             }
             
             do {
                 let doc = try SwiftSoup.parse(html)
                 let result: T? = try parser.handle(doc)
-                completion(result, nil)
+                if let result = result {
+                    completion(V2Response.success(result))
+                } else {
+                    completion(V2Response.error(.severNotFound))
+                }
             } catch {
                 print(error)
-                completion(nil, error)
+                completion(V2Response.error(.htmlDecodeError(error)))
             }
         }
     }

@@ -37,9 +37,10 @@ class LoginViewController: UIViewController {
     private func loadCaptcha() {
         activityIndicator.isHidden = false
         captchaButton.setImage(UIImage(), for: .normal)
-        V2SDK.request(EndPoint.onceToken(), parser: OnceTokenParser.self) { [weak self] (formData: LoginFormData?, error) in
+        V2SDK.request(EndPoint.onceToken(), parser: OnceTokenParser.self) { [weak self] (response: V2Response<LoginFormData>) in
             self?.activityIndicator.isHidden = true
-            if let formData = formData {
+            switch response {
+            case .success(let formData):
                 self?.loginForm = formData
                 let url = V2SDK.captchaURL(once: formData.once)
                 Alamofire.request(url).responseData(completionHandler: { dataResponse in
@@ -48,8 +49,8 @@ class LoginViewController: UIViewController {
                         self?.captchaButton.setImage(img, for: .normal)
                     }
                 })
-            } else {
-                print(error ?? "")
+            case .error(let error):
+                print(error)
             }
         }
     }
@@ -76,23 +77,33 @@ class LoginViewController: UIViewController {
     
     @IBAction func signInButtonTapped(_ sender: Any) {
         
+        guard let formData = loginForm else {
+            HUD.show(message: NSLocalizedString("请重新获取验证码", comment: ""))
+            return
+        }
+        
         guard let username = usernameTextField.text, !username.isEmpty else {
+            HUD.show(message: NSLocalizedString("请输入用户名", comment: ""))
             return
         }
         
         guard let password = passwordTextField.text, !password.isEmpty else {
+            HUD.show(message: NSLocalizedString("请输入密码", comment: ""))
             return
         }
-        
         guard let captcha = captchaTextField.text, !captcha.isEmpty else {
+            HUD.show(message: NSLocalizedString("请输入验证码", comment: ""))
             return
         }
         
-        guard let formData = loginForm else {
-            return
-        }
-        V2SDK.login(username: username, password: password, captcha: captcha, formData: formData) { (account, error) in
-            
+        let endPoint = EndPoint.signIn(username: username, password: password, captcha: captcha, formData: formData)
+        V2SDK.request(endPoint, parser: SignInParser.self) { (response: V2Response<Account>) in
+            switch response {
+            case .success(let account):
+                print(account)
+            case .error(let error):
+                print(error)
+            }
         }
     }
     

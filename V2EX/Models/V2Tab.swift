@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct V2Tab {
+public struct V2Tab: Equatable {
     
     public let key: String
     
@@ -26,8 +26,8 @@ public struct V2Tab {
         return V2Tab(key: "hot", title: "最热")
     }
     
-    public static var allTab: V2Tab {
-        return V2Tab(key: "all", title: "全部")
+    public static var recentTab: V2Tab {
+        return V2Tab(key: "recent", title: "最新")
     }
     
     public static func tabs() -> [V2Tab] {
@@ -114,7 +114,13 @@ public struct V2Tab {
         r2Tab.subTabs.append(V2Tab(key: "ideas", title: "奇思妙想"))
         r2Tab.subTabs.append(V2Tab(key: "deals", title: "优惠信息"))
         
-        return [hotTab, allTab, techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, r2Tab]
+        let recentTab = V2Tab(key: "recent", title: "最新")
+        
+        return [hotTab, allTab, recentTab, techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, r2Tab]
+    }
+    
+    public static func == (lhs: V2Tab, rhs: V2Tab) -> Bool {
+        return lhs.key == rhs.key
     }
 }
 

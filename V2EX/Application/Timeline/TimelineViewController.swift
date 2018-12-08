@@ -25,6 +25,7 @@ class TimelineViewController: UIViewController {
     fileprivate var tableView: UITableView!
     
     fileprivate var currentPage: Int = 0
+    fileprivate var recentPage: Int = 1
     
     fileprivate var tab: V2Tab = V2Tab.hotTab
     
@@ -54,7 +55,7 @@ class TimelineViewController: UIViewController {
         
         setupTableView()
         updateTitle()
-        loadData()
+        tableView.mj_header.beginRefreshing()
     }
     
     private func updateTitle() {
@@ -69,11 +70,13 @@ class TimelineViewController: UIViewController {
     func updateTab(_ tab: V2Tab) {
         self.type = .tab
         self.tab = tab
+        updateTitle()
+        recentPage = 1
         if dataSource.count > 0 {
             UIView.animate(withDuration: 0.3, animations: {
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }) { _ in
-                self.loadData(loadCache: false)
+                self.loadData()
             }
         } else {
             loadData()
@@ -85,61 +88,74 @@ class TimelineViewController: UIViewController {
         self.node = node
         self.nodeDetail = nil
         updateTitle()
+        currentPage = 1
         if dataSource.count > 0 {
             UIView.animate(withDuration: 0.3, animations: {
                 self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }) { _ in
-                self.loadData(loadCache: false)
+                self.loadData()
             }
         } else {
             loadData()
         }
+        
     }
 
-    private func loadData(loadCache: Bool = true) {
-        tableView.mj_header.beginRefreshing()
+    private func loadData() {
         switch type {
         case .tab:
-            loadTopicList()
+            loadTabTopics()
         case .node:
             loadNodeTopics()
         }
     }
     
-    private func loadTopicList(loadCache: Bool = true) {
+    private func loadTabTopics(isLoadMore: Bool = false) {
+        recentPage = isLoadMore ? (recentPage + 1): 1
+        
         DispatchQueue.global().async {
-            if loadCache {
-                DispatchQueue.main.async {
-                    let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
-                    if topics.count > 0 {
-                        self.dataSource = topics
-                        self.tableView.reloadData()
-                    }
+            let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
+            DispatchQueue.main.async {
+                if topics.count > 0 {
+                    self.dataSource = topics
+                    self.tableView.reloadData()
                 }
             }
             let key = self.tab.key
-            V2SDK.request(.tab(key), parser: TabParser.self, completion: { [weak self] (topics: [Topic]?, error) in
-                DispatchQueue.main.async {
-                    guard let strongSelf = self, let topics = topics else {
-                        return
+            let isRecent = self.tab == V2Tab.recentTab
+            let endPoint = isRecent ? EndPoint.recent(self.recentPage): EndPoint.tab(key)
+            V2SDK.request(endPoint, parser: TabParser.self, completion: { [weak self] (response: V2Response<[Topic]>) in
+                guard let strongSelf = self else { return }
+                switch response {
+                case .success(let topics):
+                    if isLoadMore {
+                        strongSelf.dataSource.append(contentsOf: topics)
+                    } else {
+                        strongSelf.dataSource = topics
                     }
-                    strongSelf.dataSource = topics
                     strongSelf.tableView.reloadData()
                     strongSelf.tableView.mj_header.endRefreshing()
-                    if strongSelf.tab.key == V2Tab.allTab.key {
+                    if strongSelf.tab == V2Tab.recentTab {
                         strongSelf.tableView.mj_footer.resetNoMoreData()
                     } else {
                         strongSelf.setNoMoreData()
                     }
                     V2DataManager.shared.saveTopics(topics, forTab: key)
+                case .error(let error):
+                    print(error)
                 }
             })
         }
     }
     
     fileprivate func loadMoreData() {
-        if type == .node {
+        switch type {
+        case .node:
             loadNodeTopics(isLoadMore: true)
+        case .tab:
+            if tab == V2Tab.recentTab {
+                loadTabTopics(isLoadMore: true)
+            }
         }
     }
     
@@ -154,23 +170,28 @@ class TimelineViewController: UIViewController {
         currentPage = isLoadMore ? (currentPage + 1): 1
                 
         let endPoint = EndPoint.node(node.name, page: currentPage)
-        V2SDK.request(endPoint, parser: NodeTopicsParser.self) { [weak self] (nodeDetail: NodeDetail?, error) in
-            guard let strongSelf = self, let nodeDetail = nodeDetail else { return }
-            strongSelf.nodeDetail = nodeDetail
-            if isLoadMore {
-                strongSelf.dataSource.append(contentsOf: nodeDetail.topics)
-            } else {
-                strongSelf.dataSource = nodeDetail.topics
-            }
-            
-            strongSelf.tableView.reloadData()
-            strongSelf.tableView.mj_header.endRefreshing()
-            strongSelf.tableView.mj_footer.endRefreshing()
-            
-            if nodeDetail.topics.count > 0 {
-                strongSelf.tableView.mj_footer.resetNoMoreData()
-            } else {
-                strongSelf.setNoMoreData()
+        V2SDK.request(endPoint, parser: NodeTopicsParser.self) { [weak self] (response: V2Response<NodeDetail>) in
+            guard let strongSelf = self else { return }
+            switch response {
+            case .success(let nodeDetail):
+                strongSelf.nodeDetail = nodeDetail
+                if isLoadMore {
+                    strongSelf.dataSource.append(contentsOf: nodeDetail.topics)
+                } else {
+                    strongSelf.dataSource = nodeDetail.topics
+                }
+                
+                strongSelf.tableView.reloadData()
+                strongSelf.tableView.mj_header.endRefreshing()
+                strongSelf.tableView.mj_footer.endRefreshing()
+                
+                if nodeDetail.topics.count > 0 {
+                    strongSelf.tableView.mj_footer.resetNoMoreData()
+                } else {
+                    strongSelf.setNoMoreData()
+                }
+            case .error(let error):
+                print(error)
             }
         }
     }
@@ -181,7 +202,7 @@ class TimelineViewController: UIViewController {
             case .node:
                 footer.setTitle(NSLocalizedString("没有更多了", comment: ""), for: .noMoreData)
             case .tab:
-                footer.setTitle(NSLocalizedString("只有节点才能加载更多", comment: ""), for: .noMoreData)
+                footer.setTitle(NSLocalizedString("只有最新才能加载更多", comment: ""), for: .noMoreData)
             }
             footer.endRefreshingWithNoMoreData()
             footer.stateLabel.isHidden = false
