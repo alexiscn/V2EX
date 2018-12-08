@@ -63,6 +63,7 @@
 		A3DCB08521B392FB005FD955 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08421B392FA005FD955 /* Account.swift */; };
 		A3DCB08721B3FB2E005FD955 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */; };
 		A3DCB08921BB76A9005FD955 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08821BB76A9005FD955 /* HUD.swift */; };
+		A3DCB08B21BBF90A005FD955 /* V2SDK+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08A21BBF909005FD955 /* V2SDK+Upload.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 		A3F788B721B7A405002B2F99 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B621B7A405002B2F99 /* EndPoint.swift */; };
 		A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B821B7AD49002B2F99 /* HTMLParser.swift */; };
@@ -127,6 +128,7 @@
 		A3DCB08421B392FA005FD955 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		A3DCB08821BB76A9005FD955 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		A3DCB08A21BBF909005FD955 /* V2SDK+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Upload.swift"; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A3F788B621B7A405002B2F99 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		A3F788B821B7AD49002B2F99 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				A36D0FAC219D80E400E20EFB /* V2DataManager.swift */,
 				A36D0FA8219D809800E20EFB /* V2SDK.swift */,
 				A36D0FB4219D81B500E20EFB /* V2SDK+Search.swift */,
+				A3DCB08A21BBF909005FD955 /* V2SDK+Upload.swift */,
 				A3F788B621B7A405002B2F99 /* EndPoint.swift */,
 				A3F788B821B7AD49002B2F99 /* HTMLParser.swift */,
 			);
@@ -585,6 +588,7 @@
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */,
 				A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */,
+				A3DCB08B21BBF90A005FD955 /* V2SDK+Upload.swift in Sources */,
 				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,
 				A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,

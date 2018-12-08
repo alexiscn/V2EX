@@ -8,6 +8,26 @@
 import Foundation
 import GenericNetworking
 
+//https://github.com/bynil/sov2ex/blob/master/API.md
+extension V2SDK {
+    /// 搜索
+    ///
+    /// - Parameters:
+    ///   - key: 查询关键词
+    ///   - from: 与第一个结果的偏移量（默认 0），比如 0, 10, 20
+    ///   - options: 搜索选项
+    ///   - completion: 请求回调
+    public class func search(key: String, from: Int = 0, options: SearchOptions = SearchOptions.default, completion: @escaping GenericNetworkingCompletion<SearchResponse>) {
+        
+        
+        var params: [String: Any] = [:]
+        params["q"] = key
+        
+        GenericNetworking.postJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
+    }
+}
+
+
 public struct SearchOptions {
     /// 结果数量（默认 10）    0 - 50
     var size: Int = 50
@@ -41,20 +61,74 @@ public struct SearchOptions {
     }
 }
 
-extension V2SDK {
-    /// 搜索
-    ///
-    /// - Parameters:
-    ///   - key: 查询关键词
-    ///   - from: 与第一个结果的偏移量（默认 0），比如 0, 10, 20
-    ///   - options: 搜索选项
-    ///   - completion: 请求回调
-    public class func search(key: String, from: Int = 0, options: SearchOptions = SearchOptions.default, completion: @escaping GenericNetworkingCompletion<Int>) {
-        //https://github.com/bynil/sov2ex/blob/master/API.md
-        
-        var params: [String: Any] = [:]
-        params["q"] = key
-        
-        GenericNetworking.postJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
+struct SearchResponse: Codable {
+    /// 搜索过程耗时(ms)
+    let took: Int
+    /// 是否超时
+    let time_out: Bool
+    /// 命中主题总数
+    let total: Int
+    /// 主题列表
+    let hits: [SearchHit]
+}
+
+struct SearchHit: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case score = "_score"
+        case source = "_source"
+        case highlight
     }
+    
+    let score: Float?
+    
+    let source: SearchHitSource
+    
+    let highlight: SearchHitHighlight?
+}
+
+struct SearchHitSource: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case nodeID = "node"
+        case replies
+        case created
+        case member
+        case topicID = "id"
+        case title
+        case content
+    }
+    /// 节点 id
+    let nodeID: Int
+    /// 回复数量
+    let replies: Int
+    /// 创建时间(UTC)
+    let created: String
+    /// 主题作者
+    let member: String
+    /// 主题 id
+    let topicID: Int
+    /// 主题标题
+    let title: String
+    /// 主题内容
+    let content: String
+}
+
+struct SearchHitHighlight: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case content
+        case postscript = "postscript_list.content"
+        case replyList = "reply_list.content"
+    }
+    
+    /// 标题高亮（最多 1 条）
+    let title: [String]?
+    /// 主题内容高亮（最多 1 条）
+    let content: [String]?
+    /// 附言高亮（最多 1 条）
+    let postscript: [String]?
+    /// 回复高亮（最多 1 条）
+    let replyList: [String]?
 }
