@@ -89,14 +89,21 @@ class ActionSheet: UIView, UIGestureRecognizerDelegate {
         backgroundView.alpha = 0
         containerView.backgroundColor = Theme.current.backgroundColor
         
+        var titleColor = UIColor.white
+        var buttonBackground = UIColor.white.withAlphaComponent(0.1)
+        if Theme.current == .light {
+            titleColor = UIColor.black
+            buttonBackground = .white
+        }
+        
         var y: CGFloat = 0.0
         for (index, action) in actions.enumerated() {
             let actionButton = UIButton(type: .system)
             actionButton.tag = index
             actionButton.addTarget(self, action: #selector(handleActionButtonTapped(_:)), for: .touchUpInside)
-            actionButton.backgroundColor = UIColor.white.withAlphaComponent(0.1)
+            actionButton.backgroundColor = buttonBackground
             actionButton.setTitle(action.title, for: .normal)
-            actionButton.setTitleColor(UIColor.white, for: .normal)
+            actionButton.setTitleColor(titleColor, for: .normal)
             if action.style == .cancel {
                 actionButton.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
             } else {
@@ -106,8 +113,6 @@ class ActionSheet: UIView, UIGestureRecognizerDelegate {
             
             if action.style == .cancel {
                 y += 8.0
-            } else {
-                y += 0.5
             }
             
             var height: CGFloat = 50.0
@@ -119,6 +124,9 @@ class ActionSheet: UIView, UIGestureRecognizerDelegate {
             actionButton.frame = CGRect(x: 0, y: y, width: frame.width, height: height)
             
             y += actionButton.frame.height
+            if action.style != .cancel {
+                y += 1
+            }
         }
         
         containerView.frame = CGRect(x: 0.0, y: frame.height, width: frame.width, height: y)
