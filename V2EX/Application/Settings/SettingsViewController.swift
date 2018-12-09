@@ -56,16 +56,8 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupDataSource() {
-        
         setupGenerals()
-        
-        
-        let autoRefresh = SettingTableModel(title: "自动刷新列表", value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
-        
-        let enableFullScreenGesture = SettingTableModel(title: "全屏返回手势", value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
-        
-        let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh, enableFullScreenGesture])
-        dataSource.append(switchesSection)
+        setupSwitchButtons()
         setupAbouts()
     }
     
@@ -77,6 +69,15 @@ class SettingsViewController: UIViewController {
         
         let generalSection = SettingTableSectionModel(title: nil, items: [viewOption])
         dataSource.append(generalSection)
+    }
+    
+    private func setupSwitchButtons() {
+        let autoRefresh = SettingTableModel(title: "自动刷新列表", value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
+        
+        let enableFullScreenGesture = SettingTableModel(title: "全屏返回手势", value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
+        
+        let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh, enableFullScreenGesture])
+        dataSource.append(switchesSection)
     }
     
     private func setupAbouts() {
@@ -108,6 +109,7 @@ class SettingsViewController: UIViewController {
             AppSettings.shared.autoRefreshOnAppLaunch = sender.isOn
         case Tags.enableFullScreenGesture.rawValue:
             AppSettings.shared.enableFullScreenGesture = sender.isOn
+            NotificationCenter.default.post(name: NSNotification.Name.FullGestureEnableChanged, object: nil)
         default:
             break
         }

@@ -17,6 +17,8 @@ class TimelineViewCell: UITableViewCell {
     
     var avatarHandler: RelayCommand?
     
+    private let backgroundColorView: UIView
+    
     private let containerView: UIView
     
     private let avatarButton: UIButton
@@ -65,6 +67,9 @@ class TimelineViewCell: UITableViewCell {
         commentCountLabel = UILabel()
         commentCountLabel.textColor = Theme.current.subTitleColor
         commentCountLabel.font = AppContext.current.font.subTitleFont
+        
+        backgroundColorView = UIView()
+        backgroundColorView.backgroundColor = Theme.current.cellHighlightColor
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -124,13 +129,14 @@ class TimelineViewCell: UITableViewCell {
             make.trailing.equalToSuperview().offset(-10)
             make.centerY.equalTo(timeLabel)
         }
+        selectedBackgroundView = backgroundColorView
         
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = Theme.current.cellHighlightColor
-        selectedBackgroundView = backgroundView
-        
-        nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)        
+        nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
         avatarButton.addTarget(self, action: #selector(handleAvatarTapped(_:)), for: .touchUpInside)
+        
+        Theme.current.observeThemeUpdated { [weak self] _ in
+            self?.updateTheme()
+        }
     }
     
     @objc private func handleAvatarTapped(_ sender: Any) {
@@ -175,6 +181,17 @@ class TimelineViewCell: UITableViewCell {
         } else {
             nodeButton.isHidden = true
         }
+    }
+    
+    func updateTheme() {
+        backgroundColorView.backgroundColor = Theme.current.cellHighlightColor
+        containerView.backgroundColor = Theme.current.cellBackgroundColor
+        usernameLabel.textColor = Theme.current.subTitleColor
+        titleLabel.textColor = Theme.current.titleColor
+        timeLabel.textColor = Theme.current.subTitleColor
+        nodeButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        nodeButton.backgroundColor = Theme.current.backgroundColor
+        commentCountLabel.textColor = Theme.current.subTitleColor
     }
     
     class func heightForRowWithTopic(_ topic: inout Topic) -> CGFloat {

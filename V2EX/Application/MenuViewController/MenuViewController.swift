@@ -35,6 +35,18 @@ class MenuViewController: UIViewController {
         setupAccount()
     }
     
+    private func updateTheme() {
+        view.backgroundColor = Theme.current.backgroundColor
+        themeButton.tintColor = Theme.current.titleColor
+        settingButton.tintColor = Theme.current.titleColor
+        userLabel.textColor = Theme.current.titleColor
+        
+        for cell in tableView.visibleCells {
+            let c = cell as? MenuTableViewCell
+            c?.updateTheme()
+        }
+    }
+    
     private func setupAccount() {
         if let account = AppContext.current.account, let avatar = account.avatarURLString {
             let url = URL(string: avatar)
@@ -119,6 +131,7 @@ class MenuViewController: UIViewController {
         let feedback = UIImpactFeedbackGenerator(style: .medium)
         feedback.impactOccurred()
         Theme.current.switchTheme()
+        updateTheme()
     }
     
     private func setupSettingButton() {

@@ -68,8 +68,15 @@ class MenuTableViewCell: UITableViewCell {
     }
 
     public func updateMenu(_ menu: V2Tab) {
-        
         titleLabel.text = menu.title
-        
+    }
+    
+    func updateTheme() {
+        titleLabel.textColor = Theme.current.titleColor
+        if isSelected {
+            contentView.backgroundColor = Theme.current.cellBackgroundColor
+        } else {
+            contentView.backgroundColor = Theme.current.backgroundColor
+        }
     }
 }

@@ -9,6 +9,7 @@
 import UIKit
 import SideMenu
 import MJRefresh
+import FDFullscreenPopGesture
 
 class MainViewController: UIViewController {
     
@@ -25,6 +26,12 @@ class MainViewController: UIViewController {
         setupChildViewController()
         setupSideMenu()
         setNeedsStatusBarAppearanceUpdate()
+        registerNotifications()
+        setupFullGesture()
+        
+        Theme.current.observeThemeUpdated { [weak self] _ in
+            self?.updateTheme()
+        }
     }
     
     private func setupNavigationBar() {
@@ -38,6 +45,18 @@ class MainViewController: UIViewController {
         searchBarButtonItem.imageInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0)
         let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
         navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
+    }
+    
+    private func setupFullGesture() {
+        navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = AppSettings.shared.enableFullScreenGesture
+    }
+    
+    private func registerNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleFullGestureEnableChanged(_:)), name: NSNotification.Name.FullGestureEnableChanged, object: nil)
+    }
+    
+    @objc private func handleFullGestureEnableChanged(_ notification: Notification) {
+        setupFullGesture()
     }
     
     @objc private func menuBarButtonItemTapped(_ sender: Any) {
@@ -64,6 +83,16 @@ class MainViewController: UIViewController {
         self.title = tab.title
         AppSettings.shared.lastViewedTab = tab.key
         AppSettings.shared.lastViewedNode = nil
+    }
+    
+    private func updateTheme() {
+//        UIView.animate(withDuration: 0.2) {
+            self.view.backgroundColor = Theme.current.backgroundColor
+            self.navigationController?.setNeedsStatusBarAppearanceUpdate()
+            self.navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor,
+                                                                   textColor: Theme.current.navigationBarTextColor)
+//        }
+        
     }
     
     private func setupChildViewController() {
@@ -131,9 +160,5 @@ class MainViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return Theme.current.statusBarStyle
     }
 }

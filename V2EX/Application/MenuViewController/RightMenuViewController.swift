@@ -14,6 +14,8 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     var nodeDidSelectedHandler: ((_ node: Node) -> Void)?
     var allNodesHandler: RelayCommand?
     
+    private var headerLabel: UILabel!
+    private var allNodesButton: UIButton!
     private var tableView: UITableView!
     private var dataSource: [NodeGroup] = []
     
@@ -36,10 +38,14 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         dataSource = V2DataManager.shared.loadHotNodes()
         tableView.reloadData()
+        
+        Theme.current.observeThemeUpdated { [weak self] _ in
+            self?.updateTheme()
+        }
     }
     
     private func setupHeader() {
-        let headerLabel = UILabel(frame: .zero)
+        headerLabel = UILabel(frame: .zero)
         headerLabel.text = NSLocalizedString("节点导航", comment: "")
         headerLabel.textColor = Theme.current.titleColor
         headerLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -70,8 +76,16 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    private func updateTheme() {
+        self.view.backgroundColor = Theme.current.backgroundColor
+        self.headerLabel.textColor = Theme.current.titleColor
+        self.allNodesButton.backgroundColor = Theme.current.cellBackgroundColor
+        self.allNodesButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        self.tableView.reloadData()
+    }
+    
     private func setupFooter() {
-        let allNodesButton = UIButton(type: .system)
+        allNodesButton = UIButton(type: .system)
         allNodesButton.setTitle(NSLocalizedString("所有节点", comment: ""), for: .normal)
         allNodesButton.backgroundColor = Theme.current.cellBackgroundColor
         allNodesButton.setTitleColor(Theme.current.titleColor, for: .normal)

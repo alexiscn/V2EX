@@ -45,7 +45,7 @@ enum Theme: Int {
     var backgroundColor: UIColor {
         switch self {
         case .light:
-            return .white
+            return UIColor(white: 248.0/255, alpha: 1.0)
         case .dark:
             return UIColor(red: 43.0/255, green: 57.0/255, blue: 83.0/255, alpha: 1.0)
         }
@@ -132,7 +132,13 @@ extension Theme {
                 window.addSubview(view)
             }
         }
-        
+        NotificationCenter.default.post(name: NSNotification.Name.ThemeUpdated, object: nil)
     }
     
+    func observeThemeUpdated(closure: @escaping (Notification) -> Void) {
+        let center = NotificationCenter.default
+        center.addObserver(forName: .ThemeUpdated, object: nil, queue: OperationQueue.main) { (notification) in
+            closure(notification)
+        }
+    }
 }

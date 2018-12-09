@@ -56,6 +56,9 @@ class TimelineViewController: UIViewController {
         setupTableView()
         updateTitle()
         refresh()
+        Theme.current.observeThemeUpdated { [weak self] _ in
+            self?.updateTheme()
+        }
     }
     
     private func updateTitle() {
@@ -64,6 +67,17 @@ class TimelineViewController: UIViewController {
             navigationItem.title = tab.title
         case .node:
             navigationItem.title = "#\(node.title)"
+        }
+    }
+    
+    func updateTheme() {
+        if let header = tableView.mj_header as? MJRefreshNormalHeader {
+            header.stateLabel.textColor = Theme.current.subTitleColor
+            header.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
+        }
+        if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
+            footer.stateLabel.textColor = Theme.current.subTitleColor
+            footer.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         }
     }
     
@@ -209,7 +223,7 @@ class TimelineViewController: UIViewController {
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds)
         tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        tableView.backgroundColor = Theme.current.backgroundColor
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
