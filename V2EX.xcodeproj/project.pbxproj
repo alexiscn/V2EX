@@ -64,6 +64,8 @@
 		A3DCB08721B3FB2E005FD955 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */; };
 		A3DCB08921BB76A9005FD955 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08821BB76A9005FD955 /* HUD.swift */; };
 		A3DCB08B21BBF90A005FD955 /* V2SDK+Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08A21BBF909005FD955 /* V2SDK+Upload.swift */; };
+		A3DCB08D21BCB8FD005FD955 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */; };
+		A3DCB08F21BCD822005FD955 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08E21BCD822005FD955 /* MainNavigationController.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 		A3F788B721B7A405002B2F99 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B621B7A405002B2F99 /* EndPoint.swift */; };
 		A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B821B7AD49002B2F99 /* HTMLParser.swift */; };
@@ -129,6 +131,8 @@
 		A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		A3DCB08821BB76A9005FD955 /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		A3DCB08A21BBF909005FD955 /* V2SDK+Upload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Upload.swift"; sourceTree = "<group>"; };
+		A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
+		A3DCB08E21BCD822005FD955 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A3F788B621B7A405002B2F99 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		A3F788B821B7AD49002B2F99 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
@@ -209,6 +213,7 @@
 			isa = PBXGroup;
 			children = (
 				A358548520E1D5A000C76393 /* LoginViewController.swift */,
+				A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -374,6 +379,7 @@
 			isa = PBXGroup;
 			children = (
 				A3DFFDF4211C3063005818BC /* MainViewController.swift */,
+				A3DCB08E21BCD822005FD955 /* MainNavigationController.swift */,
 			);
 			path = MainViewController;
 			sourceTree = "<group>";
@@ -569,6 +575,7 @@
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
 				A36EAFCD219FEEDB000DA4A3 /* Topic.swift in Sources */,
+				A3DCB08D21BCB8FD005FD955 /* BalanceViewController.swift in Sources */,
 				A36EAFD1219FEF46000DA4A3 /* Reply.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A37F193421A2B671001BCC0A /* Utility.swift in Sources */,
@@ -593,6 +600,7 @@
 				A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A336980921B6AD2700F1B808 /* UserReplyListViewController.swift in Sources */,
+				A3DCB08F21BCD822005FD955 /* MainNavigationController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
 				A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,
@@ -745,6 +753,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -752,7 +761,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -764,6 +773,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LX863G777H;
 				INFOPLIST_FILE = "$(SRCROOT)/V2EX/Supporting Files/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -771,7 +781,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

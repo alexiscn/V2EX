@@ -11,6 +11,7 @@ import Foundation
 class AppSettings {
 
     fileprivate struct Keys {
+        static let theme = "theme"
         static let displayAvatar = "displayAvatar"
         static let autoRefreshOnAppLaunch = "autoRefreshOnAppLaunch"
         static let enableFullScreenGesture = "enableFullScreenGesture"
@@ -19,7 +20,10 @@ class AppSettings {
     
     static var shared = AppSettings()
 
-    var theme: Int = 0
+    var theme: Int {
+        get { return UserDefaults.standard.value(forKey: Keys.theme) as? Int ?? 1 }
+        set { UserDefaults.standard.set(newValue, forKey: Keys.theme) }
+    }
 
     var displayAvatar: Bool {
         get { return UserDefaults.standard.value(forKey: Keys.displayAvatar) as? Bool ?? true }

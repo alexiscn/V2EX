@@ -8,11 +8,11 @@
 
 import UIKit
 
-enum Theme {
-    case light
-    case dark
+enum Theme: Int {
+    case light = 0
+    case dark = 1
     
-    static let current: Theme = .dark
+    static var current: Theme = .dark
     
     var statusBarStyle: UIStatusBarStyle {
         switch self {
@@ -118,7 +118,13 @@ enum Theme {
 
 extension Theme {
     
-    func applyTheme() {
+    func switchTheme() {
+        if Theme.current == .dark {
+            Theme.current = .light
+        } else {
+            Theme.current = .dark
+        }
+        AppSettings.shared.theme = Theme.current.rawValue
         
         for window in UIApplication.shared.windows {
             for view in window.subviews {

@@ -212,6 +212,7 @@ struct NodeTopicsParser: HTMLParser {
 struct TopicDetailParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
+        
         var detail = TopicDetail()
         let header = try doc.select("div.header")
         let authorAvatarSrc = try header.select("img").first()?.attr("src")
@@ -425,5 +426,35 @@ struct NodeNavigationParser: HTMLParser {
         }
         let allNodes = groups.flatMap { return $0.nodes }
         return allNodes as? T
+    }
+}
+
+struct BalanceParser: HTMLParser {
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        guard let table = try doc.select("table.data").first() else {
+            return nil
+        }
+        var response = BalanceResponse()
+        if let max = try doc.select("input.page_input").first()?.attr("max") {
+           response.page = Int(max) ?? 1
+        }
+        let lines = try table.select("tr").array()
+        for (index, line) in lines.enumerated() {
+            if index == 0 {
+                continue
+            }
+            let list = line.children().array()
+            if list.count == 5 {
+                var balance = Balance()
+                balance.time = try line.select("small.gray").text()
+                balance.title = try list[1].text()
+                balance.total = try list[4].text()
+                balance.value = try line.select("strong").text()
+                balance.desc = try line.select("span.gray").text()
+                response.balances.append(balance)
+            }
+        }
+        return response as? T
     }
 }

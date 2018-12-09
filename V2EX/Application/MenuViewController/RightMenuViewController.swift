@@ -41,7 +41,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     private func setupHeader() {
         let headerLabel = UILabel(frame: .zero)
         headerLabel.text = NSLocalizedString("节点导航", comment: "")
-        headerLabel.textColor = Theme.current.subTitleColor
+        headerLabel.textColor = Theme.current.titleColor
         headerLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         view.addSubview(headerLabel)
         
@@ -74,7 +74,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         let allNodesButton = UIButton(type: .system)
         allNodesButton.setTitle(NSLocalizedString("所有节点", comment: ""), for: .normal)
         allNodesButton.backgroundColor = Theme.current.cellBackgroundColor
-        allNodesButton.tintColor = Theme.current.titleColor
+        allNodesButton.setTitleColor(Theme.current.titleColor, for: .normal)
         allNodesButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         allNodesButton.layer.cornerRadius = 20
         view.addSubview(allNodesButton)

@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
         setupNavigationBar()
         setupChildViewController()
         setupSideMenu()
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     private func setupNavigationBar() {

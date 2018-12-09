@@ -121,6 +121,11 @@ extension EndPoint {
         return EndPoint(path: path)
     }
     
+    static func balance() -> EndPoint {
+        let path = "/balance"
+        return EndPoint(path: path)
+    }
+    
     static func favoriteTopic(_ topicID: String, token: String) -> EndPoint {
         let path = "/favorite/topic/\(topicID)?t=\(token)"
         return EndPoint(path: path)

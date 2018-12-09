@@ -15,3 +15,22 @@ struct Account {
     var avatarURLString: String?
     
 }
+
+
+struct Balance {
+    
+    var title: String?
+    
+    var total: String?
+    
+    var time: String?
+    
+    var desc: String?
+    
+    var value: String?
+}
+
+struct BalanceResponse {
+    var page: Int = 0
+    var balances: [Balance] = []
+}

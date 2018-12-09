@@ -124,7 +124,6 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             case .error(let error):
                 HUD.show(message: error.description)
             }
-            
         }
     }
     

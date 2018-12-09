@@ -26,10 +26,10 @@
             </objects>
             <point key="canvasLocation" x="836" y="-564"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Main Navigation Controller-->
         <scene sceneID="ANs-Qn-Qqr">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wrj-7s-4hO" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="wrj-7s-4hO" customClass="MainNavigationController" customModule="V2EX" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="3cE-K8-VLb">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -309,10 +309,13 @@ V2EX 是创意工作者们的社区。这里目前汇聚了超过 250,000 名主
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="v81-Rt-gMx"/>
                     </view>
+                    <connections>
+                        <outlet property="textView" destination="BiA-fe-dvg" id="gRk-St-JJS"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8se-SD-eEr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="120.8" y="853.22338830584715"/>
+            <point key="canvasLocation" x="836" y="180"/>
         </scene>
     </scenes>
     <resources>

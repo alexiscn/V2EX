@@ -21,4 +21,8 @@ class AppContext {
     private init() {
         
     }
+    
+    func setup() {
+        Theme.current = Theme(rawValue: AppSettings.shared.theme) ?? .dark
+    }
 }

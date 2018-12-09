@@ -10,9 +10,16 @@ import UIKit
 
 class AboutViewController: UIViewController {
 
+    
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         title = NSLocalizedString("关于", comment: "")
+        
+        view.backgroundColor = Theme.current.backgroundColor
+        textView.textColor = Theme.current.titleColor
+        
     }
 }
