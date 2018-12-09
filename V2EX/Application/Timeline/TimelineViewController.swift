@@ -53,6 +53,7 @@ class TimelineViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = Theme.current.backgroundColor
         setupTableView()
         updateTitle()
         refresh()
@@ -71,6 +72,7 @@ class TimelineViewController: UIViewController {
     }
     
     func updateTheme() {
+        view.backgroundColor = Theme.current.backgroundColor
         if let header = tableView.mj_header as? MJRefreshNormalHeader {
             header.stateLabel.textColor = Theme.current.subTitleColor
             header.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle

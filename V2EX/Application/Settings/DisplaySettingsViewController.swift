@@ -17,7 +17,7 @@ class DisplaySettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        title = NSLocalizedString("浏览偏好设置", comment: "")
         view.backgroundColor = Theme.current.backgroundColor
         setupDataSource()
         setupTableView()
@@ -33,6 +33,20 @@ class DisplaySettingsViewController: UIViewController {
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.register(SettingViewCell.self, forCellReuseIdentifier: NSStringFromClass(SettingViewCell.self))
+        
+        let header = TimelineViewCell(style: .default, reuseIdentifier: nil)
+        var topic = Topic()
+        topic.title = "BlizzCon 2018 上所有的新发布的游戏的视频合集"
+        topic.avatar = URL(string: "https://cdn.v2ex.com/avatar/c4ca/4238/1_large.png?m=1466415272")
+        topic.replies = 30
+        topic.nodeTitle = "游戏"
+        topic.lastUpdatedTime = "3 天前"
+        topic._rowHeight = TimelineViewCell.heightForRowWithTopic(&topic)
+        topic.username = "Livid"
+        header.update(topic)
+        
+        header.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: topic._rowHeight)
+        tableView.tableHeaderView = header
     }
 
     private func setupDataSource() {
