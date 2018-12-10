@@ -67,7 +67,7 @@ class TopicCommentViewCell: UITableViewCell {
         ownerLabel.font = UIFont.systemFont(ofSize: 10)
         
         contentTextView = UITextView()
-        contentTextView.textContainerInset = UIEdgeInsets(top: -2, left: -5, bottom: 0, right: 0)
+        contentTextView.textContainerInset = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 0)
         contentTextView.backgroundColor = .clear
         contentTextView.dataDetectorTypes = .link
         contentTextView.isEditable = false
@@ -89,7 +89,7 @@ class TopicCommentViewCell: UITableViewCell {
         containerView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(0.5)
-            make.bottom.equalToSuperview()//.offset(-0.5)
+            make.bottom.equalToSuperview()
         }
         
         avatarButton.snp.makeConstraints { make in
