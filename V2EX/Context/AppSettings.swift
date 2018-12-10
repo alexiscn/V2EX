@@ -36,7 +36,7 @@ class AppSettings {
     }
     
     var enableFullScreenGesture: Bool {
-        get { return UserDefaults.standard.value(forKey: Keys.enableFullScreenGesture) as? Bool ?? false }
+        get { return UserDefaults.standard.value(forKey: Keys.enableFullScreenGesture) as? Bool ?? true }
         set { UserDefaults.standard.set(newValue, forKey: Keys.enableFullScreenGesture) }
     }
 
@@ -49,19 +49,3 @@ class AppSettings {
 
     fileprivate init() {}
 }
-
-
-//struct AppSettingsDefaults<T> {
-//
-//    fileprivate let key: String
-//    fileprivate var defaultValue: T
-//    fileprivate init(_ k: String = #function, defaultValue: T) {
-//        self.key = k
-//        self.defaultValue = defaultValue
-//    }
-//
-//    var value: T {
-//        get { return (UserDefaults.standard.value(forKey: key) as? T) ?? defaultValue }
-//        set { UserDefaults.standard.set(newValue, forKey: key) }
-//    }
-//}

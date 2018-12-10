@@ -86,13 +86,10 @@ class MainViewController: UIViewController {
     }
     
     private func updateTheme() {
-//        UIView.animate(withDuration: 0.2) {
-            self.view.backgroundColor = Theme.current.backgroundColor
-            self.navigationController?.setNeedsStatusBarAppearanceUpdate()
-            self.navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor,
+        self.view.backgroundColor = Theme.current.backgroundColor
+        self.navigationController?.setNeedsStatusBarAppearanceUpdate()
+        self.navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor,
                                                                    textColor: Theme.current.navigationBarTextColor)
-//        }
-        
     }
     
     private func setupChildViewController() {

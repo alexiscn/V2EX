@@ -37,6 +37,7 @@ class MenuViewController: UIViewController {
     
     private func updateTheme() {
         view.backgroundColor = Theme.current.backgroundColor
+        avatarButton.backgroundColor = Theme.current.subTitleColor
         themeButton.tintColor = Theme.current.titleColor
         settingButton.tintColor = Theme.current.titleColor
         userLabel.textColor = Theme.current.titleColor
@@ -47,7 +48,7 @@ class MenuViewController: UIViewController {
         }
     }
     
-    private func setupAccount() {
+    func setupAccount() {
         if let account = AppContext.current.account, let avatar = account.avatarURLString {
             let url = URL(string: avatar)
             avatarButton.kf.setBackgroundImage(with: url, for: .normal)

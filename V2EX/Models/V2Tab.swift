@@ -114,7 +114,7 @@ public struct V2Tab: Equatable {
         r2Tab.subTabs.append(V2Tab(key: "ideas", title: "奇思妙想"))
         r2Tab.subTabs.append(V2Tab(key: "deals", title: "优惠信息"))
         
-        let recentTab = V2Tab(key: "recent", title: "最新")
+        let recentTab = V2Tab(key: "recent", title: "最近")
         
         return [hotTab, allTab, recentTab, techTab, creativeTab, playTab, appleTab, jobsTab, dealsTab, cityTab, qnaTab, r2Tab]
     }

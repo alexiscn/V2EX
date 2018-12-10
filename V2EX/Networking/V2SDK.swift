@@ -14,7 +14,7 @@ struct UserAgents {
     static let phone = "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Version/10.3 Mobile/14E277 Safari/603.1.30"
 }
 
-enum ServerError: Error, CustomStringConvertible {
+enum V2Error: Error, CustomStringConvertible {
     case needsSignIn
     case needsTwoFactor
     case parseHTMLError
@@ -39,7 +39,7 @@ enum ServerError: Error, CustomStringConvertible {
 
 enum V2Response<T> {
     case success(T)
-    case error(ServerError)
+    case error(V2Error)
 }
 
 typealias RequestCompletionHandler<T> = (V2Response<T>) -> Void
@@ -56,35 +56,9 @@ class V2SDK {
         GenericNetworking.baseURLString = baseURLString
     }
     
-    class func avatarURLWithSource(_ src: String?) -> URL? {
-        guard let src = src else {
-            return nil
-        }
-        if src.hasPrefix("//") {
-            return URL(string: "https:" + src)
-        } else {
-            return URL(string: src)
-        }
-    }
-    
     class func captchaURL(once: String) -> URL {
         let urlString = baseURLString + "/_captcha?once=" + once
         return URL(string: urlString)!
-    }
-    
-    class func loadHTMLString(urlString: String, completion: @escaping (String?, Error?) -> Void) {
-        let url = URL(string: urlString)!
-        loadHTMLString(url: url, completion: completion)
-    }
-    
-    class func loadHTMLString(url: URL, completion: @escaping (String?, Error?) -> Void) {
-        Alamofire.request(url).responseData { (dataResponse) in
-            guard let data = dataResponse.data, let html = String(data: data, encoding: .utf8) else {
-                completion(nil, dataResponse.error)
-                return
-            }
-            completion(html, nil)
-        }
     }
     
     class func request<T>(_ endPoint: EndPoint, parser: HTMLParser.Type, completion: @escaping RequestCompletionHandler<T>) {
@@ -115,26 +89,8 @@ class V2SDK {
         }
     }
     
-    class func post(url: URL, params: Parameters?, headers: HTTPHeaders? = nil, completion: @escaping (String?, Error?) -> Void) {
-        Alamofire.request(url, method: .post, parameters: params, encoding: URLEncoding.default, headers: headers).responseData { dataResponse in
-            guard let data = dataResponse.data, let html = String(data: data, encoding: .utf8) else {
-                completion(nil, dataResponse.error)
-                return
-            }
-            completion(html, nil)
-        }
-    }
-    
     public class func getAllNodes(completion: @escaping GenericNetworkingCompletion<Int>) {
         let path = "/api/nodes/all.json"
         GenericNetworking.getJSON(path: path, completion: completion)
     }
-}
-
-extension String {
-    
-    func trimed() -> String {
-        return self.replacingOccurrences(of: " ", with: "")
-    }
-    
 }

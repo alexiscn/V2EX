@@ -210,7 +210,7 @@ class TimelineViewController: UIViewController {
             case .node:
                 footer.setTitle(NSLocalizedString("没有更多了", comment: ""), for: .noMoreData)
             case .tab:
-                footer.setTitle(NSLocalizedString("只有最新才能加载更多", comment: ""), for: .noMoreData)
+                footer.setTitle(NSLocalizedString("只有最近才能加载更多", comment: ""), for: .noMoreData)
             }
             footer.endRefreshingWithNoMoreData()
             footer.stateLabel.isHidden = false

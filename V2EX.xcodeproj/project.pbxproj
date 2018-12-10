@@ -16,6 +16,9 @@
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
 		A336980921B6AD2700F1B808 /* UserReplyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
+		A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */; };
+		A33E18C221BE3E540084FF29 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18C121BE3E540084FF29 /* NotificationsViewController.swift */; };
+		A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18C321BE3EE80084FF29 /* Strings.swift */; };
 		A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6B21AB9BCD00ED2F88 /* Node.swift */; };
 		A34A5D7121ABBD4900ED2F88 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D7021ABBD4900ED2F88 /* AppContext.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
@@ -82,6 +85,9 @@
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReplyListViewController.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
+		A33E18C121BE3E540084FF29 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		A33E18C321BE3EE80084FF29 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		A34A5D6B21AB9BCD00ED2F88 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		A34A5D7021ABBD4900ED2F88 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
@@ -198,7 +204,7 @@
 		A358548820E1D68F00C76393 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				A379EA3B2121C4CE00FA2169 /* Profile */,
+				A379EA3B2121C4CE00FA2169 /* UserProfile */,
 				A379EA382121C47800FA2169 /* Search */,
 				A3DFFDF3211C3049005818BC /* MainViewController */,
 				A33C4E2121943BC70039E347 /* MenuViewController */,
@@ -214,8 +220,11 @@
 		A358548920E1D69900C76393 /* Account */ = {
 			isa = PBXGroup;
 			children = (
+				A379EA3C2121C4DC00FA2169 /* ProfileViewController.swift */,
+				A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */,
 				A358548520E1D5A000C76393 /* LoginViewController.swift */,
 				A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */,
+				A33E18C121BE3E540084FF29 /* NotificationsViewController.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -235,6 +244,7 @@
 				A3691744219E911A002DA8E3 /* ActionSheet.swift */,
 				A37F193321A2B671001BCC0A /* Utility.swift */,
 				A3DCB08821BB76A9005FD955 /* HUD.swift */,
+				A33E18C321BE3EE80084FF29 /* Strings.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -320,16 +330,15 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
-		A379EA3B2121C4CE00FA2169 /* Profile */ = {
+		A379EA3B2121C4CE00FA2169 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				A379EA3C2121C4DC00FA2169 /* ProfileViewController.swift */,
 				A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */,
 				A373C68721B5154800C919AD /* UserProfileHeaderView.swift */,
 				A373C68921B5411C00C919AD /* UserCommentViewCell.swift */,
 				A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */,
 			);
-			path = Profile;
+			path = UserProfile;
 			sourceTree = "<group>";
 		};
 		A38D0E9D20DCEA4000F7C932 = {
@@ -557,6 +566,7 @@
 			files = (
 				A373C68821B5154800C919AD /* UserProfileHeaderView.swift in Sources */,
 				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
+				A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
 				A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */,
 				A373C68621B505F000C919AD /* UserProfileResponse.swift in Sources */,
@@ -597,10 +607,12 @@
 				A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */,
 				A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
+				A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */,
 				A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */,
 				A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */,
 				A3DCB08B21BBF90A005FD955 /* V2SDK+Upload.swift in Sources */,
 				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,
+				A33E18C221BE3E540084FF29 /* NotificationsViewController.swift in Sources */,
 				A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A336980921B6AD2700F1B808 /* UserReplyListViewController.swift in Sources */,
@@ -762,7 +774,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
+				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.v2ex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -782,7 +794,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.V2EX;
+				PRODUCT_BUNDLE_IDENTIFIER = me.shuifeng.v2ex;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

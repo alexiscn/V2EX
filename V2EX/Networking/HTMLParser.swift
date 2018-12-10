@@ -74,7 +74,7 @@ struct OnceTokenParser: HTMLParser {
             let form = LoginFormData(username: username, password: password, captcha: captcha, once: once)
             return form as? T
         }
-        throw ServerError.parseHTMLError
+        throw V2Error.parseHTMLError
     }
     
 }
@@ -85,7 +85,7 @@ struct SignInParser: HTMLParser {
     static func handle<T>(_ doc: Document) throws -> T? {
         let title = try doc.title()
         if title.contains("两步验证登录") {
-            throw ServerError.needsTwoFactor
+            throw V2Error.needsTwoFactor
         }
         let html = try doc.html()
         if html.contains("/mission/daily") {
@@ -98,7 +98,7 @@ struct SignInParser: HTMLParser {
                 return account as? T
             }
         }
-        throw ServerError.signInFailed
+        throw V2Error.signInFailed
     }
 }
 
@@ -194,12 +194,12 @@ struct NodeTopicsParser: HTMLParser {
             let components = text.split(separator: "•")
             if components.count >= 3 {
                 if isNodeList {
-                    topic.lastUpdatedTime = String(components[1]).trimed()
-                    topic.lastReplyedUserName = String(components[2]).trimed()
+                    topic.lastUpdatedTime = String(components[1]).replacingOccurrences(of: " ", with: "")
+                    topic.lastReplyedUserName = String(components[2]).replacingOccurrences(of: " ", with: "")
                 } else {
-                    topic.lastUpdatedTime = String(components[2]).trimed()
+                    topic.lastUpdatedTime = String(components[2]).replacingOccurrences(of: " ", with: "")
                     if components.count >= 4 {
-                        topic.lastReplyedUserName = String(components[3]).trimed()
+                        topic.lastReplyedUserName = String(components[3]).replacingOccurrences(of: " ", with: "")
                     }
                 }
             }

@@ -13,7 +13,7 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = Theme.current.backgroundColor
         navigationItem.title = "我的"
         // Do any additional setup after loading the view.
     }
