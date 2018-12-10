@@ -148,8 +148,10 @@ class TimelineViewController: UIViewController {
                     } else {
                         strongSelf.setNoMoreData()
                     }
+                    topics.forEach { $0.tab = key }
                     V2DataManager.shared.saveTopics(topics, forTab: key)
                 case .error(let error):
+                    strongSelf.tableView.mj_header.endRefreshing()
                     HUD.show(message: error.description)
                 }
             })
@@ -199,6 +201,8 @@ class TimelineViewController: UIViewController {
                     strongSelf.setNoMoreData()
                 }
             case .error(let error):
+                strongSelf.tableView.mj_header.endRefreshing()
+                strongSelf.tableView.mj_footer.endRefreshing()
                 HUD.show(message: error.description)
             }
         }

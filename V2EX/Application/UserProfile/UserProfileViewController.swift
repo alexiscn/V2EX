@@ -113,6 +113,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     private func loadUserProfile() {
         let endPoint = EndPoint.memberProfile(username)
         V2SDK.request(endPoint, parser: MemberProfileParser.self) { [weak self] (response: V2Response<UserProfileResponse>) in
+            self?.loadingIndicator.stopAnimating()
             switch response {
             case .success(let profileRes):
                 self?.profile = profileRes
@@ -120,7 +121,6 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
                 if let info = profileRes.info {
                     self?.headerView?.update(info: info)
                 }
-                self?.loadingIndicator.stopAnimating()
             case .error(let error):
                 HUD.show(message: error.description)
             }

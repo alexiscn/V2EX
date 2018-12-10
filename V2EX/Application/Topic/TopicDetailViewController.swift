@@ -139,7 +139,8 @@ class TopicDetailViewController: UIViewController {
         let endPoint = EndPoint.topicDetail(topicID)
         V2SDK.request(endPoint, parser: TopicDetailParser.self) { [weak self] (response: V2Response<TopicDetail>) in
             guard let strongSelf = self else { return }
-            
+            strongSelf.loadingIndicator.stopAnimating()
+            strongSelf.tableView.mj_header.endRefreshing()
             switch response {
             case .success(let detail):
                 strongSelf.detail = detail
@@ -149,14 +150,11 @@ class TopicDetailViewController: UIViewController {
                     }
                 }
                 strongSelf.allComments = detail.replyList
-    
                 strongSelf.comments = detail.replyList
-                strongSelf.tableView.mj_header.endRefreshing()
                 strongSelf.tableView.reloadData()
                 if detail.page == 1 {
                     strongSelf.setNoMoreData()
                 }
-                strongSelf.loadingIndicator.stopAnimating()
             case .error(let error):
                 HUD.show(message: error.description)
             }
@@ -189,6 +187,7 @@ class TopicDetailViewController: UIViewController {
                     strongSelf.tableView.mj_footer.endRefreshing()
                 }
             case .error(let error):
+                strongSelf.tableView.mj_footer.endRefreshing()
                 HUD.show(message: error.description)
             }
         }

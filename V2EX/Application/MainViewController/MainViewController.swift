@@ -80,6 +80,7 @@ class MainViewController: UIViewController {
     private func updateTab(_ tab: V2Tab) {
         dismiss(animated: true, completion: nil)
         self.timelineVC?.updateTab(tab)
+        self.rightMenuVC?.updateTab(tab)
         self.title = tab.title
         AppSettings.shared.lastViewedTab = tab.key
         AppSettings.shared.lastViewedNode = nil

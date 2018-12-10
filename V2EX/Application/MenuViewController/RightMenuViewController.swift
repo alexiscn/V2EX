@@ -32,16 +32,31 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         
         V2DataManager.shared.hotNodesChangesCommand = { [weak self] in
             DispatchQueue.main.async {
-                self?.dataSource = V2DataManager.shared.loadHotNodes()
-                self?.tableView.reloadData()
+                self?.loadData()
             }
         }
-        dataSource = V2DataManager.shared.loadHotNodes()
-        tableView.reloadData()
+        loadData()
         
         Theme.current.observeThemeUpdated { [weak self] _ in
             self?.updateTheme()
         }
+    }
+    
+    func updateTab(_ tab: V2Tab) {
+        if let groups = dataSource.first(where: { $0.title == NSLocalizedString("相关节点", comment: "") }) {
+            groups.nodes.removeAll()
+            groups.nodes = tab.nodes
+            tableView.reloadData()
+        }
+    }
+    
+    private func loadData() {
+        var groups = V2DataManager.shared.loadHotNodes()
+        let related = NodeGroup(title: NSLocalizedString("相关节点", comment: ""), nodes: [])
+        groups.insert(related, at: 0)
+        
+        dataSource = groups
+        tableView.reloadData()
     }
     
     private func setupHeader() {
@@ -138,15 +153,14 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         return cell
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return dataSource[section].title
-    }
-    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 30.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if dataSource[section].nodes.count == 0 {
+            return nil
+        }
         let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 44)))
         header.backgroundColor = Theme.current.cellBackgroundColor
         let label = UILabel(frame: .zero)
@@ -163,6 +177,9 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if dataSource[section].nodes.count == 0 {
+            return 0.0
+        }
         return 44.0
     }
     
