@@ -52,11 +52,16 @@ class MainViewController: UIViewController {
     }
     
     private func registerNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleFullGestureEnableChanged(_:)), name: NSNotification.Name.FullGestureEnableChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleFullGestureEnableChanged(_:)), name: NSNotification.Name.V2.FullGestureEnableChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserLoginSuccess(_:)), name: NSNotification.Name.V2.LoginSuccess, object: nil)
     }
     
     @objc private func handleFullGestureEnableChanged(_ notification: Notification) {
         setupFullGesture()
+    }
+    
+    @objc private func handleUserLoginSuccess(_ notification: Notification) {
+        V2SDK.dailyMission()
     }
     
     @objc private func menuBarButtonItemTapped(_ sender: Any) {

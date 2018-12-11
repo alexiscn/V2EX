@@ -109,7 +109,7 @@ class SettingsViewController: UIViewController {
             AppSettings.shared.autoRefreshOnAppLaunch = sender.isOn
         case Tags.enableFullScreenGesture.rawValue:
             AppSettings.shared.enableFullScreenGesture = sender.isOn
-            NotificationCenter.default.post(name: NSNotification.Name.FullGestureEnableChanged, object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name.V2.FullGestureEnableChanged, object: nil)
         default:
             break
         }

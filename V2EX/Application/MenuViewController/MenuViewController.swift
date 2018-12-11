@@ -12,6 +12,15 @@ import FDFullscreenPopGesture
 
 class MenuViewController: UIViewController {
 
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleUserLoginSuccess(_:)), name: NSNotification.Name.V2.LoginSuccess, object: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     var selectionChangedHandler: ((_ tab: V2Tab) -> Void)?
     var currentTab: V2Tab?
     
@@ -32,6 +41,11 @@ class MenuViewController: UIViewController {
         setupThemeButton()
         setupSettingButton()
         self.fd_prefersNavigationBarHidden = true
+        
+        setupAccount()
+    }
+    
+    @objc private func handleUserLoginSuccess(_ notification: Notification) {
         setupAccount()
     }
     

@@ -41,9 +41,12 @@ class LoginViewController: UIViewController {
         stackView.clipsToBounds = true
         stackView.layer.cornerRadius = 10.0
         usernameLabel.textColor = Theme.current.subTitleColor
+        usernameTextField.textColor = Theme.current.titleColor
         passwordLabel.textColor = Theme.current.subTitleColor
+        passwordTextField.textColor = Theme.current.titleColor
         usernameLineView.backgroundColor = Theme.current.backgroundColor
         passwordLineView.backgroundColor = Theme.current.backgroundColor
+        captchaTextField.textColor = Theme.current.titleColor
         captchaLineView.backgroundColor = Theme.current.backgroundColor
         signInButton.setTitleColor(Theme.current.titleColor, for: .normal)
         
@@ -124,11 +127,18 @@ class LoginViewController: UIViewController {
             switch response {
             case .success(let account):
                 print(account)
+                V2SDK.once = formData.once
+                AppContext.current.account = account
+                self.postLoginSuccessNotification()
                 self.dismiss(animated: true, completion: nil)
             case .error(let error):
                 HUD.show(message: error.description)
             }
         }
+    }
+    
+    func postLoginSuccessNotification() {
+        NotificationCenter.default.post(name: NSNotification.Name.V2.LoginSuccess, object: nil)
     }
     
 }

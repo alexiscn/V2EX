@@ -16,6 +16,9 @@ struct Account {
     
 }
 
+struct DailyMission {
+    var message: String?
+}
 
 struct Balance {
     

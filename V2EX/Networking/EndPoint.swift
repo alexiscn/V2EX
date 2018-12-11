@@ -103,7 +103,12 @@ extension EndPoint {
     
     static func dailyMission(once: String) -> EndPoint {
         let path = "/mission/daily/redeem?once=" + once
-        return EndPoint(path: path)
+        
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Referer"] = V2SDK.baseURLString + "/mission/daily"
+        headers["User-Agent"] = UserAgents.phone
+        
+        return EndPoint(path: path, method: .get, parameters: nil, headers: headers)
     }
     
     static func myNodes() -> EndPoint {

@@ -52,6 +52,8 @@ class V2SDK {
     
     static var shouldParseAccount: Bool = true
     
+    static var once: String? = nil
+    
     class func setup() {
         GenericNetworking.baseURLString = baseURLString
     }
@@ -92,5 +94,20 @@ class V2SDK {
     public class func getAllNodes(completion: @escaping GenericNetworkingCompletion<Int>) {
         let path = "/api/nodes/all.json"
         GenericNetworking.getJSON(path: path, completion: completion)
+    }
+    
+    public class func dailyMission() {
+        guard let token = self.once else { return }
+
+        request(EndPoint.dailyMission(once: token), parser: DailyMissionParser.self) { (response: V2Response<DailyMission>) in
+            switch response {
+            case .success(let mission):
+                if let msg = mission.message {
+                    HUD.show(message: msg)
+                }
+            case .error(let error):
+                print(error.description)
+            }
+        }
     }
 }

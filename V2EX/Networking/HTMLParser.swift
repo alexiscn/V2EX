@@ -55,7 +55,20 @@ struct TabParser: HTMLParser {
                 AppContext.current.account = account
             }
             V2SDK.shouldParseAccount = false
+            let html = try doc.html()
+            if let regex = try? NSRegularExpression(pattern: "signout\\?once=(\\d+)", options: NSRegularExpression.Options.caseInsensitive) {
+                let range = NSRange(location: 0, length: html.utf16.count)
+                if let result = regex.firstMatch(in: html, options: .withoutAnchoringBounds, range: range) {
+                    let r = result.range(at: 1)
+                    let start = html.index(html.startIndex, offsetBy: r.location)
+                    let end = html.index(html.startIndex, offsetBy: r.location + r.length - 1)
+                    let once = html[start...end]
+                    V2SDK.once = String(once)
+                }
+            }
         }
+        
+        
         
         return topics as? T
     }
@@ -88,7 +101,7 @@ struct SignInParser: HTMLParser {
             throw V2Error.needsTwoFactor
         }
         let html = try doc.html()
-        if html.contains("/mission/daily") {
+        if html.contains("/notifications") {
             if let imgElement = try doc.select("img.avatar").first(),
                 let member = try imgElement.parent()?.attr("href") {
                 let src = try imgElement.attr("src")
@@ -99,6 +112,14 @@ struct SignInParser: HTMLParser {
             }
         }
         throw V2Error.signInFailed
+    }
+}
+
+struct DailyMissionParser: HTMLParser {
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        let msg = try doc.select("div.message").first()?.text().trimmingCharacters(in: .whitespaces)
+        return DailyMission(message: msg) as? T
     }
 }
 

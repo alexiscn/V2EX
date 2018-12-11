@@ -132,12 +132,12 @@ extension Theme {
                 window.addSubview(view)
             }
         }
-        NotificationCenter.default.post(name: NSNotification.Name.ThemeUpdated, object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name.V2.ThemeUpdated, object: nil)
     }
     
     func observeThemeUpdated(closure: @escaping (Notification) -> Void) {
         let center = NotificationCenter.default
-        center.addObserver(forName: .ThemeUpdated, object: nil, queue: OperationQueue.main) { (notification) in
+        center.addObserver(forName: NSNotification.Name.V2.ThemeUpdated, object: nil, queue: OperationQueue.main) { (notification) in
             closure(notification)
         }
     }
