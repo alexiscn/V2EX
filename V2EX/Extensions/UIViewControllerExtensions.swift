@@ -14,4 +14,9 @@ extension UIViewController {
         return (UIScreen.main.bounds.width == 375 && UIScreen.main.bounds.height == 812)
     }
     
+    func configureNavigationBar() {
+        navigationController?.navigationBar.shadowImage = UIImage()
+        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: Theme.current.navigationBarTextColor)
+    }
+    
 }

@@ -16,20 +16,14 @@ class SearchViewController: UIViewController, UISearchControllerDelegate {
         super.viewDidLoad()
 
         view.backgroundColor = Theme.current.backgroundColor
-        setupNavigationBar()
-        
-        
-        
+        configureNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
     
-    private func setupNavigationBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: Theme.current.navigationBarTextColor)
-    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

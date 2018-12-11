@@ -479,3 +479,32 @@ struct BalanceParser: HTMLParser {
         return response as? T
     }
 }
+
+struct NotificationParser: HTMLParser {
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        let cells = try doc.select("div.cell")
+        
+        var notifications: [MessageNotification] = []
+        for cell in cells {
+            let divID = try? cell.attr("id")
+            if divID == nil || divID == "" {
+                 continue
+            }
+            let message = MessageNotification()
+            message.timeAgo = try cell.select("span.snow").text()
+            
+            let source = try cell.select("img.avatar").first()?.attr("href")
+            message.avatarURL = avatarURLWithSource(source)
+            message.username = try cell.select("strong").text()
+            message.comment = try cell.select("div.payload").text()
+            
+            notifications.append(message)
+        }
+        
+        let response = NotificationResponse()
+        response.page = 1
+        response.notifications = notifications
+        return response as? T
+    }
+}

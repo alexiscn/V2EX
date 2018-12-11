@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Account {
     
@@ -36,4 +37,29 @@ struct Balance {
 struct BalanceResponse {
     var page: Int = 0
     var balances: [Balance] = []
+}
+
+class NotificationResponse {
+    var notifications: [MessageNotification] = []
+    var page: Int = 1
+}
+
+class MessageNotification {
+    
+    var _rowHeight: CGFloat = 0.0
+    
+    var username: String?
+    
+    var avatarURL: URL?
+    
+    var timeAgo: String?
+    
+    var comment: String?
+    
+    var title: String?
+    
+    var topicID: String?
+    
+    
+    init() { }
 }

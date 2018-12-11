@@ -32,9 +32,7 @@ class AllNodesViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor, textColor: .white)
-        
+        configureNavigationBar()
         let leftItem = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(leftNavigationButtonTapped(_:)))
         navigationItem.leftBarButtonItem = leftItem
     }

@@ -13,6 +13,7 @@
 		A30A78F021A7DA590041A744 /* opensource.json in Resources */ = {isa = PBXBuildFile; fileRef = A30A78EF21A7DA590041A744 /* opensource.json */; };
 		A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70921A6B51100618AD5 /* SettingTableModel.swift */; };
 		A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */; };
+		A31F9C4C21BFD78E00AD9846 /* NotificationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */; };
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
 		A336980921B6AD2700F1B808 /* UserReplyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
@@ -82,6 +83,7 @@
 		A30A78EF21A7DA590041A744 /* opensource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = opensource.json; sourceTree = "<group>"; };
 		A31DF70921A6B51100618AD5 /* SettingTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableModel.swift; sourceTree = "<group>"; };
 		A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewCell.swift; sourceTree = "<group>"; };
+		A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewCell.swift; sourceTree = "<group>"; };
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReplyListViewController.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
@@ -225,6 +227,7 @@
 				A358548520E1D5A000C76393 /* LoginViewController.swift */,
 				A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */,
 				A33E18C121BE3E540084FF29 /* NotificationsViewController.swift */,
+				A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A373C68821B5154800C919AD /* UserProfileHeaderView.swift in Sources */,
+				A31F9C4C21BFD78E00AD9846 /* NotificationViewCell.swift in Sources */,
 				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
 				A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,

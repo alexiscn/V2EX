@@ -35,9 +35,7 @@ class MainViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationController?.navigationBar.shadowImage = UIImage()
-        navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor,
-                                                               textColor: Theme.current.navigationBarTextColor)
+        configureNavigationBar()
         let menuBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_menu_24x24_"), style: .done, target: self, action: #selector(menuBarButtonItemTapped(_:)))
         navigationItem.leftBarButtonItem = menuBarButtonItem
         
@@ -94,8 +92,7 @@ class MainViewController: UIViewController {
     private func updateTheme() {
         self.view.backgroundColor = Theme.current.backgroundColor
         self.navigationController?.setNeedsStatusBarAppearanceUpdate()
-        self.navigationController?.navigationBar.setBackgroundColor(Theme.current.navigationBarBackgroundColor,
-                                                                   textColor: Theme.current.navigationBarTextColor)
+        configureNavigationBar()
     }
     
     private func setupChildViewController() {
