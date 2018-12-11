@@ -11,13 +11,20 @@ import Alamofire
 
 class LoginViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var usernameLineView: UIView!
     @IBOutlet weak var passwordLabel: UILabel!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var passwordLineView: UIView!
     @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var captchaButton: UIButton!
     @IBOutlet weak var captchaTextField: UITextField!
+    @IBOutlet weak var captchaLineView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     private var loginForm: LoginFormData?
@@ -25,12 +32,28 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        view.backgroundColor = Theme.current.backgroundColor
+        closeButton.tintColor = Theme.current.titleColor
+        titleLabel.textColor = Theme.current.titleColor
+        containerView.backgroundColor = Theme.current.cellBackgroundColor
+        containerView.clipsToBounds = true
+        containerView.layer.cornerRadius = 10.0
+        stackView.clipsToBounds = true
+        stackView.layer.cornerRadius = 10.0
+        usernameLabel.textColor = Theme.current.subTitleColor
+        passwordLabel.textColor = Theme.current.subTitleColor
+        usernameLineView.backgroundColor = Theme.current.backgroundColor
+        passwordLineView.backgroundColor = Theme.current.backgroundColor
+        captchaLineView.backgroundColor = Theme.current.backgroundColor
+        signInButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        
         usernameLabel.text = NSLocalizedString("用户名", comment: "Login Page Username Label")
         usernameTextField.placeholder = NSLocalizedString("用户名或者电子邮箱", comment: "Login Page Username placeholder")
         passwordLabel.text = NSLocalizedString("密码", comment: "")
         passwordTextField.placeholder = NSLocalizedString("密码", comment: "")
-        signInButton.setTitle(NSLocalizedString("登录", comment: ""), for: .normal)
+        signInButton.setTitle(NSLocalizedString("登录...", comment: ""), for: .normal)
         
+        usernameTextField.becomeFirstResponder()
         loadCaptcha()
     }
     
@@ -61,7 +84,7 @@ class LoginViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        return Theme.current.statusBarStyle
     }
     
     @IBAction func closeButtonTapped(_ sender: Any) {

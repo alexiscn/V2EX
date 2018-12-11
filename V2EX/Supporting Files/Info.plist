@@ -40,6 +40,8 @@
 		<true/>
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
+	<string>V2EX需要访问您的相册来发送图片</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>V2EX需要访问您的相册来保存图片</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

@@ -99,6 +99,12 @@ class TopicDetailViewController: UIViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }))
+        actionSheet.addAction(Action(title: NSLocalizedString("分享", comment: ""), style: .default, handler: { [weak self] _ in
+            self?.presentShare()
+        }))
+        actionSheet.addAction(Action(title: NSLocalizedString("复制链接", comment: ""), style: .default, handler: { [weak self] _ in
+            UIPasteboard.general.url = self?.topicURL
+        }))
         let viewOptionTitle = viewAuthorOnly ? NSLocalizedString("查看全部评论", comment: ""): NSLocalizedString("只看楼主", comment: "")
         actionSheet.addAction(Action(title: viewOptionTitle, style: .default, handler: { [weak self] _ in
             self?.resortReplies()
@@ -110,6 +116,15 @@ class TopicDetailViewController: UIViewController {
             
         }))
         actionSheet.show()
+    
+    }
+    
+    private func presentShare() {
+        guard let url = topicURL else {
+            return
+        }
+        let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+        present(controller, animated: true, completion: nil)
     }
     
     private func resortReplies() {
