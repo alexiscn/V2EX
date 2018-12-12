@@ -117,6 +117,10 @@ struct SignInParser: HTMLParser {
 struct DailyMissionParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
+        let html = try doc.html()
+        if html.contains("奖励已领取") {
+            return DailyMission(message: nil) as? T
+        }
         let msg = try doc.select("div.message").first()?.text().trimmingCharacters(in: .whitespaces)
         return DailyMission(message: msg) as? T
     }
