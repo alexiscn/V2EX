@@ -17,7 +17,7 @@ class DisplaySettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = NSLocalizedString("浏览偏好设置", comment: "")
+        title = Strings.SettingsViewOptions
         view.backgroundColor = Theme.current.backgroundColor
         setupDataSource()
         setupTableView()

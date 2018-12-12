@@ -16,7 +16,7 @@ class AboutViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = NSLocalizedString("关于", comment: "")
+        title = Strings.SettingsAbout
         
         view.backgroundColor = Theme.current.backgroundColor
         textView.textColor = Theme.current.titleColor

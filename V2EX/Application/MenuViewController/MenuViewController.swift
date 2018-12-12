@@ -69,7 +69,7 @@ class MenuViewController: UIViewController {
             userLabel.text = account.username
         } else {
             avatarButton.setBackgroundImage(UIImage(), for: .normal)
-            userLabel.text = NSLocalizedString("请先登录", comment: "")
+            userLabel.text = Strings.AccountNamePlaceholder
         }
     }
     
@@ -90,7 +90,7 @@ class MenuViewController: UIViewController {
         userLabel = UILabel()
         userLabel.font = UIFont.systemFont(ofSize: 14.0)
         userLabel.textColor = Theme.current.titleColor
-        userLabel.text = NSLocalizedString("请先登录", comment: "")
+        userLabel.text = Strings.AccountNamePlaceholder
         userLabel.textAlignment = .center
         view.addSubview(userLabel)
         userLabel.snp.makeConstraints { make in

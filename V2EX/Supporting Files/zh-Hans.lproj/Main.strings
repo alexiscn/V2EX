@@ -1,0 +1,27 @@
+
+/* Class = "UITextField"; placeholder = "输入验证码"; ObjectID = "2xT-yJ-FIW"; */
+"2xT-yJ-FIW.placeholder" = "输入验证码";
+
+/* Class = "UIButton"; normalTitle = "Sign in with Google"; ObjectID = "32N-Kl-Yv5"; */
+"32N-Kl-Yv5.normalTitle" = "Sign in with Google";
+
+/* Class = "UITextView"; text = "\nV2EX is a community of start-ups, designers, developers and creative people. \n\nV2EX 是创意工作者们的社区。这里目前汇聚了超过 250,000 名主要来自互联网行业、游戏行业和媒体行业的创意工作者。V2EX 希望能够成为创意工作者们的生活和事业的一部分。 \n\n希望大家能够多多分享自己正在做的有趣事物、交流想法，在这里找到朋友甚至新的机会。并且，最重要的是，在这一切的过程中，保持对他人的友善。 \n\n为了保持这里的良好氛围，V2EX 有自己的明确规则： \n\n• 这里绝对不讨论任何有关盗版软件、音乐、电影如何获得的问题 \n• 这里绝对不会全文转载任何文章，而只会以链接方式分享1 \n• 这里绝对不会有任何教人如何钻空子的讨论 \n• 这里感激和崇尚美的事物 \n• 这里尊重原创 \n• 这里反对中文互联网上的无信息量习惯如“顶”，“沙发”，“前排”，“留名”，“路过”，“不明觉厉” \n• 这里禁止发布人身攻击、仇恨、暴力、侮辱性的言辞、暴露他人隐私的“人肉贴” \n• 遵守中国的法律 "; ObjectID = "BiA-fe-dvg"; */
+"BiA-fe-dvg.text" = "\nV2EX is a community of start-ups, designers, developers and creative people. \n\nV2EX 是创意工作者们的社区。这里目前汇聚了超过 250,000 名主要来自互联网行业、游戏行业和媒体行业的创意工作者。V2EX 希望能够成为创意工作者们的生活和事业的一部分。 \n\n希望大家能够多多分享自己正在做的有趣事物、交流想法，在这里找到朋友甚至新的机会。并且，最重要的是，在这一切的过程中，保持对他人的友善。 \n\n为了保持这里的良好氛围，V2EX 有自己的明确规则： \n\n• 这里绝对不讨论任何有关盗版软件、音乐、电影如何获得的问题 \n• 这里绝对不会全文转载任何文章，而只会以链接方式分享1 \n• 这里绝对不会有任何教人如何钻空子的讨论 \n• 这里感激和崇尚美的事物 \n• 这里尊重原创 \n• 这里反对中文互联网上的无信息量习惯如“顶”，“沙发”，“前排”，“留名”，“路过”，“不明觉厉” \n• 这里禁止发布人身攻击、仇恨、暴力、侮辱性的言辞、暴露他人隐私的“人肉贴” \n• 遵守中国的法律 ";
+
+/* Class = "UITextField"; placeholder = "密码"; ObjectID = "IaJ-d1-YqC"; */
+"IaJ-d1-YqC.placeholder" = "密码";
+
+/* Class = "UILabel"; text = "V2EX"; ObjectID = "K4N-Dn-iJA"; */
+"K4N-Dn-iJA.text" = "V2EX";
+
+/* Class = "UITextField"; placeholder = "用户名或者电子邮箱"; ObjectID = "Yze-31-yTX"; */
+"Yze-31-yTX.placeholder" = "用户名或者电子邮箱";
+
+/* Class = "UILabel"; text = "密码"; ObjectID = "pwH-dj-dgl"; */
+"pwH-dj-dgl.text" = "密码";
+
+/* Class = "UILabel"; text = "用户名"; ObjectID = "wJY-qZ-D06"; */
+"wJY-qZ-D06.text" = "用户名";
+
+/* Class = "UIButton"; normalTitle = "Sign In...."; ObjectID = "yUx-3a-52r"; */
+"yUx-3a-52r.normalTitle" = "Sign In....";

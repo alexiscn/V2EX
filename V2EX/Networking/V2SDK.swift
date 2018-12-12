@@ -24,15 +24,15 @@ enum V2Error: Error, CustomStringConvertible {
     var description: String {
         switch self {
         case .needsSignIn:
-            return NSLocalizedString("需要登录后才能查看", comment: "")
+            return Strings.ServerNeedsSignIn
         case .needsTwoFactor:
-            return NSLocalizedString("开启了两步验证", comment: "")
+            return Strings.ServerNeedsTwoFactor
         case .parseHTMLError:
-            return NSLocalizedString("服务器解析错误", comment: "")
+            return Strings.ServerParseHTMLError
         case .signInFailed:
-            return NSLocalizedString("登录失败", comment: "")
+            return Strings.ServerSignInError
         case .severNotFound:
-            return NSLocalizedString("服务器暂时开小差了，请稍后再试", comment: "")
+            return Strings.ServerNotFound
         }
     }
 }

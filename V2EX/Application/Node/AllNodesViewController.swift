@@ -22,7 +22,7 @@ class AllNodesViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Theme.current.backgroundColor
-        title = NSLocalizedString("所有节点", comment: "")
+        title = Strings.AllNodes
         setupNavigationBar()
         setupTableView()
         DispatchQueue.global(qos: .background).async {
@@ -33,7 +33,7 @@ class AllNodesViewController: UIViewController {
     
     private func setupNavigationBar() {
         configureNavigationBar()
-        let leftItem = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(leftNavigationButtonTapped(_:)))
+        let leftItem = UIBarButtonItem(title: Strings.Done, style: .done, target: self, action: #selector(leftNavigationButtonTapped(_:)))
         navigationItem.leftBarButtonItem = leftItem
     }
     

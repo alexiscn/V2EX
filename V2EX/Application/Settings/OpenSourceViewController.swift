@@ -37,7 +37,7 @@ class OpenSourceViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = NSLocalizedString("感谢", comment: "")
+        title = Strings.SettingsOpenSource
         tableView.register(OpenSourceViewCell.self, forCellReuseIdentifier: NSStringFromClass(OpenSourceViewCell.self))
         tableView.backgroundColor = Theme.current.backgroundColor
         tableView.separatorColor = Theme.current.cellBackgroundColor

@@ -19,7 +19,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        title = NSLocalizedString("提醒", comment: "")
+        title = Strings.Notifications
         
         setupTableView()
         tableView.mj_header.beginRefreshing()

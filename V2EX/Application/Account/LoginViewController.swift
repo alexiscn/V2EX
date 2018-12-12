@@ -50,11 +50,11 @@ class LoginViewController: UIViewController {
         captchaLineView.backgroundColor = Theme.current.backgroundColor
         signInButton.setTitleColor(Theme.current.titleColor, for: .normal)
         
-        usernameLabel.text = NSLocalizedString("用户名", comment: "Login Page Username Label")
-        usernameTextField.placeholder = NSLocalizedString("用户名或者电子邮箱", comment: "Login Page Username placeholder")
-        passwordLabel.text = NSLocalizedString("密码", comment: "")
-        passwordTextField.placeholder = NSLocalizedString("密码", comment: "")
-        signInButton.setTitle(NSLocalizedString("登录...", comment: ""), for: .normal)
+        usernameLabel.text = Strings.LoginUsername
+        usernameTextField.placeholder = Strings.LoginUsernamePlaceholder
+        passwordLabel.text = Strings.LoginPassword
+        passwordTextField.placeholder = Strings.LoginPasswordPlaceholder
+        signInButton.setTitle(Strings.LoginButtonTitle, for: .normal)
         
         usernameTextField.becomeFirstResponder()
         loadCaptcha()
@@ -104,21 +104,21 @@ class LoginViewController: UIViewController {
     @IBAction func signInButtonTapped(_ sender: Any) {
         
         guard let formData = loginForm else {
-            HUD.show(message: NSLocalizedString("请重新获取验证码", comment: ""))
+            HUD.show(message: Strings.LoginRefreshCaptchaAlerts)
             return
         }
         
         guard let username = usernameTextField.text, !username.isEmpty else {
-            HUD.show(message: NSLocalizedString("请输入用户名", comment: ""))
+            HUD.show(message: Strings.LoginUsernameAlerts)
             return
         }
         
         guard let password = passwordTextField.text, !password.isEmpty else {
-            HUD.show(message: NSLocalizedString("请输入密码", comment: ""))
+            HUD.show(message: Strings.LoginPasswordAlerts)
             return
         }
         guard let captcha = captchaTextField.text, !captcha.isEmpty else {
-            HUD.show(message: NSLocalizedString("请输入验证码", comment: ""))
+            HUD.show(message: Strings.LoginCaptchaAlerts)
             return
         }
         

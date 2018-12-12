@@ -212,9 +212,9 @@ class TimelineViewController: UIViewController {
         if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
             switch type {
             case .node:
-                footer.setTitle(NSLocalizedString("没有更多了", comment: ""), for: .noMoreData)
+                footer.setTitle(Strings.NoMoreData, for: .noMoreData)
             case .tab:
-                footer.setTitle(NSLocalizedString("只有最近才能加载更多", comment: ""), for: .noMoreData)
+                footer.setTitle(Strings.TabRecentTips, for: .noMoreData)
             }
             footer.endRefreshingWithNoMoreData()
             footer.stateLabel.isHidden = false

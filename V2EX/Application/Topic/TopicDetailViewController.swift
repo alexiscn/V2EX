@@ -66,22 +66,19 @@ class TopicDetailViewController: UIViewController {
     }
     
     private func showCommentSheet(_ comment: Reply) {
-        let actionSheet = ActionSheet(title: NSLocalizedString("更多操作", comment: ""), message: nil)
+        let actionSheet = ActionSheet(title: nil, message: nil)
         if AppContext.current.isLogined {
-            actionSheet.addAction(Action(title: NSLocalizedString("评论", comment: ""), style: .default, handler: { _ in
+            actionSheet.addAction(Action(title: Strings.DetailComment, style: .default, handler: { _ in
                 
             }))
-        }        
-//        actionSheet.addAction(Action(title: NSLocalizedString("查看该作者的所有回复", comment: ""), style: .default, handler: { _ in
-//
-//        }))
-        actionSheet.addAction(Action(title: NSLocalizedString("复制评论", comment: ""), style: .default, handler: { _ in
+        }
+        actionSheet.addAction(Action(title: Strings.DetailCopyComments, style: .default, handler: { _ in
             UIPasteboard.general.string = comment.content
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
+        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
             
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("取消", comment: ""), style: .cancel, handler: { _ in
+        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
             
         }))
         actionSheet.show()
@@ -93,26 +90,26 @@ class TopicDetailViewController: UIViewController {
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        let actionSheet = ActionSheet(title: NSLocalizedString("更多操作", comment: ""), message: nil)
-        actionSheet.addAction(Action(title: NSLocalizedString("在Safari中打开", comment: ""), style: .default, handler: { _ in
+        let actionSheet = ActionSheet(title: nil, message: nil)
+        actionSheet.addAction(Action(title: Strings.DetailOpenInSafari, style: .default, handler: { _ in
             if let url = self.topicURL {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("分享", comment: ""), style: .default, handler: { [weak self] _ in
+        actionSheet.addAction(Action(title: Strings.Share, style: .default, handler: { [weak self] _ in
             self?.presentShare()
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("复制链接", comment: ""), style: .default, handler: { [weak self] _ in
+        actionSheet.addAction(Action(title: Strings.CopyLink, style: .default, handler: { [weak self] _ in
             UIPasteboard.general.url = self?.topicURL
         }))
-        let viewOptionTitle = viewAuthorOnly ? NSLocalizedString("查看全部评论", comment: ""): NSLocalizedString("只看楼主", comment: "")
+        let viewOptionTitle = viewAuthorOnly ? Strings.DetailViewAllComments: Strings.DetailViewAuthorOnly
         actionSheet.addAction(Action(title: viewOptionTitle, style: .default, handler: { [weak self] _ in
             self?.resortReplies()
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
+        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
             
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("取消", comment: ""), style: .cancel, handler: { _ in
+        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
             
         }))
         actionSheet.show()
@@ -242,7 +239,7 @@ class TopicDetailViewController: UIViewController {
         }
         footer?.stateLabel.isHidden = true
         footer?.stateLabel.textColor = Theme.current.subTitleColor
-        footer?.setTitle(NSLocalizedString("没有更多回复了", comment: ""), for: .noMoreData)
+        footer?.setTitle(Strings.NoMoreData, for: .noMoreData)
         footer?.isRefreshingTitleHidden = true
         footer?.triggerAutomaticallyRefreshPercent = 0.8
         footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle

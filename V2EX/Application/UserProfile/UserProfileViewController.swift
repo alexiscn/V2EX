@@ -17,9 +17,9 @@ enum UserProfileSections: Int {
     var title: String? {
         switch self {
         case .topics:
-            return NSLocalizedString("Ta创建的主题", comment: "")
+            return Strings.ProfileHisTopics
         case .comments:
-            return NSLocalizedString("Ta的最近回复", comment: "")
+            return Strings.ProfileHisComments
         }
     }
 }
@@ -63,20 +63,19 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        let actionSheet = ActionSheet(title: NSLocalizedString("更多操作", comment: ""), message: nil)
-        
+        let actionSheet = ActionSheet(title: nil, message: nil)
         if AppContext.current.isLogined {
-            actionSheet.addAction(Action(title: NSLocalizedString("加入特别关注", comment: ""), style: .default, handler: { _ in
+            actionSheet.addAction(Action(title: Strings.ProfileFollow, style: .default, handler: { _ in
                 
             }))
-            actionSheet.addAction(Action(title: NSLocalizedString("拉黑", comment: ""), style: .default, handler: { _ in
+            actionSheet.addAction(Action(title: Strings.ProfileBlock, style: .default, handler: { _ in
                 
             }))
         }
-        actionSheet.addAction(Action(title: NSLocalizedString("举报", comment: ""), style: .default, handler: { _ in
+        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
             
         }))
-        actionSheet.addAction(Action(title: NSLocalizedString("取消", comment: ""), style: .cancel, handler: { _ in
+        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
             
         }))
         actionSheet.show()

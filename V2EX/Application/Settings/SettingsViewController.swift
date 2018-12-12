@@ -29,7 +29,7 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "设置"
+        title = Strings.Settings
         view.backgroundColor = Theme.current.backgroundColor
         setupNavigationBar()
         setupTableView()
@@ -39,7 +39,7 @@ class SettingsViewController: UIViewController {
     
     private func setupNavigationBar() {
         configureNavigationBar()
-        let leftItem = UIBarButtonItem(title: "完成", style: .done, target: self, action: #selector(leftNavigationButtonTapped(_:)))
+        let leftItem = UIBarButtonItem(title: Strings.Done, style: .done, target: self, action: #selector(leftNavigationButtonTapped(_:)))
         navigationItem.leftBarButtonItem = leftItem
     }
     
@@ -71,10 +71,11 @@ class SettingsViewController: UIViewController {
         setupGenerals()
         setupSwitchButtons()
         setupAbouts()
+        setupAccounts()
     }
     
     private func setupGenerals() {
-        let viewOption = SettingTableModel(title: "浏览偏好设置", value: .actionCommand { [weak self] in
+        let viewOption = SettingTableModel(title: Strings.SettingsViewOptions, value: .actionCommand { [weak self] in
             let controller = DisplaySettingsViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
@@ -84,9 +85,9 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupSwitchButtons() {
-        let autoRefresh = SettingTableModel(title: "自动刷新列表", value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
+        let autoRefresh = SettingTableModel(title: Strings.SettingsAutoRefresh, value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
         
-        let enableFullScreenGesture = SettingTableModel(title: "全屏返回手势", value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
+        let enableFullScreenGesture = SettingTableModel(title: Strings.SettingsEnableFullGesture, value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
         
         let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh, enableFullScreenGesture])
         dataSource.append(switchesSection)
@@ -99,21 +100,31 @@ class SettingsViewController: UIViewController {
             self?.present(controller, animated: true, completion: nil)
         })
         
-        let openSource = SettingTableModel(title: "Open Source Libraries", value: .actionCommand { [weak self] in
+        let openSource = SettingTableModel(title: Strings.SettingsOpenSource, value: .actionCommand { [weak self] in
             let controller = OpenSourceViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        let releaseNotes = SettingTableModel(title: NSLocalizedString("更新记录", comment: ""), value: .actionCommand { [weak self] in
+        let releaseNotes = SettingTableModel(title: Strings.SettingsReleaseNotes, value: .actionCommand { [weak self] in
             let url = URL(string: "https://github.com/alexiscn/V2EX/blob/master/ReleaseNotes.md")!
             let controller = SFSafariViewController(url: url)
             self?.present(controller, animated: true, completion: nil)
         })
-        let about = SettingTableModel(title: "关于V2EX", value: .actionCommand { [weak self] in
+        let about = SettingTableModel(title: Strings.SettingsAbout, value: .actionCommand { [weak self] in
             let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        let aboutSection = SettingTableSectionModel(title: "关于", items: [sourceCode, openSource, releaseNotes, about])
+        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, releaseNotes, about])
         dataSource.append(aboutSection)
+    }
+    
+    private func setupAccounts() {
+        guard AppContext.current.isLogined else { return }
+        
+        let logout = SettingTableModel(title: Strings.SettingsLogout, value: .actionCommand { [weak self] in
+            self?.handleUserLogout()
+        })
+        let accountSection = SettingTableSectionModel(title: Strings.SettingsAccount, items: [logout])
+        dataSource.append(accountSection)
     }
     
     @objc private func leftNavigationButtonTapped(_ sender: Any) {
@@ -130,6 +141,21 @@ class SettingsViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    private func handleUserLogout() {
+        let alert = UIAlertController(title: Strings.SettingsLogoutPrompt, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { _ in
+            
+        }))
+        alert.addAction(UIAlertAction(title: Strings.Cancel, style: .cancel, handler: { _ in
+            
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func doLogout() {
+        
     }
 
     override func didReceiveMemoryWarning() {

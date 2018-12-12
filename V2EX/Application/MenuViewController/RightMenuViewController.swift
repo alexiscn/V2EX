@@ -43,7 +43,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func updateTab(_ tab: V2Tab) {
-        if let groups = dataSource.first(where: { $0.title == NSLocalizedString("相关节点", comment: "") }) {
+        if let groups = dataSource.first(where: { $0.title == Strings.RelatedNodes }) {
             groups.nodes.removeAll()
             groups.nodes = tab.nodes
             tableView.reloadData()
@@ -52,7 +52,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     private func loadData() {
         var groups = V2DataManager.shared.loadHotNodes()
-        let related = NodeGroup(title: NSLocalizedString("相关节点", comment: ""), nodes: [])
+        let related = NodeGroup(title: Strings.RelatedNodes, nodes: [])
         groups.insert(related, at: 0)
         
         dataSource = groups
@@ -61,7 +61,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     private func setupHeader() {
         headerLabel = UILabel(frame: .zero)
-        headerLabel.text = NSLocalizedString("节点导航", comment: "")
+        headerLabel.text = Strings.NodesNavigations
         headerLabel.textColor = Theme.current.titleColor
         headerLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         view.addSubview(headerLabel)
@@ -101,7 +101,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     private func setupFooter() {
         allNodesButton = UIButton(type: .system)
-        allNodesButton.setTitle(NSLocalizedString("所有节点", comment: ""), for: .normal)
+        allNodesButton.setTitle(Strings.AllNodes, for: .normal)
         allNodesButton.backgroundColor = Theme.current.cellBackgroundColor
         allNodesButton.setTitleColor(Theme.current.titleColor, for: .normal)
         allNodesButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
