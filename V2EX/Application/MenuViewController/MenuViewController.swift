@@ -29,19 +29,20 @@ class MenuViewController: UIViewController {
     private var tableView: UITableView!
     private var themeButton: UIButton!
     private var settingButton: UIButton!
-    private var dataSource: [V2Tab] = V2Tab.tabs()
+    private var dataSource: [V2Tab] = []
     private var isFirstViewDidAppear = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = Theme.current.backgroundColor
+        dataSource = V2Tab.tabs()
         setupAvatarButton()
         setupTableView()
         setupThemeButton()
         setupSettingButton()
         self.fd_prefersNavigationBarHidden = true
-        
+        tableView.reloadData()
         setupAccount()
     }
     

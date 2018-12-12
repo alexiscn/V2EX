@@ -32,3 +32,33 @@ extension Bundle {
     }
     
 }
+
+enum Languages: String {
+    case none
+    case en = "en"
+    case zhHans = "zh-Hans"
+}
+
+class LanguageManager {
+    
+    static let shared = LanguageManager()
+    
+    var currentLanguage: Languages {
+        get {
+            if let langList = UserDefaults.standard.value(forKey: "AppleLanguages") as? [String], let lang = langList.first {
+                return Languages(rawValue: lang) ?? .none
+            }
+            return .none
+        }
+        set {
+            if newValue == .none {
+                UserDefaults.standard.setValue(nil, forKey: "AppleLanguages")
+            } else {
+                Bundle.setLanguage(newValue.rawValue)
+                UserDefaults.standard.setValue([newValue.rawValue], forKey: "AppleLanguages")
+            }
+        }
+    }
+    
+    
+}

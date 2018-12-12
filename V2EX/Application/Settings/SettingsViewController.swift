@@ -145,20 +145,21 @@ class SettingsViewController: UIViewController {
     
     private func handleUserLogout() {
         
-//        Bundle.setLanguage("zh-Hans")
-//        dismiss(animated: true) {
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            appDelegate.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-//        }
+        let newLang: Languages = LanguageManager.shared.currentLanguage == .en ? .zhHans: .en
+        LanguageManager.shared.currentLanguage = newLang
+        dismiss(animated: true) {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
+        }
         
-        let alert = UIAlertController(title: Strings.SettingsLogoutPrompt, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { _ in
-
-        }))
-        alert.addAction(UIAlertAction(title: Strings.Cancel, style: .cancel, handler: { _ in
-
-        }))
-        present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController(title: Strings.SettingsLogoutPrompt, message: nil, preferredStyle: .alert)
+//        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { _ in
+//
+//        }))
+//        alert.addAction(UIAlertAction(title: Strings.Cancel, style: .cancel, handler: { _ in
+//
+//        }))
+//        present(alert, animated: true, completion: nil)
     }
     
     private func doLogout() {
