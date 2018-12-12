@@ -22,7 +22,7 @@
 		A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18C321BE3EE80084FF29 /* Strings.swift */; };
 		A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F1E2221C0ACB500853704 /* BalanceViewCell.swift */; };
 		A33F1E2821C0EB0500853704 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A33F1E2A21C0EB0500853704 /* Localizable.strings */; };
-		A33F1E3621C11ED100853704 /* BundleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F1E3521C11ED100853704 /* BundleExtensions.swift */; };
+		A33F1E3621C11ED100853704 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F1E3521C11ED100853704 /* LanguageManager.swift */; };
 		A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6B21AB9BCD00ED2F88 /* Node.swift */; };
 		A34A5D7121ABBD4900ED2F88 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D7021ABBD4900ED2F88 /* AppContext.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
@@ -74,6 +74,7 @@
 		A3DCB08D21BCB8FD005FD955 /* BalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */; };
 		A3DCB08F21BCD822005FD955 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08E21BCD822005FD955 /* MainNavigationController.swift */; };
 		A3DCB09121BD326D005FD955 /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB09021BD326D005FD955 /* NotificationExtensions.swift */; };
+		A3DCB09321C14168005FD955 /* LanguageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB09221C14168005FD955 /* LanguageSettingsViewController.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
 		A3F788B721B7A405002B2F99 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B621B7A405002B2F99 /* EndPoint.swift */; };
 		A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B821B7AD49002B2F99 /* HTMLParser.swift */; };
@@ -96,7 +97,7 @@
 		A33F1E2221C0ACB500853704 /* BalanceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewCell.swift; sourceTree = "<group>"; };
 		A33F1E2921C0EB0500853704 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A33F1E2B21C0EB0900853704 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		A33F1E3521C11ED100853704 /* BundleExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundleExtensions.swift; sourceTree = "<group>"; };
+		A33F1E3521C11ED100853704 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		A34A5D6B21AB9BCD00ED2F88 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		A34A5D7021ABBD4900ED2F88 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +151,7 @@
 		A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewController.swift; sourceTree = "<group>"; };
 		A3DCB08E21BCD822005FD955 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
 		A3DCB09021BD326D005FD955 /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
+		A3DCB09221C14168005FD955 /* LanguageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingsViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		A3F788B621B7A405002B2F99 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		A3F788B821B7AD49002B2F99 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
@@ -257,7 +259,7 @@
 				A37F193321A2B671001BCC0A /* Utility.swift */,
 				A3DCB08821BB76A9005FD955 /* HUD.swift */,
 				A33E18C321BE3EE80084FF29 /* Strings.swift */,
-				A33F1E3521C11ED100853704 /* BundleExtensions.swift */,
+				A33F1E3521C11ED100853704 /* LanguageManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -289,6 +291,7 @@
 				A358549420E2048300C76393 /* OpenSourceViewController.swift */,
 				A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */,
 				A30A2A9D21BA557600D014C5 /* AboutViewController.swift */,
+				A3DCB09221C14168005FD955 /* LanguageSettingsViewController.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -615,6 +618,7 @@
 				A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 				A37F192E21A25CE7001BCC0A /* AppSettings.swift in Sources */,
+				A3DCB09321C14168005FD955 /* LanguageSettingsViewController.swift in Sources */,
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
 				A379EA3A2121C48800FA2169 /* SearchViewController.swift in Sources */,
 				A3DCB08521B392FB005FD955 /* Account.swift in Sources */,
@@ -637,7 +641,7 @@
 				A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,
 				A3DCB08721B3FB2E005FD955 /* UserProfileViewController.swift in Sources */,
-				A33F1E3621C11ED100853704 /* BundleExtensions.swift in Sources */,
+				A33F1E3621C11ED100853704 /* LanguageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

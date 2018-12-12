@@ -87,7 +87,14 @@ extension Strings {
     static var SettingsReleaseNotes: String { return NSLocalizedString("Settings.ReleaseNotes", value: "Release notes", comment: "更新记录") }
     static var SettingsAccount: String { return NSLocalizedString("Settings.Account", value: "Account", comment: "账号") }
     static var SettingsLogout: String { return NSLocalizedString("Logout", comment: "退出登录") }
-    static var SettingsLogoutPrompt: String { return NSLocalizedString("Settings.LogoutPrompt", value: "Are you sure to logout ?", comment: "确定退出当前账号吗？") }
+    
+    static var SettingsLogoutPrompt: String {
+        return NSLocalizedString("Settings.LogoutPrompt", value: "Are you sure to logout ?", comment: "确定退出当前账号吗？")
+    }
+    
+    static var LangFollowSystem: String {
+        return NSLocalizedString("Lang.FollowSystem", comment: "")
+    }
 }
 
 // Networking

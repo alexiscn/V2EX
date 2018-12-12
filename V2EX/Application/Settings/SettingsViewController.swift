@@ -75,12 +75,16 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupGenerals() {
+        let language = SettingTableModel(title: "Language", value: .actionCommand { [weak self] in
+            let controller = LanguageSettingsViewController()
+            self?.navigationController?.pushViewController(controller, animated: true)
+            })
         let viewOption = SettingTableModel(title: Strings.SettingsViewOptions, value: .actionCommand { [weak self] in
             let controller = DisplaySettingsViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
         
-        let generalSection = SettingTableSectionModel(title: nil, items: [viewOption])
+        let generalSection = SettingTableSectionModel(title: nil, items: [language, viewOption])
         dataSource.append(generalSection)
     }
     
@@ -144,22 +148,14 @@ class SettingsViewController: UIViewController {
     }
     
     private func handleUserLogout() {
-        
-        let newLang: Languages = LanguageManager.shared.currentLanguage == .en ? .zhHans: .en
-        LanguageManager.shared.currentLanguage = newLang
-        dismiss(animated: true) {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window?.rootViewController = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
-        }
-        
-//        let alert = UIAlertController(title: Strings.SettingsLogoutPrompt, message: nil, preferredStyle: .alert)
-//        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { _ in
-//
-//        }))
-//        alert.addAction(UIAlertAction(title: Strings.Cancel, style: .cancel, handler: { _ in
-//
-//        }))
-//        present(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: Strings.SettingsLogoutPrompt, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { _ in
+
+        }))
+        alert.addAction(UIAlertAction(title: Strings.Cancel, style: .cancel, handler: { _ in
+
+        }))
+        present(alert, animated: true, completion: nil)
     }
     
     private func doLogout() {
