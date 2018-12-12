@@ -126,8 +126,8 @@ extension EndPoint {
         return EndPoint(path: path)
     }
     
-    static func balance() -> EndPoint {
-        let path = "/balance"
+    static func balance(page: Int) -> EndPoint {
+        let path = "/balance?p=\(page)"
         return EndPoint(path: path)
     }
     

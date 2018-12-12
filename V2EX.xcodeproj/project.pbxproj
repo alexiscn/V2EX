@@ -20,6 +20,7 @@
 		A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */; };
 		A33E18C221BE3E540084FF29 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18C121BE3E540084FF29 /* NotificationsViewController.swift */; };
 		A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18C321BE3EE80084FF29 /* Strings.swift */; };
+		A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F1E2221C0ACB500853704 /* BalanceViewCell.swift */; };
 		A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6B21AB9BCD00ED2F88 /* Node.swift */; };
 		A34A5D7121ABBD4900ED2F88 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D7021ABBD4900ED2F88 /* AppContext.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
@@ -90,6 +91,7 @@
 		A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		A33E18C121BE3E540084FF29 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		A33E18C321BE3EE80084FF29 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		A33F1E2221C0ACB500853704 /* BalanceViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewCell.swift; sourceTree = "<group>"; };
 		A34A5D6B21AB9BCD00ED2F88 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		A34A5D7021ABBD4900ED2F88 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */,
 				A358548520E1D5A000C76393 /* LoginViewController.swift */,
 				A3DCB08C21BCB8FD005FD955 /* BalanceViewController.swift */,
+				A33F1E2221C0ACB500853704 /* BalanceViewCell.swift */,
 				A33E18C121BE3E540084FF29 /* NotificationsViewController.swift */,
 				A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */,
 			);
@@ -601,6 +604,7 @@
 				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
 				A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */,
 				A36EAFCF219FEF01000DA4A3 /* TopicDetail.swift in Sources */,
+				A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 				A37F192E21A25CE7001BCC0A /* AppSettings.swift in Sources */,
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,

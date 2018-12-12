@@ -19,6 +19,7 @@ class SettingsViewController: UIViewController {
 
     private var tableView: UITableView!
     private var dataSource: [SettingTableSectionModel] = []
+    private var versionLabel: UILabel!
     
     enum Tags: Int {
         case autoRefreshListOnAppLaunch = 1
@@ -32,6 +33,7 @@ class SettingsViewController: UIViewController {
         view.backgroundColor = Theme.current.backgroundColor
         setupNavigationBar()
         setupTableView()
+        setupVersionLabel()
         setupDataSource()
     }
     
@@ -51,6 +53,18 @@ class SettingsViewController: UIViewController {
         tableView.delegate = self
         tableView.tableFooterView = UIView()
         tableView.register(SettingViewCell.self, forCellReuseIdentifier: NSStringFromClass(SettingViewCell.self))
+    }
+    
+    private func setupVersionLabel() {
+        versionLabel = UILabel()
+        versionLabel.font = UIFont.systemFont(ofSize: 11)
+        versionLabel.textColor = Theme.current.subTitleColor
+        versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        view.addSubview(versionLabel)
+        versionLabel.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-view.keyWindowSafeAreaInsets.bottom)
+        }
     }
     
     private func setupDataSource() {
@@ -89,11 +103,16 @@ class SettingsViewController: UIViewController {
             let controller = OpenSourceViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
+        let releaseNotes = SettingTableModel(title: NSLocalizedString("更新记录", comment: ""), value: .actionCommand { [weak self] in
+            let url = URL(string: "https://github.com/alexiscn/V2EX/blob/master/ReleaseNotes.md")!
+            let controller = SFSafariViewController(url: url)
+            self?.present(controller, animated: true, completion: nil)
+        })
         let about = SettingTableModel(title: "关于V2EX", value: .actionCommand { [weak self] in
             let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        let aboutSection = SettingTableSectionModel(title: "关于", items: [sourceCode, openSource, about])
+        let aboutSection = SettingTableSectionModel(title: "关于", items: [sourceCode, openSource, releaseNotes, about])
         dataSource.append(aboutSection)
     }
     
