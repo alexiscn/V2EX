@@ -5,6 +5,7 @@
 ## Build generated
 .DS_Store
 build/
+Localizations/
 DerivedData/
 
 ## Various settings
