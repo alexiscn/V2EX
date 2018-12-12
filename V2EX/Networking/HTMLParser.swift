@@ -64,11 +64,10 @@ struct TabParser: HTMLParser {
                     let end = html.index(html.startIndex, offsetBy: r.location + r.length - 1)
                     let once = html[start...end]
                     V2SDK.once = String(once)
+                    V2SDK.dailyMission()
                 }
             }
         }
-        
-        
         
         return topics as? T
     }

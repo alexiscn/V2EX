@@ -52,6 +52,8 @@ class V2SDK {
     
     static var shouldParseAccount: Bool = true
     
+    static var shouldRequestDailyMisson = true
+    
     static var once: String? = nil
     
     class func setup() {
@@ -97,6 +99,7 @@ class V2SDK {
     }
     
     public class func dailyMission() {
+        if !shouldRequestDailyMisson { return }
         guard let token = self.once else { return }
 
         request(EndPoint.dailyMission(once: token), parser: DailyMissionParser.self) { (response: V2Response<DailyMission>) in
@@ -105,6 +108,7 @@ class V2SDK {
                 if let msg = mission.message {
                     HUD.show(message: msg)
                 }
+                V2SDK.shouldRequestDailyMisson = false
             case .error(let error):
                 print(error.description)
             }
