@@ -32,7 +32,7 @@ struct V2Tab: Equatable {
     
     static func tabs() -> [V2Tab] {
         
-        var techTab = V2Tab(key: "tech", title: Strings.TabTechnology)
+        var techTab = V2Tab(key: "tech", title: NSLocalizedString("Tab.Technology", value: "Technology", comment: "技术"))
         techTab.nodes.append(Node(name: "programmer", title: "程序员", letter: ""))
         techTab.nodes.append(Node(name: "python", title: "Python员", letter: ""))
         techTab.nodes.append(Node(name: "idev", title: "iDev", letter: ""))

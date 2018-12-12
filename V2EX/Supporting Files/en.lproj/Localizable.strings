@@ -1,7 +1,174 @@
-/* 
-  Localizable.strings
-  V2EX
+/* 关于 */
+"About" = "About";
 
-  Created by xu.shuifeng on 2018/12/12.
-  Copyright © 2018 shuifeng.me. All rights reserved.
-*/
+/* 请先登录 */
+"Account.NamePlaceholder" = "sign in...";
+
+/* 取消 */
+"Cancel" = "Cancel";
+
+/* 复制链接 */
+"CopyLink" = "Copy link";
+
+/* 评论 */
+"Detail.Comment" = "Comment";
+
+/* 复制评论 */
+"Detail.CopyComments" = "Copy";
+
+/* 在Safari中打开 */
+"Detail.OpenInSafari" = "Open In Safari";
+
+/* 楼主 */
+"Detail.OriginPoster" = "OP";
+
+/* 查看全部评论 */
+"Detail.ViewAllComments" = "View all comments";
+
+/* 只看楼主 */
+"Detail.ViewAuthorOnly" = "View author only";
+
+/* 完成 */
+"Done" = "Done";
+
+/* 登录... */
+"Login.ButtonTitle" = "Sign in...";
+
+/* 请输入验证码 */
+"Login.CaptchaAlerts" = "Please enter correct captcha...";
+
+/* 密码 */
+"Login.Password" = "Password";
+
+/* 请输入密码 */
+"Login.PasswordAlerts" = "Please enter correct password...";
+
+/* 密码 */
+"Login.PasswordPlaceholder" = "Password";
+
+/* 请重新获取验证码 */
+"Login.RefreshCaptchaAlerts" = "Please refresh captcha...";
+
+/* 谷歌登录 */
+"Login.SignInWithGoogle" = "Sign in with Google";
+
+/* 用户名 */
+"Login.Username" = "Username";
+
+/* 请输入用户名 */
+"Login.UsernameAlerts" = "Please enter correct username";
+
+/* 用户名或邮箱 */
+"Login.UsernamePlaceholder" = "Username or email";
+
+/* 退出登录 */
+"Logout" = "Logout";
+
+/* 所有节点 */
+"Nodes.All" = "All Nodes";
+
+/* 节点导航 */
+"Nodes.Navigations" = "Navigations";
+
+/* 相关节点 */
+"Nodes.Related" = "Similar";
+
+/* 通知 */
+"Notifications" = "Notifications";
+
+/* 确定 */
+"OK" = "OK";
+
+/* 拉黑 */
+"Profile.Block" = "Block";
+
+/* 加入特别关注 */
+"Profile.Follow" = "Follow";
+
+/* Ta的最近回复 */
+"Profile.HisComments" = "His comments";
+
+/* Ta创建的主题 */
+"Profile.HisTopics" = "His topics";
+
+/* 举报 */
+"Report" = "Report";
+
+/* 需要登录后才能查看 */
+"Server.NeedsSignIn" = "Sign in required...";
+
+/* 开启了两步验证 */
+"Server.NeedsTwoFactor" = "You have enabled two factor authentication";
+
+/* 服务器暂时开小差了，请稍后再试 */
+"Server.NotFound" = "Opps... 404 Not Found";
+
+/* 服务器解析错误 */
+"Server.ParseHTMLError" = "We have problem parsing HTML, please try it later";
+
+/* 登录失败 */
+"Server.SignInError" = "Sign in error";
+
+/* 设置 */
+"Settings" = "Settings";
+
+/* 账号 */
+"Settings.Account" = "Account";
+
+/* 自动刷新列表 */
+"Settings.AutoRefresh" = "Auto Refresh On Launch";
+
+/* 全屏返回手势 */
+"Settings.EnableFullGesture" = "Fullscreen gesture to back";
+
+/* 确定退出当前账号吗？ */
+"Settings.LogoutPrompt" = "Are you sure to logout ?";
+
+/* 开源项目 */
+"Settings.OpenSource" = "Open Source";
+
+/* 更新记录 */
+"Settings.ReleaseNotes" = "Release notes";
+
+/* 浏览偏好设置 */
+"Settings.ViewOptions" = "View options";
+
+/* 分享 */
+"Share" = "Share";
+
+/* 全部 */
+"Tab.All" = "All";
+
+/* Apple */
+"Tab.Apple" = "Apple";
+
+/* 城市 */
+"Tab.City" = "City";
+
+/* 创意 */
+"Tab.Creative" = "Creative";
+
+/* 交易 */
+"Tab.Deals" = "Deals";
+
+/* 最热 */
+"Tab.Hot" = "Hot";
+
+/* 酷工作 */
+"Tab.Jobs" = "Jobs";
+
+/* 好玩 */
+"Tab.Play" = "Play";
+
+/* 问与答 */
+"Tab.QNA" = "Q & A";
+
+/* 最近 */
+"Tab.Recent" = "Recent";
+
+/* 只有最近才能加载更多 */
+"Tab.RecentTips" = "Only Recent can load more";
+
+/* 技术 */
+"Tab.Technology" = "Technology";
+
