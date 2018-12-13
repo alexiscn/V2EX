@@ -31,6 +31,9 @@
 /* 完成 */
 "Done" = "Done";
 
+/* 跟随系统 */
+"Lang.FollowSystem" = "Follow system";
+
 /* 登录... */
 "Login.ButtonTitle" = "Sign in...";
 
@@ -120,6 +123,9 @@
 
 /* 全屏返回手势 */
 "Settings.EnableFullGesture" = "Fullscreen gesture to back";
+
+/* 语言 */
+"Settings.Language" = "Language";
 
 /* 确定退出当前账号吗？ */
 "Settings.LogoutPrompt" = "Are you sure to logout ?";
