@@ -21,7 +21,7 @@ class LanguageSettingsViewController: UIViewController, UITableViewDataSource, U
 
         // Do any additional setup after loading the view.
         view.backgroundColor = Theme.current.backgroundColor
-        title = "Language"
+        title = Strings.SettingsLanguage
         setupNavigationBar()
         setupTableView()
         currentLang = LanguageManager.shared.currentLanguage
@@ -31,10 +31,10 @@ class LanguageSettingsViewController: UIViewController, UITableViewDataSource, U
     private func setupNavigationBar() {
         configureNavigationBar()
         
-        let leftItem = UIBarButtonItem(title: Strings.Cancel, style: .plain, target: self, action: #selector(leftNavigationButtonTapped(_:)))
+//        let leftItem = UIBarButtonItem(title: Strings.Cancel, style: .plain, target: self, action: #selector(leftNavigationButtonTapped(_:)))
         let rightItem = UIBarButtonItem(title: Strings.Done, style: .done, target: self, action: #selector(rightNavigationButtonTapped(_:)))
         
-        navigationItem.leftBarButtonItem = leftItem
+//        navigationItem.leftBarButtonItem = leftItem
         navigationItem.rightBarButtonItem = rightItem
     }
     
@@ -43,14 +43,11 @@ class LanguageSettingsViewController: UIViewController, UITableViewDataSource, U
     }
     
     @objc private func rightNavigationButtonTapped(_ sender: Any) {
-        
         LanguageManager.shared.currentLanguage = currentLang
         // 稍微有些山寨的做法，由于：SideMenu Warning: menuLeftNavigationController cannot be modified while it's presented
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         dismiss(animated: true) {
-            //HUD.showIndicator()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                //HUD.removeIndicator()
                 let controller = UIStoryboard(name: "Main", bundle: nil).instantiateInitialViewController()
                 appDelegate.window?.rootViewController = controller
             }
@@ -58,7 +55,7 @@ class LanguageSettingsViewController: UIViewController, UITableViewDataSource, U
     }
     
     private func setupTableView() {
-        tableView = UITableView(frame: view.bounds, style: .grouped)
+        tableView = UITableView(frame: view.bounds, style: .plain)
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
         tableView.separatorColor = Theme.current.backgroundColor

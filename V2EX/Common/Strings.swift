@@ -92,9 +92,9 @@ extension Strings {
         return NSLocalizedString("Settings.LogoutPrompt", value: "Are you sure to logout ?", comment: "确定退出当前账号吗？")
     }
     
-    static var LangFollowSystem: String {
-        return NSLocalizedString("Lang.FollowSystem", comment: "")
-    }
+    static var LangFollowSystem: String { return NSLocalizedString("Lang.FollowSystem", value: "Follow system", comment: "跟随系统") }
+    
+    static var SettingsLanguage: String { return NSLocalizedString("Settings.Language", value: "Language", comment: "语言") }
 }
 
 // Networking

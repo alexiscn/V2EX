@@ -69,13 +69,12 @@ class SettingsViewController: UIViewController {
     
     private func setupDataSource() {
         setupGenerals()
-        setupSwitchButtons()
         setupAbouts()
         setupAccounts()
     }
     
     private func setupGenerals() {
-        let language = SettingTableModel(title: "Language", value: .actionCommand { [weak self] in
+        let language = SettingTableModel(title: Strings.SettingsLanguage, value: .actionCommand { [weak self] in
             let controller = LanguageSettingsViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
             })
@@ -83,18 +82,11 @@ class SettingsViewController: UIViewController {
             let controller = DisplaySettingsViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        
-        let generalSection = SettingTableSectionModel(title: nil, items: [language, viewOption])
-        dataSource.append(generalSection)
-    }
-    
-    private func setupSwitchButtons() {
         let autoRefresh = SettingTableModel(title: Strings.SettingsAutoRefresh, value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
         
         let enableFullScreenGesture = SettingTableModel(title: Strings.SettingsEnableFullGesture, value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
-        
-        let switchesSection = SettingTableSectionModel(title: nil, items: [autoRefresh, enableFullScreenGesture])
-        dataSource.append(switchesSection)
+        let generalSection = SettingTableSectionModel(title: nil, items: [language, viewOption, autoRefresh, enableFullScreenGesture])
+        dataSource.append(generalSection)
     }
     
     private func setupAbouts() {
@@ -235,6 +227,9 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 10.0
+        }
         return 50.0
     }
     
