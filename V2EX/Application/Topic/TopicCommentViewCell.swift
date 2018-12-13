@@ -197,6 +197,10 @@ class TopicCommentViewCell: UITableViewCell {
 extension TopicCommentViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+//        if URL.absoluteString.hasPrefix("https://www.v2ex.com/t") || URL.absoluteString.hasPrefix("https://v2ex.com/t") {
+//            
+//            return false
+//        }
         presentSafariViewController(url: URL)
         return false
     }

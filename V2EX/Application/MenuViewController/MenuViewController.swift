@@ -184,7 +184,6 @@ class MenuViewController: UIViewController {
                 tableView.selectRow(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .top)
             }
         }
-        setupAccount()
     }
 
     override var prefersStatusBarHidden: Bool {

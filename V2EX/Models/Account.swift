@@ -44,7 +44,7 @@ class NotificationResponse {
     var page: Int = 1
 }
 
-class MessageNotification {
+class MessageNotification: DataType {
     
     var _rowHeight: CGFloat = 0.0
     

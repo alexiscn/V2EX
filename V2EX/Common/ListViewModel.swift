@@ -11,13 +11,13 @@ import UIKit
 
 protocol DataType { }
 
-protocol ListViewModel {
+protocol ListViewModel: class {
     
     // model 类型
-    associatedtype T
+    associatedtype T: DataType
     
     // tableView的数据源
-    var dataSouce: [T] { get }
+    var dataSouce: [T] { get set }
     
     // tableView 注册的UITableViewCell的类型
     var cellClass: UITableViewCell.Type { get }
@@ -35,23 +35,31 @@ struct ListDataInfo {
     var canLoadMore: Bool
 }
 
-struct ListViewModelResponse<T: DataType> {
+struct ListResponse<T: DataType> {
     var list: [T] = []
     var page: Int = 1
 }
 
 extension ListViewModel {
     
-    mutating func loadData(isLoadMore: Bool, completion: @escaping ((ListDataInfo) -> Void)) {
+    func loadData(isLoadMore: Bool, completion: @escaping ((ListDataInfo) -> Void)) {
         currentPage = isLoadMore ? (currentPage + 1): 1
         
-        V2SDK.request(endPoint, parser: apiParser) { (response: V2Response<NotificationResponse>) in
+        V2SDK.request(endPoint, parser: apiParser) { [weak self] (response: V2Response<ListResponse<T>>) in
+            guard let strongSelf = self else { return }
+            var info = ListDataInfo(isLoadMore: isLoadMore, canLoadMore: true)
             switch response {
             case .success(let result):
-                print(result)
+                if isLoadMore {
+                    strongSelf.dataSouce.append(contentsOf: result.list)
+                } else {
+                    strongSelf.dataSouce = result.list
+                }
+                info.canLoadMore = strongSelf.currentPage < result.page
             case .error(let error):
                 HUD.show(message: error.description)
             }
+            completion(info)
         }
     }
 }
