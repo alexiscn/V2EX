@@ -44,6 +44,11 @@ class MenuViewController: UIViewController {
         self.fd_prefersNavigationBarHidden = true
         tableView.reloadData()
         setupAccount()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleAccountUpdated(_:)), name: NSNotification.Name.V2.AccountUpdated, object: nil)
+    }
+    
+    @objc private func handleAccountUpdated(_ notification: Notification) {
+        setupAccount()
     }
     
     @objc private func handleUserLoginSuccess(_ notification: Notification) {

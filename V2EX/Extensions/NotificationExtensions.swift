@@ -14,6 +14,7 @@ extension Notification.Name {
         static let FullGestureEnableChanged = Notification.Name("me.shuifeng.v2ex.fullGestureChanged")
         static let ThemeUpdated = Notification.Name("me.shuifeng.v2ex.themeUpdated")
         static let LoginSuccess = Notification.Name("me.shuifeng.v2ex.loginSuccess")
+        static let AccountUpdated = Notification.Name("me.shuifeng.v2ex.accountUpdated")
     }
     
 }

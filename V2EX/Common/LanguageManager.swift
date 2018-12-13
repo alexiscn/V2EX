@@ -66,7 +66,6 @@ class AppBundle: Bundle {
 }
 
 extension Bundle {
-    
     class func setLanguage(_ code: String) {
         defer {
             object_setClass(Bundle.main, AppBundle.self)
@@ -74,9 +73,4 @@ extension Bundle {
         let path = Bundle.main.path(forResource: code, ofType: "lproj")
         objc_setAssociatedObject(Bundle.main, &bundleKey, path, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
-    
 }
-
-
-
-

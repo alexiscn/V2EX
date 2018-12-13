@@ -63,6 +63,8 @@
 		A38D0EB120DCEA4100F7C932 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB020DCEA4100F7C932 /* Assets.xcassets */; };
 		A38D0EB420DCEA4100F7C932 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EB220DCEA4100F7C932 /* LaunchScreen.storyboard */; };
 		A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EC720DD060900F7C932 /* TimelineViewController.swift */; };
+		A3961C7C21C22D47007D7663 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3961C7B21C22D47007D7663 /* ListViewController.swift */; };
+		A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3961C7D21C22D92007D7663 /* ListViewModel.swift */; };
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
 		A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */; };
 		A3DCB07F21AA9D8A005FD955 /* allnodes.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB07E21AA9D8A005FD955 /* allnodes.json */; };
@@ -140,6 +142,8 @@
 		A38D0EB320DCEA4100F7C932 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A38D0EB520DCEA4100F7C932 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A38D0EC720DD060900F7C932 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
+		A3961C7B21C22D47007D7663 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		A3961C7D21C22D92007D7663 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingsViewController.swift; sourceTree = "<group>"; };
 		A3DCB07E21AA9D8A005FD955 /* allnodes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allnodes.json; sourceTree = "<group>"; };
@@ -260,6 +264,8 @@
 				A3DCB08821BB76A9005FD955 /* HUD.swift */,
 				A33E18C321BE3EE80084FF29 /* Strings.swift */,
 				A33F1E3521C11ED100853704 /* LanguageManager.swift */,
+				A3961C7B21C22D47007D7663 /* ListViewController.swift */,
+				A3961C7D21C22D92007D7663 /* ListViewModel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -583,6 +589,7 @@
 			files = (
 				A373C68821B5154800C919AD /* UserProfileHeaderView.swift in Sources */,
 				A31F9C4C21BFD78E00AD9846 /* NotificationViewCell.swift in Sources */,
+				A3961C7C21C22D47007D7663 /* ListViewController.swift in Sources */,
 				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
 				A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
@@ -603,6 +610,7 @@
 				A373C68A21B5411C00C919AD /* UserCommentViewCell.swift in Sources */,
 				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
+				A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */,
 				A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,

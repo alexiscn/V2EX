@@ -53,6 +53,7 @@ struct TabParser: HTMLParser {
         if V2SDK.shouldParseAccount {
             if let account: Account? = try AccountInfoParser.handle(doc) {
                 AppContext.current.account = account
+                NotificationCenter.default.post(name: NSNotification.Name.V2.AccountUpdated, object: nil)
             }
             V2SDK.shouldParseAccount = false
             let html = try doc.html()
@@ -64,7 +65,9 @@ struct TabParser: HTMLParser {
                     let end = html.index(html.startIndex, offsetBy: r.location + r.length - 1)
                     let once = html[start...end]
                     V2SDK.once = String(once)
-                    V2SDK.dailyMission()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                        V2SDK.dailyMission()
+                    }
                 }
             }
         }
