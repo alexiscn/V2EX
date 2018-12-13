@@ -218,13 +218,13 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 40)))
         let label = UILabel(frame: .zero)
-        label.text = dataSource[section].title
+        label.text = dataSource[section].title?.uppercased()
         label.textColor = Theme.current.subTitleColor
-        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         header.addSubview(label)
         label.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
-            make.centerY.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-8)
             make.trailing.equalToSuperview()
         }
         return header
@@ -235,7 +235,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40.0
+        return 50.0
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {

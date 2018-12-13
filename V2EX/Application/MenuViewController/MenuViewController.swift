@@ -146,7 +146,7 @@ class MenuViewController: UIViewController {
     @objc private func themeButtonTapped(_ sender: Any) {
         let feedback = UIImpactFeedbackGenerator(style: .medium)
         feedback.impactOccurred()
-        Theme.current.switchTheme()
+        ThemeManager.shared.switchTheme()
         updateTheme()
     }
     

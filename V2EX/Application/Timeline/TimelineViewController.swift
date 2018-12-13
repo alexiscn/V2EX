@@ -57,7 +57,7 @@ class TimelineViewController: UIViewController {
         setupTableView()
         updateTitle()
         refresh()
-        Theme.current.observeThemeUpdated { [weak self] _ in
+        ThemeManager.shared.observeThemeUpdated { [weak self] _ in
             self?.updateTheme()
         }
     }

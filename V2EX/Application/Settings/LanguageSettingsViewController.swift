@@ -79,6 +79,7 @@ class LanguageSettingsViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(UITableViewCell.self), for: indexPath)
+        cell.backgroundColor = .clear
         cell.textLabel?.textColor = Theme.current.titleColor
         let lang = dataSource[indexPath.row]
         cell.textLabel?.text = lang.title

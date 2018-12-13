@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
         registerNotifications()
         setupFullGesture()
         
-        Theme.current.observeThemeUpdated { [weak self] _ in
+        ThemeManager.shared.observeThemeUpdated { [weak self] _ in
             self?.updateTheme()
         }
     }

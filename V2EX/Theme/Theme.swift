@@ -116,7 +116,11 @@ enum Theme: Int {
     }
 }
 
-extension Theme {
+class ThemeManager {
+    
+    static let shared = ThemeManager()
+    
+    private init() { }
     
     func switchTheme() {
         if Theme.current == .dark {

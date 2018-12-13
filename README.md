@@ -20,6 +20,13 @@ just another V2EX iOS Client
 * Dark mode browsing
 * Fast navigations with tabs and hot nodes
 
+# Localizations
+
+1. download release from [SwiftGenStrings](https://github.com/kayak/SwiftGenStrings/releases)
+2. add export Path
+3. run `cd Localizations & python app.py`
+
+
 # On-Working
 
 * Dynamic changing theme

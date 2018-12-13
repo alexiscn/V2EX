@@ -134,7 +134,7 @@ class TimelineViewCell: UITableViewCell {
         nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
         avatarButton.addTarget(self, action: #selector(handleAvatarTapped(_:)), for: .touchUpInside)
         
-        Theme.current.observeThemeUpdated { [weak self] _ in
+        ThemeManager.shared.observeThemeUpdated { [weak self] _ in
             self?.updateTheme()
         }
     }
