@@ -462,7 +462,7 @@ struct BalanceParser: HTMLParser {
         guard let table = try doc.select("table.data").first() else {
             return nil
         }
-        var response = BalanceResponse()
+        var response: ListResponse<Balance> = ListResponse()
         if let max = try doc.select("input.page_input").first()?.attr("max") {
            response.page = Int(max) ?? 1
         }
@@ -479,7 +479,7 @@ struct BalanceParser: HTMLParser {
                 balance.total = try list[4].text()
                 balance.value = try line.select("strong").text()
                 balance.desc = try line.select("span.gray").text()
-                response.balances.append(balance)
+                response.list.append(balance)
             }
         }
         return response as? T
@@ -489,9 +489,11 @@ struct BalanceParser: HTMLParser {
 struct NotificationParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
+        var response: ListResponse<MessageNotification> = ListResponse()
+        if let max = try doc.select("input.page_input").first()?.attr("max") {
+            response.page = Int(max) ?? 1
+        }
         let cells = try doc.select("div.cell")
-        
-        var notifications: [MessageNotification] = []
         for cell in cells {
             let divID = try? cell.attr("id")
             if divID == nil || divID == "" {
@@ -504,13 +506,8 @@ struct NotificationParser: HTMLParser {
             message.avatarURL = avatarURLWithSource(source)
             message.username = try cell.select("strong").text()
             message.comment = try cell.select("div.payload").text()
-            
-            notifications.append(message)
+            response.list.append(message)
         }
-        
-        let response = NotificationResponse()
-        response.page = 1
-        response.notifications = notifications
         return response as? T
     }
 }

@@ -14,6 +14,8 @@ class BalanceViewModel: ListViewModel {
     
     var dataSouce: [Balance] = []
     
+    var title: String? { return "Balance" }
+    
     var cellClass: UITableViewCell.Type { return BalanceViewCell.self }
     
     var currentPage: Int = 1
@@ -22,4 +24,11 @@ class BalanceViewModel: ListViewModel {
     
     var apiParser: HTMLParser.Type { return BalanceParser.self }
     
+    func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
+        return 60.0
+    }
+    
+    func didSelectRowAt(_ indexPath: IndexPath) {
+        
+    }
 }

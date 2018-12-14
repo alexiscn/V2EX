@@ -2,6 +2,7 @@ PODS:
   - Alamofire (4.8.0)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
+  - DateToolsSwift (4.0.0)
   - Fabric (1.9.0)
   - FDFullscreenPopGesture (1.1)
   - GenericNetworking (0.1.10):
@@ -22,6 +23,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - Crashlytics
+  - DateToolsSwift
   - Fabric
   - FDFullscreenPopGesture
   - GenericNetworking
@@ -37,6 +39,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - Crashlytics
+    - DateToolsSwift
     - Fabric
     - FDFullscreenPopGesture
     - GenericNetworking
@@ -53,6 +56,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   GenericNetworking: 7572de096279ff117f92b5e5612dd61c4b2be244
@@ -66,6 +70,6 @@ SPEC CHECKSUMS:
   WCDB.swift: 87aee41f5ca3aded9c6f9b68b0ef3e88918a5ee2
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
 
-PODFILE CHECKSUM: ba6e3586a37771c944ab31c2f3845c2baf61ba53
+PODFILE CHECKSUM: 26797e1ea4e86b838e8887b07ac0ad2397d48c0d
 
 COCOAPODS: 1.5.3

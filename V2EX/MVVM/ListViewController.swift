@@ -9,14 +9,15 @@
 import UIKit
 import MJRefresh
 
+/// 通用分页页面，复用View逻辑
 class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var tableView: UITableView!
     
     private var viewModel: T
 
-    init(vm: T) {
-        self.viewModel = vm
+    init(viewModel: T) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -27,6 +28,8 @@ class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = Theme.current.backgroundColor
+        title = viewModel.title
         setupTableView()
         tableView.mj_header.beginRefreshing()
     }
@@ -72,6 +75,7 @@ class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegat
             } else {
                 self?.tableView.mj_header.endRefreshing()
             }
+            self?.tableView.reloadData()
         }
     }
     
@@ -87,6 +91,19 @@ class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegat
         let identifier = NSStringFromClass(viewModel.cellClass)
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         cell.backgroundColor = .clear
+        let model = viewModel.dataSouce[indexPath.row]
+        if let listCell = cell as? ListViewCell {
+            listCell.update(model)
+        }
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return viewModel.heightForRowAt(indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        viewModel.didSelectRowAt(indexPath)
     }
 }

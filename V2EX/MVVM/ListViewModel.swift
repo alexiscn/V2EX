@@ -11,10 +11,16 @@ import UIKit
 
 protocol DataType { }
 
+protocol ListViewCell {
+    func update(_ model: DataType)
+}
+
 protocol ListViewModel: class {
     
     // model 类型
     associatedtype T: DataType
+    
+    var title: String? { get }
     
     // tableView的数据源
     var dataSouce: [T] { get set }
@@ -28,6 +34,10 @@ protocol ListViewModel: class {
     var endPoint: EndPoint { get }
     
     var apiParser: HTMLParser.Type { get }
+    
+    func heightForRowAt(_ indexPath: IndexPath) -> CGFloat
+    
+    func didSelectRowAt(_ indexPath: IndexPath)
 }
 
 struct ListDataInfo {

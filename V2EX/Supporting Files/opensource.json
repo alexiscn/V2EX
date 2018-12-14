@@ -58,5 +58,10 @@
         "title": "FDFullscreenPopGesture",
         "subTitle": "A UINavigationController's category to enable fullscreen pop gesture with iOS7+ system style.",
         "url": "https://github.com/forkingdog/FDFullscreenPopGesture"
+    },
+    {
+        "title": "DateToolsSwift",
+        "subTitle": "Dates and times made easy in iOS",
+        "url": "https://github.com/MatthewYork/DateTools"
     }
 ]

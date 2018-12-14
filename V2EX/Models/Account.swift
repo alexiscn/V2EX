@@ -34,16 +34,6 @@ struct Balance: DataType {
     var value: String?
 }
 
-struct BalanceResponse {
-    var page: Int = 0
-    var balances: [Balance] = []
-}
-
-class NotificationResponse {
-    var notifications: [MessageNotification] = []
-    var page: Int = 1
-}
-
 class MessageNotification: DataType {
     
     var _rowHeight: CGFloat = 0.0
@@ -59,7 +49,6 @@ class MessageNotification: DataType {
     var title: String?
     
     var topicID: String?
-    
     
     init() { }
 }

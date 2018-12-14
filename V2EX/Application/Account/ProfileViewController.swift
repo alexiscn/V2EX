@@ -16,23 +16,34 @@ class ProfileViewController: UIViewController {
         view.backgroundColor = Theme.current.backgroundColor
         navigationItem.title = "我的"
         // Do any additional setup after loading the view.
+        
+        let button = UIButton(type: .system)
+        button.setTitle("Balance", for: .normal)
+        button.setTitleColor(Theme.current.titleColor, for: .normal)
+        view.addSubview(button)
+        
+        button.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
+        
+        button.addTarget(self, action: #selector(balance), for: .touchUpInside)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    private func balance() {
+    @objc private func balance() {
         
         let viewModel = BalanceViewModel()
-        let controller = ListViewController(vm: viewModel)
+        let controller = ListViewController(viewModel: viewModel)
         navigationController?.pushViewController(controller, animated: true)
     }
     
     private func notifications() {
-        let vm = NotificationsViewModel()
-        let controller = ListViewController(vm: vm)
+        let viewModel = NotificationsViewModel()
+        let controller = ListViewController(viewModel: viewModel)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
