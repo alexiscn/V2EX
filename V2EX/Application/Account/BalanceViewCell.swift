@@ -47,7 +47,7 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
         
         amountLabel.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(8)
+            make.centerY.equalToSuperview()
             make.width.equalTo(80)
         }
         
@@ -56,9 +56,10 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
             make.top.equalToSuperview().offset(10)
             make.trailing.equalToSuperview()
         }
+
         descLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
-            make.top.equalTo(titleLabel.snp.bottom).offset(3)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
             make.trailing.equalToSuperview()
         }
         contentView.backgroundColor = Theme.current.cellBackgroundColor
@@ -77,5 +78,6 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
         amountLabel.text = balance.value
         titleLabel.text = balance.title
         descLabel.text = balance.desc
+        timeAgoLabel.text = balance.time
     }
 }

@@ -11,11 +11,12 @@
 		A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */; };
 		A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A2A9D21BA557600D014C5 /* AboutViewController.swift */; };
 		A30A78F021A7DA590041A744 /* opensource.json in Resources */ = {isa = PBXBuildFile; fileRef = A30A78EF21A7DA590041A744 /* opensource.json */; };
+		A317CF1721C388EE0099BB1E /* UserTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */; };
+		A317CF1921C38B9A0099BB1E /* UserReplyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A317CF1821C38B9A0099BB1E /* UserReplyViewModel.swift */; };
 		A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70921A6B51100618AD5 /* SettingTableModel.swift */; };
 		A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */; };
 		A31F9C4C21BFD78E00AD9846 /* NotificationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */; };
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
-		A336980921B6AD2700F1B808 /* UserReplyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
 		A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */; };
 		A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18C321BE3EE80084FF29 /* Strings.swift */; };
@@ -87,11 +88,12 @@
 		A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
 		A30A2A9D21BA557600D014C5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A30A78EF21A7DA590041A744 /* opensource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = opensource.json; sourceTree = "<group>"; };
+		A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopicViewModel.swift; sourceTree = "<group>"; };
+		A317CF1821C38B9A0099BB1E /* UserReplyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReplyViewModel.swift; sourceTree = "<group>"; };
 		A31DF70921A6B51100618AD5 /* SettingTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableModel.swift; sourceTree = "<group>"; };
 		A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewCell.swift; sourceTree = "<group>"; };
 		A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewCell.swift; sourceTree = "<group>"; };
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
-		A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReplyListViewController.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		A33E18C321BE3EE80084FF29 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -356,7 +358,8 @@
 				A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */,
 				A373C68721B5154800C919AD /* UserProfileHeaderView.swift */,
 				A373C68921B5411C00C919AD /* UserCommentViewCell.swift */,
-				A336980821B6AD2700F1B808 /* UserReplyListViewController.swift */,
+				A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */,
+				A317CF1821C38B9A0099BB1E /* UserReplyViewModel.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -519,7 +522,6 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-V2EX/Pods-V2EX-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/GenericNetworking/GenericNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -535,7 +537,6 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GenericNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
@@ -614,6 +615,7 @@
 				A3DCB09121BD326D005FD955 /* NotificationExtensions.swift in Sources */,
 				A372EF4721AFFAC100EAD3DB /* AppFont.swift in Sources */,
 				A36D0FB5219D81B500E20EFB /* V2SDK+Search.swift in Sources */,
+				A317CF1921C38B9A0099BB1E /* UserReplyViewModel.swift in Sources */,
 				A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */,
 				A36EAFCB219FEEB2000DA4A3 /* V2Tab.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
@@ -626,6 +628,7 @@
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
 				A36EAFCD219FEEDB000DA4A3 /* Topic.swift in Sources */,
+				A317CF1721C388EE0099BB1E /* UserTopicViewModel.swift in Sources */,
 				A36EAFD1219FEF46000DA4A3 /* Reply.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A37F193421A2B671001BCC0A /* Utility.swift in Sources */,
@@ -653,7 +656,6 @@
 				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,
 				A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
-				A336980921B6AD2700F1B808 /* UserReplyListViewController.swift in Sources */,
 				A3DCB08F21BCD822005FD955 /* MainNavigationController.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
 				A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */,

@@ -126,6 +126,18 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
+    @objc private func handleViewAllButtonTapped(_ sender: UIButton) {
+        if sender.tag == 0 {
+            let viewModel = UserTopicViewModel(username: username, avatarURL: profile?.info?.avatarURL)
+            let controller = ListViewController(viewModel: viewModel)
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let viewModel = UserReplyViewModel(username: username, avatarURL: profile?.info?.avatarURL)
+            let controller = ListViewController(viewModel: viewModel)
+            navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -196,6 +208,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         let viewAllButton = UIButton(type: .system)
+        viewAllButton.tag = section
         viewAllButton.setTitle("See all", for: .normal)
         viewAllButton.setTitleColor(Theme.current.titleColor, for: .normal)
         header.addSubview(viewAllButton)
@@ -203,6 +216,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-20)
         }
+        viewAllButton.addTarget(self, action: #selector(handleViewAllButtonTapped(_:)), for: .touchUpInside)
         
         return header
     }

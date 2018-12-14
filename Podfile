@@ -14,5 +14,4 @@ target 'V2EX' do
     pod 'WCDB.swift'
     pod 'MBProgressHUD'
     pod 'FDFullscreenPopGesture'
-    pod 'DateToolsSwift'
 end

@@ -65,8 +65,10 @@ struct TabParser: HTMLParser {
                     let end = html.index(html.startIndex, offsetBy: r.location + r.length - 1)
                     let once = html[start...end]
                     V2SDK.once = String(once)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                        V2SDK.dailyMission()
+                    if html.contains("/mission/daily") {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            V2SDK.dailyMission()
+                        }
                     }
                 }
             }
@@ -474,7 +476,7 @@ struct BalanceParser: HTMLParser {
             let list = line.children().array()
             if list.count == 5 {
                 var balance = Balance()
-                balance.time = try line.select("small.gray").text()
+                balance.time = try line.select("small.gray").text().replacingOccurrences(of: " +08:00", with: "")
                 balance.title = try list[1].text()
                 balance.total = try list[4].text()
                 balance.value = try line.select("strong").text()
@@ -510,4 +512,48 @@ struct NotificationParser: HTMLParser {
         }
         return response as? T
     }
+}
+
+struct UserTopicsParser: HTMLParser {
+    
+    static var avatarURL: URL?
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        var response: ListResponse<Topic> = ListResponse()
+        if let max = try doc.select("input.page_input").first()?.attr("max") {
+            response.page = Int(max) ?? 1
+        }
+        
+        let cells = try doc.select("div.cell")
+        for cell in cells {
+            if !cell.hasClass("cell item") {
+                continue
+            }
+            let topic = NodeTopicsParser.parseTopicListCell(cell)
+            topic.avatar = avatarURL
+            response.list.append(topic)
+        }
+        return response as? T
+    }
+}
+
+struct UserRepliesParser: HTMLParser {
+    
+    static var username: String?
+    static var avatarURL: URL?
+    
+    static func handle<T>(_ doc: Document) throws -> T? {
+        var response: ListResponse<UserProfileComment> = ListResponse()
+        if let max = try doc.select("input.page_input").first()?.attr("max") {
+            response.page = Int(max) ?? 1
+        }
+        let comments = try MemberProfileParser.parseUserReplies(doc)
+        for comment in comments {
+            comment.username = username
+            comment.avatarURL = avatarURL
+        }
+        response.list = comments
+        return response as? T
+    }
+    
 }

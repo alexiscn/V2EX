@@ -214,3 +214,10 @@ class TimelineViewCell: UITableViewCell {
     }
     
 }
+
+extension TimelineViewCell: ListViewCell {
+    func update(_ model: DataType) {
+        guard let topic = model as? Topic else { return }
+        update(topic)
+    }
+}

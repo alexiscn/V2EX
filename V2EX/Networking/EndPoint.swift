@@ -60,6 +60,16 @@ extension EndPoint {
         return EndPoint(path: path)
     }
     
+    static func memberTopics(_ username: String, page: Int) -> EndPoint {
+        let path = "/member/\(username)/topics?p=\(page)"
+        return EndPoint(path: path)
+    }
+    
+    static func memberReplies(_ username: String, page: Int) -> EndPoint {
+        let path = "/member/\(username)/replies?p=\(page)"
+        return EndPoint(path: path)
+    }
+    
     static func node(_ node: String, page: Int = 1) -> EndPoint {
         let path = "/go/\(node)?p=\(page)"
         return EndPoint(path: path)
