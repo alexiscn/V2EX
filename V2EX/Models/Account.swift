@@ -21,7 +21,7 @@ struct DailyMission {
     var message: String?
 }
 
-struct Balance {
+struct Balance: DataType {
     
     var title: String?
     

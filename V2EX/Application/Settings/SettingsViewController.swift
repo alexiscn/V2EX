@@ -90,7 +90,7 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupAbouts() {
-        let sourceCode = SettingTableModel(title: "Source Code", value: .actionCommand { [weak self] in
+        let sourceCode = SettingTableModel(title: Strings.SettingsSourceCode, value: .actionCommand { [weak self] in
             let url = URL(string: "https://github.com/alexiscn/V2EX")!
             let controller = SFSafariViewController(url: url)
             self?.present(controller, animated: true, completion: nil)

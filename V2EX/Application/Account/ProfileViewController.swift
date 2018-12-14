@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,5 +21,18 @@ class ProfileViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    private func balance() {
+        
+        let viewModel = BalanceViewModel()
+        let controller = ListViewController(vm: viewModel)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func notifications() {
+        let vm = NotificationsViewModel()
+        let controller = ListViewController(vm: vm)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

@@ -63,18 +63,3 @@ extension ListViewModel {
         }
     }
 }
-
-class NotificationsViewModel: ListViewModel {
-    
-    typealias DataType = MessageNotification
-    
-    var dataSouce: [MessageNotification] = []
-    
-    var cellClass: UITableViewCell.Type { return NotificationViewCell.self }
-    
-    var currentPage: Int = 1
-    
-    var endPoint: EndPoint { return EndPoint.notifications(page: currentPage) }
-    
-    var apiParser: HTMLParser.Type { return NotificationParser.self }
-}

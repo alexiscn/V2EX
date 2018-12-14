@@ -82,6 +82,7 @@ extension Strings {
     static var SettingsViewOptions: String { return NSLocalizedString("Settings.ViewOptions", value: "View options", comment: "浏览偏好设置") }
     static var SettingsAutoRefresh: String { return NSLocalizedString("Settings.AutoRefresh", value: "Auto Refresh On Launch", comment: "自动刷新列表") }
     static var SettingsEnableFullGesture: String { return NSLocalizedString("Settings.EnableFullGesture", value: "Fullscreen gesture to back", comment: "全屏返回手势") }
+    static var SettingsSourceCode: String { return NSLocalizedString("Settings.SourceCode", value: "Source code", comment: "项目源代码") }
     static var SettingsOpenSource: String { return NSLocalizedString("Settings.OpenSource", value: "Open Source", comment: "开源项目") }
     static var SettingsAbout: String { return NSLocalizedString("About", comment: "关于") }
     static var SettingsReleaseNotes: String { return NSLocalizedString("Settings.ReleaseNotes", value: "Release notes", comment: "更新记录") }

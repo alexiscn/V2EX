@@ -64,6 +64,8 @@ if __name__ == '__main__':
     for language in languages:
         if len(language) > 4 and language[-5:] == "lproj":        
             lang = language[:(len(language) -6)]
+            if lang == "Base":
+                continue
 
             folder_path = os.path.join(LANGUAGES_PATH, language)    
             old_file_path = os.path.join(folder_path, 'Localizable.strings')

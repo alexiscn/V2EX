@@ -139,8 +139,8 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func avatarButtonTapped(_ sender: Any) {
-        if AppContext.current.isLogined, let username = AppContext.current.account?.username {
-            let userVC = UserProfileViewController(username: username)
+        if AppContext.current.isLogined {
+            let userVC = ProfileViewController()
             navigationController?.pushViewController(userVC, animated: true)
         } else {
             let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
