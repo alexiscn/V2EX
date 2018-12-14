@@ -139,6 +139,9 @@
 /* 更新记录 */
 "Settings.ReleaseNotes" = "Release notes";
 
+/* 项目源代码 */
+"Settings.SourceCode" = "Source code";
+
 /* 浏览偏好设置 */
 "Settings.ViewOptions" = "View options";
 

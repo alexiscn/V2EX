@@ -25,7 +25,6 @@ def translate(language):
         pass
     else:
         new_strings = localization.parse_file(old_file_path)
-        print new_strings
         for key, new_string in new_strings.iteritems():
             new_string.value = new_string.comment
             
