@@ -52,8 +52,6 @@ class V2SDK {
     
     static var shouldParseAccount: Bool = true
     
-    static var shouldRequestDailyMisson = true
-    
     static var once: String? = nil
     
     class func setup() {
@@ -65,9 +63,10 @@ class V2SDK {
         return URL(string: urlString)!
     }
     
-    class func request<T>(_ endPoint: EndPoint, parser: HTMLParser.Type, completion: @escaping RequestCompletionHandler<T>) {
-        let dataResponse = Alamofire.request(endPoint)
-        dataResponse.responseString { response in
+    @discardableResult
+    class func request<T>(_ endPoint: EndPoint, parser: HTMLParser.Type, completion: @escaping RequestCompletionHandler<T>) -> DataRequest {
+        let dataRequest = Alamofire.request(endPoint)
+        dataRequest.responseString { response in
             guard let html = response.value else {
                 completion(V2Response.error(.severNotFound))
                 return
@@ -91,6 +90,7 @@ class V2SDK {
                 completion(V2Response.error(.parseHTMLError))
             }
         }
+        return dataRequest
     }
     
     public class func getAllNodes(completion: @escaping GenericNetworkingCompletion<Int>) {
@@ -99,7 +99,6 @@ class V2SDK {
     }
     
     public class func dailyMission() {
-        if !shouldRequestDailyMisson { return }
         guard let token = self.once else { return }
 
         request(EndPoint.dailyMission(once: token), parser: DailyMissionParser.self) { (response: V2Response<DailyMission>) in
@@ -108,7 +107,6 @@ class V2SDK {
                 if let msg = mission.message {
                     HUD.show(message: msg)
                 }
-                V2SDK.shouldRequestDailyMisson = false
             case .error(let error):
                 print(error.description)
             }

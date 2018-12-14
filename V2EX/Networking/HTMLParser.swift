@@ -50,13 +50,13 @@ struct TabParser: HTMLParser {
             }
             V2SDK.shouldParseHotNodes = false
         }
+        let html = try doc.html()
         if V2SDK.shouldParseAccount {
             if let account: Account? = try AccountInfoParser.handle(doc) {
                 AppContext.current.account = account
                 NotificationCenter.default.post(name: NSNotification.Name.V2.AccountUpdated, object: nil)
+                V2SDK.shouldParseAccount = false
             }
-            V2SDK.shouldParseAccount = false
-            let html = try doc.html()
             if let regex = try? NSRegularExpression(pattern: "signout\\?once=(\\d+)", options: NSRegularExpression.Options.caseInsensitive) {
                 let range = NSRange(location: 0, length: html.utf16.count)
                 if let result = regex.firstMatch(in: html, options: .withoutAnchoringBounds, range: range) {
@@ -65,12 +65,12 @@ struct TabParser: HTMLParser {
                     let end = html.index(html.startIndex, offsetBy: r.location + r.length - 1)
                     let once = html[start...end]
                     V2SDK.once = String(once)
-                    if html.contains("/mission/daily") {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            V2SDK.dailyMission()
-                        }
-                    }
                 }
+            }
+        }
+        if html.contains("/mission/daily") {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                V2SDK.dailyMission()
             }
         }
         
