@@ -93,7 +93,6 @@ struct OnceTokenParser: HTMLParser {
         }
         throw V2Error.parseHTMLError
     }
-    
 }
 
 /// 登录HTML解析
@@ -126,8 +125,13 @@ struct DailyMissionParser: HTMLParser {
         if html.contains("奖励已领取") {
             return DailyMission(message: nil) as? T
         }
-        let msg = try doc.select("div.message").first()?.text().trimmingCharacters(in: .whitespaces)
-        return DailyMission(message: msg) as? T
+        let mainDiv = try doc.select("div#Main")
+        let boxDiv = try mainDiv.select("div.box")
+        if let info = try boxDiv.select("div").last()?.text().trimmingCharacters(in: .whitespaces) {
+            let message = "每日登录奖励领取成功\n\(info)"
+            return DailyMission(message: message) as? T
+        }
+        return DailyMission(message: "每日登录奖励领取成功") as? T
     }
 }
 
@@ -310,34 +314,9 @@ struct TopicReplyParser: HTMLParser {
             reply.avatarURL = avatarURLWithSource(avatarSrc)
             reply.content = try cell.select("div.reply_content").text()
             reply.contentHTML = try cell.select("div.reply_content").html()
-            
-//            let body = NSMutableAttributedString()
-//            if let replyContent = try cell.select("div.reply_content").first() {
-//                
-//                let nodes = replyContent.getChildNodes()
-//                
-//                for node in nodes {
-//                    if let textNode = node as? TextNode {
-//                        body.append(NSAttributedString(string: textNode.text()))
-//                    } else if let element = node as? Element {
-//                        switch element.tagName() {
-//                        case "br":
-//                            body.append(NSAttributedString(string: "\n"))
-//                        case "a":
-//                            print("aaaaa")
-//                            print(try element.outerHtml())
-//                        case "img":
-//                            print("img")
-//                            print(try element.outerHtml())
-//                        default:
-//                            print(element.tagName())
-//                            print(try element.outerHtml())
-//                            break
-//                        }
-//                    }
-//                }
-//            }
-            
+            if let replyContent = try cell.select("div.reply_content").first() {
+                reply.contentAttributedString = parseContentCell(replyContent)
+            }
             reply.timeAgo = try cell.select("span.ago").text()
             let userLink = try cell.select("a.dark")
             reply.username = try userLink.text()
@@ -349,6 +328,88 @@ struct TopicReplyParser: HTMLParser {
             replyList.append(reply)
         }
         return replyList as? T
+    }
+    
+    static func parseContentCell(_ replyContent: Element) -> NSMutableAttributedString {
+        
+        func textString(_ text: String) -> NSAttributedString {
+            let attributedString = NSAttributedString(string: text, attributes: [
+                .foregroundColor: Theme.current.titleColor, .font: UIFont.systemFont(ofSize: 14)])
+            return attributedString
+        }
+        
+        func linkString(_ linkURL: NSURL, content: String) -> NSAttributedString {
+            let link = NSAttributedString(string: content, attributes: [
+                .link: linkURL,
+                .foregroundColor: Theme.current.linkColor,
+                .font: UIFont.systemFont(ofSize: 14)])
+            return link
+        }
+        
+        func mention(username: String) -> NSAttributedString {
+            let URL = NSURL(string: V2SDK.baseURLString + "/member/" + username)!
+            let link = NSAttributedString(string: username, attributes: [
+                .link: URL,
+                .foregroundColor: Theme.current.subTitleColor,
+                .font: UIFont.systemFont(ofSize: 14)])
+            return link
+        }
+        
+        let body = NSMutableAttributedString()
+        do {
+            let nodes = replyContent.getChildNodes()
+            for node in nodes {
+                if let textNode = node as? TextNode {
+                    body.append(textString(textNode.text()))
+                } else if let element = node as? Element {
+                    switch element.tagName() {
+                    case "br":
+                        body.append(textString("\n"))
+                    case "a":
+                        let href = try element.attr("href")
+                        let content = try element.text()
+                        if href.hasPrefix("/member/") {
+                            body.append(mention(username: content))
+                        } else {
+                            if content.hasPrefix("http") {
+                                if let url = NSURL(string: href) {
+                                    body.append(linkString(url, content: content))
+                                } else {
+                                    body.append(textString(content))
+                                }
+                            } else {
+                                print(try element.outerHtml())
+                                print(href)
+                            }
+                        }
+                    case "img":
+                        let imageSrc = try element.attr("src")
+                        if imageSrc.hasPrefix("http") {
+//                            let attachment = NSTextAttachment()
+//                            attachment.bounds = CGRect(x: 0, y: 0, width: 100.0, height: 80.0)
+//                            let imageString = NSAttributedString(attachment: attachment)
+//                            body.append(imageString)
+                            let link = NSAttributedString(string: imageSrc, attributes: [
+                                .link: NSURL(string: imageSrc)!,
+                                .foregroundColor: Theme.current.linkColor,
+                                .font: UIFont.systemFont(ofSize: 14)])
+                            body.append(link)
+                        }
+                        
+                        print("img")
+                        print(try element.outerHtml())
+                    default:
+                        print(element.tagName())
+                        print(try element.outerHtml())
+                        break
+                    }
+                }
+            }
+        } catch {
+            print(error)
+        }
+        
+        return body
     }
 }
 

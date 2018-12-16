@@ -96,6 +96,10 @@ enum Theme: Int {
         }
     }
     
+    var linkColor: UIColor {
+        return UIColor(red: 20.0/255, green: 126.0/255, blue: 251.0/255, alpha: 1.0)
+    }
+    
     func webViewStyle() -> String {
         var style = loadStyle(name: "style")
         switch self {

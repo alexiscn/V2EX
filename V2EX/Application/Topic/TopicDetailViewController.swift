@@ -312,6 +312,10 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                     self?.navigationController?.pushViewController(controller, animated: true)
                 }
             }
+            cell.mentionUserTappedHandler = { [weak self] username in
+                let controller = UserProfileViewController(username: username)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
             return cell
         }
     }

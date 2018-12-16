@@ -15,6 +15,8 @@ class TopicCommentViewCell: UITableViewCell {
 
     var userTappedHandler: RelayCommand?
     
+    var mentionUserTappedHandler: ((_ username: String) -> Void)?
+    
     private let containerView: UIView
     
     private let avatarButton: UIButton
@@ -75,6 +77,7 @@ class TopicCommentViewCell: UITableViewCell {
         contentTextView.isScrollEnabled = false
         contentTextView.font = UIFont.systemFont(ofSize: 14)
         contentTextView.textColor = Theme.current.titleColor
+        contentTextView.linkTextAttributes = [:]
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         contentView.addSubview(containerView)
@@ -157,7 +160,8 @@ class TopicCommentViewCell: UITableViewCell {
         usernameButton.setTitle(reply.username, for: .normal)
         avatarButton.kf.setBackgroundImage(with: reply.avatarURL, for: .normal)
         avatarButton.isHidden = !AppSettings.shared.displayAvatar
-        contentTextView.text = reply.content
+//        contentTextView.text = reply.content
+        contentTextView.attributedText = reply.contentAttributedString
         timeAgoLabel.text = reply.timeAgo
         likesLabel.text = reply.likesInfo
         if let floor = reply.floor {
@@ -182,10 +186,11 @@ class TopicCommentViewCell: UITableViewCell {
         if !AppSettings.shared.displayAvatar {
             width += 44
         }
-        if let title = reply.content {
+        if let content = reply.contentAttributedString {
             let maxSize = CGSize(width: width, height: CGFloat.infinity)
-            let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
-            let height = 38 + rect.height + 9 + 6 // 38: top, 9: bottom
+            //let rect = content.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
+            let rect = content.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+            let height = 38 + rect.height + 9 + 4 // 38: top, 9: bottom
             reply._rowHeight = height
             return height
         }
@@ -201,6 +206,12 @@ extension TopicCommentViewCell: UITextViewDelegate {
 //            
 //            return false
 //        }
+        let memberPrefix = "https://www.v2ex.com/member/"
+        if URL.absoluteString.hasPrefix(memberPrefix) {
+            let username = URL.absoluteString.replacingOccurrences(of: memberPrefix, with: "")
+            mentionUserTappedHandler?(username)
+            return false
+        }
         presentSafariViewController(url: URL)
         return false
     }

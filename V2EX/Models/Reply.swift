@@ -35,6 +35,8 @@ class Reply: TableCodable {
     
     var contentHTML: String? = nil
     
+    var contentAttributedString: NSAttributedString? = nil
+    
     var likesInfo: String? = nil
     
     var floor: String? = nil
