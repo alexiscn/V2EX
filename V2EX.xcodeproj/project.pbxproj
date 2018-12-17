@@ -16,6 +16,8 @@
 		A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70921A6B51100618AD5 /* SettingTableModel.swift */; };
 		A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */; };
 		A31F9C4C21BFD78E00AD9846 /* NotificationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */; };
+		A333759521C76DEC0008085F /* CommentInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333759421C76DEC0008085F /* CommentInputTextView.swift */; };
+		A333759721C76E190008085F /* CommentInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333759621C76E190008085F /* CommentInputBar.swift */; };
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
 		A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */; };
@@ -93,6 +95,8 @@
 		A31DF70921A6B51100618AD5 /* SettingTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableModel.swift; sourceTree = "<group>"; };
 		A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewCell.swift; sourceTree = "<group>"; };
 		A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewCell.swift; sourceTree = "<group>"; };
+		A333759421C76DEC0008085F /* CommentInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputTextView.swift; sourceTree = "<group>"; };
+		A333759621C76E190008085F /* CommentInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputBar.swift; sourceTree = "<group>"; };
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
@@ -276,6 +280,8 @@
 				A358548320E1D51600C76393 /* TopicDetailViewController.swift */,
 				A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */,
 				A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */,
+				A333759421C76DEC0008085F /* CommentInputTextView.swift */,
+				A333759621C76E190008085F /* CommentInputBar.swift */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -624,6 +630,7 @@
 				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
 				A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */,
+				A333759721C76E190008085F /* CommentInputBar.swift in Sources */,
 				A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
@@ -648,6 +655,7 @@
 				A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */,
 				A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */,
 				A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */,
+				A333759521C76DEC0008085F /* CommentInputTextView.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */,
 				A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */,

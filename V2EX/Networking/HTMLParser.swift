@@ -122,7 +122,7 @@ struct DailyMissionParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
         let html = try doc.html()
-        if html.contains("奖励已领取") {
+        if !html.contains("已成功领取每日登录奖励") {
             return DailyMission(message: nil) as? T
         }
         let mainDiv = try doc.select("div#Main")
