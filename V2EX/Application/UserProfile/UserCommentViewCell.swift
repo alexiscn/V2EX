@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserCommentViewCell: UITableViewCell {
+class UserCommentViewCell: UITableViewCell, ListViewCell {
     
     var topicHandler: RelayCommand?
     
@@ -123,6 +123,7 @@ class UserCommentViewCell: UITableViewCell {
     func update(_ comment: UserProfileComment) {
         
         avatarImageView.kf.setImage(with: comment.avatarURL)
+        avatarImageView.isHidden = !AppSettings.shared.displayAvatar
         usernameLabel.text = comment.username
         timeAgoLabel.text = comment.timeAgo
         
@@ -132,6 +133,11 @@ class UserCommentViewCell: UITableViewCell {
             topicButton.setTitle(text, for: .normal)
             topicTitle = text
         }
+    }
+    
+    func update(_ model: DataType) {
+        guard let comment = model as? UserProfileComment else { return }
+        update(comment)
     }
     
     class func heightForComment(_ comment: inout UserProfileComment) -> CGFloat {

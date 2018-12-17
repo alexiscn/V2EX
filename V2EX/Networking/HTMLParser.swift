@@ -378,6 +378,11 @@ struct TopicReplyParser: HTMLParser {
                                     body.append(textString(content))
                                 }
                             } else {
+                                if content.hasPrefix("/t/") {
+                                    if let url = NSURL(string: V2SDK.baseURLString.appending(content)) {
+                                        body.append(linkString(url, content: content))
+                                    }
+                                }
                                 print(try element.outerHtml())
                                 print(href)
                             }
