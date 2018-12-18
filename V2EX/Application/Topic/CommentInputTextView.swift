@@ -45,7 +45,7 @@ class CommentInputTextView: UITextView {
         allowsEditingTextAttributes = false
         isScrollEnabled = false
         backgroundColor = .clear
-        textContainerInset = UIEdgeInsets(top: 22, left: 12, bottom: 22, right: 12)
+        textContainerInset = UIEdgeInsets(top: 14, left: 12, bottom: 14, right: 12)
         returnKeyType = .send
         enablesReturnKeyAutomatically = true
         
@@ -55,4 +55,6 @@ class CommentInputTextView: UITextView {
             make.centerY.equalToSuperview()
         }
     }
+    
+    
 }

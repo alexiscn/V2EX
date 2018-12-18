@@ -280,8 +280,8 @@
 				A358548320E1D51600C76393 /* TopicDetailViewController.swift */,
 				A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */,
 				A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */,
-				A333759421C76DEC0008085F /* CommentInputTextView.swift */,
 				A333759621C76E190008085F /* CommentInputBar.swift */,
+				A333759421C76DEC0008085F /* CommentInputTextView.swift */,
 			);
 			path = Topic;
 			sourceTree = "<group>";

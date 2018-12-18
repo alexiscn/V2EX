@@ -22,6 +22,15 @@ class TopicDetailViewController: UIViewController {
     fileprivate var currentPage = 1
     fileprivate var viewAuthorOnly = false
     fileprivate var webViewHeightCaculated = false
+    fileprivate var inputBar = CommentInputBar()
+    
+    override var inputAccessoryView: UIView? {
+        return inputBar
+    }
+    
+    override var canBecomeFirstResponder: Bool {
+        return true
+    }
 
     init(url: URL?, title: String?) {
         topicURL = url
@@ -219,11 +228,13 @@ class TopicDetailViewController: UIViewController {
 
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
         tableView.backgroundColor = .clear
         tableView.separatorColor = Theme.current.cellHighlightColor
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
+        tableView.keyboardDismissMode = .onDrag
         
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             self?.loadTopicDetail()
