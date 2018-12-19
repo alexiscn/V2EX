@@ -133,13 +133,6 @@ class ThemeManager {
             Theme.current = .dark
         }
         AppSettings.shared.theme = Theme.current.rawValue
-        
-        for window in UIApplication.shared.windows {
-            for view in window.subviews {
-                view.removeFromSuperview()
-                window.addSubview(view)
-            }
-        }
         NotificationCenter.default.post(name: NSNotification.Name.V2.ThemeUpdated, object: nil)
     }
     
