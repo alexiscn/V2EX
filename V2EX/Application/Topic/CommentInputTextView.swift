@@ -19,9 +19,9 @@ class CommentInputTextView: UITextView {
     
     var placeholderLabel: UILabel = {
         let label = UILabel()
-        label.textColor = UIColor(red: 204.0/255, green: 204.0/255, blue: 204.0/255, alpha: 1.0)
+        label.textColor = Theme.current.subTitleColor
         label.font = UIFont.systemFont(ofSize: 15)
-        label.text = "说点什么吧"
+        label.text = "添加一条新回复"
         return label
     }()
     
@@ -48,6 +48,7 @@ class CommentInputTextView: UITextView {
         textContainerInset = UIEdgeInsets(top: 14, left: 12, bottom: 14, right: 12)
         returnKeyType = .send
         enablesReturnKeyAutomatically = true
+        textColor = Theme.current.titleColor
         
         addSubview(placeholderLabel)
         placeholderLabel.snp.makeConstraints { make in
@@ -56,5 +57,7 @@ class CommentInputTextView: UITextView {
         }
     }
     
-    
+    func updatePlaceholder(_ text: String) {
+        placeholderLabel.text = text
+    }
 }

@@ -52,6 +52,7 @@ class TopicDetailViewController: UIViewController {
         setupTableView()
         loadTopicDetail()
         setupLongPressGesture()
+        inputBar.delegate = self
     }
     
     private func setupLongPressGesture() {
@@ -327,6 +328,11 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 let controller = UserProfileViewController(username: username)
                 self?.navigationController?.pushViewController(controller, animated: true)
             }
+            cell.mentionHandler = { [weak self, weak reply] in
+                if let name = reply?.username {
+                    self?.inputBar.appendMention(text: "@\(name) ")
+                }
+            }
             return cell
         }
     }
@@ -346,5 +352,16 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+}
+
+extension TopicDetailViewController: CommentInputBarDelegate {
+    
+    func inputBar(_ inputBar: CommentInputBar, didSendText text: String) {
+        
+    }
+    
+    func inputBarDidPressedPhotoButton() {
+        
     }
 }

@@ -70,9 +70,15 @@ class ActionSheet: UIView, UIGestureRecognizerDelegate {
     }
     
     public func show() {
+        
+        // find the most top Window to hold the actionsheet.
+        guard let win = UIApplication.shared.windows.sorted(by: { $0.windowLevel > $1.windowLevel }).first else {
+            return
+        }
+        
         buildUI()
         UIView.animate(withDuration: 0.1, animations: {
-            UIApplication.shared.keyWindow?.addSubview(self)
+            win.addSubview(self)
         }) { _ in
             UIView.animate(withDuration: 0.3) {
                 self.backgroundView.alpha = 1.0

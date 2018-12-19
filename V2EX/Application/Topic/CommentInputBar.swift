@@ -32,13 +32,13 @@ class CommentInputBar: UIView, UITextViewDelegate {
     
     private var topLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 238.0/255, green: 238.0/255, blue: 238.0/255, alpha: 1.0)
+        view.backgroundColor = Theme.current.backgroundColor
         return view
     }()
     
     var backgroundView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 251.0/255, green: 251.0/255, blue: 251.0/255, alpha: 1.0)
+        view.backgroundColor = Theme.current.cellBackgroundColor
         return view
     }()
     
@@ -56,7 +56,7 @@ class CommentInputBar: UIView, UITextViewDelegate {
         let button = UIButton(type: .system)
         button.frame.size = CGSize(width: 24, height: 24)
         button.setImage(UIImage(named: "add_photo"), for: .normal)
-        button.tintColor = UIColor(red: 153.0/255, green: 153.0/255, blue: 153.0/255, alpha: 1.0)
+        button.tintColor = Theme.current.subTitleColor
         return button
     }()
     
@@ -144,7 +144,7 @@ class CommentInputBar: UIView, UITextViewDelegate {
     }
     
     @objc private func handleAddPhotoButtonTapped(_ sender: Any) {
-        
+        delegate?.inputBarDidPressedPhotoButton()
     }
     
     @objc private func handleTextViewDidChanged(_ notification: Notification) {
@@ -154,6 +154,10 @@ class CommentInputBar: UIView, UITextViewDelegate {
         if shouldInvalidateIntrinsicContentSize {
             invalidateIntrinsicContentSize()
         }
+    }
+    
+    func appendMention(text: String) {
+        inputTextView.text.append(text)
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

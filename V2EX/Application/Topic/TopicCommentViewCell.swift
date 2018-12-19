@@ -15,13 +15,15 @@ class TopicCommentViewCell: UITableViewCell {
 
     var userTappedHandler: RelayCommand?
     
+    var mentionHandler: RelayCommand?
+    
     var mentionUserTappedHandler: ((_ username: String) -> Void)?
     
     private let containerView: UIView
     
     private let avatarButton: UIButton
     
-    private let floorLabel: UILabel
+    private let floorButton: UIButton
     
     private let usernameButton: UIButton
     
@@ -47,9 +49,10 @@ class TopicCommentViewCell: UITableViewCell {
         avatarButton.layer.cornerRadius = 5.0
         avatarButton.layer.masksToBounds = true
         
-        floorLabel = UILabel()
-        floorLabel.font = UIFont.systemFont(ofSize: 11)
-        floorLabel.textColor = Theme.current.subTitleColor
+        floorButton = UIButton(type: .system)
+        floorButton.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        floorButton.setTitleColor(Theme.current.subTitleColor, for: .normal)
+        floorButton.contentEdgeInsets = UIEdgeInsets(top: 4, left: 8, bottom: 4, right: 12)
         
         usernameButton = UIButton(type: .system)
         usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
@@ -86,7 +89,7 @@ class TopicCommentViewCell: UITableViewCell {
         containerView.addSubview(timeAgoLabel)
         containerView.addSubview(likesLabel)
         containerView.addSubview(ownerLabel)
-        containerView.addSubview(floorLabel)
+        containerView.addSubview(floorButton)
         containerView.addSubview(contentTextView)
         
         containerView.snp.makeConstraints { make in
@@ -122,9 +125,9 @@ class TopicCommentViewCell: UITableViewCell {
             make.leading.equalTo(likesLabel.snp.trailing).offset(5)
         }
         
-        floorLabel.snp.makeConstraints { make in
+        floorButton.snp.makeConstraints { make in
             make.centerY.equalTo(usernameButton)
-            make.trailing.equalToSuperview().offset(-12)
+            make.trailing.equalToSuperview()
         }
         
         contentTextView.snp.makeConstraints { make in
@@ -142,6 +145,11 @@ class TopicCommentViewCell: UITableViewCell {
         
         avatarButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
         usernameButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
+        floorButton.addTarget(self, action: #selector(floorButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func floorButtonTapped(_ sender: Any) {
+        mentionHandler?()
     }
     
     @objc private func usernameButtonTapped(_ sender: Any) {
@@ -165,7 +173,7 @@ class TopicCommentViewCell: UITableViewCell {
         timeAgoLabel.text = reply.timeAgo
         likesLabel.text = reply.likesInfo
         if let floor = reply.floor {
-            floorLabel.text = "\(floor)楼"
+            floorButton.setTitle("\(floor)楼", for: .normal)
         }
         if reply.isTopicAuthor {
             ownerLabel.isHidden = false
@@ -203,7 +211,6 @@ extension TopicCommentViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
 //        if URL.absoluteString.hasPrefix("https://www.v2ex.com/t") || URL.absoluteString.hasPrefix("https://v2ex.com/t") {
-//            
 //            return false
 //        }
         let memberPrefix = "https://www.v2ex.com/member/"
