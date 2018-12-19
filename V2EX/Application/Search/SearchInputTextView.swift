@@ -42,13 +42,11 @@ class SearchInputTextView: UITextView {
     private func commonInit() {
         font = UIFont.systemFont(ofSize: 15)
         
-        layer.cornerRadius = 20.0
-        
         allowsEditingTextAttributes = false
         isScrollEnabled = false
         backgroundColor = Theme.current.cellBackgroundColor
         textContainerInset = UIEdgeInsets(top: 12, left: 12, bottom: 13, right: 12)
-        returnKeyType = .send
+        returnKeyType = .search
         enablesReturnKeyAutomatically = true
         textColor = Theme.current.titleColor
         

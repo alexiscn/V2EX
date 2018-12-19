@@ -35,11 +35,11 @@ class SearchViewCell: UITableViewCell {
         contentLabel.textColor = Theme.current.subTitleColor
         
         usernameButton = UIButton(type: .system)
-        usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
         usernameButton.setTitleColor(Theme.current.titleColor, for: .normal)
         
         timeLabel = UILabel()
-        timeLabel.font = UIFont.systemFont(ofSize: 11)
+        timeLabel.font = UIFont.systemFont(ofSize: 13)
         timeLabel.textColor = Theme.current.subTitleColor
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -60,7 +60,7 @@ class SearchViewCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(12)
-            make.top.equalToSuperview().offset(5)
+            make.top.equalToSuperview().offset(10)
             make.trailing.equalToSuperview().offset(-12)
         }
         
@@ -72,7 +72,7 @@ class SearchViewCell: UITableViewCell {
         
         usernameButton.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(12)
-            make.bottom.equalToSuperview().offset(-5)
+            make.bottom.equalToSuperview().offset(-10)
             make.top.equalTo(contentLabel.snp.bottom).offset(5)
         }
         
@@ -80,6 +80,10 @@ class SearchViewCell: UITableViewCell {
             make.centerY.equalTo(usernameButton)
             make.leading.equalTo(usernameButton.snp.trailing).offset(3)
         }
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Theme.current.cellHighlightColor
+        selectedBackgroundView = backgroundView
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -91,8 +95,7 @@ class SearchViewCell: UITableViewCell {
         let source = hit.source
         
         titleLabel.text = source.title
-        
-        var content = source.content
+        var content = source.content.replacingOccurrences(of: "\r\n", with: "")
         if content.count > 100 {
             content = content.subString(start: 0, length: 100).appending("......")
         }

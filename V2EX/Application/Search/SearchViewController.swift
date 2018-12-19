@@ -17,25 +17,34 @@ class SearchViewController: UIViewController {
     private var cancelButton: UIButton!
     private var tableView: UITableView!
     private var dataSource: [SearchHit] = []
+    private var headerView: SearchResultHeaderView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         view.backgroundColor = Theme.current.backgroundColor
+        configureNavigationBar()
         setupTableView()
         setupSearchTextField()
         setupCancelButton()
-        search()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        searchInputView.becomeFirstResponder()
+        if dataSource.count == 0 {
+            searchInputView.becomeFirstResponder()
+        }
         navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func setupSearchTextField() {
         searchInputView = SearchInputTextView()
+        searchInputView.layer.cornerRadius = 20.0
         searchInputView.delegate = self
         view.addSubview(searchInputView)
         
@@ -77,8 +86,11 @@ class SearchViewController: UIViewController {
         tableView.keyboardDismissMode = .onDrag
         tableView.register(SearchViewCell.self, forCellReuseIdentifier: NSStringFromClass(SearchViewCell.self))
         view.addSubview(tableView)
+        let resultHeader = SearchResultHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 30))
+        tableView.tableHeaderView = resultHeader
+        self.headerView = resultHeader
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
-            
+            self?.doSearch()
         })
         header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         header?.stateLabel.isHidden = true
@@ -87,7 +99,7 @@ class SearchViewController: UIViewController {
         tableView.mj_header = header
         
         let footer = MJRefreshAutoNormalFooter(refreshingBlock: { [weak self] in
-            
+            self?.doSearch(isLoadMore: true)
         })
         footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
         footer?.isRefreshingTitleHidden = true
@@ -107,11 +119,29 @@ class SearchViewController: UIViewController {
         dismissHandler?()
     }
     
-    private func search() {
-        V2SDK.search(key: "swift") { [weak self] response in
+    private func doSearch(isLoadMore: Bool = false) {
+        let keyword = searchInputView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        guard keyword.count > 0 else {
+            self.tableView.mj_header.endRefreshing()
+            return
+        }
+        
+        let from = isLoadMore ? dataSource.count: 0
+        V2SDK.search(key: keyword, from: from) { [weak self] response in
+            if isLoadMore {
+                self?.tableView.mj_footer.endRefreshing()
+            } else {
+                self?.tableView.mj_header.endRefreshing()
+            }
             switch response {
             case .success(let searchRes):
-                self?.dataSource = searchRes.hits
+                let text = String(format: "共计 %d 个结果，耗时 %d 毫秒", searchRes.total, searchRes.took)
+                self?.headerView?.updateText(text)
+                if isLoadMore {
+                    self?.dataSource.append(contentsOf: searchRes.hits)
+                } else {
+                    self?.dataSource = searchRes.hits
+                }
                 self?.tableView.reloadData()
                 self?.searchInputView.resignFirstResponder()
             case .error(let error):
@@ -135,7 +165,7 @@ extension SearchViewController: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-            // do search staffs
+            doSearch()
             return false
         }
         return true
@@ -156,8 +186,16 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let result = dataSource[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SearchViewCell.self), for: indexPath) as! SearchViewCell
         cell.backgroundColor = .clear
-        cell.selectionStyle = .none
         cell.update(result)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        let result = dataSource[indexPath.row].source
+        let url = URL(string: V2SDK.baseURLString.appending("/t/\(result.topicID)"))
+        let detailVC = TopicDetailViewController(url: url, title: result.title)
+        navigationController?.pushViewController(detailVC, animated:true)
     }
 }

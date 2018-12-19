@@ -20,6 +20,12 @@ extension V2SDK {
     public class func search(key: String, from: Int = 0, options: SearchOptions = SearchOptions.default, completion: @escaping GenericNetworkingCompletion<SearchResponse>) {
         var params: [String: Any] = [:]
         params["q"] = key
+        params["size"] = options.size
+        params["sort"] = options.sort.rawValue
+        params["from"] = from
+        if let node = options.node {
+            params["node"] = node
+        }
         GenericNetworking.getJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
     }
 }
@@ -27,7 +33,7 @@ extension V2SDK {
 
 public struct SearchOptions {
     /// 结果数量（默认 10）    0 - 50
-    var size: Int = 50
+    var size: Int = 30
     /// 结果排序方式（默认 sumup)    sumup（权重）, created（发帖时间）
     var sort: Sort = .sumup
     /// 升降序，sort 不为 sumup 时有效（默认 降序）    0（降序）, 1（升序）
@@ -54,7 +60,7 @@ public struct SearchOptions {
     }
     
     public static var `default`: SearchOptions {
-        return SearchOptions(size: 50, sort: .sumup, order: .descending, node: nil, operator: .or)
+        return SearchOptions(size: 30, sort: .sumup, order: .descending, node: nil, operator: .or)
     }
 }
 
