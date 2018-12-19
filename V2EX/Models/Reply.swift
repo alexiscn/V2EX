@@ -51,3 +51,8 @@ class Reply: TableCodable {
     
     init() { }
 }
+
+struct CommentResponse {
+    var success: Bool
+    var problem: String?
+}

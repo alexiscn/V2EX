@@ -25,6 +25,7 @@
 		A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F1E2221C0ACB500853704 /* BalanceViewCell.swift */; };
 		A33F1E2821C0EB0500853704 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A33F1E2A21C0EB0500853704 /* Localizable.strings */; };
 		A33F1E3621C11ED100853704 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F1E3521C11ED100853704 /* LanguageManager.swift */; };
+		A343CA9021C9F9C400285379 /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A343CA8F21C9F9C400285379 /* OperationResponse.swift */; };
 		A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6B21AB9BCD00ED2F88 /* Node.swift */; };
 		A34A5D7121ABBD4900ED2F88 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D7021ABBD4900ED2F88 /* AppContext.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
@@ -105,6 +106,7 @@
 		A33F1E2921C0EB0500853704 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		A33F1E2B21C0EB0900853704 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A33F1E3521C11ED100853704 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
+		A343CA8F21C9F9C400285379 /* OperationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationResponse.swift; sourceTree = "<group>"; };
 		A34A5D6B21AB9BCD00ED2F88 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		A34A5D7021ABBD4900ED2F88 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
@@ -332,6 +334,7 @@
 				A3DCB08221B2B270005FD955 /* LoginFormData.swift */,
 				A3DCB08421B392FA005FD955 /* Account.swift */,
 				A373C68521B505F000C919AD /* UserProfileResponse.swift */,
+				A343CA8F21C9F9C400285379 /* OperationResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -623,6 +626,7 @@
 				A36D0FB5219D81B500E20EFB /* V2SDK+Search.swift in Sources */,
 				A317CF1921C38B9A0099BB1E /* UserReplyViewModel.swift in Sources */,
 				A379E9BA210DCFE000FA2169 /* TopicDetailViewCell.swift in Sources */,
+				A343CA9021C9F9C400285379 /* OperationResponse.swift in Sources */,
 				A36EAFCB219FEEB2000DA4A3 /* V2Tab.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
 				A3DCB08921BB76A9005FD955 /* HUD.swift in Sources */,

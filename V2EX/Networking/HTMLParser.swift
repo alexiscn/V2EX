@@ -418,6 +418,14 @@ struct TopicReplyParser: HTMLParser {
     }
 }
 
+struct CommentParser: HTMLParser {
+    static func handle<T>(_ doc: Document) throws -> T? {
+        if let problem = try doc.select("div.problem").first()?.text() {
+            throw V2Error.commonError(problem)
+        }
+        return OperationResponse() as? T
+    }
+}
 
 /// 他人资料页面HTML解析
 struct MemberProfileParser: HTMLParser {

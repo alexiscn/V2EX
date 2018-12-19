@@ -20,6 +20,7 @@ enum V2Error: Error, CustomStringConvertible {
     case parseHTMLError
     case signInFailed
     case severNotFound
+    case commonError(String)
     
     var description: String {
         switch self {
@@ -33,6 +34,8 @@ enum V2Error: Error, CustomStringConvertible {
             return Strings.ServerSignInError
         case .severNotFound:
             return Strings.ServerNotFound
+        case .commonError(let msg):
+            return msg
         }
     }
 }

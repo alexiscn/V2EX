@@ -17,6 +17,7 @@ class TopicDetailViewController: UIViewController {
     fileprivate var allComments: [Reply] = []
     fileprivate var comments: [Reply] = []
     fileprivate var detail: TopicDetail?
+    
     fileprivate let topicURL: URL?
     fileprivate let titleString: String?
     fileprivate var currentPage = 1
@@ -31,10 +32,17 @@ class TopicDetailViewController: UIViewController {
     override var canBecomeFirstResponder: Bool {
         return true
     }
+    
+    fileprivate var topicID: String? {
+        guard let url = topicURL else {
+            return nil
+        }
+        return url.lastPathComponent
+    }
 
     init(url: URL?, title: String?) {
-        topicURL = url
-        titleString = title
+        self.topicURL = url
+        self.titleString = title
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -156,8 +164,8 @@ class TopicDetailViewController: UIViewController {
     
     private func loadTopicDetail() {
         webViewHeightCaculated = false
-        guard let url = topicURL else { return }
-        let topicID = url.lastPathComponent
+        guard let topicID = topicID else { return }
+        
         let endPoint = EndPoint.topicDetail(topicID)
         V2SDK.request(endPoint, parser: TopicDetailParser.self) { [weak self] (response: V2Response<TopicDetail>) in
             guard let strongSelf = self else { return }
@@ -184,13 +192,13 @@ class TopicDetailViewController: UIViewController {
     }
     
     private func loadMoreComments() {
-        guard let url = topicURL, let detail = detail else { return }
+        guard let topicID = topicID, let detail = detail else { return }
         if currentPage >= detail.page {
             setNoMoreData()
             return
         }
         currentPage += 1        
-        let endPoint = EndPoint.topicDetail(url.lastPathComponent, page: currentPage)
+        let endPoint = EndPoint.topicDetail(topicID, page: currentPage)
         V2SDK.request(endPoint, parser: TopicReplyParser.self) { [weak self] (response: V2Response<[Reply]>) in
             guard let strongSelf = self else { return }
             switch response {
@@ -358,7 +366,21 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
 extension TopicDetailViewController: CommentInputBarDelegate {
     
     func inputBar(_ inputBar: CommentInputBar, didSendText text: String) {
+        guard let topicID = topicID, let once = V2SDK.once else { return }
+        let comment = text.trimmingCharacters(in: CharacterSet.whitespaces)
+        if comment.count == 0 { return }
         
+        let endPoint = EndPoint.commentTopic(topicID, once: once, content: comment)
+        V2SDK.request(endPoint, parser: CommentParser.self) { [weak self] (response: V2Response<OperationResponse>) in
+            switch response {
+            case .success(_):
+                HUD.show(message: "评论成功")
+                self?.loadTopicDetail()
+            case .error(let error):
+                HUD.show(message: error.localizedDescription)
+            }
+            self?.inputBar.inputTextView.text = String()
+        }
     }
     
     func inputBarDidPressedPhotoButton() {

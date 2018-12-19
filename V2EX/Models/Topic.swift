@@ -25,6 +25,7 @@ class Topic: TableCodable, DataType {
         case nodeTitle
         case tab
         case lastUpdatedTime
+        case topicID
         
         static var columnConstraintBindings: [CodingKeys: ColumnConstraintBinding]? {
             return [:]
@@ -55,7 +56,10 @@ class Topic: TableCodable, DataType {
     
     var lastUpdatedTime: String? = nil
     
+    var topicID: String?
+    
     init() {
         
     }
+    
 }
