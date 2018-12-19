@@ -20,7 +20,7 @@ extension V2SDK {
     public class func search(key: String, from: Int = 0, options: SearchOptions = SearchOptions.default, completion: @escaping GenericNetworkingCompletion<SearchResponse>) {
         var params: [String: Any] = [:]
         params["q"] = key
-//        GenericNetworking.getJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
+        GenericNetworking.getJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
     }
 }
 
@@ -62,7 +62,7 @@ struct SearchResponse: Codable {
     /// 搜索过程耗时(ms)
     let took: Int
     /// 是否超时
-    let time_out: Bool
+    let timed_out: Bool
     /// 命中主题总数
     let total: Int
     /// 主题列表

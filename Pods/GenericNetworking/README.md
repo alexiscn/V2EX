@@ -8,7 +8,7 @@
 ## Features
 
 - [x] GET / POST Methods
-- [ ] Upload data
+- [x] Upload data
 
 ## Example
 

@@ -116,6 +116,18 @@ open class GenericNetworking {
         return requestJSON(path: path, method: .get, parameters: parameters, headers: headers, completion: completion)
     }
     
+    /// make a GET request
+    ///
+    /// - Parameters:
+    ///   - URLString: URLString
+    ///   - parameters: parameters
+    ///   - headers: headers
+    ///   - completion: completion callback
+    @discardableResult
+    public class func getJSON<T>(URLString: String, parameters: Parameters?, headers: HTTPHeaders?, completion: @escaping GenericNetworkingCompletion<T>) -> DataRequest {
+        return requestJSON(URLString: URLString, method: .get, parameters: parameters, headers: headers, completion: completion)
+    }
+    
     /// make a POST request
     ///
     /// - Parameters:
