@@ -168,7 +168,6 @@ class TopicCommentViewCell: UITableViewCell {
         usernameButton.setTitle(reply.username, for: .normal)
         avatarButton.kf.setBackgroundImage(with: reply.avatarURL, for: .normal)
         avatarButton.isHidden = !AppSettings.shared.displayAvatar
-//        contentTextView.text = reply.content
         contentTextView.attributedText = reply.contentAttributedString
         timeAgoLabel.text = reply.timeAgo
         likesLabel.text = reply.likesInfo
@@ -196,7 +195,6 @@ class TopicCommentViewCell: UITableViewCell {
         }
         if let content = reply.contentAttributedString {
             let maxSize = CGSize(width: width, height: CGFloat.infinity)
-            //let rect = content.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
             let rect = content.boundingRect(with: maxSize, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
             let height = 38 + rect.height + 9 + 4 // 38: top, 9: bottom
             reply._rowHeight = height

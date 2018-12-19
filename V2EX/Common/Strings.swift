@@ -58,6 +58,11 @@ extension Strings {
     static var AccountNamePlaceholder: String { return NSLocalizedString("Account.NamePlaceholder", value: "sign in...", comment: "请先登录") }
 }
 
+// Search
+extension Strings {
+    static var SearchPlaceholder: String { return NSLocalizedString("Search.Placeholder", value: "Search topics", comment: "搜索主题") }
+}
+
 // Topic Detail
 extension Strings {
     static var DetailOriginPoster: String { return NSLocalizedString("Detail.OriginPoster", value: "Author", comment: "楼主") }

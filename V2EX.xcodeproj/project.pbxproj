@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		62E1F5F34BC479671118BAB9 /* Pods_V2EX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */; };
 		A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */; };
+		A3051EC621CA424600AC7287 /* SearchInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3051EC521CA424600AC7287 /* SearchInputTextView.swift */; };
+		A3051ECA21CA47CB00AC7287 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3051EC921CA47CB00AC7287 /* SearchViewCell.swift */; };
 		A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A2A9D21BA557600D014C5 /* AboutViewController.swift */; };
 		A30A78F021A7DA590041A744 /* opensource.json in Resources */ = {isa = PBXBuildFile; fileRef = A30A78EF21A7DA590041A744 /* opensource.json */; };
 		A317CF1721C388EE0099BB1E /* UserTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */; };
@@ -89,6 +91,8 @@
 /* Begin PBXFileReference section */
 		251A02DE1C80AA5F05653242 /* Pods_V2EX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_V2EX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A302F68F21A3F2A000A15BA7 /* RightMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightMenuViewController.swift; sourceTree = "<group>"; };
+		A3051EC521CA424600AC7287 /* SearchInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInputTextView.swift; sourceTree = "<group>"; };
+		A3051EC921CA47CB00AC7287 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		A30A2A9D21BA557600D014C5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A30A78EF21A7DA590041A744 /* opensource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = opensource.json; sourceTree = "<group>"; };
 		A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopicViewModel.swift; sourceTree = "<group>"; };
@@ -357,6 +361,8 @@
 			isa = PBXGroup;
 			children = (
 				A379EA392121C48800FA2169 /* SearchViewController.swift */,
+				A3051EC521CA424600AC7287 /* SearchInputTextView.swift */,
+				A3051EC921CA47CB00AC7287 /* SearchViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -613,6 +619,7 @@
 				A3961C7C21C22D47007D7663 /* ListViewController.swift in Sources */,
 				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
 				A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */,
+				A3051EC621CA424600AC7287 /* SearchInputTextView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
 				A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */,
 				A373C68621B505F000C919AD /* UserProfileResponse.swift in Sources */,
@@ -636,6 +643,7 @@
 				A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */,
 				A333759721C76E190008085F /* CommentInputBar.swift in Sources */,
 				A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */,
+				A3051ECA21CA47CB00AC7287 /* SearchViewCell.swift in Sources */,
 				A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */,
 				A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */,
 				A36EAFCD219FEEDB000DA4A3 /* Topic.swift in Sources */,

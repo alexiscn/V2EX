@@ -70,6 +70,9 @@ class MainViewController: UIViewController {
     
     @objc private func searchBarButtonItemTapped(_ sender: Any) {
         let searchVC = SearchViewController()
+        searchVC.dismissHandler = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
         let nav = SettingsNavigationController(rootViewController: searchVC)
         present(nav, animated: true, completion: nil)
     }

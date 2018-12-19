@@ -86,8 +86,11 @@ class TopicDetailViewController: UIViewController {
     private func showCommentSheet(_ comment: Reply) {
         let actionSheet = ActionSheet(title: nil, message: nil)
         if AppContext.current.isLogined {
-            actionSheet.addAction(Action(title: Strings.DetailComment, style: .default, handler: { _ in
-                
+            actionSheet.addAction(Action(title: Strings.DetailComment, style: .default, handler: { [weak self] _ in
+                if let name = comment.username {
+                    self?.inputBar.appendMention(text: "@\(name) ")
+                    self?.inputBar.inputTextView.becomeFirstResponder()
+                }
             }))
         }
         actionSheet.addAction(Action(title: Strings.DetailCopyComments, style: .default, handler: { _ in
@@ -97,7 +100,6 @@ class TopicDetailViewController: UIViewController {
             
         }))
         actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
-            
         }))
         actionSheet.show()
     }
@@ -339,6 +341,7 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
             cell.mentionHandler = { [weak self, weak reply] in
                 if let name = reply?.username {
                     self?.inputBar.appendMention(text: "@\(name) ")
+                    self?.inputBar.inputTextView.becomeFirstResponder()
                 }
             }
             return cell

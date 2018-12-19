@@ -18,12 +18,9 @@ extension V2SDK {
     ///   - options: 搜索选项
     ///   - completion: 请求回调
     public class func search(key: String, from: Int = 0, options: SearchOptions = SearchOptions.default, completion: @escaping GenericNetworkingCompletion<SearchResponse>) {
-        
-        
         var params: [String: Any] = [:]
         params["q"] = key
-        
-        GenericNetworking.postJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
+//        GenericNetworking.getJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
     }
 }
 
