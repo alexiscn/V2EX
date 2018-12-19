@@ -22,10 +22,9 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
 
         view.backgroundColor = Theme.current.backgroundColor
+        setupTableView()
         setupSearchTextField()
         setupCancelButton()
-        setupTableView()
-        
         search()
     }
     
@@ -41,7 +40,7 @@ class SearchViewController: UIViewController {
         view.addSubview(searchInputView)
         
         searchInputView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview().offset(12)
             make.top.equalToSuperview().offset(view.keyWindowSafeAreaInsets.top + 12)
             make.height.equalTo(40)
             make.trailing.equalToSuperview().offset(-70)
@@ -75,7 +74,7 @@ class SearchViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.tableFooterView = UIView()
+        tableView.keyboardDismissMode = .onDrag
         tableView.register(SearchViewCell.self, forCellReuseIdentifier: NSStringFromClass(SearchViewCell.self))
         view.addSubview(tableView)
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
@@ -96,6 +95,11 @@ class SearchViewController: UIViewController {
         footer?.stateLabel.textColor = Theme.current.subTitleColor
         footer?.stateLabel.isHidden = true
         tableView.mj_footer = footer
+        tableView.snp.makeConstraints { make in
+            make.leading.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(view.keyWindowSafeAreaInsets.top + 64)
+            make.bottom.equalToSuperview()
+        }
     }
     
     @objc private func handleCancelButtonTapped(_ sender: Any) {
@@ -109,7 +113,7 @@ class SearchViewController: UIViewController {
             case .success(let searchRes):
                 self?.dataSource = searchRes.hits
                 self?.tableView.reloadData()
-                print("123")
+                self?.searchInputView.resignFirstResponder()
             case .error(let error):
                 HUD.show(message: error.localizedDescription)
             }
@@ -119,6 +123,10 @@ class SearchViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return Theme.current.statusBarStyle
     }
 
 }
@@ -147,6 +155,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let result = dataSource[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(SearchViewCell.self), for: indexPath) as! SearchViewCell
+        cell.backgroundColor = .clear
+        cell.selectionStyle = .none
         cell.update(result)
         return cell
     }

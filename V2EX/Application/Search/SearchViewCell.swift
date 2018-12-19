@@ -23,8 +23,10 @@ class SearchViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         containerView = UIView()
+        containerView.backgroundColor = Theme.current.cellBackgroundColor
+        
         titleLabel = UILabel()
-        titleLabel.font = UIFont.systemFont(ofSize: 15)
+        titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         titleLabel.textColor = Theme.current.titleColor
         
         contentLabel = UILabel()
@@ -33,7 +35,7 @@ class SearchViewCell: UITableViewCell {
         contentLabel.textColor = Theme.current.subTitleColor
         
         usernameButton = UIButton(type: .system)
-        usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        usernameButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         usernameButton.setTitleColor(Theme.current.titleColor, for: .normal)
         
         timeLabel = UILabel()
@@ -50,19 +52,33 @@ class SearchViewCell: UITableViewCell {
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
             make.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-0.5)
         }
         
         containerView.addSubview(usernameButton)
         containerView.addSubview(timeLabel)
         
+        titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(12)
+            make.top.equalToSuperview().offset(5)
+            make.trailing.equalToSuperview().offset(-12)
+        }
+        
+        contentLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(12)
+            make.trailing.equalToSuperview().offset(-12)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
+        }
+        
         usernameButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().offset(-5)
+            make.top.equalTo(contentLabel.snp.bottom).offset(5)
         }
         
         timeLabel.snp.makeConstraints { make in
             make.centerY.equalTo(usernameButton)
-            make.trailing.equalToSuperview()
+            make.leading.equalTo(usernameButton.snp.trailing).offset(3)
         }
     }
     
@@ -75,7 +91,14 @@ class SearchViewCell: UITableViewCell {
         let source = hit.source
         
         titleLabel.text = source.title
-        contentLabel.text = source.content
+        
+        var content = source.content
+        if content.count > 100 {
+            content = content.subString(start: 0, length: 100).appending("......")
+        }
+        contentLabel.text = content
         usernameButton.setTitle(source.member, for: .normal)
+        timeLabel.text = String(format: "于 %@ 发表，共计 %d 个回复", source.created, source.replies)
     }
 }
+

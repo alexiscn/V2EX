@@ -29,4 +29,10 @@ extension String {
     var isLetter: Bool {
         return range(of: "[^a-zA-Z]", options: String.CompareOptions.regularExpression) == nil
     }
+    
+    func subString(start: Int, length: Int) -> String {
+        let begin = self.index(startIndex, offsetBy: start)
+        let end = self.index(begin, offsetBy: length)
+        return String(self[begin..<end])
+    }
 }
