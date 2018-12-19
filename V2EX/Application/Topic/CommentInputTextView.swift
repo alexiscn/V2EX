@@ -21,7 +21,7 @@ class CommentInputTextView: UITextView {
         let label = UILabel()
         label.textColor = Theme.current.subTitleColor
         label.font = UIFont.systemFont(ofSize: 15)
-        label.text = "添加一条新回复"
+        label.text = Strings.DetailCreateNewReply
         return label
     }()
     

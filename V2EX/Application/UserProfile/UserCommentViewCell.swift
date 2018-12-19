@@ -12,6 +12,7 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
     
     var topicHandler: RelayCommand?
     
+    private let containerView: UIView
     private let avatarImageView: UIImageView
     private let usernameLabel: UILabel
     private let timeAgoLabel: UILabel
@@ -22,6 +23,9 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
     private var topicTitle: String?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        
+        containerView = UIView()
+        containerView.backgroundColor = Theme.current.cellBackgroundColor
         
         avatarImageView = UIImageView()
         avatarImageView.layer.cornerRadius = 10.0
@@ -49,21 +53,27 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
         topicButton.titleLabel?.numberOfLines = 0
         topicButton.titleLabel?.font = UIFont.systemFont(ofSize: 11)
         topicButton.setTitleColor(Theme.current.subTitleColor, for: .normal)
-        topicButton.backgroundColor = Theme.current.cellBackgroundColor
+        topicButton.backgroundColor = Theme.current.cellHighlightColor
         topicButton.layer.cornerRadius = 6.0
         topicButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         
         lineView = UIView()
-        lineView.backgroundColor = Theme.current.cellBackgroundColor
+        lineView.backgroundColor = Theme.current.cellHighlightColor
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.addSubview(avatarImageView)
-        contentView.addSubview(usernameLabel)
-        contentView.addSubview(timeAgoLabel)
-        contentView.addSubview(commentTextView)
-        contentView.addSubview(topicButton)
-        contentView.addSubview(lineView)
+        contentView.addSubview(containerView)
+        
+        containerView.addSubview(avatarImageView)
+        containerView.addSubview(usernameLabel)
+        containerView.addSubview(timeAgoLabel)
+        containerView.addSubview(commentTextView)
+        containerView.addSubview(topicButton)
+        containerView.addSubview(lineView)
+        
+        containerView.snp.makeConstraints { make in
+            make.leading.top.trailing.bottom.equalToSuperview()
+        }
         
         commentTextView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(12)
@@ -90,7 +100,7 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
         
         lineView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(1)
+            make.height.equalTo(0.5)
             make.bottom.equalToSuperview()
         }
         

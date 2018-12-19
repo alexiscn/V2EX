@@ -374,7 +374,7 @@ extension TopicDetailViewController: CommentInputBarDelegate {
         V2SDK.request(endPoint, parser: CommentParser.self) { [weak self] (response: V2Response<OperationResponse>) in
             switch response {
             case .success(_):
-                HUD.show(message: "评论成功")
+                HUD.show(message: Strings.DetailCommentSuccess)
                 self?.loadTopicDetail()
             case .error(let error):
                 HUD.show(message: error.localizedDescription)
@@ -384,6 +384,19 @@ extension TopicDetailViewController: CommentInputBarDelegate {
     }
     
     func inputBarDidPressedPhotoButton() {
-        
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        present(imagePicker, animated: true, completion: nil)
+    }
+}
+
+extension TopicDetailViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

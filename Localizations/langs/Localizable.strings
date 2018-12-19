@@ -13,8 +13,14 @@
 /* 评论 */
 "Detail.Comment" = "Comment";
 
+/* 评论成功 */
+"Detail.CommentSuccess" = "Comment success";
+
 /* 复制评论 */
 "Detail.CopyComments" = "Copy";
+
+/* 添加一条新回复 */
+"Detail.CreateNewReply" = "Add new comment";
 
 /* 在Safari中打开 */
 "Detail.OpenInSafari" = "Open In Safari";
