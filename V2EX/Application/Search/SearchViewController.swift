@@ -18,6 +18,13 @@ class SearchViewController: UIViewController {
     private var tableView: UITableView!
     private var dataSource: [SearchHit] = []
     private var headerView: SearchResultHeaderView?
+    private var currentSort: SearchOptions.Sort = .sumup {
+        didSet {
+            if oldValue != currentSort {
+                doSearch()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,6 +96,9 @@ class SearchViewController: UIViewController {
         let resultHeader = SearchResultHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 30))
         tableView.tableHeaderView = resultHeader
         self.headerView = resultHeader
+        self.headerView?.optionChangedHandler = { [weak self] sort in
+            self?.currentSort = sort
+        }
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
             self?.doSearch()
         })
@@ -122,12 +132,15 @@ class SearchViewController: UIViewController {
     private func doSearch(isLoadMore: Bool = false) {
         let keyword = searchInputView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         guard keyword.count > 0 else {
-            self.tableView.mj_header.endRefreshing()
+            tableView.mj_header.endRefreshing()
+            tableView.mj_footer.endRefreshing()
             return
         }
-        
+        searchInputView.resignFirstResponder()
         let from = isLoadMore ? dataSource.count: 0
-        V2SDK.search(key: keyword, from: from) { [weak self] response in
+        var options = SearchOptions.default
+        options.sort = currentSort
+        V2SDK.search(key: keyword, from: from, options: options) { [weak self] response in
             if isLoadMore {
                 self?.tableView.mj_footer.endRefreshing()
             } else {
@@ -143,7 +156,6 @@ class SearchViewController: UIViewController {
                     self?.dataSource = searchRes.hits
                 }
                 self?.tableView.reloadData()
-                self?.searchInputView.resignFirstResponder()
             case .error(let error):
                 HUD.show(message: error.localizedDescription)
             }

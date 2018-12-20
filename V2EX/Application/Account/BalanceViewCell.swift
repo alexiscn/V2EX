@@ -30,6 +30,7 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
         titleLabel.font = UIFont.systemFont(ofSize: 14)
         
         descLabel = UILabel()
+        descLabel.numberOfLines = 0
         descLabel.textColor = Theme.current.subTitleColor
         descLabel.font = UIFont.systemFont(ofSize: 12)
         
@@ -53,14 +54,14 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
         
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
-            make.top.equalToSuperview().offset(10)
-            make.trailing.equalToSuperview()
+            make.top.equalToSuperview().offset(15)
+            make.trailing.equalToSuperview().offset(-30)
         }
 
         descLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
             make.top.equalTo(titleLabel.snp.bottom).offset(5)
-            make.trailing.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-80)
         }
         contentView.backgroundColor = Theme.current.cellBackgroundColor
         let backgroundView = UIView()
@@ -79,5 +80,17 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
         titleLabel.text = balance.title
         descLabel.text = balance.desc
         timeAgoLabel.text = balance.time
+    }
+    
+    class func heightForBalance(_ balance: Balance) -> CGFloat {
+        let width = UIScreen.main.bounds.width - 15 - 80
+        var height: CGFloat = 35.0
+        if let desc = balance.desc {
+            let maxSize = CGSize(width: width, height: CGFloat.greatestFiniteMagnitude)
+            let size = desc.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 12)])
+            height += size.height
+        }
+        height += 15.0
+        return height
     }
 }

@@ -103,6 +103,15 @@
 /* 举报 */
 "Report" = "Report";
 
+/* 时间 */
+"Search.OptionCreatedTime" = "Time";
+
+/* 权重 */
+"Search.OptionsSumup" = "Sumup";
+
+/* 搜索主题 */
+"Search.Placeholder" = "Search topics";
+
 /* 需要登录后才能查看 */
 "Server.NeedsSignIn" = "Sign in required...";
 

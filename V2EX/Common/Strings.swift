@@ -61,6 +61,8 @@ extension Strings {
 // Search
 extension Strings {
     static var SearchPlaceholder: String { return NSLocalizedString("Search.Placeholder", value: "Search topics", comment: "搜索主题") }
+    static var SearchOptionsSumup: String { return NSLocalizedString("Search.OptionsSumup", value: "Sumup", comment: "权重") }
+    static var SearchOptionCreatedTime: String { return NSLocalizedString("Search.OptionCreatedTime", value: "Time", comment: "时间") }
 }
 
 // Topic Detail

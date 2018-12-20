@@ -25,7 +25,8 @@ class BalanceViewModel: ListViewModel {
     var apiParser: HTMLParser.Type { return BalanceParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        let balance = dataSouce[indexPath.row]
+        return BalanceViewCell.heightForBalance(balance)
     }
     
     func didSelectRowAt(_ indexPath: IndexPath) {

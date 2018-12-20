@@ -101,7 +101,7 @@ class SearchViewCell: UITableViewCell {
         }
         contentLabel.text = content
         usernameButton.setTitle(source.member, for: .normal)
-        timeLabel.text = String(format: "于 %@ 发表，共计 %d 个回复", source.created, source.replies)
+        timeLabel.text = String(format: "于 %@ 发表，共计 %d 个回复", source.created.replacingOccurrences(of: "T", with: " "), source.replies)
     }
 }
 
