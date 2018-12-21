@@ -122,9 +122,12 @@ class TopicDetailViewController: UIViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }))
-        if AppContext.current.isLogined {
-            actionSheet.addAction(Action(title: "加入收藏", style: .default, handler: { _ in
-                
+        if AppContext.current.isLogined, let detail = detail {
+            
+            let title = detail.favorited ? "取消收藏": "加入收藏"
+            
+            actionSheet.addAction(Action(title: title, style: .default, handler: { [weak self] _ in
+                self?.doFavorite()
             }))
         }
         actionSheet.addAction(Action(title: Strings.Share, style: .default, handler: { [weak self] _ in
@@ -145,6 +148,18 @@ class TopicDetailViewController: UIViewController {
         }))
         actionSheet.show()
     
+    }
+    
+    private func doFavorite() {
+        guard let token = detail?.csrfToken, let topicID = self.topicID, let favorited = detail?.favorited else {
+            return
+        }
+        if favorited {
+            let endPoint = EndPoint.favoriteTopic(topicID, token: token)
+            //V2SDK.request(endPoint, parser: TabParser.self, completion: <#T##(V2Response<T>) -> Void#>)
+        } else {
+            //let endPoint = EndPoint.unfavoriteTopic(topicID, token: token)
+        }
     }
     
     private func presentShare() {

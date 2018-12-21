@@ -10,23 +10,46 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = Theme.current.backgroundColor
-        navigationItem.title = "我的"
-        // Do any additional setup after loading the view.
+        setupNavigationBar()
+        setupTableView()
+    }
+    
+    private func setupNavigationBar() {
+        let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
+        navigationItem.rightBarButtonItem = moreBarButtonItem
+    }
+    
+    private func setupTableView() {
+        tableView = UITableView(frame: view.bounds)
+        tableView.backgroundColor = .clear
+        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tableView.showsHorizontalScrollIndicator = false
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.tableFooterView = UIView()
+        view.addSubview(tableView)
         
-        let button = UIButton(type: .system)
-        button.setTitle("Balance", for: .normal)
-        button.setTitleColor(Theme.current.titleColor, for: .normal)
-        view.addSubview(button)
+        let header = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 300))
+        tableView.tableHeaderView = header
+        header.update()
+    }
+    
+    @objc private func moreBarButtonItemTapped(_ sender: Any) {
+        let actionSheet = ActionSheet(title: nil, message: nil)
+        actionSheet.addAction(Action(title: Strings.SettingsLogout, style: .default, handler: { _ in
+            
+        }))
         
-        button.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
+        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
+            
+        }))
+        actionSheet.show()
         
-        button.addTarget(self, action: #selector(balance), for: .touchUpInside)
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,4 +69,20 @@ class ProfileViewController: UIViewController {
         let controller = ListViewController(viewModel: viewModel)
         navigationController?.pushViewController(controller, animated: true)
     }
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
 }

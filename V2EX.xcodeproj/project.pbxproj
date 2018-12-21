@@ -21,6 +21,7 @@
 		A333759521C76DEC0008085F /* CommentInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333759421C76DEC0008085F /* CommentInputTextView.swift */; };
 		A333759721C76E190008085F /* CommentInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333759621C76E190008085F /* CommentInputBar.swift */; };
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
+		A33A4C4A21CCC43C005605A8 /* NewTopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33A4C4921CCC43C005605A8 /* NewTopicViewController.swift */; };
 		A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33C4E2221943BF00039E347 /* MenuViewController.swift */; };
 		A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */; };
 		A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33E18C321BE3EE80084FF29 /* Strings.swift */; };
@@ -104,6 +105,7 @@
 		A333759421C76DEC0008085F /* CommentInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputTextView.swift; sourceTree = "<group>"; };
 		A333759621C76E190008085F /* CommentInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputBar.swift; sourceTree = "<group>"; };
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
+		A33A4C4921CCC43C005605A8 /* NewTopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTopicViewController.swift; sourceTree = "<group>"; };
 		A33C4E2221943BF00039E347 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		A33E18BF21BE3DC50084FF29 /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		A33E18C321BE3EE80084FF29 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */,
 				A333759621C76E190008085F /* CommentInputBar.swift */,
 				A333759421C76DEC0008085F /* CommentInputTextView.swift */,
+				A33A4C4921CCC43C005605A8 /* NewTopicViewController.swift */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 				A333759521C76DEC0008085F /* CommentInputTextView.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
 				A33E18C421BE3EE80084FF29 /* Strings.swift in Sources */,
+				A33A4C4A21CCC43C005605A8 /* NewTopicViewController.swift in Sources */,
 				A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */,
 				A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */,
 				A3DCB08B21BBF90A005FD955 /* V2SDK+Upload.swift in Sources */,

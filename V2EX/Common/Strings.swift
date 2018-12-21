@@ -84,6 +84,7 @@ extension Strings {
     static var ProfileHisComments: String { return NSLocalizedString("Profile.HisComments", value: "His comments", comment: "Ta的最近回复") }
     static var ProfileFollow: String { return NSLocalizedString("Profile.Follow", value: "Follow", comment: "加入特别关注") }
     static var ProfileBlock: String { return NSLocalizedString("Profile.Block", value: "Block", comment: "拉黑") }
+    static var ProfileBalance: String { return NSLocalizedString("Profile.Balance", value: "Balance", comment: "余额") }
 }
 
 // Settings

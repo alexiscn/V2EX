@@ -28,6 +28,7 @@ class MenuViewController: UIViewController {
     private var userLabel: UILabel!
     private var tableView: UITableView!
     private var themeButton: UIButton!
+    private var newTopicButton: UIButton!
     private var settingButton: UIButton!
     private var dataSource: [V2Tab] = []
     private var isFirstViewDidAppear = false
@@ -40,6 +41,7 @@ class MenuViewController: UIViewController {
         setupAvatarButton()
         setupTableView()
         setupThemeButton()
+        setupNewTopicButton()
         setupSettingButton()
         self.fd_prefersNavigationBarHidden = true
         tableView.reloadData()
@@ -59,6 +61,7 @@ class MenuViewController: UIViewController {
         view.backgroundColor = Theme.current.backgroundColor
         avatarButton.backgroundColor = Theme.current.subTitleColor
         themeButton.tintColor = Theme.current.titleColor
+        newTopicButton.tintColor = Theme.current.titleColor
         settingButton.tintColor = Theme.current.titleColor
         userLabel.textColor = Theme.current.titleColor
         
@@ -73,7 +76,9 @@ class MenuViewController: UIViewController {
             let url = URL(string: avatar)
             avatarButton.kf.setBackgroundImage(with: url, for: .normal)
             userLabel.text = account.username
+            newTopicButton.isHidden = false
         } else {
+            newTopicButton.isHidden = true
             avatarButton.setBackgroundImage(UIImage(), for: .normal)
             userLabel.text = Strings.AccountNamePlaceholder
         }
@@ -136,6 +141,24 @@ class MenuViewController: UIViewController {
             make.bottom.equalToSuperview().offset(-30)
         }
         themeButton.addTarget(self, action: #selector(themeButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func setupNewTopicButton() {
+        newTopicButton = UIButton(type: .system)
+        newTopicButton.isHidden = true
+        newTopicButton.setImage(UIImage(named: "icon_pen_24x24_"), for: .normal)
+        newTopicButton.tintColor = Theme.current.titleColor
+        view.addSubview(newTopicButton)
+        newTopicButton.snp.makeConstraints { make in
+            make.height.width.equalTo(24)
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().offset(-30)
+        }
+        newTopicButton.addTarget(self, action: #selector(newTopicButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func newTopicButtonTapped(_ sender: Any) {
+        
     }
     
     @objc private func avatarButtonTapped(_ sender: Any) {

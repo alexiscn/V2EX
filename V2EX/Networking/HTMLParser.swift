@@ -43,14 +43,14 @@ struct TabParser: HTMLParser {
             let topic = NodeTopicsParser.parseTopicListCell(cell)
             topics.append(topic)
         }
-        
-        if V2SDK.shouldParseHotNodes {
+        let html = try doc.html()
+        if V2SDK.shouldParseHotNodes && html.contains("节点导航") {
             if let nodes: [Node] = try NodeNavigationParser.handle(doc) {
                 V2DataManager.shared.saveHotNodes(nodes)
             }
             V2SDK.shouldParseHotNodes = false
         }
-        let html = try doc.html()
+        
         if V2SDK.shouldParseAccount {
             if let account: Account? = try AccountInfoParser.handle(doc) {
                 AppContext.current.account = account
@@ -272,6 +272,14 @@ struct TopicDetailParser: HTMLParser {
         
         detail.nodeTag = try doc.select("meta[property='article:tag'").attr("content")
         detail.nodeName = try doc.select("meta[property='article:section'").attr("content")
+        
+        if let buttons = try doc.select("topic_buttons").first(), let favoriteLink = try buttons.select("a").first() {
+            detail.favorited = (try favoriteLink.text()) == "取消收藏"
+            let favoriteHref = try favoriteLink.attr("href")
+            if favoriteHref.contains("=") {
+                detail.csrfToken = String(favoriteHref.split(separator: "=").last!)
+            }
+        }
         
         let cells = try doc.select("div.cell")
         for cell in cells {

@@ -60,10 +60,17 @@ class ProfileHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func update() {
+        if let avatar = AppContext.current.account?.avatarURLString {
+            avatarImageView.kf.setImage(with: URL(string: avatar))
+        }
+        usernameLabel.text = AppContext.current.account?.username
+    }
+    
     func update(info: UserInfo) {
-        avatarImageView.kf.setImage(with: info.avatarURL)
-        usernameLabel.text = info.username
-        infoLabel.text = info.createdInfo
+//        avatarImageView.kf.setImage(with: info.avatarURL)
+//        usernameLabel.text = info.username
+//        infoLabel.text = info.createdInfo
     }
 
 }

@@ -137,6 +137,7 @@ class MainViewController: UIViewController {
             self?.updateTab(tab)
         }
         let menuNav = UISideMenuNavigationController(rootViewController: menuController)
+        menuNav.menuWidth = 180.0
         menuNav.isNavigationBarHidden = true
         
         let rightMenuController = RightMenuViewController()

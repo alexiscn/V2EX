@@ -32,4 +32,8 @@ struct TopicDetail {
     var nodeTag: String?
     
     var replyList: [Reply] = []
+    
+    var csrfToken: String?
+    
+    var favorited: Bool = false
 }
