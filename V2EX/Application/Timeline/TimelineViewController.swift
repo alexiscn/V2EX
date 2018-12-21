@@ -137,7 +137,11 @@ class TimelineViewController: UIViewController {
                 switch response {
                 case .success(let topics):
                     if isLoadMore {
-                        strongSelf.dataSource.append(contentsOf: topics)
+                        for topic in topics {
+                            if !strongSelf.dataSource.contains(where: { $0.url == topic.url }) {
+                                strongSelf.dataSource.append(topic)
+                            }
+                        }
                     } else {
                         strongSelf.dataSource = topics
                     }

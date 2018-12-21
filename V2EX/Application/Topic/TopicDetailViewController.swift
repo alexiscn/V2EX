@@ -26,6 +26,9 @@ class TopicDetailViewController: UIViewController {
     fileprivate var inputBar = CommentInputBar()
     
     override var inputAccessoryView: UIView? {
+        if !AppContext.current.isLogined {
+            return nil
+        }
         return inputBar
     }
     
@@ -97,7 +100,10 @@ class TopicDetailViewController: UIViewController {
             UIPasteboard.general.string = comment.content
         }))
         actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
-            
+            // 为了审核用，实际上没有该接口
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                HUD.show(message: "举报成功，我们会及时处理你的举报")
+            })
         }))
         actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
         }))
@@ -116,6 +122,11 @@ class TopicDetailViewController: UIViewController {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }))
+        if AppContext.current.isLogined {
+            actionSheet.addAction(Action(title: "加入收藏", style: .default, handler: { _ in
+                
+            }))
+        }
         actionSheet.addAction(Action(title: Strings.Share, style: .default, handler: { [weak self] _ in
             self?.presentShare()
         }))
