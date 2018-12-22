@@ -672,6 +672,24 @@ struct UserRepliesParser: HTMLParser {
     
 }
 
+struct MyModesParser: HTMLParser {
+    static func handle<T>(_ doc: Document) throws -> T? {
+        let nodes = try doc.select("a.grid_item")
+        var response = ListResponse<MyNode>()
+        for node in nodes {
+            let my = MyNode()
+            let logo = try node.select("img").first()?.attr("href")
+            let text = try node.text()
+            let count = try node.select("span.fade").text()
+            my.title = text.replacingOccurrences(of: count, with: "")
+            my.count = Int(count.replacingOccurrences(of: " ", with: "")) ?? 0
+            
+            response.list.append(my)
+        }
+        return response as? T
+    }
+}
+
 struct OperationParser: HTMLParser {
     static func handle<T>(_ doc: Document) throws -> T? {
         return OperationResponse() as? T

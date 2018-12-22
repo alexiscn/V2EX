@@ -69,3 +69,14 @@ class NodeGroup {
         self.nodes = nodes
     }
 }
+
+class MyNode: DataType {
+    
+    var logoURL: URL?
+    
+    var title: String?
+    
+    var count: Int = 0
+    
+    init() { }
+}

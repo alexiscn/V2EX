@@ -78,14 +78,14 @@ class SettingsViewController: UIViewController {
             let controller = LanguageSettingsViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
             })
-        let viewOption = SettingTableModel(title: Strings.SettingsViewOptions, value: .actionCommand { [weak self] in
-            let controller = DisplaySettingsViewController()
-            self?.navigationController?.pushViewController(controller, animated: true)
-        })
+//        let viewOption = SettingTableModel(title: Strings.SettingsViewOptions, value: .actionCommand { [weak self] in
+//            let controller = DisplaySettingsViewController()
+//            self?.navigationController?.pushViewController(controller, animated: true)
+//        })
         let autoRefresh = SettingTableModel(title: Strings.SettingsAutoRefresh, value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
         
         let enableFullScreenGesture = SettingTableModel(title: Strings.SettingsEnableFullGesture, value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
-        let generalSection = SettingTableSectionModel(title: nil, items: [language, viewOption, autoRefresh, enableFullScreenGesture])
+        let generalSection = SettingTableSectionModel(title: nil, items: [language, autoRefresh, enableFullScreenGesture])
         dataSource.append(generalSection)
     }
     

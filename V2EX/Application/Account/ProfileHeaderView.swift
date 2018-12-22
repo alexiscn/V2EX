@@ -38,7 +38,7 @@ class ProfileHeaderView: UIView {
 //        infoLabel.textAlignment = .center
         
         balanceButton = UIButton(type: .system)
-        balanceButton.layer.cornerRadius = 18.0
+        balanceButton.layer.cornerRadius = 15.0
         balanceButton.layer.masksToBounds = true
         balanceButton.backgroundColor = Theme.current.cellBackgroundColor
         balanceButton.setTitleColor(Theme.current.titleColor, for: .normal)
@@ -46,6 +46,8 @@ class ProfileHeaderView: UIView {
         balanceButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         
         buttonsView = UIView()
+        buttonsView.backgroundColor = Theme.current.cellBackgroundColor
+        buttonsView.layer.cornerRadius = 10.0
         
         super.init(frame: frame)
         
@@ -68,7 +70,7 @@ class ProfileHeaderView: UIView {
         
         balanceButton.snp.makeConstraints { make in
             make.leading.equalTo(avatarImageView.snp.trailing).offset(10)
-            make.height.equalTo(36)
+            make.height.equalTo(30)
             make.top.equalTo(usernameLabel.snp.bottom).offset(10)
         }
         
@@ -114,7 +116,7 @@ class ProfileHeaderView: UIView {
         separator1.backgroundColor = Theme.current.titleColor
         buttonsView.addSubview(separator1)
         separator1.snp.makeConstraints { make in
-            make.height.equalTo(20)
+            make.height.equalTo(50)
             make.width.equalTo(1)
             make.centerY.equalToSuperview()
             make.leading.equalTo(topicButton)
@@ -122,7 +124,7 @@ class ProfileHeaderView: UIView {
         
         let followingButton = ProfileButton(frame: .zero)
         followingButton.tag = 3
-        followingButton.update(count: account?.myFollowing, title: "主题收藏")
+        followingButton.update(count: account?.myFollowing, title: "特别关注")
         buttonsView.addSubview(followingButton)
         followingButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()
@@ -135,7 +137,7 @@ class ProfileHeaderView: UIView {
         separator2.backgroundColor = Theme.current.titleColor
         buttonsView.addSubview(separator2)
         separator2.snp.makeConstraints { make in
-            make.height.equalTo(20)
+            make.height.equalTo(50)
             make.width.equalTo(1)
             make.centerY.equalToSuperview()
             make.leading.equalTo(followingButton)

@@ -76,7 +76,7 @@ class MenuViewController: UIViewController {
             let url = URL(string: avatar)
             avatarButton.kf.setBackgroundImage(with: url, for: .normal)
             userLabel.text = account.username
-            newTopicButton.isHidden = false
+            newTopicButton.isHidden = true // TODO: next version
         } else {
             newTopicButton.isHidden = true
             avatarButton.setBackgroundImage(UIImage(), for: .normal)

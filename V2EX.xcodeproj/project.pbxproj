@@ -29,6 +29,8 @@
 		A33F1E2821C0EB0500853704 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = A33F1E2A21C0EB0500853704 /* Localizable.strings */; };
 		A33F1E3621C11ED100853704 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A33F1E3521C11ED100853704 /* LanguageManager.swift */; };
 		A343CA9021C9F9C400285379 /* OperationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A343CA8F21C9F9C400285379 /* OperationResponse.swift */; };
+		A34611A121CE5AD100D37E94 /* MyNodesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34611A021CE5AD100D37E94 /* MyNodesViewModel.swift */; };
+		A34611A321CE5ADD00D37E94 /* MyNodesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34611A221CE5ADD00D37E94 /* MyNodesViewCell.swift */; };
 		A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6B21AB9BCD00ED2F88 /* Node.swift */; };
 		A34A5D7121ABBD4900ED2F88 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D7021ABBD4900ED2F88 /* AppContext.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
@@ -114,6 +116,8 @@
 		A33F1E2B21C0EB0900853704 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		A33F1E3521C11ED100853704 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		A343CA8F21C9F9C400285379 /* OperationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationResponse.swift; sourceTree = "<group>"; };
+		A34611A021CE5AD100D37E94 /* MyNodesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNodesViewModel.swift; sourceTree = "<group>"; };
+		A34611A221CE5ADD00D37E94 /* MyNodesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNodesViewCell.swift; sourceTree = "<group>"; };
 		A34A5D6B21AB9BCD00ED2F88 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		A34A5D7021ABBD4900ED2F88 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
@@ -259,6 +263,8 @@
 				A39B244921C3389700407FF7 /* BalanceViewModel.swift */,
 				A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */,
 				A39B244C21C339BC00407FF7 /* NotificationsViewModel.swift */,
+				A34611A221CE5ADD00D37E94 /* MyNodesViewCell.swift */,
+				A34611A021CE5AD100D37E94 /* MyNodesViewModel.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -634,6 +640,7 @@
 				A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */,
 				A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */,
 				A36D0FA9219D809800E20EFB /* V2SDK.swift in Sources */,
+				A34611A321CE5ADD00D37E94 /* MyNodesViewCell.swift in Sources */,
 				A3DCB09121BD326D005FD955 /* NotificationExtensions.swift in Sources */,
 				A372EF4721AFFAC100EAD3DB /* AppFont.swift in Sources */,
 				A36D0FB5219D81B500E20EFB /* V2SDK+Search.swift in Sources */,
@@ -647,6 +654,7 @@
 				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
 				A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */,
+				A34611A121CE5AD100D37E94 /* MyNodesViewModel.swift in Sources */,
 				A333759721C76E190008085F /* CommentInputBar.swift in Sources */,
 				A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */,
 				A3051ECA21CA47CB00AC7287 /* SearchViewCell.swift in Sources */,
