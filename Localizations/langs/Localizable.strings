@@ -10,6 +10,9 @@
 /* 复制链接 */
 "CopyLink" = "Copy link";
 
+/* 收藏主题 */
+"Detail.AddToFavorites" = "Add to favorites";
+
 /* 评论 */
 "Detail.Comment" = "Comment";
 
@@ -22,11 +25,20 @@
 /* 添加一条新回复 */
 "Detail.CreateNewReply" = "Add new comment";
 
+/* 收藏主题成功 */
+"Detail.FavoritedSuccess" = "Added to favorites";
+
 /* 在Safari中打开 */
 "Detail.OpenInSafari" = "Open In Safari";
 
 /* 楼主 */
 "Detail.OriginPoster" = "Author";
+
+/* 取消收藏 */
+"Detail.RemoveFromFavorites" = "Remove from favorites";
+
+/* 取消收藏成功 */
+"Detail.UnFavoritedSuccess" = "Removed from favorites";
 
 /* 查看全部评论 */
 "Detail.ViewAllComments" = "View all comments";
@@ -90,6 +102,9 @@
 
 /* 确定 */
 "OK" = "OK";
+
+/* 余额 */
+"Profile.Balance" = "Balance";
 
 /* 拉黑 */
 "Profile.Block" = "Block";

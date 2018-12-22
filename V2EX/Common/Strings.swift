@@ -76,6 +76,10 @@ extension Strings {
     
     static var DetailCreateNewReply: String { return NSLocalizedString("Detail.CreateNewReply", value: "Add new comment", comment: "添加一条新回复") }
     static var DetailCommentSuccess: String { return NSLocalizedString("Detail.CommentSuccess", value: "Comment success", comment: "评论成功") }
+    static var DetailAddToFavorites: String { return NSLocalizedString("Detail.AddToFavorites", value: "Add to favorites", comment: "收藏主题") }
+    static var DetailFavoritedSuccess: String { return NSLocalizedString("Detail.FavoritedSuccess", value: "Added to favorites", comment: "收藏主题成功") }
+    static var DetailRemoveFromFavorites: String { return NSLocalizedString("Detail.RemoveFromFavorites", value: "Remove from favorites", comment: "取消收藏") }
+    static var DetailUnFavoritedSuccess: String { return NSLocalizedString("Detail.UnFavoritedSuccess", value: "Removed from favorites", comment: "取消收藏成功") }
 }
 
 // Profile

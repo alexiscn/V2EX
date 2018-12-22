@@ -141,8 +141,8 @@ class SettingsViewController: UIViewController {
     
     private func handleUserLogout() {
         let alert = UIAlertController(title: Strings.SettingsLogoutPrompt, message: nil, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { _ in
-
+        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { [weak self] _ in
+            self?.doLogout()
         }))
         alert.addAction(UIAlertAction(title: Strings.Cancel, style: .cancel, handler: { _ in
 
@@ -151,7 +151,8 @@ class SettingsViewController: UIViewController {
     }
     
     private func doLogout() {
-        
+        AppContext.current.doLogout()
+        dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

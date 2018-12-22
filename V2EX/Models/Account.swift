@@ -15,7 +15,20 @@ struct Account {
     
     var avatarURLString: String?
     
+    var myNodes: String?
+    
+    var myTopics: String?
+    
+    var myFollowing: String?
+    
+    var balance: String?
+    var golden: String?
+    var silver: String?
+    var bronze: String?
+    
+    init() { }
 }
+
 
 struct DailyMission {
     var message: String?

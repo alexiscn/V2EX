@@ -108,9 +108,9 @@ struct SignInParser: HTMLParser {
             if let imgElement = try doc.select("img.avatar").first(),
                 let member = try imgElement.parent()?.attr("href") {
                 let src = try imgElement.attr("src")
-                let avatarURLString = avatarURLWithSource(src)
-                let name = member.replacingOccurrences(of: "/member/", with: "")
-                let account = Account(username: name, avatarURLString: avatarURLString?.absoluteString)
+                var account = Account()
+                account.username = member.replacingOccurrences(of: "/member/", with: "")
+                account.avatarURLString = avatarURLWithSource(src)?.absoluteString
                 return account as? T
             }
         }
@@ -138,14 +138,41 @@ struct DailyMissionParser: HTMLParser {
 struct AccountInfoParser: HTMLParser {
     
     static func handle<T>(_ doc: Document) throws -> T? {
-        let rightBar = try doc.select("div#Rightbar").first()
-        let box = try rightBar?.select("div.box").first()
         
-        if let img = try box?.select("img.avatar").first(), let member = try img.parent()?.attr("href") {
+        guard let rightBar = try doc.select("div#Rightbar").first(),
+            let box = try rightBar.select("div.box").first() else {
+            return nil
+        }
+        
+        if let img = try box.select("img.avatar").first(), let member = try img.parent()?.attr("href") {
             let src = try img.attr("src")
-            let avatarURLString = avatarURLWithSource(src)
-            let name = member.replacingOccurrences(of: "/member/", with: "")
-            let account = Account(username: name, avatarURLString: avatarURLString?.absoluteString)
+            var account = Account()
+            account.username = member.replacingOccurrences(of: "/member/", with: "")
+            account.avatarURLString = avatarURLWithSource(src)?.absoluteString
+            let links = try rightBar.select("a.dark")
+            for link in links {
+                let href = try link.attr("href")
+                if href == "/my/nodes" {
+                    account.myNodes = try link.select("span.bigger").text()
+                } else if href == "/my/topics" {
+                    account.myTopics = try link.select("span.bigger").text()
+                } else if href == "/my/following" {
+                    account.myFollowing = try link.select("span.bigger").text()
+                }
+            }
+            if let balance = try box.select("a.balance_area").first()?.text() {
+                let components = balance.components(separatedBy: " ")
+                if components.count == 3 {
+                    account.golden = String(components[0])
+                    account.silver = String(components[1])
+                    account.bronze = String(components[2])
+                } else if components.count == 2 {
+                    account.silver = String(components[0])
+                    account.bronze = String(components[1])
+                }
+                account.balance = balance.replacingOccurrences(of: " ", with: "")
+            }
+            
             return account as? T
         }
         return nil
@@ -273,7 +300,7 @@ struct TopicDetailParser: HTMLParser {
         detail.nodeTag = try doc.select("meta[property='article:tag'").attr("content")
         detail.nodeName = try doc.select("meta[property='article:section'").attr("content")
         
-        if let buttons = try doc.select("topic_buttons").first(), let favoriteLink = try buttons.select("a").first() {
+        if let buttons = try doc.select("div.topic_buttons").first(), let favoriteLink = try buttons.select("a").first() {
             detail.favorited = (try favoriteLink.text()) == "取消收藏"
             let favoriteHref = try favoriteLink.attr("href")
             if favoriteHref.contains("=") {
@@ -376,23 +403,28 @@ struct TopicReplyParser: HTMLParser {
                     case "a":
                         let href = try element.attr("href")
                         let content = try element.text()
-                        if href.hasPrefix("/member/") {
-                            body.append(mention(username: content))
+                        if content.isEmpty {
+                            body.append(parseContentCell(element))
                         } else {
-                            if content.hasPrefix("http") {
-                                if let url = NSURL(string: href) {
-                                    body.append(linkString(url, content: content))
-                                } else {
-                                    body.append(textString(content))
-                                }
+                            if href.hasPrefix("/member/") {
+                                body.append(mention(username: content))
                             } else {
-                                if content.hasPrefix("/t/") {
-                                    if let url = NSURL(string: V2SDK.baseURLString.appending(content)) {
+                                
+                                if content.hasPrefix("http") {
+                                    if let url = NSURL(string: href) {
                                         body.append(linkString(url, content: content))
+                                    } else {
+                                        body.append(textString(content))
                                     }
+                                } else {
+                                    if content.hasPrefix("/t/") {
+                                        if let url = NSURL(string: V2SDK.baseURLString.appending(content)) {
+                                            body.append(linkString(url, content: content))
+                                        }
+                                    }
+                                    print(try element.outerHtml())
+                                    print(href)
                                 }
-                                print(try element.outerHtml())
-                                print(href)
                             }
                         }
                     case "img":
@@ -638,4 +670,10 @@ struct UserRepliesParser: HTMLParser {
         return response as? T
     }
     
+}
+
+struct OperationParser: HTMLParser {
+    static func handle<T>(_ doc: Document) throws -> T? {
+        return OperationResponse() as? T
+    }
 }

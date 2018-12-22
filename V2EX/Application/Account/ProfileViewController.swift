@@ -35,14 +35,28 @@ class ProfileViewController: UIViewController {
         view.addSubview(tableView)
         
         let header = ProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 300))
+        header.myNodesActionHandler = {
+            print("myNodesActionHandler")
+        }
+        header.myTopicsActionHandler = {
+            print("myTopicsActionHandler")
+        }
+        header.myFollowingActionHandler = {
+            print("myTopicsActionHandler")
+        }
+        header.balanceActionHandler = { [weak self] in
+            let viewModel = BalanceViewModel()
+            let controller = ListViewController(viewModel: viewModel)
+            self?.navigationController?.pushViewController(controller, animated: true)
+        }
         tableView.tableHeaderView = header
         header.update()
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
         let actionSheet = ActionSheet(title: nil, message: nil)
-        actionSheet.addAction(Action(title: Strings.SettingsLogout, style: .default, handler: { _ in
-            
+        actionSheet.addAction(Action(title: Strings.SettingsLogout, style: .default, handler: { [weak self] _ in
+            self?.handleUserLogout()
         }))
         
         actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
@@ -52,16 +66,30 @@ class ProfileViewController: UIViewController {
         
     }
     
+    private func handleUserLogout() {
+        let alert = UIAlertController(title: Strings.SettingsLogoutPrompt, message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: Strings.OK, style: .default, handler: { [weak self] _ in
+            self?.doLogout()
+        }))
+        alert.addAction(UIAlertAction(title: Strings.Cancel, style: .cancel, handler: { _ in
+            
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func doLogout() {
+//        guard let once = V2SDK.once else {
+//            return
+//        }
+        //let endPoint = EndPoint.signOut(once: once)
+        //V2SDK.request(endPoint, parser: <#T##HTMLParser.Type#>, completion: <#T##(V2Response<T>) -> Void#>)
+        AppContext.current.doLogout()
+        navigationController?.popViewController(animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @objc private func balance() {
-        
-        let viewModel = BalanceViewModel()
-        let controller = ListViewController(viewModel: viewModel)
-        navigationController?.pushViewController(controller, animated: true)
     }
     
     private func notifications() {

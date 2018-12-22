@@ -19,7 +19,7 @@ enum V2Error: Error, CustomStringConvertible {
     case needsTwoFactor
     case parseHTMLError
     case signInFailed
-    case severNotFound
+    case serverNotFound
     case commonError(String)
     
     var description: String {
@@ -32,7 +32,7 @@ enum V2Error: Error, CustomStringConvertible {
             return Strings.ServerParseHTMLError
         case .signInFailed:
             return Strings.ServerSignInError
-        case .severNotFound:
+        case .serverNotFound:
             return Strings.ServerNotFound
         case .commonError(let msg):
             return msg
@@ -71,7 +71,7 @@ class V2SDK {
         let dataRequest = Alamofire.request(endPoint)
         dataRequest.responseString { response in
             guard let html = response.value else {
-                completion(V2Response.error(.severNotFound))
+                completion(V2Response.error(.serverNotFound))
                 return
             }
             // 需要登录才能访问
@@ -86,7 +86,7 @@ class V2SDK {
                 if let result = result {
                     completion(V2Response.success(result))
                 } else {
-                    completion(V2Response.error(.severNotFound))
+                    completion(V2Response.error(.serverNotFound))
                 }
             } catch {
                 print(error)

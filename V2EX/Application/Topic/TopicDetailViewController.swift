@@ -124,7 +124,7 @@ class TopicDetailViewController: UIViewController {
         }))
         if AppContext.current.isLogined, let detail = detail {
             
-            let title = detail.favorited ? "取消收藏": "加入收藏"
+            let title = detail.favorited ? Strings.DetailRemoveFromFavorites: Strings.DetailAddToFavorites
             
             actionSheet.addAction(Action(title: title, style: .default, handler: { [weak self] _ in
                 self?.doFavorite()
@@ -151,14 +151,21 @@ class TopicDetailViewController: UIViewController {
     }
     
     private func doFavorite() {
-        guard let token = detail?.csrfToken, let topicID = self.topicID, let favorited = detail?.favorited else {
+        guard let token = detail?.csrfToken,
+            let topicID = self.topicID,
+            let isFavorited = detail?.favorited else {
             return
         }
-        if favorited {
-            let endPoint = EndPoint.favoriteTopic(topicID, token: token)
-            //V2SDK.request(endPoint, parser: TabParser.self, completion: <#T##(V2Response<T>) -> Void#>)
-        } else {
-            //let endPoint = EndPoint.unfavoriteTopic(topicID, token: token)
+        let endPoint: EndPoint = isFavorited ? .unfavoriteTopic(topicID, token: token): .favoriteTopic(topicID, token: token)
+        V2SDK.request(endPoint, parser: OperationParser.self) { [weak self] (response: V2Response<OperationResponse>) in
+            switch response {
+            case .success(_):
+                let msg = isFavorited ? Strings.DetailUnFavoritedSuccess: Strings.DetailFavoritedSuccess
+                self?.detail?.favorited = !isFavorited
+                HUD.show(message: msg)
+            case .error(let error):
+                HUD.show(message: error.description)
+            }
         }
     }
     

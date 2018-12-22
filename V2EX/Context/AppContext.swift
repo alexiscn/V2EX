@@ -25,4 +25,11 @@ class AppContext {
     func setup() {
         Theme.current = Theme(rawValue: AppSettings.shared.theme) ?? .dark
     }
+    
+    func doLogout() {
+        HTTPCookieStorage.shared.cookies?.forEach { HTTPCookieStorage.shared.deleteCookie($0) }
+        URLCache.shared.removeAllCachedResponses()
+        account = nil
+        NotificationCenter.default.post(name: NSNotification.Name.V2.AccountUpdated, object: nil)
+    }
 }
