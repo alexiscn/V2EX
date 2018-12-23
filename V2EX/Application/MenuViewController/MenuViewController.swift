@@ -158,7 +158,8 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func newTopicButtonTapped(_ sender: Any) {
-        
+        let newTopicVC = NewTopicViewController()
+        navigationController?.pushViewController(newTopicVC, animated: true)
     }
     
     @objc private func avatarButtonTapped(_ sender: Any) {
