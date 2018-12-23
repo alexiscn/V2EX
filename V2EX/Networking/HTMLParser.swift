@@ -283,6 +283,9 @@ struct TopicDetailParser: HTMLParser {
     static func handle<T>(_ doc: Document) throws -> T? {
         
         var detail = TopicDetail()
+        if let max = try doc.select("input.page_input").first()?.attr("max") {
+            detail.page = Int(max) ?? 1
+        }
         let header = try doc.select("div.header")
         let authorAvatarSrc = try header.select("img").first()?.attr("src")
         detail.authorAvatarURL = avatarURLWithSource(authorAvatarSrc)
@@ -317,21 +320,21 @@ struct TopicDetailParser: HTMLParser {
             }
         }
         
-        let cells = try doc.select("div.cell")
-        for cell in cells {
-            let divID = try? cell.attr("id")
-            if divID == nil || divID == "" {
-                if let lastLink = try cell.select("a.page_normal").last() {
-                    let href = try lastLink.attr("href")
-                    if href.hasPrefix("?p=") {
-                        detail.page = Int(href.replacingOccurrences(of: "?p=", with: "")) ?? 0
-                    }
-                    break
-                }
-            } else {
-                continue
-            }
-        }
+//        let cells = try doc.select("div.cell")
+//        for cell in cells {
+//            let divID = try? cell.attr("id")
+//            if divID == nil || divID == "" {
+//                if let lastLink = try cell.select("a.page_normal").last() {
+//                    let href = try lastLink.attr("href")
+//                    if href.hasPrefix("?p=") {
+//                        detail.page = Int(href.replacingOccurrences(of: "?p=", with: "")) ?? 0
+//                    }
+//                    break
+//                }
+//            } else {
+//                continue
+//            }
+//        }
         let list: [Reply]? = try TopicReplyParser.handle(doc)
         if let list = list {
             detail.replyList = list
@@ -692,7 +695,7 @@ struct MyModesParser: HTMLParser {
             let count = try node.select("span.fade").text()
             my.title = text.replacingOccurrences(of: count, with: "")
             my.count = Int(count.replacingOccurrences(of: " ", with: "")) ?? 0
-            
+            my.logoURL = avatarURLWithSource(logo)
             response.list.append(my)
         }
         return response as? T

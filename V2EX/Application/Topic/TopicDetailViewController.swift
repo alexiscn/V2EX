@@ -11,6 +11,20 @@ import MJRefresh
 
 class TopicDetailViewController: UIViewController {
 
+    enum ViewOrder {
+        case ascending
+        case descending
+        
+        var buttonTitle: String {
+            switch self {
+            case .ascending:
+                return "正序查看"
+            case .descending:
+                return "倒序查看"
+            }
+        }
+    }
+    
     fileprivate var tableView: UITableView!
     fileprivate var loadingIndicator: UIActivityIndicatorView!
     
@@ -22,6 +36,7 @@ class TopicDetailViewController: UIViewController {
     fileprivate let titleString: String?
     fileprivate var currentPage = 1
     fileprivate var viewAuthorOnly = false
+    fileprivate var order: ViewOrder = .ascending
     fileprivate var webViewHeightCaculated = false
     fileprivate var inputBar = CommentInputBar()
     
@@ -197,25 +212,33 @@ class TopicDetailViewController: UIViewController {
         loadingIndicator.startAnimating()
     }
     
-    private func loadTopicDetail() {
-        webViewHeightCaculated = false
+    private func loadTopicDetail(page: Int = 1) {
         guard let topicID = topicID else { return }
-        
-        let endPoint = EndPoint.topicDetail(topicID)
+
+        let endPoint = EndPoint.topicDetail(topicID, page: page)
         V2SDK.request(endPoint, parser: TopicDetailParser.self) { [weak self] (response: V2Response<TopicDetail>) in
             guard let strongSelf = self else { return }
             strongSelf.loadingIndicator.stopAnimating()
             strongSelf.tableView.mj_header.endRefreshing()
             switch response {
             case .success(let detail):
-                strongSelf.detail = detail
+                if !strongSelf.webViewHeightCaculated {
+                    strongSelf.detail = detail
+                }
+                
                 for r in detail.replyList {
                     if r.username == detail.author {
                         r.isTopicAuthor = true
                     }
                 }
-                strongSelf.allComments = detail.replyList
-                strongSelf.comments = detail.replyList
+                switch strongSelf.order {
+                case .ascending:
+                    strongSelf.allComments = detail.replyList
+                    strongSelf.comments = detail.replyList
+                case .descending:
+                    strongSelf.allComments = detail.replyList.reversed()
+                    strongSelf.comments = detail.replyList.reversed()
+                }
                 strongSelf.tableView.reloadData()
                 if detail.page == 1 {
                     strongSelf.setNoMoreData()
@@ -228,11 +251,22 @@ class TopicDetailViewController: UIViewController {
     
     private func loadMoreComments() {
         guard let topicID = topicID, let detail = detail else { return }
-        if currentPage >= detail.page {
-            setNoMoreData()
-            return
+        
+        switch order {
+        case .ascending:
+            if currentPage >= detail.page {
+                setNoMoreData()
+                return
+            }
+            currentPage += 1
+        case .descending:
+            if currentPage == 1 {
+                setNoMoreData()
+                return
+            }
+            currentPage -= 1
         }
-        currentPage += 1        
+        
         let endPoint = EndPoint.topicDetail(topicID, page: currentPage)
         V2SDK.request(endPoint, parser: TopicReplyParser.self) { [weak self] (response: V2Response<[Reply]>) in
             guard let strongSelf = self else { return }
@@ -243,13 +277,24 @@ class TopicDetailViewController: UIViewController {
                         r.isTopicAuthor = true
                     }
                 }
-                strongSelf.allComments.append(contentsOf: replies)
-                strongSelf.comments.append(contentsOf: replies)
-                strongSelf.tableView.reloadData()
-                if strongSelf.currentPage == detail.page {
-                    strongSelf.setNoMoreData()
-                } else {
-                    strongSelf.tableView.mj_footer.endRefreshing()
+                switch strongSelf.order {
+                case .ascending:
+                    strongSelf.allComments.append(contentsOf: replies)
+                    strongSelf.comments.append(contentsOf: replies)
+                    strongSelf.tableView.reloadData()
+                    if strongSelf.currentPage == detail.page {
+                        strongSelf.setNoMoreData()
+                    } else {
+                        strongSelf.tableView.mj_footer.endRefreshing()
+                    }
+                case .descending:
+                    strongSelf.allComments.append(contentsOf: replies.reversed())
+                    strongSelf.comments.append(contentsOf: replies.reversed())
+                    if strongSelf.currentPage == 1 {
+                        strongSelf.setNoMoreData()
+                    } else {
+                        strongSelf.tableView.mj_footer.endRefreshing()
+                    }
                 }
             case .error(let error):
                 strongSelf.tableView.mj_footer.endRefreshing()
@@ -262,6 +307,26 @@ class TopicDetailViewController: UIViewController {
         if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
             footer.endRefreshingWithNoMoreData()
             footer.stateLabel.isHidden = false
+        }
+    }
+    
+    private func reOrder() {
+        guard let detail = detail else { return }
+        switch self.order {
+        case .ascending:
+            self.order = .descending
+            self.currentPage = detail.page
+        case .descending:
+            self.order = .ascending
+            self.currentPage = 1
+        }
+        
+        if detail.page == 1 {
+            self.comments.reverse()
+            self.allComments.reverse()
+            self.tableView.reloadData()
+        } else {
+            loadTopicDetail(page: detail.page)
         }
     }
 
@@ -281,6 +346,7 @@ class TopicDetailViewController: UIViewController {
         tableView.keyboardDismissMode = .onDrag
         
         let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+            self?.webViewHeightCaculated = false
             self?.loadTopicDetail()
         })
         header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
@@ -318,9 +384,7 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
-        }
+        if section == 0 { return 1 }
         return comments.count
     }
     
@@ -351,6 +415,9 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                     let controller = UserProfileViewController(username: author)
                     self?.navigationController?.pushViewController(controller, animated: true)
                 }
+            }
+            cell.orderButtonHandler = { [weak self] in
+                self?.reOrder()
             }
             if let detail = detail {
                 cell.update(detail)
@@ -411,6 +478,7 @@ extension TopicDetailViewController: CommentInputBarDelegate {
             switch response {
             case .success(_):
                 HUD.show(message: Strings.DetailCommentSuccess)
+                self?.webViewHeightCaculated = false
                 self?.loadTopicDetail()
             case .error(let error):
                 HUD.show(message: error.localizedDescription)

@@ -18,7 +18,7 @@ enum Language: String {
     var title: String {
         switch self {
         case .none:
-            return "Follow System"
+            return Strings.LangFollowSystem
         case .en:
             return "English"
         case .zhHans:

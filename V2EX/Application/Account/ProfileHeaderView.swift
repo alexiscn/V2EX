@@ -92,7 +92,7 @@ class ProfileHeaderView: UIView {
         let account = AppContext.current.account
         let nodeButton = ProfileButton(frame: .zero)
         nodeButton.tag = 1
-        nodeButton.update(count: account?.myNodes, title: "节点收藏")
+        nodeButton.update(count: account?.myNodes, title: Strings.ProfileFavoritedNodes)
         buttonsView.addSubview(nodeButton)
         nodeButton.snp.makeConstraints { make in
             make.leading.equalToSuperview()
@@ -103,7 +103,7 @@ class ProfileHeaderView: UIView {
         
         let topicButton = ProfileButton(frame: .zero)
         topicButton.tag = 2
-        topicButton.update(count: account?.myTopics, title: "主题收藏")
+        topicButton.update(count: account?.myTopics, title: Strings.ProfileFavoritedTopics)
         buttonsView.addSubview(topicButton)
         topicButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -124,7 +124,7 @@ class ProfileHeaderView: UIView {
         
         let followingButton = ProfileButton(frame: .zero)
         followingButton.tag = 3
-        followingButton.update(count: account?.myFollowing, title: "特别关注")
+        followingButton.update(count: account?.myFollowing, title: Strings.ProfileMyFollowing)
         buttonsView.addSubview(followingButton)
         followingButton.snp.makeConstraints { make in
             make.trailing.equalToSuperview()

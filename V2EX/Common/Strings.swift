@@ -85,10 +85,15 @@ extension Strings {
 // Profile
 extension Strings {
     static var ProfileHisTopics: String { return NSLocalizedString("Profile.HisTopics", value: "His topics", comment: "Ta创建的主题") }
+    static var ProfileMyTopics: String { return NSLocalizedString("Profile.MyTopics", value: "My topics", comment: "我创建主题") }
     static var ProfileHisComments: String { return NSLocalizedString("Profile.HisComments", value: "His comments", comment: "Ta的最近回复") }
+    static var ProfileMyComments: String { return NSLocalizedString("Profile.MyComments", value: "My comments", comment: "我的最近回复") }
     static var ProfileFollow: String { return NSLocalizedString("Profile.Follow", value: "Follow", comment: "加入特别关注") }
     static var ProfileBlock: String { return NSLocalizedString("Profile.Block", value: "Block", comment: "拉黑") }
     static var ProfileBalance: String { return NSLocalizedString("Profile.Balance", value: "Balance", comment: "余额") }
+    static var ProfileFavoritedNodes: String { return NSLocalizedString("Profile.FavoritedNodes", value: "Nodes" ,comment: "节点收藏") }
+    static var ProfileFavoritedTopics: String { return NSLocalizedString("Profile.FavoritedTopics", value: "Topics" ,comment: "主题收藏") }
+    static var ProfileMyFollowing: String { return NSLocalizedString("Profile.MyFollowing", value: "Following" ,comment: "特别关注") }
 }
 
 // Settings

@@ -8,6 +8,20 @@
 
 import UIKit
 
+enum ProfileSections: Int {
+    case topics = 0
+    case comments = 1
+    
+    var title: String? {
+        switch self {
+        case .topics:
+            return Strings.ProfileMyTopics
+        case .comments:
+            return Strings.ProfileMyComments
+        }
+    }
+}
+
 class ProfileViewController: UIViewController {
     
     private var tableView: UITableView!
@@ -201,7 +215,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 50.0)))
         header.backgroundColor = Theme.current.backgroundColor
         let label = UILabel(frame: .zero)
-        label.text = UserProfileSections(rawValue: section)?.title
+        label.text = ProfileSections(rawValue: section)?.title
         label.textColor = Theme.current.subTitleColor
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         header.addSubview(label)

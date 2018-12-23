@@ -15,6 +15,8 @@ class TopicDetailViewCell: UITableViewCell {
  
     var webViewHeightChangedHandler: ((CGFloat) -> Void)?
     
+    var orderButtonHandler: RelayCommand?
+    
     var topicButtonHandler: RelayCommand?
     
     var avatarHandler: RelayCommand?
@@ -30,6 +32,14 @@ class TopicDetailViewCell: UITableViewCell {
     private let webView: WKWebView
     
     private let nodeButton: UIButton
+    
+    private let orderButton: UIButton
+    
+    var order: TopicDetailViewController.ViewOrder = .ascending {
+        didSet {
+            orderButton.setTitle(order.buttonTitle, for: .normal)
+        }
+    }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
@@ -60,6 +70,13 @@ class TopicDetailViewCell: UITableViewCell {
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.backgroundColor = .clear
         
+        orderButton = UIButton(type: .system)
+        orderButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        orderButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        orderButton.backgroundColor = Theme.current.cellBackgroundColor
+        orderButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 3, right: 10)
+        orderButton.setTitle(TopicDetailViewController.ViewOrder.ascending.buttonTitle, for: .normal)
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(avatarButton)
@@ -68,6 +85,7 @@ class TopicDetailViewCell: UITableViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(nodeButton)
         contentView.addSubview(webView)
+        contentView.addSubview(orderButton)
         
         webView.navigationDelegate = self
         
@@ -105,8 +123,23 @@ class TopicDetailViewCell: UITableViewCell {
             make.height.equalTo(0)
         }
         
+        orderButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(12)
+            make.bottom.equalToSuperview().offset(-12)
+            make.height.equalTo(22)
+        }
+        
         nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
         avatarButton.addTarget(self, action: #selector(userAvatarButtonTapped(_:)), for: .touchUpInside)
+        orderButton.addTarget(self, action: #selector(handleOrderButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    @objc private func handleOrderButtonTapped(_ sender: Any) {
+        orderButtonHandler?()
     }
     
     @objc private func handleNodeButtonTapped(_ sender: Any) {
@@ -115,10 +148,6 @@ class TopicDetailViewCell: UITableViewCell {
     
     @objc private func userAvatarButtonTapped(_ sender: Any) {
         avatarHandler?()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     func update(_ detail: TopicDetail) {
@@ -158,7 +187,7 @@ class TopicDetailViewCell: UITableViewCell {
             let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 20) as Any])
             rowHeight += rect.height
         }
-        
+        rowHeight += 30 // bottom
         rowHeight += 12
         
         detail._rowHeight = rowHeight

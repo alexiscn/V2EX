@@ -25,7 +25,7 @@ struct TopicDetail {
     
     var likes: String?
     
-    var page: Int = 0
+    var page: Int = 1
     
     var nodeName: String?
     
