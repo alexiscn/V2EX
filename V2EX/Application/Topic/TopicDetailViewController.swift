@@ -26,6 +26,7 @@ class TopicDetailViewController: UIViewController {
     }
     
     fileprivate var tableView: UITableView!
+    fileprivate var detailCell: TopicDetailViewCell?
     fileprivate var loadingIndicator: UIActivityIndicatorView!
     
     fileprivate var allComments: [Reply] = []
@@ -290,6 +291,7 @@ class TopicDetailViewController: UIViewController {
                 case .descending:
                     strongSelf.allComments.append(contentsOf: replies.reversed())
                     strongSelf.comments.append(contentsOf: replies.reversed())
+                    strongSelf.tableView.reloadData()
                     if strongSelf.currentPage == 1 {
                         strongSelf.setNoMoreData()
                     } else {
@@ -311,22 +313,62 @@ class TopicDetailViewController: UIViewController {
     }
     
     private func reOrder() {
-        guard let detail = detail else { return }
-        switch self.order {
+        guard let topicID = topicID, let detail = detail else { return }
+        switch order {
         case .ascending:
-            self.order = .descending
-            self.currentPage = detail.page
+            order = .descending
+            currentPage = detail.page
         case .descending:
-            self.order = .ascending
-            self.currentPage = 1
+            order = .ascending
+            currentPage = 1
         }
         
         if detail.page == 1 {
-            self.comments.reverse()
-            self.allComments.reverse()
-            self.tableView.reloadData()
+            comments.reverse()
+            allComments.reverse()
+            tableView.reloadData()
+            detailCell?.order = order
         } else {
-            loadTopicDetail(page: detail.page)
+            detailCell?.orderButton.isSelected = true
+            let endPoint = EndPoint.topicDetail(topicID, page: currentPage)
+            V2SDK.request(endPoint, parser: TopicReplyParser.self) { [weak self] (response: V2Response<[Reply]>) in
+                guard let strongSelf = self else { return }
+                strongSelf.detailCell?.orderButton.isSelected = false
+                switch response {
+                case .success(let replies):
+                    for r in replies {
+                        if r.username == strongSelf.detail?.author {
+                            r.isTopicAuthor = true
+                        }
+                    }
+                    strongSelf.allComments.removeAll()
+                    strongSelf.comments.removeAll()
+                    switch strongSelf.order {
+                    case .ascending:
+                        strongSelf.allComments = replies
+                        strongSelf.comments = replies
+                        strongSelf.tableView.reloadData()
+                        if strongSelf.currentPage == detail.page {
+                            strongSelf.setNoMoreData()
+                        } else {
+                            strongSelf.tableView.mj_footer.endRefreshing()
+                        }
+                    case .descending:
+                        strongSelf.allComments = replies.reversed()
+                        strongSelf.comments = replies.reversed()
+                        strongSelf.tableView.reloadData()
+                        if strongSelf.currentPage == 1 {
+                            strongSelf.setNoMoreData()
+                        } else {
+                            strongSelf.tableView.mj_footer.endRefreshing()
+                        }
+                    }
+                    strongSelf.detailCell?.order = strongSelf.order
+                case .error(let error):
+                    strongSelf.tableView.mj_footer.endRefreshing()
+                    HUD.show(message: error.description)
+                }
+            }
         }
     }
 
@@ -337,6 +379,7 @@ class TopicDetailViewController: UIViewController {
 
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds, style: .plain)
+        tableView.estimatedRowHeight = 0.0
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
         tableView.backgroundColor = .clear
         tableView.separatorColor = Theme.current.cellHighlightColor
@@ -422,6 +465,7 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
             if let detail = detail {
                 cell.update(detail)
             }
+            detailCell = cell
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(TopicCommentViewCell.self), for: indexPath) as! TopicCommentViewCell

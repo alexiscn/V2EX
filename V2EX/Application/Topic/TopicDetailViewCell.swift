@@ -33,7 +33,7 @@ class TopicDetailViewCell: UITableViewCell {
     
     private let nodeButton: UIButton
     
-    private let orderButton: UIButton
+    let orderButton: UIButton
     
     var order: TopicDetailViewController.ViewOrder = .ascending {
         didSet {
@@ -70,12 +70,14 @@ class TopicDetailViewCell: UITableViewCell {
         webView = WKWebView(frame: .zero, configuration: configuration)
         webView.backgroundColor = .clear
         
-        orderButton = UIButton(type: .system)
+        orderButton = UIButton(type: .custom)
         orderButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         orderButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        orderButton.setTitleColor(Theme.current.titleColor, for: .selected)
         orderButton.backgroundColor = Theme.current.cellBackgroundColor
         orderButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 3, right: 10)
         orderButton.setTitle(TopicDetailViewController.ViewOrder.ascending.buttonTitle, for: .normal)
+        orderButton.setTitle("正在加载", for: .selected)
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
