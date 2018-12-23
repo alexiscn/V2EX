@@ -72,9 +72,11 @@ class ActionSheet: UIView, UIGestureRecognizerDelegate {
     public func show() {
         
         // find the most top Window to hold the actionsheet.
-        guard let win = UIApplication.shared.windows.sorted(by: { $0.windowLevel > $1.windowLevel }).first else {
-            return
-        }
+        let windows = UIApplication.shared.windows.filter { NSStringFromClass($0.classForCoder) != "UIRemoteKeyboardWindow" }
+        guard let win = windows.last else { return }
+//        guard let win = UIApplication.shared.windows.sorted(by: { $0.windowLevel > $1.windowLevel }).first else {
+//            return
+//        }
         
         buildUI()
         UIView.animate(withDuration: 0.1, animations: {

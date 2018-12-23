@@ -90,7 +90,14 @@ class LoginViewController: UIViewController {
         return Theme.current.statusBarStyle
     }
     
+    private func hideKeyboard() {
+        usernameTextField.resignFirstResponder()
+        passwordLabel.resignFirstResponder()
+        captchaTextField.resignFirstResponder()
+    }
+    
     @IBAction func closeButtonTapped(_ sender: Any) {
+        hideKeyboard()
         dismiss(animated: true, completion: nil)
     }
     
@@ -121,9 +128,11 @@ class LoginViewController: UIViewController {
             HUD.show(message: Strings.LoginCaptchaAlerts)
             return
         }
-        
+        hideKeyboard()
+        HUD.showIndicator()
         let endPoint = EndPoint.signIn(username: username, password: password, captcha: captcha, formData: formData)
         V2SDK.request(endPoint, parser: SignInParser.self) { (response: V2Response<Account>) in
+            HUD.removeIndicator()
             switch response {
             case .success(let account):
                 print(account)

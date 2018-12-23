@@ -105,14 +105,23 @@ struct SignInParser: HTMLParser {
         }
         let html = try doc.html()
         if html.contains("/notifications") {
-            if let imgElement = try doc.select("img.avatar").first(),
-                let member = try imgElement.parent()?.attr("href") {
-                let src = try imgElement.attr("src")
+            if let link = try doc.select("a.top").first() {
+                let member = try link.attr("href")
+                let src = try link.select("img").first()?.attr("src")
+                
                 var account = Account()
-                account.username = member.replacingOccurrences(of: "/member/", with: "")
                 account.avatarURLString = avatarURLWithSource(src)?.absoluteString
+                account.username = member.replacingOccurrences(of: "/member/", with: "")
                 return account as? T
             }
+//            if let imgElement = try doc.select("img.avatar").first(),
+//                let member = try imgElement.parent()?.attr("href") {
+//                let src = try imgElement.attr("src")
+//
+//
+//                account.avatarURLString = avatarURLWithSource(src)?.absoluteString
+//
+//            }
         }
         throw V2Error.signInFailed
     }

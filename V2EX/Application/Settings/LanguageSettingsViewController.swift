@@ -30,11 +30,7 @@ class LanguageSettingsViewController: UIViewController, UITableViewDataSource, U
     
     private func setupNavigationBar() {
         configureNavigationBar()
-        
-//        let leftItem = UIBarButtonItem(title: Strings.Cancel, style: .plain, target: self, action: #selector(leftNavigationButtonTapped(_:)))
         let rightItem = UIBarButtonItem(title: Strings.Done, style: .done, target: self, action: #selector(rightNavigationButtonTapped(_:)))
-        
-//        navigationItem.leftBarButtonItem = leftItem
         navigationItem.rightBarButtonItem = rightItem
     }
     
@@ -43,6 +39,10 @@ class LanguageSettingsViewController: UIViewController, UITableViewDataSource, U
     }
     
     @objc private func rightNavigationButtonTapped(_ sender: Any) {
+        if currentLang == LanguageManager.shared.currentLanguage {
+            dismiss(animated: true, completion: nil)
+            return
+        }
         LanguageManager.shared.currentLanguage = currentLang
         // 稍微有些山寨的做法，由于：SideMenu Warning: menuLeftNavigationController cannot be modified while it's presented
         let appDelegate = UIApplication.shared.delegate as! AppDelegate

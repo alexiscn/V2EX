@@ -127,14 +127,14 @@
                                                 <color key="textColor" red="0.72549019607843135" green="0.78431372549019607" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IaJ-d1-YqC" userLabel="PasswordTextField">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="IaJ-d1-YqC" userLabel="PasswordTextField">
                                                 <rect key="frame" x="72" y="7" width="223" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="pXA-pL-iSB"/>
                                                 </constraints>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits" textContentType="password"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fI6-j3-4mz" userLabel="Line View">
                                                 <rect key="frame" x="0.0" y="49.5" width="315" height="0.5"/>
