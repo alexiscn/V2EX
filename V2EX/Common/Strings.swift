@@ -16,7 +16,7 @@ extension Strings {
     static var Done: String { return NSLocalizedString("Done", comment: "完成") }
     static var Share: String { return NSLocalizedString("Share", comment: "分享") }
     static var Report: String { return NSLocalizedString("Report", comment: "举报") }
-    static var NoMoreData: String { return NSLocalizedString("NoMoreData", value: "No more data..", comment: "") }
+    static var NoMoreData: String { return NSLocalizedString("NoMoreData", value: "No more data..", comment: "没有更多了") }
     static var Notifications: String { return NSLocalizedString("Notifications", comment: "通知") }
     static var CopyLink: String { return NSLocalizedString("CopyLink", value: "Copy link", comment: "复制链接") }
 }

@@ -106,6 +106,12 @@
 /* 拉黑 */
 "Profile.Block" = "Block";
 
+/* 节点收藏 */
+"Profile.FavoritedNodes" = "Nodes";
+
+/* 主题收藏 */
+"Profile.FavoritedTopics" = "Topics";
+
 /* 加入特别关注 */
 "Profile.Follow" = "Follow";
 
@@ -114,6 +120,15 @@
 
 /* Ta创建的主题 */
 "Profile.HisTopics" = "His topics";
+
+/* 我的最近回复 */
+"Profile.MyComments" = "My comments";
+
+/* 特别关注 */
+"Profile.MyFollowing" = "Following";
+
+/* 我创建主题 */
+"Profile.MyTopics" = "My topics";
 
 /* 举报 */
 "Report" = "Report";

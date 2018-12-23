@@ -85,6 +85,9 @@
 /* 退出登录 */
 "Logout" = "Logout";
 
+/* 没有更多了 */
+"NoMoreData" = "No more data..";
+
 /* 所有节点 */
 "Nodes.All" = "All Nodes";
 

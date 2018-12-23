@@ -59,7 +59,12 @@ class SettingsViewController: UIViewController {
         versionLabel = UILabel()
         versionLabel.font = UIFont.systemFont(ofSize: 11)
         versionLabel.textColor = Theme.current.subTitleColor
-        versionLabel.text = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        if let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String {
+            versionLabel.text = "V \(version)"
+        } else {
+            versionLabel.text = "V 1.0"
+        }
+        
         view.addSubview(versionLabel)
         versionLabel.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
