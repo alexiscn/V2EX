@@ -213,7 +213,7 @@ class TimelineViewController: UIViewController {
     }
     
     fileprivate func setNoMoreData() {
-        if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
+        if let footer = tableView.mj_footer as? V2RefreshFooter {
             switch type {
             case .node:
                 footer.setTitle(Strings.NoMoreData, for: .noMoreData)
@@ -240,7 +240,7 @@ class TimelineViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.register(TimelineViewCell.self, forCellReuseIdentifier: NSStringFromClass(TimelineViewCell.self))
         view.addSubview(tableView)
-        let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+        tableView.mj_header = V2RefreshHeader { [weak self] in
             guard let strongSelf = self else { return }
             switch strongSelf.type {
             case .tab:
@@ -248,22 +248,10 @@ class TimelineViewController: UIViewController {
             case .node:
                 strongSelf.loadNodeTopics()
             }
-        })
-        header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        header?.stateLabel.isHidden = true
-        header?.stateLabel.textColor = Theme.current.subTitleColor
-        header?.lastUpdatedTimeLabel.isHidden = true
-        tableView.mj_header = header
-        
-        let footer = MJRefreshAutoNormalFooter(refreshingBlock: { [weak self] in
+        }
+        tableView.mj_footer = V2RefreshFooter { [weak self] in
             self?.loadMoreData()
-        })
-        footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        footer?.isRefreshingTitleHidden = true
-        footer?.triggerAutomaticallyRefreshPercent = 0.8
-        footer?.stateLabel.textColor = Theme.current.subTitleColor
-        footer?.stateLabel.isHidden = true
-        tableView.mj_footer = footer
+        }
     }
 }
 

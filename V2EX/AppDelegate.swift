@@ -12,6 +12,8 @@ import Crashlytics
 
 typealias RelayCommand = () -> Void
 
+let LineHeight: CGFloat = 1.0 / UIScreen.main.scale
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

@@ -100,7 +100,7 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
         
         lineView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.height.equalTo(0.5)
+            make.height.equalTo(LineHeight)
             make.bottom.equalToSuperview()
         }
         

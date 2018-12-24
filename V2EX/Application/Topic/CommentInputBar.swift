@@ -99,7 +99,7 @@ class CommentInputBar: UIView, UITextViewDelegate {
         
         topLineView.snp.makeConstraints { make in
             make.leading.top.trailing.equalToSuperview()
-            make.height.equalTo(0.5)
+            make.height.equalTo(LineHeight)
         }
         
         inputTextView.snp.makeConstraints { make in

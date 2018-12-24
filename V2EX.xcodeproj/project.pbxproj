@@ -80,6 +80,11 @@
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
 		A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */; };
 		A3B97AB421D09815007A7492 /* MyFollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B97AB321D09815007A7492 /* MyFollowingViewModel.swift */; };
+		A3B97AD921D0C40F007A7492 /* MessageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B97AD821D0C40F007A7492 /* MessageTextView.swift */; };
+		A3B97ADB21D0C4E1007A7492 /* V2RefreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B97ADA21D0C4E1007A7492 /* V2RefreshHeader.swift */; };
+		A3B97ADD21D0C746007A7492 /* V2RefreshFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B97ADC21D0C746007A7492 /* V2RefreshFooter.swift */; };
+		A3B97ADF21D0CA79007A7492 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B97ADE21D0CA79007A7492 /* MessageViewController.swift */; };
+		A3B97AE121D0CC33007A7492 /* MessageInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B97AE021D0CC33007A7492 /* MessageInputBar.swift */; };
 		A3DCB07F21AA9D8A005FD955 /* allnodes.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB07E21AA9D8A005FD955 /* allnodes.json */; };
 		A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08221B2B270005FD955 /* LoginFormData.swift */; };
 		A3DCB08521B392FB005FD955 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08421B392FA005FD955 /* Account.swift */; };
@@ -172,6 +177,11 @@
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingsViewController.swift; sourceTree = "<group>"; };
 		A3B97AB321D09815007A7492 /* MyFollowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowingViewModel.swift; sourceTree = "<group>"; };
+		A3B97AD821D0C40F007A7492 /* MessageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTextView.swift; sourceTree = "<group>"; };
+		A3B97ADA21D0C4E1007A7492 /* V2RefreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2RefreshHeader.swift; sourceTree = "<group>"; };
+		A3B97ADC21D0C746007A7492 /* V2RefreshFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2RefreshFooter.swift; sourceTree = "<group>"; };
+		A3B97ADE21D0CA79007A7492 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		A3B97AE021D0CC33007A7492 /* MessageInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputBar.swift; sourceTree = "<group>"; };
 		A3DCB07E21AA9D8A005FD955 /* allnodes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allnodes.json; sourceTree = "<group>"; };
 		A3DCB08221B2B270005FD955 /* LoginFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormData.swift; sourceTree = "<group>"; };
 		A3DCB08421B392FA005FD955 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -289,9 +299,7 @@
 		A358548B20E1D6D200C76393 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				A3691744219E911A002DA8E3 /* ActionSheet.swift */,
 				A37F193321A2B671001BCC0A /* Utility.swift */,
-				A3DCB08821BB76A9005FD955 /* HUD.swift */,
 				A33E18C321BE3EE80084FF29 /* Strings.swift */,
 				A33F1E3521C11ED100853704 /* LanguageManager.swift */,
 			);
@@ -423,10 +431,11 @@
 			children = (
 				A358548820E1D68F00C76393 /* Application */,
 				A34A5D6F21ABBD3800ED2F88 /* Context */,
+				A3B97AD721D0C2EA007A7492 /* Components */,
+				A358548B20E1D6D200C76393 /* Common */,
 				A36D0FA7219D808000E20EFB /* Networking */,
 				A39B244B21C339B000407FF7 /* MVVM */,
 				A36EAFC9219FEE8E000DA4A3 /* Models */,
-				A358548B20E1D6D200C76393 /* Common */,
 				A3A9E62F21AE901C00680FC5 /* Theme */,
 				A358548720E1D65A00C76393 /* Supporting Files */,
 				A3704DD420E0FA7D0052576D /* Extensions */,
@@ -454,6 +463,20 @@
 				A379E9BB210DF33900FA2169 /* style.css */,
 			);
 			path = Theme;
+			sourceTree = "<group>";
+		};
+		A3B97AD721D0C2EA007A7492 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A3691744219E911A002DA8E3 /* ActionSheet.swift */,
+				A3DCB08821BB76A9005FD955 /* HUD.swift */,
+				A3B97AD821D0C40F007A7492 /* MessageTextView.swift */,
+				A3B97AE021D0CC33007A7492 /* MessageInputBar.swift */,
+				A3B97ADE21D0CA79007A7492 /* MessageViewController.swift */,
+				A3B97ADA21D0C4E1007A7492 /* V2RefreshHeader.swift */,
+				A3B97ADC21D0C746007A7492 /* V2RefreshFooter.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		A3DFFDF3211C3049005818BC /* MainViewController */ = {
@@ -661,6 +684,7 @@
 				A36EAFCB219FEEB2000DA4A3 /* V2Tab.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
 				A3DCB08921BB76A9005FD955 /* HUD.swift in Sources */,
+				A3B97ADD21D0C746007A7492 /* V2RefreshFooter.swift in Sources */,
 				A373C68A21B5411C00C919AD /* UserCommentViewCell.swift in Sources */,
 				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
@@ -680,9 +704,11 @@
 				A36B478F21D08156006897DC /* MyFavoritedTopicsViewModel.swift in Sources */,
 				A3F788B721B7A405002B2F99 /* EndPoint.swift in Sources */,
 				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
+				A3B97ADB21D0C4E1007A7492 /* V2RefreshHeader.swift in Sources */,
 				A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */,
 				A39B244A21C3389700407FF7 /* BalanceViewModel.swift in Sources */,
 				A36EAFCF219FEF01000DA4A3 /* TopicDetail.swift in Sources */,
+				A3B97ADF21D0CA79007A7492 /* MessageViewController.swift in Sources */,
 				A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 				A37F192E21A25CE7001BCC0A /* AppSettings.swift in Sources */,
@@ -693,6 +719,7 @@
 				A379EA3F212259C500FA2169 /* AllNodesViewController.swift in Sources */,
 				A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */,
 				A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */,
+				A3B97AD921D0C40F007A7492 /* MessageTextView.swift in Sources */,
 				A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */,
 				A333759521C76DEC0008085F /* CommentInputTextView.swift in Sources */,
 				A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */,
@@ -700,6 +727,7 @@
 				A33A4C4A21CCC43C005605A8 /* NewTopicViewController.swift in Sources */,
 				A302F69021A3F2A000A15BA7 /* RightMenuViewController.swift in Sources */,
 				A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */,
+				A3B97AE121D0CC33007A7492 /* MessageInputBar.swift in Sources */,
 				A3DCB08B21BBF90A005FD955 /* V2SDK+Upload.swift in Sources */,
 				A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */,
 				A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */,

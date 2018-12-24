@@ -44,24 +44,12 @@ class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegat
         tableView.tableFooterView = UIView()
         tableView.register(viewModel.cellClass, forCellReuseIdentifier: NSStringFromClass(viewModel.cellClass))
         view.addSubview(tableView)
-        let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+        tableView.mj_header = V2RefreshHeader { [weak self] in
             self?.loadData(isLoadMore: false)
-        })
-        header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        header?.stateLabel.isHidden = true
-        header?.stateLabel.textColor = Theme.current.subTitleColor
-        header?.lastUpdatedTimeLabel.isHidden = true
-        tableView.mj_header = header
-        
-        let footer = MJRefreshAutoNormalFooter(refreshingBlock: { [weak self] in
+        }
+        tableView.mj_footer = V2RefreshFooter { [weak self] in
             self?.loadData(isLoadMore: true)
-        })
-        footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        footer?.isRefreshingTitleHidden = true
-        footer?.triggerAutomaticallyRefreshPercent = 0.8
-        footer?.stateLabel.textColor = Theme.current.subTitleColor
-        footer?.stateLabel.isHidden = true
-        tableView.mj_footer = footer
+        }
     }
     
     private func loadData(isLoadMore: Bool) {

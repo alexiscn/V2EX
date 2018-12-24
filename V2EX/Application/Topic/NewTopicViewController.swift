@@ -50,7 +50,7 @@ class NewTopicViewController: UIViewController {
             make.leading.equalToSuperview().offset(12)
             make.trailing.equalToSuperview().offset(-12)
             make.top.equalTo(titleTextField.snp.bottom)
-            make.height.equalTo(0.5)
+            make.height.equalTo(LineHeight)
         }
     }
 }

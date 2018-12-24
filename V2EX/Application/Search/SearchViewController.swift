@@ -99,24 +99,13 @@ class SearchViewController: UIViewController {
         self.headerView?.optionChangedHandler = { [weak self] sort in
             self?.currentSort = sort
         }
-        let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+        tableView.mj_header = V2RefreshHeader { [weak self] in
             self?.doSearch()
-        })
-        header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        header?.stateLabel.isHidden = true
-        header?.stateLabel.textColor = Theme.current.subTitleColor
-        header?.lastUpdatedTimeLabel.isHidden = true
-        tableView.mj_header = header
-        
-        let footer = MJRefreshAutoNormalFooter(refreshingBlock: { [weak self] in
+        }
+        tableView.mj_footer = V2RefreshFooter { [weak self] in
             self?.doSearch(isLoadMore: true)
-        })
-        footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        footer?.isRefreshingTitleHidden = true
-        footer?.triggerAutomaticallyRefreshPercent = 0.8
-        footer?.stateLabel.textColor = Theme.current.subTitleColor
-        footer?.stateLabel.isHidden = true
-        tableView.mj_footer = footer
+        }
+        
         tableView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
             make.top.equalToSuperview().offset(view.keyWindowSafeAreaInsets.top + 64)

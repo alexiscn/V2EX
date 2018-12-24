@@ -88,20 +88,6 @@ class TopicDetailViewController: UIViewController {
         tableView.addGestureRecognizer(gesture)
     }
     
-    @objc private func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
-        if gesture.state == .began {
-            
-            let feedback = UIImpactFeedbackGenerator(style: .light)
-            feedback.impactOccurred()
-            
-            let point = gesture.location(in: tableView)
-            if let indexPath = tableView.indexPathForRow(at: point), indexPath.section == 1 {
-                let comment = comments[indexPath.row]
-                showCommentSheet(comment)
-            }
-        }
-    }
-    
     private func showCommentSheet(_ comment: Reply) {
         let actionSheet = ActionSheet(title: nil, message: nil)
         if AppContext.current.isLogined {
@@ -126,44 +112,9 @@ class TopicDetailViewController: UIViewController {
         actionSheet.show()
     }
     
-    private func setupNavigationBar() {
+    fileprivate func setupNavigationBar() {
         let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
         navigationItem.rightBarButtonItem = moreBarButtonItem
-    }
-    
-    @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        let actionSheet = ActionSheet(title: nil, message: nil)
-        actionSheet.addAction(Action(title: Strings.DetailOpenInSafari, style: .default, handler: { _ in
-            if let url = self.topicURL {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }))
-        if AppContext.current.isLogined, let detail = detail {
-            
-            let title = detail.favorited ? Strings.DetailRemoveFromFavorites: Strings.DetailAddToFavorites
-            
-            actionSheet.addAction(Action(title: title, style: .default, handler: { [weak self] _ in
-                self?.doFavorite()
-            }))
-        }
-        actionSheet.addAction(Action(title: Strings.Share, style: .default, handler: { [weak self] _ in
-            self?.presentShare()
-        }))
-        actionSheet.addAction(Action(title: Strings.CopyLink, style: .default, handler: { [weak self] _ in
-            UIPasteboard.general.url = self?.topicURL
-        }))
-        let viewOptionTitle = viewAuthorOnly ? Strings.DetailViewAllComments: Strings.DetailViewAuthorOnly
-        actionSheet.addAction(Action(title: viewOptionTitle, style: .default, handler: { [weak self] _ in
-            self?.resortReplies()
-        }))
-        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
-            
-        }))
-        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
-            
-        }))
-        actionSheet.show()
-    
     }
     
     private func doFavorite() {
@@ -185,14 +136,6 @@ class TopicDetailViewController: UIViewController {
         }
     }
     
-    private func presentShare() {
-        guard let url = topicURL else {
-            return
-        }
-        let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
-        present(controller, animated: true, completion: nil)
-    }
-    
     private func resortReplies() {
         viewAuthorOnly = !viewAuthorOnly
         if viewAuthorOnly {
@@ -201,16 +144,6 @@ class TopicDetailViewController: UIViewController {
             comments = allComments
         }
         tableView.reloadData()
-    }
-    
-    private func setupLoadingView() {
-        loadingIndicator = UIActivityIndicatorView(style: Theme.current.activityIndicatorViewStyle)
-        view.addSubview(loadingIndicator)
-        loadingIndicator.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-60)
-        }
-        loadingIndicator.startAnimating()
     }
     
     private func loadTopicDetail(page: Int = 1) {
@@ -376,7 +309,21 @@ class TopicDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
 
+// MARK: - Setup UI
+extension TopicDetailViewController {
+    
+    private func setupLoadingView() {
+        loadingIndicator = UIActivityIndicatorView(style: Theme.current.activityIndicatorViewStyle)
+        view.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview().offset(-60)
+        }
+        loadingIndicator.startAnimating()
+    }
+    
     fileprivate func setupTableView() {
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.estimatedRowHeight = 0.0
@@ -388,26 +335,15 @@ class TopicDetailViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .onDrag
         
-        let header = MJRefreshNormalHeader(refreshingBlock: { [weak self] in
+        let header = V2RefreshHeader { [weak self] in
             self?.webViewHeightCaculated = false
             self?.loadTopicDetail()
-        })
-        header?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        header?.stateLabel.isHidden = true
-        header?.stateLabel.textColor = Theme.current.subTitleColor
-        header?.lastUpdatedTimeLabel.isHidden = true
+        }
         tableView.mj_header = header
         
-        let footer = MJRefreshAutoNormalFooter { [weak self] in
+        tableView.mj_footer = V2RefreshFooter { [weak self] in
             self?.loadMoreComments()
         }
-        footer?.stateLabel.isHidden = true
-        footer?.stateLabel.textColor = Theme.current.subTitleColor
-        footer?.setTitle(Strings.NoMoreData, for: .noMoreData)
-        footer?.isRefreshingTitleHidden = true
-        footer?.triggerAutomaticallyRefreshPercent = 0.8
-        footer?.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        tableView.mj_footer = footer
         
         tableView.register(TopicCommentViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicCommentViewCell.self))
         tableView.register(TopicDetailViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicDetailViewCell.self))
@@ -420,6 +356,61 @@ class TopicDetailViewController: UIViewController {
     }
 }
 
+
+// MARK: - Events
+extension TopicDetailViewController {
+    
+    @objc fileprivate func moreBarButtonItemTapped(_ sender: Any) {
+        let actionSheet = ActionSheet(title: nil, message: nil)
+        actionSheet.addAction(Action(title: Strings.DetailOpenInSafari, style: .default, handler: { _ in
+            if let url = self.topicURL {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }))
+        if AppContext.current.isLogined, let detail = detail {
+            let title = detail.favorited ? Strings.DetailRemoveFromFavorites: Strings.DetailAddToFavorites
+            actionSheet.addAction(Action(title: title, style: .default, handler: { [weak self] _ in
+                self?.doFavorite()
+            }))
+        }
+        actionSheet.addAction(Action(title: Strings.Share, style: .default, handler: { [weak self] _ in
+            if let url = self?.topicURL {
+                let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+                self?.present(controller, animated: true, completion: nil)
+            }
+        }))
+        actionSheet.addAction(Action(title: Strings.CopyLink, style: .default, handler: { [weak self] _ in
+            UIPasteboard.general.url = self?.topicURL
+        }))
+        let viewOptionTitle = viewAuthorOnly ? Strings.DetailViewAllComments: Strings.DetailViewAuthorOnly
+        actionSheet.addAction(Action(title: viewOptionTitle, style: .default, handler: { [weak self] _ in
+            self?.resortReplies()
+        }))
+        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
+            
+        }))
+        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
+            
+        }))
+        actionSheet.show()
+    }
+    
+    @objc fileprivate func handleLongPressGesture(_ gesture: UILongPressGestureRecognizer) {
+        if gesture.state == .began {
+            
+            let feedback = UIImpactFeedbackGenerator(style: .light)
+            feedback.impactOccurred()
+            
+            let point = gesture.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: point), indexPath.section == 1 {
+                let comment = comments[indexPath.row]
+                showCommentSheet(comment)
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource & UITableViewDelegate
 extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -546,5 +537,7 @@ extension TopicDetailViewController: UINavigationControllerDelegate, UIImagePick
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
+        print(info)
+        //V2SDK.upload(data: <#T##Data#>, completion: <#T##(MSUploadResponse?, Error?) -> Void#>)
     }
 }

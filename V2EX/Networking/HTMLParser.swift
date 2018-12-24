@@ -601,7 +601,7 @@ struct BalanceParser: HTMLParser {
             }
             let list = line.children().array()
             if list.count == 5 {
-                var balance = Balance()
+                let balance = Balance()
                 balance.time = try line.select("small.gray").text().replacingOccurrences(of: " +08:00", with: "")
                 balance.title = try list[1].text()
                 balance.total = try list[4].text()
