@@ -22,13 +22,13 @@ class NotificationsViewModel: ListViewModel {
     
     var endPoint: EndPoint { return EndPoint.notifications(page: currentPage) }
     
-    var apiParser: HTMLParser.Type { return NotificationParser.self }
+    var htmlParser: HTMLParser.Type { return NotificationParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
         return 0.0
     }
     
-    func didSelectRowAt(_ indexPath: IndexPath) {
+    func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
         
     }
 }

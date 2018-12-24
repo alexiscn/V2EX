@@ -22,14 +22,14 @@ class BalanceViewModel: ListViewModel {
     
     var endPoint: EndPoint { return EndPoint.balance(page: currentPage) }
     
-    var apiParser: HTMLParser.Type { return BalanceParser.self }
+    var htmlParser: HTMLParser.Type { return BalanceParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
         let balance = dataSouce[indexPath.row]
         return BalanceViewCell.heightForBalance(balance)
     }
     
-    func didSelectRowAt(_ indexPath: IndexPath) {
+    func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
         
     }
 }

@@ -22,13 +22,17 @@ class MyNodesViewModel: ListViewModel {
     
     var endPoint: EndPoint { return EndPoint.myNodes() }
     
-    var apiParser: HTMLParser.Type { return MyModesParser.self }
+    var htmlParser: HTMLParser.Type { return MyNodesParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
-        return 50.0
+        return 60.0
     }
     
-    func didSelectRowAt(_ indexPath: IndexPath) {
-        
+    func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
+        let node = dataSouce[indexPath.row]
+        if let name = node.nodeName, let title = node.title {
+            let timelineVC = TimelineViewController(node: Node(name: name, title: title, letter: ""))
+            navigationController?.pushViewController(timelineVC, animated: true)
+        }
     }
 }

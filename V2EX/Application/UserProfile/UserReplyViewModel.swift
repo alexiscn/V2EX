@@ -22,14 +22,14 @@ class UserReplyViewModel: ListViewModel {
     
     var endPoint: EndPoint { return EndPoint.memberReplies(username, page: currentPage) }
     
-    var apiParser: HTMLParser.Type { return UserRepliesParser.self }
+    var htmlParser: HTMLParser.Type { return UserRepliesParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
         var comment = dataSouce[indexPath.row]
         return UserCommentViewCell.heightForComment(&comment)
     }
     
-    func didSelectRowAt(_ indexPath: IndexPath) {
+    func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
         
     }
     

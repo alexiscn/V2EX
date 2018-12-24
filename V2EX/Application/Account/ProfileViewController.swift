@@ -92,8 +92,8 @@ class ProfileViewController: UIViewController {
         header.myTopicsActionHandler = { [weak self] in
             self?.viewMyTopics()
         }
-        header.myFollowingActionHandler = {
-            print("myTopicsActionHandler")
+        header.myFollowingActionHandler = { [weak self] in
+            self?.viewMyFollowings()
         }
         header.balanceActionHandler = { [weak self] in
             let viewModel = BalanceViewModel()
@@ -105,14 +105,21 @@ class ProfileViewController: UIViewController {
     }
     
     private func viewMyNodes() {
-        // TODO in next version
-//        let viewModel = MyNodesViewModel()
-//        let controller = ListViewController(viewModel: viewModel)
-//        navigationController?.pushViewController(controller, animated: true)
+        let viewModel = MyNodesViewModel()
+        let controller = ListViewController(viewModel: viewModel)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     private func viewMyTopics() {
-        
+        let viewModel = MyFavoritedTopicsViewModel()
+        let controller = ListViewController(viewModel: viewModel)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    private func viewMyFollowings() {
+        let viewModel = MyFollowingViewModel()
+        let controller = ListViewController(viewModel: viewModel)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {

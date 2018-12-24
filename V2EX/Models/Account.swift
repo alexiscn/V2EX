@@ -34,7 +34,7 @@ struct DailyMission {
     var message: String?
 }
 
-struct Balance: DataType {
+class Balance: DataType {
     
     var title: String?
     
@@ -45,6 +45,8 @@ struct Balance: DataType {
     var desc: String?
     
     var value: String?
+    
+    init() {}
 }
 
 class MessageNotification: DataType {

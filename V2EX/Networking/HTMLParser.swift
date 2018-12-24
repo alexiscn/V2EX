@@ -684,19 +684,36 @@ struct UserRepliesParser: HTMLParser {
     
 }
 
-struct MyModesParser: HTMLParser {
+struct MyNodesParser: HTMLParser {
     static func handle<T>(_ doc: Document) throws -> T? {
         let nodes = try doc.select("a.grid_item")
         var response = ListResponse<MyNode>()
         for node in nodes {
             let my = MyNode()
-            let logo = try node.select("img").first()?.attr("href")
+            
+            let logo = try node.select("img").first()?.attr("src")
             let text = try node.text()
             let count = try node.select("span.fade").text()
             my.title = text.replacingOccurrences(of: count, with: "")
             my.count = Int(count.replacingOccurrences(of: " ", with: "")) ?? 0
             my.logoURL = avatarURLWithSource(logo)
+            my.nodeName = try node.attr("href").replacingOccurrences(of: "/go/", with: "")
             response.list.append(my)
+        }
+        return response as? T
+    }
+}
+
+struct MyFavoritedTopicsParser: HTMLParser {
+    static func handle<T>(_ doc: Document) throws -> T? {
+        var response = ListResponse<Topic>()
+        let cells = try doc.select("div")
+        for cell in cells {
+            if !cell.hasClass("cell item") {
+                continue
+            }
+            let topic = NodeTopicsParser.parseTopicListCell(cell)
+            response.list.append(topic)
         }
         return response as? T
     }

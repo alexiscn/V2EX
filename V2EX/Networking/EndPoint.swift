@@ -131,7 +131,7 @@ extension EndPoint {
         return EndPoint(path: path)
     }
     
-    static func myFavorites(page: Int = 1) -> EndPoint {
+    static func myFavoriteTopics(page: Int = 1) -> EndPoint {
         let path = "/my/topics?p=\(page)"
         return EndPoint(path: path)
     }

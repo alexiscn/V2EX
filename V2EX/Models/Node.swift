@@ -76,6 +76,8 @@ class MyNode: DataType {
     
     var title: String?
     
+    var nodeName: String?
+    
     var count: Int = 0
     
     init() { }

@@ -1,18 +1,18 @@
 //
-//  UserTopicViewModel.swift
+//  MyTopicsViewModel.swift
 //  V2EX
 //
-//  Created by xu.shuifeng on 2018/12/14.
+//  Created by xu.shuifeng on 2018/12/24.
 //  Copyright © 2018 shuifeng.me. All rights reserved.
 //
 
 import UIKit
 
-class UserTopicViewModel: ListViewModel {
+class MyFavoritedTopicsViewModel: ListViewModel {
     
     typealias T = Topic
     
-    var title: String? { return Strings.ProfileHisTopics }
+    var title: String? { return "我收藏的主题" }
     
     var dataSouce: [Topic] = []
     
@@ -20,9 +20,9 @@ class UserTopicViewModel: ListViewModel {
     
     var currentPage: Int = 1
     
-    var endPoint: EndPoint { return EndPoint.memberTopics(username, page: currentPage) }
+    var endPoint: EndPoint { return EndPoint.myFavoriteTopics(page: currentPage) }
     
-    var htmlParser: HTMLParser.Type { return UserTopicsParser.self }
+    var htmlParser: HTMLParser.Type { return MyFavoritedTopicsParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
         var topic = dataSouce[indexPath.row]
@@ -30,14 +30,8 @@ class UserTopicViewModel: ListViewModel {
     }
     
     func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
-        
-    }
-    
-    let username: String
-    
-    init(username: String, avatarURL: URL?) {
-        self.username = username
-        UserTopicsParser.avatarURL = nil
-        UserTopicsParser.avatarURL = avatarURL
+        let topic = dataSouce[indexPath.row]
+        let detailVC = TopicDetailViewController(url: topic.url, title: topic.title)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }

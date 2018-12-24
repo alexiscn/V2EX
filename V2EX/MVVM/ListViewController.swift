@@ -106,6 +106,6 @@ class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        viewModel.didSelectRowAt(indexPath)
+        viewModel.didSelectRowAt(indexPath, navigationController: navigationController)
     }
 }

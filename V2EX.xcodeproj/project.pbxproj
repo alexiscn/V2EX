@@ -40,6 +40,7 @@
 		A358549720E205E600C76393 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549620E205E600C76393 /* SettingsViewController.swift */; };
 		A358549920E2071900C76393 /* UIStoryboardExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358549820E2071900C76393 /* UIStoryboardExtensions.swift */; };
 		A3691745219E911A002DA8E3 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3691744219E911A002DA8E3 /* ActionSheet.swift */; };
+		A36B478F21D08156006897DC /* MyFavoritedTopicsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36B478E21D08156006897DC /* MyFavoritedTopicsViewModel.swift */; };
 		A36D0FA9219D809800E20EFB /* V2SDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FA8219D809800E20EFB /* V2SDK.swift */; };
 		A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FAC219D80E400E20EFB /* V2DataManager.swift */; };
 		A36D0FB5219D81B500E20EFB /* V2SDK+Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = A36D0FB4219D81B500E20EFB /* V2SDK+Search.swift */; };
@@ -78,6 +79,7 @@
 		A39B244F21CA832100407FF7 /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39B244E21CA832100407FF7 /* SearchResultHeaderView.swift */; };
 		A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A39CA420E181A4000B07F0 /* Theme.swift */; };
 		A3A9E62E21AE7AA700680FC5 /* DisplaySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */; };
+		A3B97AB421D09815007A7492 /* MyFollowingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B97AB321D09815007A7492 /* MyFollowingViewModel.swift */; };
 		A3DCB07F21AA9D8A005FD955 /* allnodes.json in Resources */ = {isa = PBXBuildFile; fileRef = A3DCB07E21AA9D8A005FD955 /* allnodes.json */; };
 		A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08221B2B270005FD955 /* LoginFormData.swift */; };
 		A3DCB08521B392FB005FD955 /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB08421B392FA005FD955 /* Account.swift */; };
@@ -128,6 +130,7 @@
 		A358549620E205E600C76393 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		A358549820E2071900C76393 /* UIStoryboardExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStoryboardExtensions.swift; sourceTree = "<group>"; };
 		A3691744219E911A002DA8E3 /* ActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
+		A36B478E21D08156006897DC /* MyFavoritedTopicsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFavoritedTopicsViewModel.swift; sourceTree = "<group>"; };
 		A36D0FA8219D809800E20EFB /* V2SDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2SDK.swift; sourceTree = "<group>"; };
 		A36D0FAC219D80E400E20EFB /* V2DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V2DataManager.swift; sourceTree = "<group>"; };
 		A36D0FB4219D81B500E20EFB /* V2SDK+Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V2SDK+Search.swift"; sourceTree = "<group>"; };
@@ -168,6 +171,7 @@
 		A39B244E21CA832100407FF7 /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
 		A3A39CA420E181A4000B07F0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		A3A9E62D21AE7AA700680FC5 /* DisplaySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplaySettingsViewController.swift; sourceTree = "<group>"; };
+		A3B97AB321D09815007A7492 /* MyFollowingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFollowingViewModel.swift; sourceTree = "<group>"; };
 		A3DCB07E21AA9D8A005FD955 /* allnodes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = allnodes.json; sourceTree = "<group>"; };
 		A3DCB08221B2B270005FD955 /* LoginFormData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFormData.swift; sourceTree = "<group>"; };
 		A3DCB08421B392FA005FD955 /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -267,6 +271,8 @@
 				A39B244C21C339BC00407FF7 /* NotificationsViewModel.swift */,
 				A34611A221CE5ADD00D37E94 /* MyNodesViewCell.swift */,
 				A34611A021CE5AD100D37E94 /* MyNodesViewModel.swift */,
+				A36B478E21D08156006897DC /* MyFavoritedTopicsViewModel.swift */,
+				A3B97AB321D09815007A7492 /* MyFollowingViewModel.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -636,6 +642,7 @@
 				A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */,
 				A3051EC621CA424600AC7287 /* SearchInputTextView.swift in Sources */,
 				A3704DD620E0FA950052576D /* StringExtensions.swift in Sources */,
+				A3B97AB421D09815007A7492 /* MyFollowingViewModel.swift in Sources */,
 				A3F4939F21CFBBFE008B16ED /* NewTopicAccessoryView.swift in Sources */,
 				A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */,
 				A373C68621B505F000C919AD /* UserProfileResponse.swift in Sources */,
@@ -670,6 +677,7 @@
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
 				A37F193421A2B671001BCC0A /* Utility.swift in Sources */,
 				A39B244F21CA832100407FF7 /* SearchResultHeaderView.swift in Sources */,
+				A36B478F21D08156006897DC /* MyFavoritedTopicsViewModel.swift in Sources */,
 				A3F788B721B7A405002B2F99 /* EndPoint.swift in Sources */,
 				A37A971221212A37000DFF1E /* UIViewExtensions.swift in Sources */,
 				A37A971421212A58000DFF1E /* UIViewControllerExtensions.swift in Sources */,

@@ -17,37 +17,28 @@ protocol ListViewCell {
 
 protocol ListViewModel: class {
     
-    // model 类型
+    /// model 类型
     associatedtype T: DataType
     
+    /// 页面标题
     var title: String? { get }
     
-    // tableView的数据源
+    /// tableView的数据源
     var dataSouce: [T] { get set }
     
-    // tableView 注册的UITableViewCell的类型
+    /// tableView 注册的UITableViewCell的类型
     var cellClass: UITableViewCell.Type { get }
     
-    // 当前页码
+    /// 当前页码，默认为1
     var currentPage: Int { get set }
     
     var endPoint: EndPoint { get }
     
-    var apiParser: HTMLParser.Type { get }
+    var htmlParser: HTMLParser.Type { get }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat
     
-    func didSelectRowAt(_ indexPath: IndexPath)
-}
-
-struct ListDataInfo {
-    var isLoadMore: Bool
-    var canLoadMore: Bool
-}
-
-struct ListResponse<T: DataType> {
-    var list: [T] = []
-    var page: Int = 1
+    func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?)
 }
 
 extension ListViewModel {
@@ -55,7 +46,7 @@ extension ListViewModel {
     func loadData(isLoadMore: Bool, completion: @escaping ((ListDataInfo) -> Void)) {
         currentPage = isLoadMore ? (currentPage + 1): 1
         
-        V2SDK.request(endPoint, parser: apiParser) { [weak self] (response: V2Response<ListResponse<T>>) in
+        V2SDK.request(endPoint, parser: htmlParser) { [weak self] (response: V2Response<ListResponse<T>>) in
             guard let strongSelf = self else { return }
             var info = ListDataInfo(isLoadMore: isLoadMore, canLoadMore: true)
             switch response {
@@ -72,4 +63,14 @@ extension ListViewModel {
             completion(info)
         }
     }
+}
+
+struct ListDataInfo {
+    var isLoadMore: Bool
+    var canLoadMore: Bool
+}
+
+struct ListResponse<T: DataType> {
+    var list: [T] = []
+    var page: Int = 1
 }
