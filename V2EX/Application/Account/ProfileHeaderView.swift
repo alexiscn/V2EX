@@ -144,7 +144,7 @@ class ProfileHeaderView: UIView {
         }
         
         let balanceValue = account?.balance ?? "0"
-        let balance = String(format: "账户余额: %@", balanceValue)
+        let balance = String(format: Strings.ProfileMyBalanceCount, balanceValue)
         balanceButton.setTitle(balance, for: .normal)
         
         balanceButton.addTarget(self, action: #selector(handleBalanceButtonTapped(_:)), for: .touchUpInside)

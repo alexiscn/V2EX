@@ -17,6 +17,8 @@ class TopicCommentViewCell: UITableViewCell {
     
     var mentionHandler: RelayCommand?
     
+    var topicLinkHandler: ((URL) -> Void)?
+    
     var mentionUserTappedHandler: ((_ username: String) -> Void)?
     
     private let containerView: UIView
@@ -208,9 +210,10 @@ class TopicCommentViewCell: UITableViewCell {
 extension TopicCommentViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-//        if URL.absoluteString.hasPrefix("https://www.v2ex.com/t") || URL.absoluteString.hasPrefix("https://v2ex.com/t") {
-//            return false
-//        }
+        if URL.absoluteString.hasPrefix("https://www.v2ex.com/t") || URL.absoluteString.hasPrefix("https://v2ex.com/t") {
+            topicLinkHandler?(URL)
+            return false
+        }
         let memberPrefix = "https://www.v2ex.com/member/"
         if URL.absoluteString.hasPrefix(memberPrefix) {
             let username = URL.absoluteString.replacingOccurrences(of: memberPrefix, with: "")

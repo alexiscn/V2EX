@@ -137,7 +137,7 @@ class SearchViewController: UIViewController {
             }
             switch response {
             case .success(let searchRes):
-                let text = String(format: "共计 %d 个结果，耗时 %d 毫秒", searchRes.total, searchRes.took)
+                let text = String(format: Strings.SearchResultTips, searchRes.total, searchRes.took)
                 self?.headerView?.updateText(text)
                 if isLoadMore {
                     self?.dataSource.append(contentsOf: searchRes.hits)

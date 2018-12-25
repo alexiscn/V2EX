@@ -1,5 +1,5 @@
 # V2EX
-just another V2EX iOS Client
+V2EX iOS Client written in Swift
 
 
 # Screenshots
@@ -29,7 +29,6 @@ just another V2EX iOS Client
 
 # On-Working
 
-* Dynamic changing theme
-* Settings
-* Login
-* Comments
+* New Topic
+* Comments with image
+

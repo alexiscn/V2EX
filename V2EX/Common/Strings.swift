@@ -63,6 +63,8 @@ extension Strings {
     static var SearchPlaceholder: String { return NSLocalizedString("Search.Placeholder", value: "Search topics", comment: "搜索主题") }
     static var SearchOptionsSumup: String { return NSLocalizedString("Search.OptionsSumup", value: "Sumup", comment: "权重") }
     static var SearchOptionCreatedTime: String { return NSLocalizedString("Search.OptionCreatedTime", value: "Time", comment: "时间") }
+    static var SearchResultTips: String { return NSLocalizedString("Search.ResultTips", value: "Find %d results, took %d milliseconds", comment: "共计 %d 个结果，耗时 %d 毫秒") }
+    static var SearchResultTopicInfo: String { return NSLocalizedString("Search.ResultTopicInfo", value: "Pub at %@ , %d comments", comment: "于 %@ 发表，共计 %d 个回复") }
 }
 
 // Topic Detail
@@ -94,6 +96,7 @@ extension Strings {
     static var ProfileFavoritedNodes: String { return NSLocalizedString("Profile.FavoritedNodes", value: "Nodes" ,comment: "节点收藏") }
     static var ProfileFavoritedTopics: String { return NSLocalizedString("Profile.FavoritedTopics", value: "Topics" ,comment: "主题收藏") }
     static var ProfileMyFollowing: String { return NSLocalizedString("Profile.MyFollowing", value: "Following" ,comment: "特别关注") }
+    static var ProfileMyBalanceCount: String { return NSLocalizedString("Profile.MyBalanaceCount", value: "Balance: %@", comment: "账户余额: %@") }
 }
 
 // Settings

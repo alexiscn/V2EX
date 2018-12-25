@@ -74,6 +74,7 @@
 		A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EC720DD060900F7C932 /* TimelineViewController.swift */; };
 		A3961C7C21C22D47007D7663 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3961C7B21C22D47007D7663 /* ListViewController.swift */; };
 		A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3961C7D21C22D92007D7663 /* ListViewModel.swift */; };
+		A39A31EF21D1D0E900B5D520 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39A31EE21D1D0E900B5D520 /* TimelineViewModel.swift */; };
 		A39B244A21C3389700407FF7 /* BalanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39B244921C3389700407FF7 /* BalanceViewModel.swift */; };
 		A39B244D21C339BC00407FF7 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39B244C21C339BC00407FF7 /* NotificationsViewModel.swift */; };
 		A39B244F21CA832100407FF7 /* SearchResultHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39B244E21CA832100407FF7 /* SearchResultHeaderView.swift */; };
@@ -171,6 +172,7 @@
 		A38D0EC720DD060900F7C932 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		A3961C7B21C22D47007D7663 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A3961C7D21C22D92007D7663 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		A39A31EE21D1D0E900B5D520 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		A39B244921C3389700407FF7 /* BalanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewModel.swift; sourceTree = "<group>"; };
 		A39B244C21C339BC00407FF7 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
 		A39B244E21CA832100407FF7 /* SearchResultHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultHeaderView.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 			children = (
 				A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */,
 				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
+				A39A31EE21D1D0E900B5D520 /* TimelineViewModel.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -718,6 +721,7 @@
 				A3DCB08521B392FB005FD955 /* Account.swift in Sources */,
 				A379EA3F212259C500FA2169 /* AllNodesViewController.swift in Sources */,
 				A33C4E2321943BF00039E347 /* MenuViewController.swift in Sources */,
+				A39A31EF21D1D0E900B5D520 /* TimelineViewModel.swift in Sources */,
 				A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */,
 				A3B97AD921D0C40F007A7492 /* MessageTextView.swift in Sources */,
 				A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */,

@@ -124,6 +124,9 @@
 /* Ta创建的主题 */
 "Profile.HisTopics" = "His topics";
 
+/* 账户余额: %@ */
+"Profile.MyBalanaceCount" = "Balance: %@";
+
 /* 我的最近回复 */
 "Profile.MyComments" = "My comments";
 
@@ -144,6 +147,12 @@
 
 /* 搜索主题 */
 "Search.Placeholder" = "Search topics";
+
+/* 共计 %d 个结果，耗时 %d 毫秒 */
+"Search.ResultTips" = "Find %1$d results, took %2$d milliseconds";
+
+/* 于 %@ 发表，共计 %d 个回复 */
+"Search.ResultTopicInfo" = "Pub at %1$@ , %2$d comments";
 
 /* 需要登录后才能查看 */
 "Server.NeedsSignIn" = "Sign in required...";

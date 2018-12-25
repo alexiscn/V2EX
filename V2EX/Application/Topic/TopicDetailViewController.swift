@@ -159,6 +159,7 @@ class TopicDetailViewController: UIViewController {
                 if !strongSelf.webViewHeightCaculated {
                     strongSelf.detail = detail
                 }
+                strongSelf.title = detail.title
                 
                 for r in detail.replyList {
                     if r.username == detail.author {
@@ -479,6 +480,10 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                     self?.inputBar.inputTextView.becomeFirstResponder()
                 }
             }
+            cell.topicLinkHandler = { [weak self] topicURL in
+                let controller = TopicDetailViewController(url: topicURL, title: nil)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
             return cell
         }
     }
@@ -507,6 +512,8 @@ extension TopicDetailViewController: CommentInputBarDelegate {
         guard let topicID = topicID, let once = V2SDK.once else { return }
         let comment = text.trimmingCharacters(in: CharacterSet.whitespaces)
         if comment.count == 0 { return }
+        
+        inputBar.inputTextView.resignFirstResponder()
         
         let endPoint = EndPoint.commentTopic(topicID, once: once, content: comment)
         V2SDK.request(endPoint, parser: CommentParser.self) { [weak self] (response: V2Response<OperationResponse>) in
