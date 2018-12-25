@@ -114,7 +114,14 @@ class SettingsViewController: UIViewController {
             let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, releaseNotes, about])
+        
+        let faq = SettingTableModel(title: "FAQ", value: .actionCommand { [weak self] in
+            let url = URL(string: "https://www.v2ex.com/faq")!
+            let controller = SFSafariViewController(url: url)
+            self?.present(controller, animated: true, completion: nil)
+            })
+        
+        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, releaseNotes, faq, about])
         dataSource.append(aboutSection)
     }
     

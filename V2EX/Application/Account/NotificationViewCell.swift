@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationViewCell: UITableViewCell, UITextViewDelegate {
+class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
     
     private let avatarImageView: UIImageView
     private let usernameLabel: UILabel
@@ -108,7 +108,7 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate {
             height += rect.height + 12.0
         }
         
-        if let comment = notification.title, let author = notification.username {
+        if let comment = notification.comment, let author = notification.username {
             let maxSize = CGSize(width: width - 6.0, height: CGFloat.infinity)
             let text = author + ":" + comment
             let rect = text.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
@@ -119,6 +119,15 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate {
         notification._rowHeight = height
         return height
         
+    }
+    
+    func update(_ model: DataType) {
+        guard let message = model as? MessageNotification else { return }
+        
+        avatarImageView.kf.setImage(with: message.avatarURL)
+        usernameLabel.text = message.username
+        timeAgoLabel.text = message.timeAgo
+        commentTextView.text = message.comment
     }
 }
 

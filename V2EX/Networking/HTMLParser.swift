@@ -630,7 +630,7 @@ struct NotificationParser: HTMLParser {
             let message = MessageNotification()
             message.timeAgo = try cell.select("span.snow").text()
             
-            let source = try cell.select("img.avatar").first()?.attr("href")
+            let source = try cell.select("img.avatar").first()?.attr("src")
             message.avatarURL = avatarURLWithSource(source)
             message.username = try cell.select("strong").text()
             message.comment = try cell.select("div.payload").text()

@@ -104,6 +104,12 @@ class ProfileViewController: UIViewController {
         header.update()
     }
     
+    private func viewMyNotifications() {
+        let viewModel = NotificationsViewModel()
+        let controller = ListViewController(viewModel: viewModel)
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     private func viewMyNodes() {
         let viewModel = MyNodesViewModel()
         let controller = ListViewController(viewModel: viewModel)

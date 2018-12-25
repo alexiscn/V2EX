@@ -25,7 +25,8 @@ class NotificationsViewModel: ListViewModel {
     var htmlParser: HTMLParser.Type { return NotificationParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
-        return 0.0
+        var message = dataSouce[indexPath.row]
+        return NotificationViewCell.heightForNotification(&message)
     }
     
     func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
