@@ -14,7 +14,7 @@ class BalanceViewModel: ListViewModel {
     
     var dataSouce: [Balance] = []
     
-    var title: String? { return "Balance" }
+    var title: String? { return Strings.ProfileBalance }
     
     var cellClass: UITableViewCell.Type { return BalanceViewCell.self }
     

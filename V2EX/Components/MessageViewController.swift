@@ -35,11 +35,11 @@ class MessageViewController: UIViewController {
     }
     
     func layout() {
-        guard let scrollView = self.scrollView else { return }
-        
-        let bounds = view.bounds
-        
-        let inputBarHeight = inputBar.height + view.keyWindowSafeAreaInsets.bottom
+//        guard let scrollView = self.scrollView else { return }
+//        
+//        let bounds = view.bounds
+//        
+//        let inputBarHeight = inputBar.height + view.keyWindowSafeAreaInsets.bottom
     }
     
     func commonInit() {

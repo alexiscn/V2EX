@@ -58,5 +58,10 @@
         "title": "FDFullscreenPopGesture",
         "subTitle": "A UINavigationController's category to enable fullscreen pop gesture with iOS7+ system style.",
         "url": "https://github.com/forkingdog/FDFullscreenPopGesture"
+    },
+    {
+        "title": "Sov2ex",
+        "subTitle": "A site search for V2EX",
+        "url": "https://github.com/Bynil/sov2ex"
     }
 ]

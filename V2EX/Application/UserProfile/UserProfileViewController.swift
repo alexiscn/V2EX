@@ -57,14 +57,15 @@ class UserProfileViewController: UIViewController {
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
         let actionSheet = ActionSheet(title: nil, message: nil)
-        if AppContext.current.isLogined {
-            actionSheet.addAction(Action(title: Strings.ProfileFollow, style: .default, handler: { _ in
-                
-            }))
-            actionSheet.addAction(Action(title: Strings.ProfileBlock, style: .default, handler: { _ in
-                
-            }))
-        }
+// TODO
+//        if AppContext.current.isLogined {
+//            actionSheet.addAction(Action(title: Strings.ProfileFollow, style: .default, handler: { _ in
+//
+//            }))
+//            actionSheet.addAction(Action(title: Strings.ProfileBlock, style: .default, handler: { _ in
+//
+//            }))
+//        }
         actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
             // 暂时这么写，下个版本请求接口
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
