@@ -87,6 +87,7 @@ extension Strings {
 // Profile
 extension Strings {
     static var ProfileHisTopics: String { return NSLocalizedString("Profile.HisTopics", value: "His topics", comment: "Ta创建的主题") }
+    static var ProfileViewMore: String { return NSLocalizedString("Profile.ViewMore", value: "See all", comment: "查看更多") }
     static var ProfileMyTopics: String { return NSLocalizedString("Profile.MyTopics", value: "My topics", comment: "我创建主题") }
     static var ProfileHisComments: String { return NSLocalizedString("Profile.HisComments", value: "His comments", comment: "Ta的最近回复") }
     static var ProfileMyComments: String { return NSLocalizedString("Profile.MyComments", value: "My comments", comment: "我的最近回复") }

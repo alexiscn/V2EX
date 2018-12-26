@@ -24,14 +24,13 @@ enum UserProfileSections: Int {
     }
 }
 
-class UserProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class UserProfileViewController: UIViewController {
  
     private let username: String
-    
     private var headerView: UserProfileHeaderView?
     private var loadingIndicator: UIActivityIndicatorView!
-    
-    let headerHeight: CGFloat = 150.0
+    private var tableView: UITableView!
+    private var profile: UserProfileResponse?
     
     init(username: String) {
         self.username = username
@@ -41,11 +40,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private var tableView: UITableView!
-    
-    private var profile: UserProfileResponse?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -55,9 +50,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     private func setupNavigationBar() {
-        
         navigationItem.title = username
-        
         let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
         navigationItem.rightBarButtonItem = moreBarButtonItem
     }
@@ -73,7 +66,10 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             }))
         }
         actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
-            
+            // 暂时这么写，下个版本请求接口
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                HUD.show(message: "举报成功，我们会及时处理你的举报")
+            })
         }))
         actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
             
@@ -104,7 +100,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         view.addSubview(tableView)
         tableView.tableFooterView = UIView()
 
-        let headerView = UserProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: headerHeight))
+        let headerView = UserProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 150.0))
         tableView.tableHeaderView = headerView
         self.headerView = headerView
     }
@@ -137,7 +133,11 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
             navigationController?.pushViewController(controller, animated: true)
         }
     }
-    
+}
+
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
+extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -209,7 +209,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         
         let viewAllButton = UIButton(type: .system)
         viewAllButton.tag = section
-        viewAllButton.setTitle("See all", for: .normal)
+        viewAllButton.setTitle(Strings.ProfileViewMore, for: .normal)
         viewAllButton.setTitleColor(Theme.current.titleColor, for: .normal)
         header.addSubview(viewAllButton)
         viewAllButton.snp.makeConstraints { make in
@@ -220,7 +220,7 @@ class UserProfileViewController: UIViewController, UITableViewDataSource, UITabl
         
         return header
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         

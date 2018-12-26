@@ -388,7 +388,10 @@ extension TopicDetailViewController {
             self?.resortReplies()
         }))
         actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
-            
+            // 暂时这么写，下个版本请求接口
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                HUD.show(message: "举报成功，我们会及时处理你的举报")
+            })
         }))
         actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
             

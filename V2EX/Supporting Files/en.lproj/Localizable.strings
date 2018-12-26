@@ -136,6 +136,9 @@
 /* 我创建主题 */
 "Profile.MyTopics" = "My topics";
 
+/* 查看更多 */
+"Profile.ViewMore" = "See all";
+
 /* 举报 */
 "Report" = "Report";
 

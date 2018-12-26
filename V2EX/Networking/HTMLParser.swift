@@ -114,14 +114,6 @@ struct SignInParser: HTMLParser {
                 account.username = member.replacingOccurrences(of: "/member/", with: "")
                 return account as? T
             }
-//            if let imgElement = try doc.select("img.avatar").first(),
-//                let member = try imgElement.parent()?.attr("href") {
-//                let src = try imgElement.attr("src")
-//
-//
-//                account.avatarURLString = avatarURLWithSource(src)?.absoluteString
-//
-//            }
         }
         throw V2Error.signInFailed
     }
@@ -320,21 +312,6 @@ struct TopicDetailParser: HTMLParser {
             }
         }
         
-//        let cells = try doc.select("div.cell")
-//        for cell in cells {
-//            let divID = try? cell.attr("id")
-//            if divID == nil || divID == "" {
-//                if let lastLink = try cell.select("a.page_normal").last() {
-//                    let href = try lastLink.attr("href")
-//                    if href.hasPrefix("?p=") {
-//                        detail.page = Int(href.replacingOccurrences(of: "?p=", with: "")) ?? 0
-//                    }
-//                    break
-//                }
-//            } else {
-//                continue
-//            }
-//        }
         let list: [Reply]? = try TopicReplyParser.handle(doc)
         if let list = list {
             detail.replyList = list
