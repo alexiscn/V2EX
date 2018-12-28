@@ -18,7 +18,7 @@ class TimelineViewController: UIViewController {
 
     var topicSelectionHandler: ((Topic?) -> Void)?
     
-    var userTappedHandler: ((String?) -> Void)?
+//    var userTappedHandler: ((String?) -> Void)?
     
     fileprivate var dataSource: [Topic] = []
     
@@ -274,7 +274,11 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
             self?.topicSelectionHandler?(topic)
         }
         cell.avatarHandler = { [weak topic, weak self] in
-            self?.userTappedHandler?(topic?.username)
+            //self?.userTappedHandler?(topic?.username)
+            if let name = topic?.username {
+                let controller = UserProfileViewController(username: name)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
         }
         return cell
     }

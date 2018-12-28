@@ -120,12 +120,12 @@ class MainViewController: UIViewController {
                 self?.navigationController?.pushViewController(controller, animated: true)
             }
         }
-        timelineVC?.userTappedHandler = { [weak self] username in
-            if let name = username {
-                let controller = UserProfileViewController(username: name)
-                self?.navigationController?.pushViewController(controller, animated: true)
-            }
-        }
+//        timelineVC?.userTappedHandler = { [weak self] username in
+//            if let name = username {
+//                let controller = UserProfileViewController(username: name)
+//                self?.navigationController?.pushViewController(controller, animated: true)
+//            }
+//        }
         
         title = tab.title
     }
