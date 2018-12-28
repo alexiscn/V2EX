@@ -8,6 +8,8 @@
 
 import UIKit
 import MJRefresh
+import CoreServices
+import Photos
 
 class TopicDetailViewController: UIViewController {
 
@@ -538,6 +540,7 @@ extension TopicDetailViewController: CommentInputBarDelegate {
     
     func inputBarDidPressedPhotoButton() {
         let imagePicker = UIImagePickerController()
+        imagePicker.mediaTypes = []
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }
@@ -551,7 +554,9 @@ extension TopicDetailViewController: UINavigationControllerDelegate, UIImagePick
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
-        print(info)
+        if let asset = info[.phAsset] as? PHAsset {
+            
+        }
         //V2SDK.upload(data: <#T##Data#>, completion: <#T##(MSUploadResponse?, Error?) -> Void#>)
     }
 }

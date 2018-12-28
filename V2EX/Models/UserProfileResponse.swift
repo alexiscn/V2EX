@@ -20,6 +20,9 @@ class UserInfo {
     var followURL: URL?
     var blockURL: URL?
     
+    var hasFollowed: Bool = false
+    var hasBlocked: Bool = false
+    
     var website: String?
     var github: String?
     var psn: String?

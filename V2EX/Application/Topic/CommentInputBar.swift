@@ -83,8 +83,6 @@ class CommentInputBar: UIView, UITextViewDelegate {
         contentView.addSubview(inputTextView)
         contentView.addSubview(addPhotoButton)
         
-        addPhotoButton.isHidden = true // TODO in next version
-        
         backgroundView.snp.makeConstraints { make in
             make.leading.trailing.top.equalToSuperview()
             make.bottom.equalToSuperview()

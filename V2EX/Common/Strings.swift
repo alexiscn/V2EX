@@ -92,7 +92,13 @@ extension Strings {
     static var ProfileHisComments: String { return NSLocalizedString("Profile.HisComments", value: "His comments", comment: "Ta的最近回复") }
     static var ProfileMyComments: String { return NSLocalizedString("Profile.MyComments", value: "My comments", comment: "我的最近回复") }
     static var ProfileFollow: String { return NSLocalizedString("Profile.Follow", value: "Follow", comment: "加入特别关注") }
+    static var ProfileFollowSuccess: String { return NSLocalizedString("Profile.FollowSuccess", value: "Followed", comment: "已加入特别关注") }
+    static var ProfileUnFollow: String { return NSLocalizedString("Profile.UnFollow", value: "UnFollow", comment: "取消关注") }
+    static var ProfileUnFollowSuccess: String { return NSLocalizedString("Profile.UnFollowSuccess", value: "UnFollowed", comment: "已取消关注") }
     static var ProfileBlock: String { return NSLocalizedString("Profile.Block", value: "Block", comment: "拉黑") }
+    static var ProfileBlockSuccess: String { return NSLocalizedString("Profile.BlockSuccess", value: "Blocked", comment: "已拉黑") }
+    static var ProfileUnBlock: String { return NSLocalizedString("Profile.UnBlock", value: "UnBlock", comment: "取消拉黑") }
+    static var ProfileUnBlockSuccess: String { return NSLocalizedString("Profile.UnBlockSuccess", value: "Removed from block list", comment: "已从黑名单移除") }
     static var ProfileBalance: String { return NSLocalizedString("Profile.Balance", value: "Balance", comment: "余额") }
     static var ProfileFavoritedNodes: String { return NSLocalizedString("Profile.FavoritedNodes", value: "Nodes" ,comment: "节点收藏") }
     static var ProfileFavoritedTopics: String { return NSLocalizedString("Profile.FavoritedTopics", value: "Topics" ,comment: "主题收藏") }

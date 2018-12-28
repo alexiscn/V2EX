@@ -57,15 +57,16 @@ class UserProfileViewController: UIViewController {
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
         let actionSheet = ActionSheet(title: nil, message: nil)
-// TODO
-//        if AppContext.current.isLogined {
-//            actionSheet.addAction(Action(title: Strings.ProfileFollow, style: .default, handler: { _ in
-//
-//            }))
-//            actionSheet.addAction(Action(title: Strings.ProfileBlock, style: .default, handler: { _ in
-//
-//            }))
-//        }
+        if AppContext.current.isLogined, let info = profile?.info {
+            let followTitle = info.hasFollowed ? Strings.ProfileUnFollow: Strings.ProfileFollow
+            actionSheet.addAction(Action(title: followTitle, style: .default, handler: { [weak self] _ in
+                self?.handleFollowButton(followed: info.hasFollowed)
+            }))
+            let blockTitle = info.hasBlocked ? Strings.ProfileUnBlock: Strings.ProfileBlock
+            actionSheet.addAction(Action(title: blockTitle, style: .default, handler: { [weak self] _ in
+                self?.handleBlockButton(blocked: info.hasBlocked)
+            }))
+        }
         actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
             // 暂时这么写，下个版本请求接口
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
@@ -108,7 +109,7 @@ class UserProfileViewController: UIViewController {
     
     private func loadUserProfile() {
         let endPoint = EndPoint.memberProfile(username)
-        V2SDK.request(endPoint, parser: MemberProfileParser.self) { [weak self] (response: V2Response<UserProfileResponse>) in
+        V2SDK.request(endPoint, parser: UserProfileParser.self) { [weak self] (response: V2Response<UserProfileResponse>) in
             self?.loadingIndicator.stopAnimating()
             switch response {
             case .success(let profileRes):
@@ -134,6 +135,39 @@ class UserProfileViewController: UIViewController {
             navigationController?.pushViewController(controller, animated: true)
         }
     }
+}
+
+extension UserProfileViewController {
+    
+    fileprivate func handleFollowButton(followed: Bool) {
+        guard let url = profile?.info?.followURL else { return }
+        V2SDK.request(url: url) { [weak self] (response: V2Response<OperationResponse>) in
+            switch response {
+            case .success(_):
+                self?.loadUserProfile()
+                let message = followed ? Strings.ProfileUnFollowSuccess: Strings.ProfileFollowSuccess
+                HUD.show(message: message)
+            case .error(let error):
+                HUD.show(message: error.description)
+            }
+        }
+    }
+    
+    fileprivate func handleBlockButton(blocked: Bool) {
+        guard let url = profile?.info?.blockURL else { return }
+        
+        V2SDK.request(url: url) { [weak self] (response: V2Response<OperationResponse>) in
+            switch response {
+            case .success(_):
+                self?.loadUserProfile()
+                let message = blocked ? Strings.ProfileUnBlockSuccess: Strings.ProfileBlockSuccess
+                HUD.show(message: message)
+            case .error(let error):
+                HUD.show(message: error.description)
+            }
+        }
+    }
+    
 }
 
 

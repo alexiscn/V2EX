@@ -457,17 +457,33 @@ struct CommentParser: HTMLParser {
 }
 
 /// 他人资料页面HTML解析
-struct MemberProfileParser: HTMLParser {
+struct UserProfileParser: HTMLParser {
+
+    private static func parse(onclick: String) -> URL? {
+        let components = onclick.components(separatedBy: "'")
+        if components.count > 3 {
+            let urlString = V2SDK.baseURLString + String(components[3])
+            return URL(string: urlString)
+        }
+        return nil
+    }
     
     static func handle<T>(_ doc: Document) throws -> T? {
         let mainDiv = try doc.select("div#Main").first()
         let avatar = try mainDiv?.select("img.avatar").first()?.attr("src")
         let avatarURL = avatarURLWithSource(avatar)
+        
         let info = UserInfo()
         let username = try mainDiv?.select("h1").first()?.text()
         info.username = username
         info.avatarURL = avatarURL
         info.createdInfo = try mainDiv?.select("span.gray").first()?.text()
+        if let inputs = try mainDiv?.select("input[type=button]").array(), inputs.count == 2 {
+            info.followURL = parse(onclick: try inputs[0].attr("onclick"))
+            info.blockURL = parse(onclick: try inputs[1].attr("onclick"))
+            info.hasFollowed = info.followURL?.absoluteString.contains("unfollow") ?? false
+            info.hasBlocked = info.followURL?.absoluteString.contains("unblock") ?? false
+        }
         
         var topics: [Topic] = []
         let cells = try doc.select("div.cell")
@@ -650,7 +666,7 @@ struct UserRepliesParser: HTMLParser {
         if let max = try doc.select("input.page_input").first()?.attr("max") {
             response.page = Int(max) ?? 1
         }
-        let comments = try MemberProfileParser.parseUserReplies(doc)
+        let comments = try UserProfileParser.parseUserReplies(doc)
         for comment in comments {
             comment.username = username
             comment.avatarURL = avatarURL

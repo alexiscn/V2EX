@@ -47,7 +47,7 @@ class ProfileViewController: UIViewController {
             return
         }
         let endPoint = EndPoint.memberProfile(username)
-        V2SDK.request(endPoint, parser: MemberProfileParser.self) { [weak self] (response: V2Response<UserProfileResponse>) in
+        V2SDK.request(endPoint, parser: UserProfileParser.self) { [weak self] (response: V2Response<UserProfileResponse>) in
             self?.loadingIndicator.stopAnimating()
             switch response {
             case .success(let profileRes):
