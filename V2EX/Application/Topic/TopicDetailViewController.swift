@@ -487,6 +487,10 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 let controller = TopicDetailViewController(url: topicURL, title: nil)
                 self?.navigationController?.pushViewController(controller, animated: true)
             }
+            cell.nodeLinkHandler = { [weak self] nodename in
+                let controller = TimelineViewController(node: Node(name: nodename, title: nodename, letter: ""))
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
             return cell
         }
     }

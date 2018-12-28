@@ -33,6 +33,7 @@
 		A34611A321CE5ADD00D37E94 /* MyNodesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34611A221CE5ADD00D37E94 /* MyNodesViewCell.swift */; };
 		A34A5D6C21AB9BCD00ED2F88 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D6B21AB9BCD00ED2F88 /* Node.swift */; };
 		A34A5D7121ABBD4900ED2F88 /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A34A5D7021ABBD4900ED2F88 /* AppContext.swift */; };
+		A357CDD721D4D48500DF7F4D /* TopicDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357CDD621D4D48500DF7F4D /* TopicDetailViewModel.swift */; };
 		A358548420E1D51600C76393 /* TopicDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548320E1D51600C76393 /* TopicDetailViewController.swift */; };
 		A358548620E1D5A000C76393 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548520E1D5A000C76393 /* LoginViewController.swift */; };
 		A358549020E1F4A600C76393 /* TopicCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */; };
@@ -129,6 +130,7 @@
 		A34611A221CE5ADD00D37E94 /* MyNodesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNodesViewCell.swift; sourceTree = "<group>"; };
 		A34A5D6B21AB9BCD00ED2F88 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		A34A5D7021ABBD4900ED2F88 /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		A357CDD621D4D48500DF7F4D /* TopicDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewModel.swift; sourceTree = "<group>"; };
 		A358548320E1D51600C76393 /* TopicDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicDetailViewController.swift; sourceTree = "<group>"; };
 		A358548520E1D5A000C76393 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCommentViewCell.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				A358548320E1D51600C76393 /* TopicDetailViewController.swift */,
+				A357CDD621D4D48500DF7F4D /* TopicDetailViewModel.swift */,
 				A358548F20E1F4A600C76393 /* TopicCommentViewCell.swift */,
 				A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */,
 				A333759621C76E190008085F /* CommentInputBar.swift */,
@@ -713,6 +716,7 @@
 				A36EAFCF219FEF01000DA4A3 /* TopicDetail.swift in Sources */,
 				A3B97ADF21D0CA79007A7492 /* MessageViewController.swift in Sources */,
 				A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */,
+				A357CDD721D4D48500DF7F4D /* TopicDetailViewModel.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
 				A37F192E21A25CE7001BCC0A /* AppSettings.swift in Sources */,
 				A3DCB09321C14168005FD955 /* LanguageSettingsViewController.swift in Sources */,

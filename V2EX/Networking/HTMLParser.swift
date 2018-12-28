@@ -398,7 +398,6 @@ struct TopicReplyParser: HTMLParser {
                             if href.hasPrefix("/member/") {
                                 body.append(mention(username: content))
                             } else {
-                                
                                 if content.hasPrefix("http") {
                                     if let url = NSURL(string: href) {
                                         body.append(linkString(url, content: content))
@@ -406,13 +405,14 @@ struct TopicReplyParser: HTMLParser {
                                         body.append(textString(content))
                                     }
                                 } else {
-                                    if content.hasPrefix("/t/") {
+                                    if content.hasPrefix("/t/") || content.hasPrefix("/go/") {
                                         if let url = NSURL(string: V2SDK.baseURLString.appending(content)) {
                                             body.append(linkString(url, content: content))
                                         }
+                                    } else {
+                                        print(try element.outerHtml())
+                                        print(href)
                                     }
-                                    print(try element.outerHtml())
-                                    print(href)
                                 }
                             }
                         }

@@ -17,6 +17,9 @@ class UserInfo {
     
     var createdInfo: String?
     
+    var followURL: URL?
+    var blockURL: URL?
+    
     var website: String?
     var github: String?
     var psn: String?

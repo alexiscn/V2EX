@@ -96,6 +96,24 @@ class V2SDK {
         return dataRequest
     }
     
+    @discardableResult
+    class func request(url: URL, completion: @escaping RequestCompletionHandler<OperationResponse>) -> DataRequest {
+        let dataRequest = Alamofire.request(url)
+        dataRequest.responseString { response in
+            guard response.value != nil else {
+                completion(V2Response.error(.serverNotFound))
+                return
+            }
+            // 需要登录才能访问
+            if response.response?.url?.path == "/signin" && response.request?.url?.path != "/signin" {
+                completion(V2Response.error(.needsSignIn))
+                return
+            }
+            completion(V2Response.success(OperationResponse()))
+        }
+        return dataRequest
+    }
+    
     public class func getAllNodes(completion: @escaping GenericNetworkingCompletion<Int>) {
         let path = "/api/nodes/all.json"
         GenericNetworking.getJSON(path: path, completion: completion)

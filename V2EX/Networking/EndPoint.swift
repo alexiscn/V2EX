@@ -178,7 +178,6 @@ extension EndPoint {
         params["once"] = once
         
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
-        headers["Referer"] = V2SDK.baseURLString + path
         headers["User-Agent"] = UserAgents.phone
         
         return EndPoint(path: path, method: .post, parameters: params, headers: headers)
