@@ -112,21 +112,6 @@ class MainViewController: UIViewController {
         addChild(timelineViewController)
         timelineViewController.didMove(toParent: self)
         timelineVC = timelineViewController
-        
-        timelineVC?.topicSelectionHandler = { [weak self] topic in
-            if let topic = topic, let name = topic.nodeName, let title = topic.nodeTitle {
-                let node = Node.nodeWithName(name, title: title)
-                let controller = TimelineViewController(node: node)
-                self?.navigationController?.pushViewController(controller, animated: true)
-            }
-        }
-//        timelineVC?.userTappedHandler = { [weak self] username in
-//            if let name = username {
-//                let controller = UserProfileViewController(username: name)
-//                self?.navigationController?.pushViewController(controller, animated: true)
-//            }
-//        }
-        
         title = tab.title
     }
     

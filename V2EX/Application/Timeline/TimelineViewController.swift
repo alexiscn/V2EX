@@ -16,10 +16,6 @@ enum TimelineType {
 
 class TimelineViewController: UIViewController {
 
-    var topicSelectionHandler: ((Topic?) -> Void)?
-    
-//    var userTappedHandler: ((String?) -> Void)?
-    
     fileprivate var dataSource: [Topic] = []
     
     fileprivate var tableView: UITableView!
@@ -271,10 +267,13 @@ extension TimelineViewController: UITableViewDelegate, UITableViewDataSource {
         let topic = dataSource[indexPath.row]
         cell.update(topic)
         cell.nodeHandler = { [weak topic, weak self] in
-            self?.topicSelectionHandler?(topic)
+            if let topic = topic, let name = topic.nodeName, let title = topic.nodeTitle {
+                let node = Node.nodeWithName(name, title: title)
+                let controller = TimelineViewController(node: node)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
         }
         cell.avatarHandler = { [weak topic, weak self] in
-            //self?.userTappedHandler?(topic?.username)
             if let name = topic?.username {
                 let controller = UserProfileViewController(username: name)
                 self?.navigationController?.pushViewController(controller, animated: true)

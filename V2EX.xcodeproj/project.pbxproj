@@ -68,6 +68,8 @@
 		A37F193221A2A469001BCC0A /* light.css in Resources */ = {isa = PBXBuildFile; fileRef = A37F193121A2A469001BCC0A /* light.css */; };
 		A37F193421A2B671001BCC0A /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37F193321A2B671001BCC0A /* Utility.swift */; };
 		A37F881F21D62BCC00CE7A82 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A37F882121D62BCC00CE7A82 /* InfoPlist.strings */; };
+		A37F882421D64DAF00CE7A82 /* TabTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37F882321D64DAF00CE7A82 /* TabTimelineViewModel.swift */; };
+		A37F882621D64DCB00CE7A82 /* NodeTimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A37F882521D64DCB00CE7A82 /* NodeTimelineViewModel.swift */; };
 		A384528D2195749A0097A6A9 /* MenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A384528C2195749A0097A6A9 /* MenuTableViewCell.swift */; };
 		A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */; };
 		A38D0EAF20DCEA4000F7C932 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A38D0EAD20DCEA4000F7C932 /* Main.storyboard */; };
@@ -167,6 +169,8 @@
 		A37F193321A2B671001BCC0A /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		A37F882021D62BCC00CE7A82 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A37F882221D62BCE00CE7A82 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		A37F882321D64DAF00CE7A82 /* TabTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabTimelineViewModel.swift; sourceTree = "<group>"; };
+		A37F882521D64DCB00CE7A82 /* NodeTimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTimelineViewModel.swift; sourceTree = "<group>"; };
 		A384528C2195749A0097A6A9 /* MenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuTableViewCell.swift; sourceTree = "<group>"; };
 		A38D0EA620DCEA4000F7C932 /* V2EX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = V2EX.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A38D0EA920DCEA4000F7C932 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -301,6 +305,8 @@
 				A3704DD220E0EB8F0052576D /* TimelineViewCell.swift */,
 				A38D0EC720DD060900F7C932 /* TimelineViewController.swift */,
 				A39A31EE21D1D0E900B5D520 /* TimelineViewModel.swift */,
+				A37F882321D64DAF00CE7A82 /* TabTimelineViewModel.swift */,
+				A37F882521D64DCB00CE7A82 /* NodeTimelineViewModel.swift */,
 			);
 			path = Timeline;
 			sourceTree = "<group>";
@@ -711,6 +717,7 @@
 				A317CF1721C388EE0099BB1E /* UserTopicViewModel.swift in Sources */,
 				A36EAFD1219FEF46000DA4A3 /* Reply.swift in Sources */,
 				A38D0EAA20DCEA4000F7C932 /* AppDelegate.swift in Sources */,
+				A37F882621D64DCB00CE7A82 /* NodeTimelineViewModel.swift in Sources */,
 				A37F193421A2B671001BCC0A /* Utility.swift in Sources */,
 				A39B244F21CA832100407FF7 /* SearchResultHeaderView.swift in Sources */,
 				A36B478F21D08156006897DC /* MyFavoritedTopicsViewModel.swift in Sources */,
@@ -724,6 +731,7 @@
 				A33F1E2321C0ACB500853704 /* BalanceViewCell.swift in Sources */,
 				A357CDD721D4D48500DF7F4D /* TopicDetailViewModel.swift in Sources */,
 				A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */,
+				A37F882421D64DAF00CE7A82 /* TabTimelineViewModel.swift in Sources */,
 				A37F192E21A25CE7001BCC0A /* AppSettings.swift in Sources */,
 				A3DCB09321C14168005FD955 /* LanguageSettingsViewController.swift in Sources */,
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
