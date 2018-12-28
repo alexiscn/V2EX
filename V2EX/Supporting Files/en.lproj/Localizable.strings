@@ -109,6 +109,9 @@
 /* 拉黑 */
 "Profile.Block" = "Block";
 
+/* 已拉黑 */
+"Profile.BlockSuccess" = "Blocked";
+
 /* 节点收藏 */
 "Profile.FavoritedNodes" = "Nodes";
 
@@ -117,6 +120,9 @@
 
 /* 加入特别关注 */
 "Profile.Follow" = "Follow";
+
+/* 已加入特别关注 */
+"Profile.FollowSuccess" = "Followed";
 
 /* Ta的最近回复 */
 "Profile.HisComments" = "His comments";
@@ -135,6 +141,18 @@
 
 /* 我创建主题 */
 "Profile.MyTopics" = "My topics";
+
+/* 取消拉黑 */
+"Profile.UnBlock" = "UnBlock";
+
+/* 已从黑名单移除 */
+"Profile.UnBlockSuccess" = "Removed from block list";
+
+/* 取消关注 */
+"Profile.UnFollow" = "UnFollow";
+
+/* 已取消关注 */
+"Profile.UnFollowSuccess" = "UnFollowed";
 
 /* 查看更多 */
 "Profile.ViewMore" = "See all";
