@@ -6,16 +6,44 @@
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>AppIcon_White</key>
+			<key>AppLogo_White</key>
 			<dict>
 				<key>UIPrerenderedIcon</key>
 				<false/>
 				<key>CFBundleIconFiles</key>
 				<array>
-					<string>AppIcon_White</string>
+					<string>AppLogo_White</string>
 				</array>
 			</dict>
+            <key>AppLogo_Fast</key>
+            <dict>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>AppLogo_Fast</string>
+                </array>
+            </dict>
+            <key>AppLogo_Hacker</key>
+            <dict>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>AppLogo_Hacker</string>
+                </array>
+            </dict>
+            <key>AppLogo_HackGreen</key>
+            <dict>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+                <key>CFBundleIconFiles</key>
+                <array>
+                    <string>AppLogo_HackGreen</string>
+                </array>
+            </dict>
 		</dict>
+        
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
 			<key>CFBundleIconFiles</key>

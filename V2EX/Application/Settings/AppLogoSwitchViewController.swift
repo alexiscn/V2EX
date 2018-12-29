@@ -15,7 +15,10 @@ fileprivate struct AppLogo {
     static func logos() -> [AppLogo] {
         var list: [AppLogo] = []
         list.append(AppLogo(icon: "Logo_Default", key: nil))
-        list.append(AppLogo(icon: "Logo_White", key: "AppIcon_White"))
+        list.append(AppLogo(icon: "Logo_White", key: "AppLogo_White"))
+        list.append(AppLogo(icon: "Logo_Fast", key: "AppLogo_Fast"))
+        list.append(AppLogo(icon: "Logo_Hacker", key: "AppLogo_Hacker"))
+        list.append(AppLogo(icon: "Logo_HackGreen", key: "AppLogo_HackGreen"))
         return list
     }
 }
@@ -36,10 +39,10 @@ class AppLogoSwitchViewController: UIViewController {
     
     private func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
-        let itemWidth = CGFloat(floorf(Float((view.bounds.width - 5 * 3)/3.0)))
+        let itemWidth = CGFloat(floorf(Float(view.bounds.width/4.0)))
         layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
-        layout.minimumLineSpacing = 5
-        layout.minimumInteritemSpacing = 5
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
         
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
