@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import StoreKit
 
 class SettingsNavigationController: UINavigationController {
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -114,6 +115,11 @@ class SettingsViewController: UIViewController {
 //            let controller = SFSafariViewController(url: url)
 //            self?.present(controller, animated: true, completion: nil)
 //        })
+        
+        let rate = SettingTableModel(title: "Rate App", value: .actionCommand {
+            SKStoreReviewController.requestReview()
+        })
+        
         let about = SettingTableModel(title: Strings.SettingsAbout, value: .actionCommand { [weak self] in
             let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
             self?.navigationController?.pushViewController(controller, animated: true)
@@ -125,7 +131,7 @@ class SettingsViewController: UIViewController {
 //            self?.present(controller, animated: true, completion: nil)
 //            })
         
-        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, about])
+        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, rate, about])
         dataSource.append(aboutSection)
     }
     

@@ -2,48 +2,51 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIcons</key>
 	<dict>
 		<key>CFBundleAlternateIcons</key>
 		<dict>
-			<key>AppLogo_White</key>
+			<key>AppLogo_Fast</key>
 			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppLogo_Fast</string>
+				</array>
 				<key>UIPrerenderedIcon</key>
 				<false/>
+			</dict>
+			<key>AppLogo_HackGreen</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppLogo_HackGreen</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>AppLogo_Hacker</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>AppLogo_Hacker</string>
+				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
+			</dict>
+			<key>AppLogo_White</key>
+			<dict>
 				<key>CFBundleIconFiles</key>
 				<array>
 					<string>AppLogo_White</string>
 				</array>
+				<key>UIPrerenderedIcon</key>
+				<false/>
 			</dict>
-            <key>AppLogo_Fast</key>
-            <dict>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>AppLogo_Fast</string>
-                </array>
-            </dict>
-            <key>AppLogo_Hacker</key>
-            <dict>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>AppLogo_Hacker</string>
-                </array>
-            </dict>
-            <key>AppLogo_HackGreen</key>
-            <dict>
-                <key>UIPrerenderedIcon</key>
-                <false/>
-                <key>CFBundleIconFiles</key>
-                <array>
-                    <string>AppLogo_HackGreen</string>
-                </array>
-            </dict>
 		</dict>
-        
 		<key>CFBundlePrimaryIcon</key>
 		<dict>
 			<key>CFBundleIconFiles</key>
@@ -59,16 +62,12 @@
 			<array>
 				<string></string>
 			</array>
-			<key>UINewsstandBindingType</key>
-			<string>UINewsstandBindingTypeMagazine</string>
 			<key>UINewsstandBindingEdge</key>
 			<string>UINewsstandBindingEdgeLeft</string>
+			<key>UINewsstandBindingType</key>
+			<string>UINewsstandBindingTypeMagazine</string>
 		</dict>
 	</dict>
-	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
-	<key>CFBundleExecutable</key>
-	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -80,7 +79,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>Fabric</key>
 	<dict>
 		<key>APIKey</key>
@@ -102,10 +101,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>V2EX需要访问您的相册来发送图片</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>V2EX需要访问您的相册来保存图片</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>V2EX需要访问您的相册来发送图片</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
