@@ -30,6 +30,10 @@ class TimelineViewController: UIViewController {
     fileprivate var node: Node = Node.default
     fileprivate var nodeDetail: NodeDetail?
     
+    init(viewModel: TimelineViewModel) {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
     init(tab: V2Tab) {
         self.tab = tab
         self.type = .tab

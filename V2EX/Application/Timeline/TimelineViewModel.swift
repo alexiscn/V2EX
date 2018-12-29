@@ -31,6 +31,12 @@ enum TimelineSource {
     }
 }
 
+protocol TimelineCoordinator: class {
+    func reloadData()
+    func setNoMoreData()
+    func endRefreshing()
+}
+
 protocol TimelineViewModel {
     
     var source: TimelineSource { get set }
@@ -43,7 +49,7 @@ protocol TimelineViewModel {
     
     init(source: TimelineSource)
  
-    func loadData(isLoadMore: Bool)
+    func loadData(isLoadMore: Bool, completion: @escaping (() -> Void))
 }
 
 extension TimelineViewModel {

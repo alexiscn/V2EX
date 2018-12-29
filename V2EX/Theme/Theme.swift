@@ -12,7 +12,7 @@ enum Theme: Int {
     case light = 0
     case dark = 1
     
-    static var current: Theme = .dark
+    static var current: Theme = .light
     
     var statusBarStyle: UIStatusBarStyle {
         switch self {

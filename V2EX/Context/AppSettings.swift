@@ -21,7 +21,7 @@ class AppSettings {
     static var shared = AppSettings()
 
     var theme: Int {
-        get { return UserDefaults.standard.value(forKey: Keys.theme) as? Int ?? 1 }
+        get { return UserDefaults.standard.value(forKey: Keys.theme) as? Int ?? 0 }
         set { UserDefaults.standard.set(newValue, forKey: Keys.theme) }
     }
 

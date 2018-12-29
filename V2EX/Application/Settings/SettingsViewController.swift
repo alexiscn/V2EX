@@ -79,6 +79,10 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupGenerals() {
+        let appLogo = SettingTableModel(title: "App Logo", value: .actionCommand { [weak self] in
+            let controller = AppLogoSwitchViewController()
+            self?.navigationController?.pushViewController(controller, animated: true)
+            })
         let language = SettingTableModel(title: Strings.SettingsLanguage, value: .actionCommand { [weak self] in
             let controller = LanguageSettingsViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
@@ -90,7 +94,7 @@ class SettingsViewController: UIViewController {
         let autoRefresh = SettingTableModel(title: Strings.SettingsAutoRefresh, value: SettingValue.switchButton(AppSettings.shared.autoRefreshOnAppLaunch, Tags.autoRefreshListOnAppLaunch.rawValue))
         
         let enableFullScreenGesture = SettingTableModel(title: Strings.SettingsEnableFullGesture, value: SettingValue.switchButton(AppSettings.shared.enableFullScreenGesture, Tags.enableFullScreenGesture.rawValue))
-        let generalSection = SettingTableSectionModel(title: nil, items: [language, autoRefresh, enableFullScreenGesture])
+        let generalSection = SettingTableSectionModel(title: nil, items: [appLogo, language, autoRefresh, enableFullScreenGesture])
         dataSource.append(generalSection)
     }
     
@@ -105,23 +109,23 @@ class SettingsViewController: UIViewController {
             let controller = OpenSourceViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-        let releaseNotes = SettingTableModel(title: Strings.SettingsReleaseNotes, value: .actionCommand { [weak self] in
-            let url = URL(string: "https://github.com/alexiscn/V2EX/blob/master/ReleaseNotes.md")!
-            let controller = SFSafariViewController(url: url)
-            self?.present(controller, animated: true, completion: nil)
-        })
+//        let releaseNotes = SettingTableModel(title: Strings.SettingsReleaseNotes, value: .actionCommand { [weak self] in
+//            let url = URL(string: "https://github.com/alexiscn/V2EX/blob/master/ReleaseNotes.md")!
+//            let controller = SFSafariViewController(url: url)
+//            self?.present(controller, animated: true, completion: nil)
+//        })
         let about = SettingTableModel(title: Strings.SettingsAbout, value: .actionCommand { [weak self] in
             let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
             self?.navigationController?.pushViewController(controller, animated: true)
         })
         
-        let faq = SettingTableModel(title: "FAQ", value: .actionCommand { [weak self] in
-            let url = URL(string: "https://www.v2ex.com/faq")!
-            let controller = SFSafariViewController(url: url)
-            self?.present(controller, animated: true, completion: nil)
-            })
+//        let faq = SettingTableModel(title: "FAQ", value: .actionCommand { [weak self] in
+//            let url = URL(string: "https://www.v2ex.com/faq")!
+//            let controller = SFSafariViewController(url: url)
+//            self?.present(controller, animated: true, completion: nil)
+//            })
         
-        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, releaseNotes, faq, about])
+        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, about])
         dataSource.append(aboutSection)
     }
     

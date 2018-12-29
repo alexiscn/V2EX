@@ -555,8 +555,21 @@ extension TopicDetailViewController: UINavigationControllerDelegate, UIImagePick
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
         if let asset = info[.phAsset] as? PHAsset {
-            
+            switch asset.mediaType {
+            case .image:
+                PHImageManager.default().requestImageData(for: asset, options: nil) { (data, _, _, _) in
+                    if let data = data {
+                        V2SDK.upload(data: data, completion: { (response, error) in
+                            if let response = response {
+                                print(response)
+                            }
+                            
+                        })
+                    }
+                }
+            default:
+                print("none image")
+            }
         }
-        //V2SDK.upload(data: <#T##Data#>, completion: <#T##(MSUploadResponse?, Error?) -> Void#>)
     }
 }

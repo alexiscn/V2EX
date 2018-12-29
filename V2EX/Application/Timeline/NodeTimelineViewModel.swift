@@ -12,6 +12,8 @@ class NodeTimelineViewModel: TimelineViewModel {
     
     var source: TimelineSource
     
+    weak var coordinator: TimelineCoordinator?
+    
     var title: String?
     
     var dataSource: [Topic] = []
@@ -22,13 +24,14 @@ class NodeTimelineViewModel: TimelineViewModel {
     
     required init(source: TimelineSource) {
         self.source = source
+        self.title = source.node?.title
     }
     
-    func loadData(isLoadMore: Bool) {
+    func loadData(isLoadMore: Bool, completion: @escaping (() -> Void)) {
         guard let node = source.node else { return }
         let totalPage = nodeDetail?.page ?? Int.max
         if currentPage >= totalPage {
-            //setNoMoreData()
+            coordinator?.setNoMoreData()
             return
         }
         
@@ -36,6 +39,7 @@ class NodeTimelineViewModel: TimelineViewModel {
         let endPoint = EndPoint.node(node.name, page: currentPage)
         V2SDK.request(endPoint, parser: NodeTopicsParser.self) { [weak self] (response: V2Response<NodeDetail>) in
             guard let strongSelf = self else { return }
+            strongSelf.coordinator?.endRefreshing()
             switch response {
             case .success(let nodeDetail):
                 strongSelf.nodeDetail = nodeDetail
@@ -45,17 +49,12 @@ class NodeTimelineViewModel: TimelineViewModel {
                     strongSelf.dataSource = nodeDetail.topics
                 }
 //                strongSelf.tableView.reloadData()
-//                strongSelf.tableView.mj_header.endRefreshing()
-//                strongSelf.tableView.mj_footer.endRefreshing()
-//
 //                if nodeDetail.topics.count > 0 {
 //                    strongSelf.tableView.mj_footer.resetNoMoreData()
 //                } else {
 //                    strongSelf.setNoMoreData()
 //                }
             case .error(let error):
-//                strongSelf.tableView.mj_header.endRefreshing()
-//                strongSelf.tableView.mj_footer.endRefreshing()
                 HUD.show(message: error.description)
             }
         }
