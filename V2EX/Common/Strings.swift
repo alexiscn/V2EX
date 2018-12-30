@@ -56,6 +56,8 @@ extension Strings {
     static var LoginRefreshCaptchaAlerts: String { return NSLocalizedString("Login.RefreshCaptchaAlerts", value: "Please refresh captcha...", comment: "请重新获取验证码") }
     
     static var AccountNamePlaceholder: String { return NSLocalizedString("Account.NamePlaceholder", value: "sign in...", comment: "请先登录") }
+    
+    static var LoginRequired: String { return NSLocalizedString("Login.Required", value: "Login required", comment: "请先登录") }
 }
 
 // Search
@@ -109,6 +111,7 @@ extension Strings {
 // Settings
 extension Strings {
     static var Settings: String { return NSLocalizedString("Settings", comment: "设置") }
+    static var SettingsAppLogo: String { return NSLocalizedString("Settings.AppLogo", value: "App Logo", comment: "应用图标") }
     static var SettingsViewOptions: String { return NSLocalizedString("Settings.ViewOptions", value: "View options", comment: "浏览偏好设置") }
     static var SettingsAutoRefresh: String { return NSLocalizedString("Settings.AutoRefresh", value: "Auto Refresh On Launch", comment: "自动刷新列表") }
     static var SettingsEnableFullGesture: String { return NSLocalizedString("Settings.EnableFullGesture", value: "Fullscreen gesture to back", comment: "全屏返回手势") }

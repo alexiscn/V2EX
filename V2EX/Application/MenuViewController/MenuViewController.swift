@@ -145,7 +145,6 @@ class MenuViewController: UIViewController {
     
     private func setupNewTopicButton() {
         newTopicButton = UIButton(type: .system)
-        newTopicButton.isHidden = true
         newTopicButton.setImage(UIImage(named: "icon_pen_24x24_"), for: .normal)
         newTopicButton.tintColor = Theme.current.titleColor
         view.addSubview(newTopicButton)
@@ -158,6 +157,10 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func newTopicButtonTapped(_ sender: Any) {
+        if !AppContext.current.isLogined {
+            HUD.show(message: Strings.LoginRequired)
+            return
+        }
         let newTopicVC = NewTopicViewController()
         navigationController?.pushViewController(newTopicVC, animated: true)
     }

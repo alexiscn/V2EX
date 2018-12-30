@@ -80,7 +80,7 @@ class SettingsViewController: UIViewController {
     }
     
     private func setupGenerals() {
-        let appLogo = SettingTableModel(title: "App Logo", value: .actionCommand { [weak self] in
+        let appLogo = SettingTableModel(title: Strings.SettingsAppLogo, value: .actionCommand { [weak self] in
             let controller = AppLogoSwitchViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
             })

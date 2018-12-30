@@ -44,9 +44,6 @@ class TopicDetailViewController: UIViewController {
     fileprivate var inputBar = CommentInputBar()
     
     override var inputAccessoryView: UIView? {
-        if !AppContext.current.isLogined {
-            return nil
-        }
         return inputBar
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXActionSheet
 
 enum Theme: Int {
     case light = 0
@@ -124,7 +125,9 @@ class ThemeManager {
     
     static let shared = ThemeManager()
     
-    private init() { }
+    private init() {
+        configureWXActionSheet()
+    }
     
     func switchTheme() {
         if Theme.current == .dark {
@@ -134,6 +137,17 @@ class ThemeManager {
         }
         AppSettings.shared.theme = Theme.current.rawValue
         NotificationCenter.default.post(name: NSNotification.Name.V2.ThemeUpdated, object: nil)
+        configureWXActionSheet()
+    }
+    
+    private func configureWXActionSheet() {
+        if Theme.current == .dark {
+            WXActionSheet.Preferences.ButtonNormalBackgroundColor = Theme.current.backgroundColor
+            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = Theme.current.cellBackgroundColor
+            WXActionSheet.Preferences.ButtonTitleColor = .white
+        } else {
+            WXActionSheet.Preferences.ButtonTitleColor = .black
+        }
     }
     
     func observeThemeUpdated(closure: @escaping (Notification) -> Void) {

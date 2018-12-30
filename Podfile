@@ -14,6 +14,7 @@ target 'V2EX' do
     pod 'WCDB.swift'
     pod 'MBProgressHUD'
     pod 'FDFullscreenPopGesture'
+    pod 'WXActionSheet'
 end
 
 post_install do |installer|

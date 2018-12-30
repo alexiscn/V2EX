@@ -9,6 +9,7 @@
 import UIKit
 import SnapKit
 import MJRefresh
+import WXActionSheet
 
 enum UserProfileSections: Int {
     case topics = 0
@@ -56,25 +57,21 @@ class UserProfileViewController: UIViewController {
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        let actionSheet = ActionSheet(title: nil, message: nil)
-        if AppContext.current.isLogined, let info = profile?.info {
-            let followTitle = info.hasFollowed ? Strings.ProfileUnFollow: Strings.ProfileFollow
-            actionSheet.addAction(Action(title: followTitle, style: .default, handler: { [weak self] _ in
-                self?.handleFollowButton(followed: info.hasFollowed)
-            }))
-            let blockTitle = info.hasBlocked ? Strings.ProfileUnBlock: Strings.ProfileBlock
-            actionSheet.addAction(Action(title: blockTitle, style: .default, handler: { [weak self] _ in
-                self?.handleBlockButton(blocked: info.hasBlocked)
-            }))
-        }
-        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
+        let actionSheet = WXActionSheet(cancelButtonTitle: Strings.Cancel)
+        let followTitle = (profile?.info?.hasFollowed ?? false) ? Strings.ProfileUnFollow: Strings.ProfileFollow
+        actionSheet.append(WXActionSheetItem(title: followTitle, handler: { [weak self] _ in
+            self?.handleFollowButton()
+        }))
+        
+        let blockTitle = (profile?.info?.hasBlocked ?? false) ? Strings.ProfileUnBlock: Strings.ProfileBlock
+        actionSheet.append(WXActionSheetItem(title: blockTitle, handler: { [weak self] _ in
+            self?.handleBlockButton()
+        }))
+        actionSheet.append(WXActionSheetItem(title: Strings.Report, handler: { _ in
             // 暂时这么写，下个版本请求接口
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 HUD.show(message: "举报成功，我们会及时处理你的举报")
             })
-        }))
-        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
-            
         }))
         actionSheet.show()
     }
@@ -139,13 +136,19 @@ class UserProfileViewController: UIViewController {
 
 extension UserProfileViewController {
     
-    fileprivate func handleFollowButton(followed: Bool) {
-        guard let url = profile?.info?.followURL else { return }
+    fileprivate func handleFollowButton() {
+        if !AppContext.current.isLogined {
+            HUD.show(message: Strings.LoginRequired)
+            return
+        }
+        guard let info = profile?.info, let url = info.followURL else {
+            return
+        }
         V2SDK.request(url: url) { [weak self] (response: V2Response<OperationResponse>) in
             switch response {
             case .success(_):
                 self?.loadUserProfile()
-                let message = followed ? Strings.ProfileUnFollowSuccess: Strings.ProfileFollowSuccess
+                let message = info.hasFollowed ? Strings.ProfileUnFollowSuccess: Strings.ProfileFollowSuccess
                 HUD.show(message: message)
             case .error(let error):
                 HUD.show(message: error.description)
@@ -153,14 +156,20 @@ extension UserProfileViewController {
         }
     }
     
-    fileprivate func handleBlockButton(blocked: Bool) {
-        guard let url = profile?.info?.blockURL else { return }
+    fileprivate func handleBlockButton() {
+        if !AppContext.current.isLogined {
+            HUD.show(message: Strings.LoginRequired)
+            return
+        }
+        guard let info = profile?.info, let url = info.blockURL else {
+            return
+        }
         
         V2SDK.request(url: url) { [weak self] (response: V2Response<OperationResponse>) in
             switch response {
             case .success(_):
                 self?.loadUserProfile()
-                let message = blocked ? Strings.ProfileUnBlockSuccess: Strings.ProfileBlockSuccess
+                let message = info.hasBlocked ? Strings.ProfileUnBlockSuccess: Strings.ProfileBlockSuccess
                 HUD.show(message: message)
             case .error(let error):
                 HUD.show(message: error.description)

@@ -32,7 +32,7 @@ class AppLogoSwitchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        title = "App Logo"
+        title = Strings.SettingsAppLogo
         view.backgroundColor = Theme.current.backgroundColor
         setupCollectionView()
     }
