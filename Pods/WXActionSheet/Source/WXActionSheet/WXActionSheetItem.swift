@@ -27,7 +27,15 @@ public class WXActionSheetItem {
     public var type: ItemType = .default
     public var handler: WXActionSheetHandler? = nil
     
-    public init(title: String, handler: WXActionSheetHandler? = nil, type: ItemType = .default) {
+    public convenience init(title: String) {
+        self.init(title: title, handler: nil, type: .default)
+    }
+    
+    public convenience init(title: String, handler: @escaping WXActionSheetHandler) {
+        self.init(title: title, handler: handler, type: .default)
+    }
+    
+    public init(title: String, handler: WXActionSheetHandler?, type: ItemType) {
         self.title = title
         self.handler = handler
         self.type = type

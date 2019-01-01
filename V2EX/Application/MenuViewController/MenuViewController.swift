@@ -157,12 +157,13 @@ class MenuViewController: UIViewController {
     }
     
     @objc private func newTopicButtonTapped(_ sender: Any) {
-        if !AppContext.current.isLogined {
-            HUD.show(message: Strings.LoginRequired)
-            return
+        if AppContext.current.isLogined {
+            let newTopicVC = NewTopicViewController()
+            navigationController?.pushViewController(newTopicVC, animated: true)
+        } else {
+            let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
+            present(loginVC, animated: true, completion: nil)
         }
-        let newTopicVC = NewTopicViewController()
-        navigationController?.pushViewController(newTopicVC, animated: true)
     }
     
     @objc private func avatarButtonTapped(_ sender: Any) {

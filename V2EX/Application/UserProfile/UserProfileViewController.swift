@@ -59,15 +59,15 @@ class UserProfileViewController: UIViewController {
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
         let actionSheet = WXActionSheet(cancelButtonTitle: Strings.Cancel)
         let followTitle = (profile?.info?.hasFollowed ?? false) ? Strings.ProfileUnFollow: Strings.ProfileFollow
-        actionSheet.append(WXActionSheetItem(title: followTitle, handler: { [weak self] _ in
+        actionSheet.add(WXActionSheetItem(title: followTitle, handler: { [weak self] _ in
             self?.handleFollowButton()
         }))
         
         let blockTitle = (profile?.info?.hasBlocked ?? false) ? Strings.ProfileUnBlock: Strings.ProfileBlock
-        actionSheet.append(WXActionSheetItem(title: blockTitle, handler: { [weak self] _ in
+        actionSheet.add(WXActionSheetItem(title: blockTitle, handler: { [weak self] _ in
             self?.handleBlockButton()
         }))
-        actionSheet.append(WXActionSheetItem(title: Strings.Report, handler: { _ in
+        actionSheet.add(WXActionSheetItem(title: Strings.Report, handler: { _ in
             // 暂时这么写，下个版本请求接口
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 HUD.show(message: "举报成功，我们会及时处理你的举报")

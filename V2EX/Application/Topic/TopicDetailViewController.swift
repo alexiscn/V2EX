@@ -10,6 +10,7 @@ import UIKit
 import MJRefresh
 import CoreServices
 import Photos
+import WXActionSheet
 
 class TopicDetailViewController: UIViewController {
 
@@ -361,39 +362,36 @@ extension TopicDetailViewController {
 extension TopicDetailViewController {
     
     @objc fileprivate func moreBarButtonItemTapped(_ sender: Any) {
-        let actionSheet = ActionSheet(title: nil, message: nil)
-        actionSheet.addAction(Action(title: Strings.DetailOpenInSafari, style: .default, handler: { _ in
+        let actionSheet = WXActionSheet(cancelButtonTitle: Strings.Cancel)
+        actionSheet.add(WXActionSheetItem(title: Strings.DetailOpenInSafari, handler: { _ in
             if let url = self.topicURL {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }))
         if AppContext.current.isLogined, let detail = detail {
             let title = detail.favorited ? Strings.DetailRemoveFromFavorites: Strings.DetailAddToFavorites
-            actionSheet.addAction(Action(title: title, style: .default, handler: { [weak self] _ in
+            actionSheet.add(WXActionSheetItem(title: title, handler: { [weak self] _ in
                 self?.doFavorite()
             }))
         }
-        actionSheet.addAction(Action(title: Strings.Share, style: .default, handler: { [weak self] _ in
+        actionSheet.add(WXActionSheetItem(title: Strings.Share, handler: { [weak self] _ in
             if let url = self?.topicURL {
                 let controller = UIActivityViewController(activityItems: [url], applicationActivities: nil)
                 self?.present(controller, animated: true, completion: nil)
             }
         }))
-        actionSheet.addAction(Action(title: Strings.CopyLink, style: .default, handler: { [weak self] _ in
+        actionSheet.add(WXActionSheetItem(title: Strings.CopyLink, handler: { [weak self] _ in
             UIPasteboard.general.url = self?.topicURL
         }))
         let viewOptionTitle = viewAuthorOnly ? Strings.DetailViewAllComments: Strings.DetailViewAuthorOnly
-        actionSheet.addAction(Action(title: viewOptionTitle, style: .default, handler: { [weak self] _ in
+        actionSheet.add(WXActionSheetItem(title: viewOptionTitle, handler: { [weak self] _ in
             self?.resortReplies()
         }))
-        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
+        actionSheet.add(WXActionSheetItem(title: Strings.Report, handler: { _ in
             // TODO: 暂时这么写，下个版本请求接口
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 HUD.show(message: "举报成功，我们会及时处理你的举报")
             })
-        }))
-        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
-            
         }))
         actionSheet.show()
     }
@@ -509,6 +507,20 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        if indexPath.section == 0 {
+            return nil
+        }
+        
+        let commentAction = UITableViewRowAction(style: .default, title: Strings.DetailComment) { (_, indexPath) in
+            
+        }
+        let likeAction = UITableViewRowAction(style: .default, title: "感谢") { (_, indexPath) in
+            
+        }
+        return [commentAction, likeAction]
     }
 }
 

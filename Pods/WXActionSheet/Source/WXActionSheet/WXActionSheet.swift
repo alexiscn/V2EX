@@ -73,15 +73,7 @@ public class WXActionSheet: UIView {
         }
     }
     
-    public func appendButton(title: String) {
-        items.append(WXActionSheetItem(title: title))
-    }
-    
-    public func appendDestructiveButton(title: String) {
-        items.append(WXActionSheetItem(title: title, type: .default))
-    }
-    
-    public func append(_ item: WXActionSheetItem) {
+    public func add(_ item: WXActionSheetItem) {
         items.append(item)
     }
 }

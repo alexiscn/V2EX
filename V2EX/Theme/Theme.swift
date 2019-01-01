@@ -142,8 +142,9 @@ class ThemeManager {
     
     private func configureWXActionSheet() {
         if Theme.current == .dark {
-            WXActionSheet.Preferences.ButtonNormalBackgroundColor = Theme.current.backgroundColor
-            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = Theme.current.cellBackgroundColor
+            WXActionSheet.Preferences.ButtonNormalBackgroundColor = UIColor(red: 118.0/255, green: 130.0/255, blue: 157.0/255, alpha: 1.0)
+            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = UIColor(red: 108.0/255, green: 118.0/255, blue: 149.0/255, alpha: 1.0)
+            WXActionSheet.Preferences.SeparatorColor = Theme.current.cellBackgroundColor
             WXActionSheet.Preferences.ButtonTitleColor = .white
         } else {
             WXActionSheet.Preferences.ButtonTitleColor = .black
