@@ -11,6 +11,7 @@ import MJRefresh
 import CoreServices
 import Photos
 import WXActionSheet
+import SKPhotoBrowser
 
 class TopicDetailViewController: UIViewController {
 
@@ -97,7 +98,7 @@ class TopicDetailViewController: UIViewController {
                 }
             }))
         }
-        actionSheet.add(WXActionSheetItem(title: Strings.DetailComment, handler: { _ in
+        actionSheet.add(WXActionSheetItem(title: Strings.DetailCopyComments, handler: { _ in
             UIPasteboard.general.string = comment.content
         }))
         actionSheet.add(WXActionSheetItem(title: Strings.Report, handler: { _ in
@@ -455,6 +456,12 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
             }
             cell.orderButtonHandler = { [weak self] in
                 self?.reOrder()
+            }
+            cell.imageTappedHandler = { [weak self] urlString in
+                let photo = SKPhoto.photoWithImageURL(urlString)
+                photo.shouldCachePhotoURLImage = true
+                let browser = SKPhotoBrowser(photos: [photo], initialPageIndex: 0)
+                self?.present(browser, animated: true, completion: nil)
             }
             if let detail = detail {
                 cell.update(detail)

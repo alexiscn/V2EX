@@ -15,6 +15,8 @@ class TopicDetailViewCell: UITableViewCell {
  
     var webViewHeightChangedHandler: ((CGFloat) -> Void)?
     
+    var imageTappedHandler: ((String) -> Void)?
+    
     var orderButtonHandler: RelayCommand?
     
     var topicButtonHandler: RelayCommand?
@@ -233,7 +235,7 @@ extension TopicDetailViewCell: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url, url.scheme == "v2ex-img" {
             let src = url.absoluteString.replacingOccurrences(of: "v2ex-img", with: "")
-            print(src)
+            imageTappedHandler?(src)
             decisionHandler(.cancel)
             return
         }

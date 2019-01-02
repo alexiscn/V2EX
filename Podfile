@@ -15,6 +15,7 @@ target 'V2EX' do
     pod 'MBProgressHUD'
     pod 'FDFullscreenPopGesture'
     pod 'WXActionSheet'
+    pod 'SKPhotoBrowser'
 end
 
 post_install do |installer|
