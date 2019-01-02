@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WXActionSheet
 
 enum ProfileSections: Int {
     case topics = 0
@@ -129,16 +130,12 @@ class ProfileViewController: UIViewController {
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        let actionSheet = ActionSheet(title: nil, message: nil)
-        actionSheet.addAction(Action(title: Strings.SettingsLogout, style: .default, handler: { [weak self] _ in
+        let actionSheet = WXActionSheet(cancelButtonTitle: Strings.Cancel)
+        actionSheet.add(WXActionSheetItem(title: Strings.SettingsLogout, handler: { [weak self] _ in
             self?.handleUserLogout()
         }))
-        
-        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
-            
-        }))
         actionSheet.show()
-        
+       
     }
     
     private func handleUserLogout() {

@@ -147,6 +147,9 @@ class ThemeManager {
             WXActionSheet.Preferences.SeparatorColor = Theme.current.cellBackgroundColor
             WXActionSheet.Preferences.ButtonTitleColor = .white
         } else {
+            WXActionSheet.Preferences.ButtonNormalBackgroundColor = UIColor(white: 1, alpha: 0.8)
+            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = UIColor(white: 1, alpha: 0.5)
+            WXActionSheet.Preferences.SeparatorColor = UIColor(white: 153.0/255, alpha: 1.0)
             WXActionSheet.Preferences.ButtonTitleColor = .black
         }
     }

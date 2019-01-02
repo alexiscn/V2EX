@@ -712,6 +712,24 @@ struct MyFavoritedTopicsParser: HTMLParser {
     }
 }
 
+struct MyFollowingsParser: HTMLParser {
+    static func handle<T>(_ doc: Document) throws -> T? {
+        var response = ListResponse<Topic>()
+        if let max = try doc.select("input.page_input").first()?.attr("max") {
+            response.page = Int(max) ?? 1
+        }
+        let cells = try doc.select("div")
+        for cell in cells {
+            if !cell.hasClass("cell item") {
+                continue
+            }
+            let topic = NodeTopicsParser.parseTopicListCell(cell)
+            response.list.append(topic)
+        }
+        return response as? T
+    }
+}
+
 struct OperationParser: HTMLParser {
     static func handle<T>(_ doc: Document) throws -> T? {
         return OperationResponse() as? T

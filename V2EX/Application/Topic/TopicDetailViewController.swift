@@ -89,27 +89,29 @@ class TopicDetailViewController: UIViewController {
     }
     
     private func showCommentSheet(_ comment: Reply) {
-        let actionSheet = ActionSheet(title: nil, message: nil)
+        let actionSheet = WXActionSheet(cancelButtonTitle: Strings.Cancel)
         if AppContext.current.isLogined {
-            actionSheet.addAction(Action(title: Strings.DetailComment, style: .default, handler: { [weak self] _ in
+            actionSheet.add(WXActionSheetItem(title: Strings.DetailComment, handler: { [weak self]  _ in
                 if let name = comment.username {
-                    self?.inputBar.appendMention(text: "@\(name) ")
-                    self?.inputBar.inputTextView.becomeFirstResponder()
+                    self?.mentionUser(name)
                 }
             }))
         }
-        actionSheet.addAction(Action(title: Strings.DetailCopyComments, style: .default, handler: { _ in
+        actionSheet.add(WXActionSheetItem(title: Strings.DetailComment, handler: { _ in
             UIPasteboard.general.string = comment.content
         }))
-        actionSheet.addAction(Action(title: Strings.Report, style: .default, handler: { _ in
+        actionSheet.add(WXActionSheetItem(title: Strings.Report, handler: { _ in
             // 为了审核用，实际上没有该接口
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 HUD.show(message: "举报成功，我们会及时处理你的举报")
             })
         }))
-        actionSheet.addAction(Action(title: Strings.Cancel, style: .cancel, handler: { _ in
-        }))
         actionSheet.show()
+    }
+    
+    private func mentionUser(_ name: String) {
+        inputBar.appendMention(text: "@\(name) ")
+        inputBar.inputTextView.becomeFirstResponder()
     }
     
     fileprivate func setupNavigationBar() {
@@ -515,7 +517,10 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
         }
         
         let commentAction = UITableViewRowAction(style: .default, title: Strings.DetailComment) { (_, indexPath) in
-            
+            let comment = self.comments[indexPath.row]
+            if let name = comment.username {
+                self.mentionUser(name)
+            }
         }
         let likeAction = UITableViewRowAction(style: .default, title: "感谢") { (_, indexPath) in
             
@@ -549,7 +554,6 @@ extension TopicDetailViewController: CommentInputBarDelegate {
     
     func inputBarDidPressedPhotoButton() {
         let imagePicker = UIImagePickerController()
-        imagePicker.mediaTypes = []
         imagePicker.delegate = self
         present(imagePicker, animated: true, completion: nil)
     }
@@ -562,23 +566,23 @@ extension TopicDetailViewController: UINavigationControllerDelegate, UIImagePick
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
-        if let asset = info[.phAsset] as? PHAsset {
-            switch asset.mediaType {
-            case .image:
-                PHImageManager.default().requestImageData(for: asset, options: nil) { (data, _, _, _) in
-                    if let data = data {
-                        V2SDK.upload(data: data, completion: { (response, error) in
-                            if let response = response {
-                                print(response)
-                            }
-                            
-                        })
-                    }
-                }
-            default:
-                print("none image")
+        
+        if let image = info[.originalImage] as? UIImage, let data = image.jpegData(compressionQuality: 1.0) {
+            if data.count > 1024 * 1024 * 5 {
+                HUD.show(message: "图片大小不能超过5M")
+                picker.dismiss(animated: true, completion: nil)
+                return
             }
+            HUD.showIndicator()
+            V2SDK.upload(data: data, mimeType: .image, completion: { (response, error) in
+                HUD.removeIndicator()
+                if let response = response {
+                    print(response)
+                }
+                picker.dismiss(animated: true, completion: nil)
+            })
+        } else {
+            picker.dismiss(animated: true, completion: nil)
         }
     }
 }

@@ -126,8 +126,8 @@ extension EndPoint {
         return EndPoint(path: path)
     }
     
-    static func myFollowing() -> EndPoint {
-        let path = "/my/following"
+    static func myFollowing(page: Int) -> EndPoint {
+        let path = "/my/following?p=\(page)"
         return EndPoint(path: path)
     }
     

@@ -20,12 +20,13 @@ class MyFollowingViewModel: ListViewModel {
     
     var currentPage: Int = 1
     
-    var endPoint: EndPoint { return EndPoint.myFollowing() }
+    var endPoint: EndPoint { return EndPoint.myFollowing(page: currentPage) }
     
-    var htmlParser: HTMLParser.Type { return TabParser.self }
+    var htmlParser: HTMLParser.Type { return MyFollowingsParser.self }
     
     func heightForRowAt(_ indexPath: IndexPath) -> CGFloat {
-        return 0.0
+        var topic = dataSouce[indexPath.row]
+        return TimelineViewCell.heightForRowWithTopic(&topic)
     }
     
     func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
