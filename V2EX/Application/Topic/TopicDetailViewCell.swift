@@ -223,9 +223,12 @@ extension TopicDetailViewCell: WKNavigationDelegate {
                                     var images = document.getElementsByTagName('img');
                                     for (var i = 0; i < images.length ; i++) {
                                         var img = images[i];
-                                        img.onclick = function() {
-                                            window.location.href = 'v2ex-img:' + src
-                                        }
+                                        var src = img.src;
+                                        img.onclick = (function(src) {
+                                            return function () {
+                                                location.href = 'v2ex-img://url=' + encodeURIComponent(src)
+                                            }
+                                        })(src)
                                     }
                                     """
         webView.evaluateJavaScript(imgJavascriptInjection, completionHandler: nil)
@@ -234,8 +237,10 @@ extension TopicDetailViewCell: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         if let url = navigationAction.request.url, url.scheme == "v2ex-img" {
-            let src = url.absoluteString.replacingOccurrences(of: "v2ex-img", with: "")
-            imageTappedHandler?(src)
+            let src = url.absoluteString.replacingOccurrences(of: "v2ex-img://url=", with: "")
+            if let url = src.removingPercentEncoding {
+                imageTappedHandler?(url)
+            }
             decisionHandler(.cancel)
             return
         }
