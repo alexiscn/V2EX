@@ -44,6 +44,89 @@
             </objects>
             <point key="canvasLocation" x="120.8" y="-564.46776611694156"/>
         </scene>
+        <!--New Topic Help View Controller-->
+        <scene sceneID="aOn-QV-lNd">
+            <objects>
+                <viewController storyboardIdentifier="NewTopicHelpViewController" id="zEO-wv-a97" customClass="NewTopicHelpViewController" customModule="V2EX" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yT9-gr-rU9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iSA-oN-EMu" userLabel="Background View">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <viewLayoutGuide key="safeArea" id="xFG-sC-OtG"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="bR0-vK-IRP">
+                                <rect key="frame" x="30" y="120" width="305" height="299"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主题标题" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b74-rz-E10">
+                                        <rect key="frame" x="0.0" y="0.0" width="305" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请在标题中描述内容要点。如果一件事情在标题的长度内就已经可以说清楚，那就没有必要写正文了。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dok-ue-lmO">
+                                        <rect key="frame" x="0.0" y="30.5" width="305" height="31.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="正文" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y4t-tB-qWg">
+                                        <rect key="frame" x="0.0" y="72" width="305" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="可以在正文中为你要发布的主题添加更多细节。V2EX 支持 GitHub Flavored Markdown 文本标记语法。 在正式提交之前，你可以点击本页面左下角的“预览主题”来查看 Markdown 正文的实际渲染效果。" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hxd-Rn-Ixs">
+                                        <rect key="frame" x="0.0" y="102.5" width="305" height="78"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="选择节点" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uM5-HA-QJl">
+                                        <rect key="frame" x="0.0" y="190.5" width="305" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vxe-rO-aFu">
+                                        <rect key="frame" x="0.0" y="221" width="305" height="78"/>
+                                        <string key="text">在最后，请为你的主题选择一个节点。恰当的归类会让你发布的信息更加有用。
+你可以在主题发布后 300 秒内，对标题或者正文进行编辑。同时，在 300 秒内，你可以重新为主题选择节点。</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bR0-vK-IRP" firstAttribute="top" secondItem="cOd-HW-dKq" secondAttribute="top" constant="100" id="2Uj-Hc-asj"/>
+                            <constraint firstItem="iSA-oN-EMu" firstAttribute="top" secondItem="yT9-gr-rU9" secondAttribute="top" id="D2H-eq-OAF"/>
+                            <constraint firstItem="cOd-HW-dKq" firstAttribute="trailing" secondItem="iSA-oN-EMu" secondAttribute="trailing" id="EJv-yW-hvI"/>
+                            <constraint firstItem="bR0-vK-IRP" firstAttribute="leading" secondItem="cOd-HW-dKq" secondAttribute="leading" constant="30" id="M24-Pk-ckf"/>
+                            <constraint firstAttribute="bottom" secondItem="iSA-oN-EMu" secondAttribute="bottom" id="g8l-g9-opd"/>
+                            <constraint firstItem="cOd-HW-dKq" firstAttribute="trailing" secondItem="bR0-vK-IRP" secondAttribute="trailing" constant="40" id="kl6-Vd-Fui"/>
+                            <constraint firstItem="iSA-oN-EMu" firstAttribute="leading" secondItem="cOd-HW-dKq" secondAttribute="leading" id="zYJ-2a-qW8"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cOd-HW-dKq"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="iSA-oN-EMu" id="eOd-5j-P4q"/>
+                        <outlet property="nodeDescLabel" destination="vxe-rO-aFu" id="l3j-2Z-dRV"/>
+                        <outlet property="nodeLabel" destination="uM5-HA-QJl" id="3We-Xi-pkt"/>
+                        <outlet property="topicContentDescLabel" destination="Hxd-Rn-Ixs" id="b7k-O6-EQe"/>
+                        <outlet property="topicContentLabel" destination="y4t-tB-qWg" id="TcB-lf-qeW"/>
+                        <outlet property="topicTitleDescLabel" destination="dok-ue-lmO" id="Fto-1z-RTU"/>
+                        <outlet property="topicTitleLabel" destination="b74-rz-E10" id="8Tp-k9-vnZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dgz-kf-IIm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="120.8" y="838.83058470764627"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="Dyb-7a-Q3B">
             <objects>

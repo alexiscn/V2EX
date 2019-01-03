@@ -87,6 +87,7 @@
 		A38D0EC820DD060900F7C932 /* TimelineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A38D0EC720DD060900F7C932 /* TimelineViewController.swift */; };
 		A3961C7C21C22D47007D7663 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3961C7B21C22D47007D7663 /* ListViewController.swift */; };
 		A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3961C7D21C22D92007D7663 /* ListViewModel.swift */; };
+		A398339C21DDDDF70061DF14 /* NewTopicHelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A398339B21DDDDF70061DF14 /* NewTopicHelpViewController.swift */; };
 		A39A31EF21D1D0E900B5D520 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39A31EE21D1D0E900B5D520 /* TimelineViewModel.swift */; };
 		A39B244A21C3389700407FF7 /* BalanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39B244921C3389700407FF7 /* BalanceViewModel.swift */; };
 		A39B244D21C339BC00407FF7 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A39B244C21C339BC00407FF7 /* NotificationsViewModel.swift */; };
@@ -199,6 +200,7 @@
 		A38D0EC720DD060900F7C932 /* TimelineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewController.swift; sourceTree = "<group>"; };
 		A3961C7B21C22D47007D7663 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 		A3961C7D21C22D92007D7663 /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		A398339B21DDDDF70061DF14 /* NewTopicHelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTopicHelpViewController.swift; sourceTree = "<group>"; };
 		A39A31EE21D1D0E900B5D520 /* TimelineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 		A39B244921C3389700407FF7 /* BalanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanceViewModel.swift; sourceTree = "<group>"; };
 		A39B244C21C339BC00407FF7 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -354,6 +356,7 @@
 				A333759421C76DEC0008085F /* CommentInputTextView.swift */,
 				A33A4C4921CCC43C005605A8 /* NewTopicViewController.swift */,
 				A3F4939E21CFBBFE008B16ED /* NewTopicAccessoryView.swift */,
+				A398339B21DDDDF70061DF14 /* NewTopicHelpViewController.swift */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -769,6 +772,7 @@
 				A36EAFCB219FEEB2000DA4A3 /* V2Tab.swift in Sources */,
 				A3704DD320E0EB8F0052576D /* TimelineViewCell.swift in Sources */,
 				A3DCB08921BB76A9005FD955 /* HUD.swift in Sources */,
+				A398339C21DDDDF70061DF14 /* NewTopicHelpViewController.swift in Sources */,
 				A3B97ADD21D0C746007A7492 /* V2RefreshFooter.swift in Sources */,
 				A373C68A21B5411C00C919AD /* UserCommentViewCell.swift in Sources */,
 				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,

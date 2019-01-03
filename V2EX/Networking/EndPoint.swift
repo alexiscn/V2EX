@@ -183,11 +183,19 @@ extension EndPoint {
         return EndPoint(path: path, method: .post, parameters: params, headers: headers)
     }
     
-    static func createTopic(_ nodeName: String, title: String, body: String, once: String) -> EndPoint {
+    static func createTopicOnce(_ nodename: String) -> EndPoint {
+        let path = "/new/" + nodename
+        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        headers["Referer"] = V2SDK.baseURLString + path
+        headers["User-Agent"] = UserAgents.phone
+        return EndPoint(path: path, method: .post, parameters: nil, headers: headers)
+    }
+
+    static func createTopic(_ nodeName: String, title: String, once: String, body: String?) -> EndPoint {
         let path = "/new/" + nodeName
         var params: [String: String] = [:]
         params["title"] = title
-        params["topic_content"] = body
+        params["topic_content"] = body ?? ""
         params["once"] = once
         
         var headers = Alamofire.SessionManager.defaultHTTPHeaders

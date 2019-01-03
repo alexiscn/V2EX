@@ -21,14 +21,16 @@ class NewTopicViewController: UIViewController {
         title = "创作新主题"
         setupNavigationBar()
         setupTitleTextField()
+        setupContentTextView()
     }
     
     private func setupNavigationBar() {
-        let helpBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_help_24x24_"), style: .done, target: self, action: #selector(helpBarButtonItemTapped(_:)))
-        helpBarButtonItem.imageInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0)
+        //let helpBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_help_24x24_"), style: .done, target: self, action: #selector(helpBarButtonItemTapped(_:)))
+        //helpBarButtonItem.imageInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0)
         
         let sendBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_send_24x24_"), style: .done, target: self, action: #selector(sendBarButtonItemTapped(_:)))
-        navigationItem.rightBarButtonItems = [sendBarButtonItem, helpBarButtonItem]
+        navigationItem.rightBarButtonItem = sendBarButtonItem
+        //navigationItem.rightBarButtonItems = [sendBarButtonItem, helpBarButtonItem]
     }
     
     private func setupTitleTextField() {
@@ -53,16 +55,46 @@ class NewTopicViewController: UIViewController {
             make.height.equalTo(LineHeight)
         }
     }
+    
+    private func setupContentTextView() {
+        contentTextView = UITextView()
+        view.addSubview(contentTextView)
+    }
 }
 
 extension NewTopicViewController {
     
     @objc fileprivate func helpBarButtonItemTapped(_ sender: Any) {
-        let url = URL(string: "https://shuifeng.me/v2ex/new_topic_help.html")!
-        presentSafariViewController(url: url)
+        let helpVC = UIStoryboard.main.instantiateViewController(ofType: NewTopicHelpViewController.self)
+        helpVC.modalTransitionStyle = .crossDissolve
+        helpVC.modalPresentationStyle = .overCurrentContext
+        present(helpVC, animated: true, completion: nil)
     }
     
     @objc fileprivate func sendBarButtonItemTapped(_ sender: Any) {
         
+        func requestOnceToken() {
+            let endPoint = EndPoint.createTopicOnce("xxx")
+            V2SDK.request(endPoint, parser: CreateTopicOnceParser.self) { (response: V2Response<String>) in
+                switch response {
+                case .success(let once):
+                    print(once)
+                case .error(let error):
+                    HUD.show(message: error.description)
+                }
+            }
+        }
+        
+        func createTopic(once: String) {
+            let endPoint = EndPoint.createTopic("xxx", title: "xxx", once: once, body: "xxx")
+            V2SDK.request(endPoint, parser: CreateTopicParser.self) { (response: V2Response<Bool>) in
+                switch response {
+                case .success(_):
+                    print("success")
+                case .error(let error):
+                    HUD.show(message: error.description)
+                }
+            }
+        }
     }
 }

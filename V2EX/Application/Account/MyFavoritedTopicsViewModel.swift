@@ -12,7 +12,7 @@ class MyFavoritedTopicsViewModel: ListViewModel {
     
     typealias T = Topic
     
-    var title: String? { return "我收藏的主题" }
+    var title: String? { return Strings.ProfileMyTopics }
     
     var dataSouce: [Topic] = []
     

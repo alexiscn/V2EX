@@ -12,7 +12,7 @@ class MyFollowingViewModel: ListViewModel {
     
     typealias T = Topic
     
-    var title: String? { return "我的特别关注" }
+    var title: String? { return Strings.ProfileMyFollowing }
     
     var dataSouce: [Topic] = []
     

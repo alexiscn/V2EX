@@ -15,6 +15,7 @@ class MainViewController: UIViewController {
     
     private var rightMenuVC: RightMenuViewController?
     private var timelineVC: TimelineViewController?
+    private var composeButton: UIButton!
     
     var tab: V2Tab = .hotTab
     
@@ -28,6 +29,7 @@ class MainViewController: UIViewController {
         setNeedsStatusBarAppearanceUpdate()
         registerNotifications()
         setupFullGesture()
+        setupComposeButton()
         
         ThemeManager.shared.observeThemeUpdated { [weak self] _ in
             self?.updateTheme()
@@ -45,6 +47,21 @@ class MainViewController: UIViewController {
         navigationItem.rightBarButtonItems = [moreBarButtonItem, searchBarButtonItem]
     }
     
+    private func setupComposeButton() {
+        composeButton = UIButton(type: .system)
+        composeButton.layer.cornerRadius = 22.0
+        composeButton.backgroundColor = Theme.current.subTitleColor
+        composeButton.tintColor = Theme.current.backgroundColor
+        composeButton.setImage(UIImage(named: "icon_pen_24x24_"), for: .normal)
+        view.addSubview(composeButton)
+        composeButton.snp.makeConstraints { make in
+            make.height.width.equalTo(44)
+            make.trailing.equalToSuperview().offset(-20)
+            make.bottom.equalToSuperview().offset(-view.keyWindowSafeAreaInsets.bottom - 20)
+        }
+        composeButton.addTarget(self, action: #selector(composeButtonTapped(_:)), for: .touchUpInside)
+    }
+    
     private func setupFullGesture() {
         navigationController?.fd_fullscreenPopGestureRecognizer.isEnabled = AppSettings.shared.enableFullScreenGesture
     }
@@ -52,35 +69,6 @@ class MainViewController: UIViewController {
     private func registerNotifications() {
         NotificationCenter.default.addObserver(self, selector: #selector(handleFullGestureEnableChanged(_:)), name: NSNotification.Name.V2.FullGestureEnableChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleUserLoginSuccess(_:)), name: NSNotification.Name.V2.LoginSuccess, object: nil)
-    }
-    
-    @objc private func handleFullGestureEnableChanged(_ notification: Notification) {
-        setupFullGesture()
-    }
-    
-    @objc private func handleUserLoginSuccess(_ notification: Notification) {
-        V2SDK.dailyMission()
-    }
-    
-    @objc private func menuBarButtonItemTapped(_ sender: Any) {
-        if let menuVC = SideMenuManager.default.menuLeftNavigationController {
-            present(menuVC, animated: true, completion: nil)
-        }
-    }
-    
-    @objc private func searchBarButtonItemTapped(_ sender: Any) {
-        let searchVC = SearchViewController()
-        searchVC.dismissHandler = { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-        }
-        let nav = SettingsNavigationController(rootViewController: searchVC)
-        present(nav, animated: true, completion: nil)
-    }
-    
-    @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        if let vc = SideMenuManager.default.menuRightNavigationController {
-            present(vc, animated: true, completion: nil)
-        }
     }
     
     private func updateTab(_ tab: V2Tab) {
@@ -95,6 +83,8 @@ class MainViewController: UIViewController {
     private func updateTheme() {
         self.view.backgroundColor = Theme.current.backgroundColor
         self.navigationController?.setNeedsStatusBarAppearanceUpdate()
+        composeButton.backgroundColor = Theme.current.subTitleColor
+        composeButton.tintColor = Theme.current.backgroundColor
         configureNavigationBar()
     }
     
@@ -149,5 +139,47 @@ class MainViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+extension MainViewController {
+    
+    @objc private func composeButtonTapped(_ sender: Any) {
+        if AppContext.current.isLogined {
+            let newTopicVC = NewTopicViewController()
+            navigationController?.pushViewController(newTopicVC, animated: true)
+        } else {
+            let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
+            present(loginVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func handleFullGestureEnableChanged(_ notification: Notification) {
+        setupFullGesture()
+    }
+    
+    @objc private func handleUserLoginSuccess(_ notification: Notification) {
+        V2SDK.dailyMission()
+    }
+    
+    @objc private func menuBarButtonItemTapped(_ sender: Any) {
+        if let menuVC = SideMenuManager.default.menuLeftNavigationController {
+            present(menuVC, animated: true, completion: nil)
+        }
+    }
+    
+    @objc private func searchBarButtonItemTapped(_ sender: Any) {
+        let searchVC = SearchViewController()
+        searchVC.dismissHandler = { [weak self] in
+            self?.dismiss(animated: true, completion: nil)
+        }
+        let nav = SettingsNavigationController(rootViewController: searchVC)
+        present(nav, animated: true, completion: nil)
+    }
+    
+    @objc private func moreBarButtonItemTapped(_ sender: Any) {
+        if let vc = SideMenuManager.default.menuRightNavigationController {
+            present(vc, animated: true, completion: nil)
+        }
     }
 }

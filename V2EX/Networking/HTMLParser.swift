@@ -456,6 +456,26 @@ struct CommentParser: HTMLParser {
     }
 }
 
+struct CreateTopicOnceParser: HTMLParser {
+    static func handle<T>(_ doc: Document) throws -> T? {
+        let html = try doc.html()
+        if html.contains("你的帐号刚刚注册") {
+            throw V2Error.commonError("账号刚注册，暂时无法发帖")
+        }
+        let once = try doc.select("input[name=once]").attr("value")
+        return once as? T
+    }
+}
+
+struct CreateTopicParser: HTMLParser {
+    static func handle<T>(_ doc: Document) throws -> T? {
+        if let problem = try doc.select("div.problem").first()?.text() {
+            throw V2Error.commonError(problem)
+        }
+        return true as? T
+    }
+}
+
 /// 他人资料页面HTML解析
 struct UserProfileParser: HTMLParser {
 

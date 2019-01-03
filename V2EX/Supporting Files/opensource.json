@@ -63,5 +63,10 @@
         "title": "Sov2ex",
         "subTitle": "A site search for V2EX",
         "url": "https://github.com/Bynil/sov2ex"
+    },
+    {
+        "title": "SKPhotoBrowser",
+        "subTitle": "Simple PhotoBrowser",
+        "url": "https://github.com/suzuki-0000/SKPhotoBrowser"
     }
 ]
