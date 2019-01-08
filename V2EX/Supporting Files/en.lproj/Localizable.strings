@@ -70,6 +70,9 @@
 /* 请重新获取验证码 */
 "Login.RefreshCaptchaAlerts" = "Please refresh captcha...";
 
+/* 请先登录 */
+"Login.Required" = "Login required";
+
 /* 谷歌登录 */
 "Login.SignInWithGoogle" = "Sign in with Google";
 
@@ -196,6 +199,9 @@
 /* 账号 */
 "Settings.Account" = "Account";
 
+/* 应用图标 */
+"Settings.AppLogo" = "App Logo";
+
 /* 自动刷新列表 */
 "Settings.AutoRefresh" = "Auto Refresh On Launch";
 
@@ -258,4 +264,28 @@
 
 /* 技术 */
 "Tab.Technology" = "Technology";
+
+/* 请输入正文，如果标题能够表达完成内容，则正文可以为空 */
+"Topic.BodyPlaceholder" = "Enter content. If title can describe what you want to say, content can be empty";
+
+/* 正文 */
+"Topic.BodyTitle" = "Content";
+
+/* 创建新主题 */
+"Topic.CreateNew" = "Create Topic";
+
+/* 请选择主题 */
+"Topic.NodeEmptyTips" = "Please select topic node";
+
+/* 选择节点 */
+"Topic.SelectNode" = "Select Node";
+
+/* 请输入主题标题 */
+"Topic.TitleEmptyTips" = "Please enter topic title";
+
+/* 输入主题标题(0-120) */
+"Topic.TitlePlaceholder" = "Topic title(0-120)";
+
+/* 主题标题 */
+"Topic.TitleTitle" = "Topic title";
 

@@ -86,6 +86,21 @@ extension Strings {
     static var DetailUnFavoritedSuccess: String { return NSLocalizedString("Detail.UnFavoritedSuccess", value: "Removed from favorites", comment: "取消收藏成功") }
 }
 
+// Topic
+extension Strings {
+    static var TopicCreateNewTopic: String { return NSLocalizedString("Topic.CreateNew", value: "Create Topic", comment: "创建新主题") }
+    static var TopicTitlePlaceholder: String { return NSLocalizedString("Topic.TitlePlaceholder", value: "Topic title(0-120)", comment: "输入主题标题(0-120)") }
+    
+    static var TopicTitleTitle: String { return NSLocalizedString("Topic.TitleTitle", value: "Topic title", comment: "主题标题") }
+    static var TopicTitleEmptyTips: String { return NSLocalizedString("Topic.TitleEmptyTips", value: "Please enter topic title", comment: "请输入主题标题") }
+    
+    static var TopicSelectNode: String { return NSLocalizedString("Topic.SelectNode", value: "Select Node", comment: "选择节点") }
+    static var TopicNodeEmptyTips: String { return NSLocalizedString("Topic.NodeEmptyTips", value: "Please select topic node", comment: "请选择主题") }
+    
+    static var TopicBodyTitle: String { return NSLocalizedString("Topic.BodyTitle", value: "Content", comment: "正文") }
+    static var TopicBodyPlaceholder: String { return NSLocalizedString("Topic.BodyPlaceholder", value: "Enter content. If title can describe what you want to say, content can be empty", comment: "请输入正文，如果标题能够表达完成内容，则正文可以为空") }
+}
+
 // Profile
 extension Strings {
     static var ProfileHisTopics: String { return NSLocalizedString("Profile.HisTopics", value: "His topics", comment: "Ta创建的主题") }

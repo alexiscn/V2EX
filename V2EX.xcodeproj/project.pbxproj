@@ -13,6 +13,8 @@
 		A3051ECA21CA47CB00AC7287 /* SearchViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3051EC921CA47CB00AC7287 /* SearchViewCell.swift */; };
 		A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30A2A9D21BA557600D014C5 /* AboutViewController.swift */; };
 		A30A78F021A7DA590041A744 /* opensource.json in Resources */ = {isa = PBXBuildFile; fileRef = A30A78EF21A7DA590041A744 /* opensource.json */; };
+		A30B7DB721E48ACB00A2C6BB /* NewTopicTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30B7DB621E48ACB00A2C6BB /* NewTopicTextView.swift */; };
+		A30B7DB921E49ABE00A2C6BB /* NewTopicNodesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30B7DB821E49ABE00A2C6BB /* NewTopicNodesView.swift */; };
 		A317CF1721C388EE0099BB1E /* UserTopicViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */; };
 		A317CF1921C38B9A0099BB1E /* UserReplyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A317CF1821C38B9A0099BB1E /* UserReplyViewModel.swift */; };
 		A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70921A6B51100618AD5 /* SettingTableModel.swift */; };
@@ -122,6 +124,8 @@
 		A3051EC921CA47CB00AC7287 /* SearchViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewCell.swift; sourceTree = "<group>"; };
 		A30A2A9D21BA557600D014C5 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		A30A78EF21A7DA590041A744 /* opensource.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = opensource.json; sourceTree = "<group>"; };
+		A30B7DB621E48ACB00A2C6BB /* NewTopicTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTopicTextView.swift; sourceTree = "<group>"; };
+		A30B7DB821E49ABE00A2C6BB /* NewTopicNodesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTopicNodesView.swift; sourceTree = "<group>"; };
 		A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTopicViewModel.swift; sourceTree = "<group>"; };
 		A317CF1821C38B9A0099BB1E /* UserReplyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserReplyViewModel.swift; sourceTree = "<group>"; };
 		A31DF70921A6B51100618AD5 /* SettingTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableModel.swift; sourceTree = "<group>"; };
@@ -355,8 +359,10 @@
 				A333759621C76E190008085F /* CommentInputBar.swift */,
 				A333759421C76DEC0008085F /* CommentInputTextView.swift */,
 				A33A4C4921CCC43C005605A8 /* NewTopicViewController.swift */,
+				A30B7DB621E48ACB00A2C6BB /* NewTopicTextView.swift */,
 				A3F4939E21CFBBFE008B16ED /* NewTopicAccessoryView.swift */,
 				A398339B21DDDDF70061DF14 /* NewTopicHelpViewController.swift */,
+				A30B7DB821E49ABE00A2C6BB /* NewTopicNodesView.swift */,
 			);
 			path = Topic;
 			sourceTree = "<group>";
@@ -778,6 +784,7 @@
 				A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */,
 				A379EA3D2121C4DC00FA2169 /* ProfileViewController.swift in Sources */,
 				A3961C7E21C22D92007D7663 /* ListViewModel.swift in Sources */,
+				A30B7DB921E49ABE00A2C6BB /* NewTopicNodesView.swift in Sources */,
 				A34611A121CE5AD100D37E94 /* MyNodesViewModel.swift in Sources */,
 				A333759721C76E190008085F /* CommentInputBar.swift in Sources */,
 				A30A2A9E21BA557600D014C5 /* AboutViewController.swift in Sources */,
@@ -827,6 +834,7 @@
 				A3DCB08321B2B270005FD955 /* LoginFormData.swift in Sources */,
 				A358549720E205E600C76393 /* SettingsViewController.swift in Sources */,
 				A3DCB08F21BCD822005FD955 /* MainNavigationController.swift in Sources */,
+				A30B7DB721E48ACB00A2C6BB /* NewTopicTextView.swift in Sources */,
 				A3A39CA520E181A4000B07F0 /* Theme.swift in Sources */,
 				A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */,
 				A358549520E2048300C76393 /* OpenSourceViewController.swift in Sources */,
