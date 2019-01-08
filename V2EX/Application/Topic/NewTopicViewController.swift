@@ -58,10 +58,10 @@ class NewTopicViewController: UIViewController {
     private func checkButtonEnable() {
         if let text = titleTextField.text, !text.isEmpty {
             sendBarButton.isEnabled = true
-            previewBarButton.isEnabled = true
+//            previewBarButton.isEnabled = true
         } else {
             sendBarButton.isEnabled = false
-            previewBarButton.isEnabled = false
+//            previewBarButton.isEnabled = false
         }
     }
     
