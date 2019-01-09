@@ -26,6 +26,7 @@ class Reply: TableCodable {
         case avatarURL = "avatar_url"
     }
     
+    var replyID: String? = nil
     
     var _rowHeight: CGFloat = 0
     
@@ -48,6 +49,8 @@ class Reply: TableCodable {
     var avatarURL: URL? = nil
     
     var isTopicAuthor: Bool = false
+    
+    var mentions: [String] = []
     
     init() { }
 }

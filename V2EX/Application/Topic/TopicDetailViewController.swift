@@ -98,21 +98,13 @@ class TopicDetailViewController: UIViewController {
                 }
             }))
         }
-        if let attributedString = comment.contentAttributedString {
-            
-            var mentions: [String] = []
-            attributedString.enumerateAttributes(in: NSRange(location: 0, length: attributedString.length), options: .longestEffectiveRangeNotRequired) { (keys, range, stop) in
-                if let link = keys[NSAttributedString.Key.link] as? URL, link.absoluteString.hasPrefix("https://www.v2ex.com/member/") {
-                    mentions.append(attributedString.attributedSubstring(from: range).string)
-                }
-            }
-            if mentions.count > 0, let author = comment.username {
-                mentions.append(author)
-                actionSheet.add(WXActionSheetItem(title: Strings.DetailViewConversation, handler: { [weak self] _ in
-                    self?.showConversation(names: mentions)
-                }))
-            }
+        
+        if comment.mentions.count > 0 {
+            actionSheet.add(WXActionSheetItem(title: Strings.DetailViewConversation, handler: { [weak self] _ in
+                self?.showConversation(with: comment)
+            }))
         }
+        
         actionSheet.add(WXActionSheetItem(title: Strings.DetailCopyComments, handler: { _ in
             UIPasteboard.general.string = comment.content
         }))
@@ -125,11 +117,25 @@ class TopicDetailViewController: UIViewController {
         actionSheet.show()
     }
     
-    private func showConversation(names: [String]) {
-        let data = allComments.filter { names.contains($0.username ?? "") }
+    private func showConversation(with originComment: Reply) {
+        guard let floorAuthor = originComment.username else { return }
+        var dataSource: [Reply] = []
+        for comment in allComments {
+            if let username = comment.username {
+                if originComment.mentions.contains(username) {
+                    if comment.mentions.count == 0 || comment.mentions.contains(floorAuthor) {
+                        dataSource.append(comment)
+                    }
+                }
+            }
+            if comment.replyID == originComment.replyID {
+                dataSource.append(comment)
+            }
+        }
+        
         let controller = CommentConversationViewController()
         let nav = SettingsNavigationController(rootViewController: controller)
-        controller.dataSource = data
+        controller.dataSource = dataSource
         present(nav, animated: true, completion: nil)
     }
     

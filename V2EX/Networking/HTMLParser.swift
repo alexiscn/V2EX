@@ -334,12 +334,15 @@ struct TopicReplyParser: HTMLParser {
                 continue
             }
             let reply = Reply()
+            reply.replyID = divID
             let avatarSrc = try cell.select("img").first()?.attr("src")
             reply.avatarURL = avatarURLWithSource(avatarSrc)
             reply.content = try cell.select("div.reply_content").text()
             reply.contentHTML = try cell.select("div.reply_content").html()
             if let replyContent = try cell.select("div.reply_content").first() {
-                reply.contentAttributedString = parseContentCell(replyContent)
+                let attributedString = parseContentCell(replyContent)
+                reply.contentAttributedString = attributedString
+                reply.mentions = mentions(in: attributedString)
             }
             reply.timeAgo = try cell.select("span.ago").text()
             let userLink = try cell.select("a.dark")
@@ -352,6 +355,16 @@ struct TopicReplyParser: HTMLParser {
             replyList.append(reply)
         }
         return replyList as? T
+    }
+    
+    static func mentions(in attributedString: NSAttributedString) -> [String] {
+        var mentions: [String] = []
+        attributedString.enumerateAttributes(in: NSRange(location: 0, length: attributedString.length), options: .longestEffectiveRangeNotRequired) { (keys, range, stop) in
+            if let link = keys[NSAttributedString.Key.link] as? URL, link.absoluteString.hasPrefix("https://www.v2ex.com/member/") {
+                mentions.append(attributedString.attributedSubstring(from: range).string)
+            }
+        }
+        return mentions
     }
     
     static func parseContentCell(_ replyContent: Element) -> NSMutableAttributedString {
