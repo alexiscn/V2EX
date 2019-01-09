@@ -112,6 +112,7 @@
 		A3DCB09121BD326D005FD955 /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB09021BD326D005FD955 /* NotificationExtensions.swift */; };
 		A3DCB09321C14168005FD955 /* LanguageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DCB09221C14168005FD955 /* LanguageSettingsViewController.swift */; };
 		A3DFFDF5211C3063005818BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DFFDF4211C3063005818BC /* MainViewController.swift */; };
+		A3EA3C8E21E5970900CDC4E2 /* CommentConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EA3C8D21E5970900CDC4E2 /* CommentConversationViewController.swift */; };
 		A3F4939F21CFBBFE008B16ED /* NewTopicAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F4939E21CFBBFE008B16ED /* NewTopicAccessoryView.swift */; };
 		A3F788B721B7A405002B2F99 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B621B7A405002B2F99 /* EndPoint.swift */; };
 		A3F788B921B7AD49002B2F99 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3F788B821B7AD49002B2F99 /* HTMLParser.swift */; };
@@ -227,6 +228,7 @@
 		A3DCB09021BD326D005FD955 /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
 		A3DCB09221C14168005FD955 /* LanguageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSettingsViewController.swift; sourceTree = "<group>"; };
 		A3DFFDF4211C3063005818BC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		A3EA3C8D21E5970900CDC4E2 /* CommentConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentConversationViewController.swift; sourceTree = "<group>"; };
 		A3F4939E21CFBBFE008B16ED /* NewTopicAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTopicAccessoryView.swift; sourceTree = "<group>"; };
 		A3F788B621B7A405002B2F99 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		A3F788B821B7AD49002B2F99 /* HTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				A379E9B9210DCFE000FA2169 /* TopicDetailViewCell.swift */,
 				A333759621C76E190008085F /* CommentInputBar.swift */,
 				A333759421C76DEC0008085F /* CommentInputTextView.swift */,
+				A3EA3C8D21E5970900CDC4E2 /* CommentConversationViewController.swift */,
 				A33A4C4921CCC43C005605A8 /* NewTopicViewController.swift */,
 				A30B7DB621E48ACB00A2C6BB /* NewTopicTextView.swift */,
 				A3F4939E21CFBBFE008B16ED /* NewTopicAccessoryView.swift */,
@@ -814,6 +817,7 @@
 				A37F192E21A25CE7001BCC0A /* AppSettings.swift in Sources */,
 				A3DCB09321C14168005FD955 /* LanguageSettingsViewController.swift in Sources */,
 				A37A971621212C56000DFF1E /* UIColorExtensions.swift in Sources */,
+				A3EA3C8E21E5970900CDC4E2 /* CommentConversationViewController.swift in Sources */,
 				A379EA3A2121C48800FA2169 /* SearchViewController.swift in Sources */,
 				A3DCB08521B392FB005FD955 /* Account.swift in Sources */,
 				A379EA3F212259C500FA2169 /* AllNodesViewController.swift in Sources */,
