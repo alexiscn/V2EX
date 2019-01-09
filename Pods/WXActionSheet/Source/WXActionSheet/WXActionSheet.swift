@@ -30,6 +30,8 @@ public class WXActionSheet: UIView {
         public static var SeparatorColor = UIColor(white: 153.0/255, alpha: 1.0)
     }
     
+    public var titleView: UIView?
+    
     private let containerView = UIView()
     private let backgroundView = UIView()
     private var items: [WXActionSheetItem] = []
@@ -104,13 +106,22 @@ extension WXActionSheet {
     
     private func buildUI() {
         
+        var y: CGFloat = 0.0 // used to calculate container's height
+        
+        if let titleView = titleView {
+            titleView.backgroundColor = Preferences.ButtonNormalBackgroundColor
+            titleView.frame = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: titleView.frame.height))
+            containerView.addSubview(titleView)
+            y = titleView.frame.height + LineHeight
+        }
+        
         if let cancelTitle = cancelButtonTitle, !items.contains(where: { $0.type == .cancel }) {
             items.append(WXActionSheetItem(title: cancelTitle, handler: nil, type: .cancel))
         }
         
         let highlightBackgroundImage = UIImage.imageWithColor(Preferences.ButtonHighlightBackgroundColor)
         let nomalBackgroundImage = UIImage.imageWithColor(Preferences.ButtonNormalBackgroundColor)
-        var y: CGFloat = 0.0 // used to calculate container's height
+        
         let x = bounds.minX
         let width = bounds.width
         var height = Preferences.ButtonHeight
@@ -122,6 +133,11 @@ extension WXActionSheet {
             button.setBackgroundImage(nomalBackgroundImage, for: .normal)
             button.setBackgroundImage(highlightBackgroundImage, for: .highlighted)
             button.setTitle(item.title, for: .normal)
+            button.setImage(item.iconImage, for: .normal)
+            button.imageEdgeInsets = item.imageEdgeInsets
+            button.titleEdgeInsets = item.titleEdgeInsets
+            button.titleLabel?.font = item.font
+            
             switch item.type  {
             case .default:
                 button.setTitleColor(item.titleColor, for: .normal)
@@ -130,7 +146,7 @@ extension WXActionSheet {
             case .cancel:
                 button.setTitleColor(item.titleColor, for: .normal)
             }
-            button.titleLabel?.font = UIFont.systemFont(ofSize: item.fontSize)
+            
             if index == items.count - 1 {
                 let separator = UIView(frame: CGRect(x: 0, y: y , width: width, height: 5.0))
                 separator.backgroundColor = Preferences.SeparatorColor

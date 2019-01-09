@@ -19,10 +19,12 @@ public class WXActionSheetItem {
     }
     
     public var title: String?
-    public var imageEdgeInsets: UIEdgeInsets = .zero
     public var titleEdgeInsets: UIEdgeInsets = .zero
-    public var fontSize: CGFloat = 17
     public var titleColor: UIColor = WXActionSheet.Preferences.ButtonTitleColor
+    public var font: UIFont = UIFont.systemFont(ofSize: 17)
+    
+    public var iconImage: UIImage?
+    public var imageEdgeInsets: UIEdgeInsets = .zero
     
     public var type: ItemType = .default
     public var handler: WXActionSheetHandler? = nil
