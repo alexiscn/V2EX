@@ -46,6 +46,9 @@
 /* 只看楼主 */
 "Detail.ViewAuthorOnly" = "View author only";
 
+/* 查看对话 */
+"Detail.ViewConversation" = "View conversation";
+
 /* 完成 */
 "Done" = "Done";
 

@@ -156,11 +156,11 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0FE-BW-Pzl" userLabel="ContainerView">
-                                <rect key="frame" x="30" y="170" width="315" height="200"/>
+                                <rect key="frame" x="30" y="150" width="315" height="200"/>
                                 <color key="backgroundColor" red="0.20392156859999999" green="0.25882352939999997" blue="0.36470588240000001" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ue0-CD-05v">
-                                <rect key="frame" x="30" y="170" width="315" height="200"/>
+                                <rect key="frame" x="30" y="150" width="315" height="200"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B7U-RP-Sql" userLabel="UserNameView">
                                         <rect key="frame" x="0.0" y="0.0" width="315" height="50"/>
@@ -307,10 +307,43 @@
                                 </subviews>
                             </stackView>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="32N-Kl-Yv5">
-                                <rect key="frame" x="60" y="390" width="255" height="25"/>
+                                <rect key="frame" x="60" y="370" width="255" height="25"/>
                                 <inset key="titleEdgeInsets" minX="12" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Sign in with Google" image="login_google_25x25_"/>
                             </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jo1-PI-FY4" userLabel="Privacy Stack View">
+                                <rect key="frame" x="96.5" y="370" width="182" height="16"/>
+                                <subviews>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="46k-SZ-8RB" userLabel="Check Box">
+                                        <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="B8L-k9-LIh"/>
+                                            <constraint firstAttribute="width" constant="16" id="EA9-79-NIJ"/>
+                                        </constraints>
+                                        <state key="normal" backgroundImage="checkbox_uncheck_16x16_"/>
+                                        <state key="selected" backgroundImage="checkbox_checked_16x16_"/>
+                                        <connections>
+                                            <action selector="privacyCheckButtonTapped:" destination="1OO-2E-3wX" eventType="touchUpInside" id="v5d-lL-CPF"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5T6-Xr-a9w" userLabel="Spacing View">
+                                        <rect key="frame" x="16" y="0.0" width="6" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="6" id="cPT-AC-4g0"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bb-Qp-mBq" userLabel="Privacy Policy Button">
+                                        <rect key="frame" x="22" y="0.0" width="160" height="16"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="已同意服务条款与隐私政策">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="privacyPolicyButtonTapped:" destination="1OO-2E-3wX" eventType="touchUpInside" id="Faa-um-hTV"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.16862745098039217" green="0.22352941176470587" blue="0.32549019607843138" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -323,7 +356,9 @@
                             <constraint firstItem="qRI-lE-1zJ" firstAttribute="leading" secondItem="xtO-JC-vjz" secondAttribute="leading" constant="20" id="K7t-at-hbO"/>
                             <constraint firstItem="0FE-BW-Pzl" firstAttribute="trailing" secondItem="ue0-CD-05v" secondAttribute="trailing" id="Wbg-kH-BxT"/>
                             <constraint firstItem="0FE-BW-Pzl" firstAttribute="bottom" secondItem="ue0-CD-05v" secondAttribute="bottom" id="cBy-gr-zwm"/>
-                            <constraint firstItem="ue0-CD-05v" firstAttribute="top" secondItem="xtO-JC-vjz" secondAttribute="top" constant="150" id="gLW-3T-DWU"/>
+                            <constraint firstItem="Jo1-PI-FY4" firstAttribute="top" secondItem="ue0-CD-05v" secondAttribute="bottom" constant="20" id="e90-lF-Mn5"/>
+                            <constraint firstItem="ue0-CD-05v" firstAttribute="top" secondItem="xtO-JC-vjz" secondAttribute="top" constant="130" id="gLW-3T-DWU"/>
+                            <constraint firstItem="Jo1-PI-FY4" firstAttribute="centerX" secondItem="xtO-JC-vjz" secondAttribute="centerX" id="h5l-uR-0pN"/>
                             <constraint firstItem="0FE-BW-Pzl" firstAttribute="leading" secondItem="ue0-CD-05v" secondAttribute="leading" id="jeu-Yv-Waf"/>
                             <constraint firstItem="xtO-JC-vjz" firstAttribute="trailing" secondItem="ue0-CD-05v" secondAttribute="trailing" constant="30" id="nAw-lU-tgt"/>
                             <constraint firstItem="K4N-Dn-iJA" firstAttribute="leading" secondItem="xtO-JC-vjz" secondAttribute="leading" id="rps-Li-XxJ"/>
@@ -342,6 +377,8 @@
                         <outlet property="passwordLabel" destination="pwH-dj-dgl" id="Ntk-51-c3s"/>
                         <outlet property="passwordLineView" destination="fI6-j3-4mz" id="cbU-t7-SX0"/>
                         <outlet property="passwordTextField" destination="IaJ-d1-YqC" id="mHz-AP-g5v"/>
+                        <outlet property="privacyCheckButton" destination="46k-SZ-8RB" id="YsI-eA-JOD"/>
+                        <outlet property="privacyPolicyButton" destination="3bb-Qp-mBq" id="GTM-vZ-1W9"/>
                         <outlet property="signInButton" destination="yUx-3a-52r" id="b5B-lx-0Rl"/>
                         <outlet property="stackView" destination="ue0-CD-05v" id="dGG-wr-wZh"/>
                         <outlet property="titleLabel" destination="K4N-Dn-iJA" id="Ikj-hI-xuP"/>
@@ -405,6 +442,8 @@ V2EX 是创意工作者们的社区。这里目前汇聚了超过 250,000 名主
         </scene>
     </scenes>
     <resources>
+        <image name="checkbox_checked_16x16_" width="16" height="16"/>
+        <image name="checkbox_uncheck_16x16_" width="16" height="16"/>
         <image name="login_close_30x30_" width="30" height="30"/>
         <image name="login_google_25x25_" width="25" height="25"/>
     </resources>

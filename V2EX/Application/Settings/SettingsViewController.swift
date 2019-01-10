@@ -131,7 +131,13 @@ class SettingsViewController: UIViewController {
 //            self?.present(controller, animated: true, completion: nil)
 //            })
         
-        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, rate, about])
+        let privacy = SettingTableModel(title: Strings.SettingsPrivacyPolicy, value: .actionCommand { [weak self] in
+            let url = URL(string: "https://shuifeng.me/v2ex/privacy.html")!
+            let controller = SFSafariViewController(url: url)
+            self?.present(controller, animated: true, completion: nil)
+        })
+        
+        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, rate, privacy, about])
         dataSource.append(aboutSection)
     }
     

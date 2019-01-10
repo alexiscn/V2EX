@@ -60,6 +60,17 @@ class CommentInputBar: UIView, UITextViewDelegate {
         return button
     }()
     
+    var loginRequiredButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.setTitle(Strings.LoginRequired, for: .normal)
+        button.tintColor = Theme.current.subTitleColor
+        button.contentHorizontalAlignment = .left
+        button.backgroundColor = Theme.current.cellBackgroundColor
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        return button
+    }()
+    
     convenience init() {
         self.init(frame: .zero)
     }
@@ -80,6 +91,7 @@ class CommentInputBar: UIView, UITextViewDelegate {
         addSubview(backgroundView)
         addSubview(topLineView)
         addSubview(contentView)
+        addSubview(loginRequiredButton)
         contentView.addSubview(inputTextView)
         contentView.addSubview(addPhotoButton)
         
@@ -89,6 +101,13 @@ class CommentInputBar: UIView, UITextViewDelegate {
         }
         
         contentView.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.trailing.equalToSuperview()
+        }
+        
+        loginRequiredButton.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.top.equalToSuperview()
             make.bottom.equalTo(safeAreaLayoutGuide)
@@ -110,6 +129,8 @@ class CommentInputBar: UIView, UITextViewDelegate {
             make.centerY.equalToSuperview()
             make.trailing.equalToSuperview().offset(-15)
         }
+        
+        loginRequiredButton.isHidden = AppContext.current.isLogined
         
         inputTextView.delegate = self
         

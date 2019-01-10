@@ -558,10 +558,11 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 self.mentionUser(name)
             }
         }
-        let likeAction = UITableViewRowAction(style: .default, title: "感谢") { (_, indexPath) in
-            
-        }
-        return [commentAction, likeAction]
+//        let likeAction = UITableViewRowAction(style: .default, title: "感谢") { (_, indexPath) in
+//            
+//        }
+        return [commentAction]
+        //return [commentAction, likeAction]
     }
 }
 

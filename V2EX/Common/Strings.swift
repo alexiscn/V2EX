@@ -58,6 +58,7 @@ extension Strings {
     static var AccountNamePlaceholder: String { return NSLocalizedString("Account.NamePlaceholder", value: "sign in...", comment: "请先登录") }
     
     static var LoginRequired: String { return NSLocalizedString("Login.Required", value: "Login required", comment: "请先登录") }
+    static var LoginPrivacyPolity: String { return NSLocalizedString("Login.PrivacyPolicy", value: "Agreed user Privacy policy", comment: "已同意用户协议与隐私政策") }
 }
 
 // Search
@@ -133,6 +134,7 @@ extension Strings {
     static var SettingsEnableFullGesture: String { return NSLocalizedString("Settings.EnableFullGesture", value: "Fullscreen gesture to back", comment: "全屏返回手势") }
     static var SettingsSourceCode: String { return NSLocalizedString("Settings.SourceCode", value: "Source code", comment: "项目源代码") }
     static var SettingsOpenSource: String { return NSLocalizedString("Settings.OpenSource", value: "Open Source", comment: "开源项目") }
+    static var SettingsPrivacyPolicy: String { return NSLocalizedString("Settings.PrivacyPolicy", value: "Privacy policy", comment: "隐私政策") }
     static var SettingsAbout: String { return NSLocalizedString("About", comment: "关于") }
     static var SettingsReleaseNotes: String { return NSLocalizedString("Settings.ReleaseNotes", value: "Release notes", comment: "更新记录") }
     static var SettingsAccount: String { return NSLocalizedString("Settings.Account", value: "Account", comment: "账号") }

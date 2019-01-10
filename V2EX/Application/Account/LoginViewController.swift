@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import SafariServices
 
 class LoginViewController: UIViewController {
 
@@ -26,6 +27,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var captchaTextField: UITextField!
     @IBOutlet weak var captchaLineView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var privacyCheckButton: UIButton!
+    @IBOutlet weak var privacyPolicyButton: UIButton!
     
     private var loginForm: LoginFormData?
     
@@ -49,6 +52,9 @@ class LoginViewController: UIViewController {
         captchaTextField.textColor = Theme.current.titleColor
         captchaLineView.backgroundColor = Theme.current.backgroundColor
         signInButton.setTitleColor(Theme.current.titleColor, for: .normal)
+        privacyCheckButton.tintColor = Theme.current.subTitleColor
+        privacyPolicyButton.setTitleColor(Theme.current.subTitleColor, for: .normal)
+        privacyPolicyButton.setTitle(Strings.LoginPrivacyPolity, for: .normal)
         
         usernameLabel.text = Strings.LoginUsername
         usernameTextField.placeholder = Strings.LoginUsernamePlaceholder
@@ -148,6 +154,23 @@ class LoginViewController: UIViewController {
     
     func postLoginSuccessNotification() {
         NotificationCenter.default.post(name: NSNotification.Name.V2.LoginSuccess, object: nil)
+    }
+    
+    @IBAction func privacyCheckButtonTapped(_ sender: Any) {
+        privacyCheckButton.isSelected = !privacyCheckButton.isSelected
+        
+        signInButton.isEnabled = privacyCheckButton.isSelected
+    }
+    
+    @IBAction func privacyPolicyButtonTapped(_ sender: Any) {
+        usernameTextField.endEditing(true)
+        passwordTextField.endEditing(true)
+        captchaTextField.endEditing(true)
+        
+        
+        let url = URL(string: "https://shuifeng.me/v2ex/privacy.html")!
+        let controller = SFSafariViewController(url: url)
+        present(controller, animated: true, completion: nil)
     }
     
 }
