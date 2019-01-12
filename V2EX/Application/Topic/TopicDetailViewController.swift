@@ -574,9 +574,13 @@ extension TopicDetailViewController: CommentInputBarDelegate {
         if comment.count == 0 { return }
         
         inputBar.inputTextView.resignFirstResponder()
+        inputBar.inputTextView.text = String()
+        
+        HUD.showIndicator()
         
         let endPoint = EndPoint.commentTopic(topicID, once: once, content: comment)
         V2SDK.request(endPoint, parser: CommentParser.self) { [weak self] (response: V2Response<OperationResponse>) in
+            HUD.removeIndicator()
             switch response {
             case .success(_):
                 HUD.show(message: Strings.DetailCommentSuccess)
@@ -585,7 +589,6 @@ extension TopicDetailViewController: CommentInputBarDelegate {
             case .error(let error):
                 HUD.show(message: error.localizedDescription)
             }
-            self?.inputBar.inputTextView.text = String()
         }
     }
     

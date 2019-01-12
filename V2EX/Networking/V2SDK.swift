@@ -82,11 +82,15 @@ class V2SDK {
             
             do {
                 let doc = try SwiftSoup.parse(html)
-                let result: T? = try parser.handle(doc)
-                if let result = result {
-                    completion(V2Response.success(result))
-                } else {
-                    completion(V2Response.error(.serverNotFound))
+                do {
+                    let result: T? = try parser.handle(doc)
+                    if let result = result {
+                        completion(V2Response.success(result))
+                    } else {
+                        completion(V2Response.error(.serverNotFound))
+                    }
+                } catch let err as V2Error {
+                    completion(V2Response.error(err))
                 }
             } catch {
                 print(error)
