@@ -149,7 +149,7 @@
                                     <action selector="closeButtonTapped:" destination="1OO-2E-3wX" eventType="touchUpInside" id="fKw-dr-T7X"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V2EX" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4N-Dn-iJA" userLabel="Title Label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="V2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4N-Dn-iJA" userLabel="Title Label">
                                 <rect key="frame" x="0.0" y="64" width="375" height="35"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="29"/>
                                 <color key="textColor" red="0.72549019607843135" green="0.78431372549019607" blue="0.95294117647058818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -17,9 +17,8 @@ class ProfileHeaderView: UIView {
     
     private let avatarImageView: UIImageView
     private let usernameLabel: UILabel
-    private let balanceButton: UIButton
+//    private let balanceButton: UIButton
     private let buttonsView: UIView
-//    let infoLabel: UILabel
 
     override init(frame: CGRect) {
         
@@ -30,20 +29,14 @@ class ProfileHeaderView: UIView {
         usernameLabel = UILabel()
         usernameLabel.textColor = Theme.current.titleColor
         usernameLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        
-//        infoLabel = UILabel()
-//        infoLabel.textColor = Theme.current.subTitleColor
-//        infoLabel.font = AppContext.current.font.subTitleFont
-//        infoLabel.numberOfLines = 0
-//        infoLabel.textAlignment = .center
-        
-        balanceButton = UIButton(type: .system)
-        balanceButton.layer.cornerRadius = 15.0
-        balanceButton.layer.masksToBounds = true
-        balanceButton.backgroundColor = Theme.current.cellBackgroundColor
-        balanceButton.setTitleColor(Theme.current.titleColor, for: .normal)
-        balanceButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        balanceButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
+    
+//        balanceButton = UIButton(type: .system)
+//        balanceButton.layer.cornerRadius = 15.0
+//        balanceButton.layer.masksToBounds = true
+//        balanceButton.backgroundColor = Theme.current.cellBackgroundColor
+//        balanceButton.setTitleColor(Theme.current.titleColor, for: .normal)
+//        balanceButton.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+//        balanceButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         
         buttonsView = UIView()
         buttonsView.backgroundColor = Theme.current.cellBackgroundColor
@@ -53,8 +46,7 @@ class ProfileHeaderView: UIView {
         
         addSubview(avatarImageView)
         addSubview(usernameLabel)
-        addSubview(balanceButton)
-//        addSubview(infoLabel)
+//        addSubview(balanceButton)
         addSubview(buttonsView)
         
         avatarImageView.snp.makeConstraints { make in
@@ -68,18 +60,12 @@ class ProfileHeaderView: UIView {
             make.top.equalTo(avatarImageView.snp.top).offset(10)
         }
         
-        balanceButton.snp.makeConstraints { make in
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(10)
-            make.height.equalTo(30)
-            make.top.equalTo(usernameLabel.snp.bottom).offset(10)
-        }
-        
-//        infoLabel.snp.makeConstraints { make in
-//            make.leading.equalToSuperview().offset(50)
-//            make.trailing.equalToSuperview().offset(-50)
-//            make.top.equalTo(usernameLabel.snp.bottom).offset(3)
+//        balanceButton.snp.makeConstraints { make in
+//            make.leading.equalTo(avatarImageView.snp.trailing).offset(10)
+//            make.height.equalTo(30)
+//            make.top.equalTo(usernameLabel.snp.bottom).offset(10)
 //        }
-        
+    
         buttonsView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(15)
             make.trailing.equalToSuperview().offset(-15)
@@ -143,11 +129,11 @@ class ProfileHeaderView: UIView {
             make.leading.equalTo(followingButton)
         }
         
-        let balanceValue = account?.balance ?? "0"
-        let balance = String(format: Strings.ProfileMyBalanceCount, balanceValue)
-        balanceButton.setTitle(balance, for: .normal)
-        
-        balanceButton.addTarget(self, action: #selector(handleBalanceButtonTapped(_:)), for: .touchUpInside)
+//        let balanceValue = account?.balance ?? "0"
+//        let balance = String(format: Strings.ProfileMyBalanceCount, balanceValue)
+//        balanceButton.setTitle(balance, for: .normal)
+//
+//        balanceButton.addTarget(self, action: #selector(handleBalanceButtonTapped(_:)), for: .touchUpInside)
         nodeButton.addTarget(self, action: #selector(handleProfileButtonTapped(_:)))
         topicButton.addTarget(self, action: #selector(handleProfileButtonTapped(_:)))
         followingButton.addTarget(self, action: #selector(handleProfileButtonTapped(_:)))

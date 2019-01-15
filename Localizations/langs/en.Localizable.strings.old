@@ -70,6 +70,9 @@
 /* 密码 */
 "Login.PasswordPlaceholder" = "Password";
 
+/* 已同意用户协议与隐私政策 */
+"Login.PrivacyPolicy" = "Agreed user Privacy policy";
+
 /* 请重新获取验证码 */
 "Login.RefreshCaptchaAlerts" = "Please refresh captcha...";
 
@@ -219,6 +222,9 @@
 
 /* 开源项目 */
 "Settings.OpenSource" = "Open Source";
+
+/* 隐私政策 */
+"Settings.PrivacyPolicy" = "Privacy policy";
 
 /* 更新记录 */
 "Settings.ReleaseNotes" = "Release notes";

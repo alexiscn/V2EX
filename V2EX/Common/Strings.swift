@@ -133,7 +133,7 @@ extension Strings {
     static var SettingsAutoRefresh: String { return NSLocalizedString("Settings.AutoRefresh", value: "Auto Refresh On Launch", comment: "自动刷新列表") }
     static var SettingsEnableFullGesture: String { return NSLocalizedString("Settings.EnableFullGesture", value: "Fullscreen gesture to back", comment: "全屏返回手势") }
     static var SettingsSourceCode: String { return NSLocalizedString("Settings.SourceCode", value: "Source code", comment: "项目源代码") }
-    static var SettingsOpenSource: String { return NSLocalizedString("Settings.OpenSource", value: "Open Source", comment: "开源项目") }
+    static var SettingsOpenSource: String { return NSLocalizedString("Settings.OpenSource", value: "Open Source Library", comment: "开源项目") }
     static var SettingsPrivacyPolicy: String { return NSLocalizedString("Settings.PrivacyPolicy", value: "Privacy policy", comment: "隐私政策") }
     static var SettingsAbout: String { return NSLocalizedString("About", comment: "关于") }
     static var SettingsReleaseNotes: String { return NSLocalizedString("Settings.ReleaseNotes", value: "Release notes", comment: "更新记录") }

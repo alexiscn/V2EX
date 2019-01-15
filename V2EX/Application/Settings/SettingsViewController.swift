@@ -110,20 +110,15 @@ class SettingsViewController: UIViewController {
             let controller = OpenSourceViewController()
             self?.navigationController?.pushViewController(controller, animated: true)
         })
-//        let releaseNotes = SettingTableModel(title: Strings.SettingsReleaseNotes, value: .actionCommand { [weak self] in
-//            let url = URL(string: "https://github.com/alexiscn/V2EX/blob/master/ReleaseNotes.md")!
-//            let controller = SFSafariViewController(url: url)
-//            self?.present(controller, animated: true, completion: nil)
-//        })
         
         let rate = SettingTableModel(title: "Rate App", value: .actionCommand {
             SKStoreReviewController.requestReview()
         })
         
-        let about = SettingTableModel(title: Strings.SettingsAbout, value: .actionCommand { [weak self] in
-            let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
-            self?.navigationController?.pushViewController(controller, animated: true)
-        })
+//        let about = SettingTableModel(title: Strings.SettingsAbout, value: .actionCommand { [weak self] in
+//            let controller = UIStoryboard.main.instantiateViewController(ofType: AboutViewController.self)
+//            self?.navigationController?.pushViewController(controller, animated: true)
+//        })
         
 //        let faq = SettingTableModel(title: "FAQ", value: .actionCommand { [weak self] in
 //            let url = URL(string: "https://www.v2ex.com/faq")!
@@ -137,7 +132,7 @@ class SettingsViewController: UIViewController {
             self?.present(controller, animated: true, completion: nil)
         })
         
-        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, rate, privacy, about])
+        let aboutSection = SettingTableSectionModel(title: Strings.SettingsAbout, items: [sourceCode, openSource, rate, privacy])
         dataSource.append(aboutSection)
     }
     

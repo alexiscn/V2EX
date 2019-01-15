@@ -179,6 +179,8 @@ extension EndPoint {
         
         var headers = Alamofire.SessionManager.defaultHTTPHeaders
         headers["User-Agent"] = UserAgents.phone
+        headers["Referer"] = V2SDK.baseURLString + path
+        headers["origin"] = V2SDK.baseURLString
         
         return EndPoint(path: path, method: .post, parameters: params, headers: headers)
     }
