@@ -217,8 +217,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        guard profile != nil else { return 0.0 }
-        return 50.0
+        guard let profile = profile else { return 0.0 }
+        if section == 0 { return profile.topics.count == 0 ? 0.0: 50.0 }
+        return profile.comments.count == 0 ? 0.0: 50.0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
