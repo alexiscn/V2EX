@@ -115,6 +115,9 @@ struct SignInParser: HTMLParser {
                 return account as? T
             }
         }
+        if let problem = try doc.select("div.problem").first()?.text() {
+            throw V2Error.commonError(problem)
+        }
         throw V2Error.signInFailed
     }
 }
