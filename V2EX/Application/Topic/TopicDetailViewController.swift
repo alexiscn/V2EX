@@ -569,7 +569,7 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
 extension TopicDetailViewController: CommentInputBarDelegate {
     
     func inputBar(_ inputBar: CommentInputBar, didSendText text: String) {
-        guard let topicID = topicID, let once = V2SDK.once else { return }
+        guard let topicID = topicID else { return }
         let comment = text.trimmingCharacters(in: CharacterSet.whitespaces)
         if comment.count == 0 { return }
         
@@ -578,16 +578,27 @@ extension TopicDetailViewController: CommentInputBarDelegate {
         
         HUD.showIndicator()
         
-        let endPoint = EndPoint.commentTopic(topicID, once: once, content: comment)
-        V2SDK.request(endPoint, parser: CommentParser.self) { [weak self] (response: V2Response<OperationResponse>) in
-            HUD.removeIndicator()
+        func sendComment(once: String) {
+            let endPoint = EndPoint.commentTopic(topicID, once: once, content: comment)
+            V2SDK.request(endPoint, parser: CommentParser.self) { [weak self] (response: V2Response<OperationResponse>) in
+                HUD.removeIndicator()
+                switch response {
+                case .success(_):
+                    HUD.show(message: Strings.DetailCommentSuccess)
+                    self?.webViewHeightCaculated = false
+                    self?.loadTopicDetail()
+                case .error(let error):
+                    HUD.show(message: error.description)
+                }
+            }
+        }
+        
+        V2SDK.request(EndPoint.onceToken(), parser: OnceTokenParser.self) { (response: V2Response<LoginFormData>) in
             switch response {
-            case .success(_):
-                HUD.show(message: Strings.DetailCommentSuccess)
-                self?.webViewHeightCaculated = false
-                self?.loadTopicDetail()
+            case .success(let form):
+                sendComment(once: form.once)
             case .error(let error):
-                HUD.show(message: error.localizedDescription)
+                HUD.show(message: error.description)
             }
         }
     }
