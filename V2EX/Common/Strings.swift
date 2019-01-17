@@ -75,6 +75,7 @@ extension Strings {
     static var DetailOriginPoster: String { return NSLocalizedString("Detail.OriginPoster", value: "Author", comment: "楼主") }
     static var DetailOpenInSafari: String { return NSLocalizedString("Detail.OpenInSafari", value: "Open In Safari", comment: "在Safari中打开") }
     static var DetailComment: String { return NSLocalizedString("Detail.Comment", value: "Comment", comment: "评论") }
+    static var DetailThanks: String { return NSLocalizedString("Detail.Thanks", value: "Thanks", comment: "感谢") }
     static var DetailCopyComments: String { return NSLocalizedString("Detail.CopyComments", value: "Copy", comment: "复制评论") }
     static var DetailViewAllComments: String { return NSLocalizedString("Detail.ViewAllComments", value: "View all comments", comment: "查看全部评论") }
     static var DetailViewAuthorOnly: String { return NSLocalizedString("Detail.ViewAuthorOnly", value: "View author only", comment: "只看楼主") }

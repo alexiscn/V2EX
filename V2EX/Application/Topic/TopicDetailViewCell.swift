@@ -37,7 +37,7 @@ class TopicDetailViewCell: UITableViewCell {
     
     let orderButton: UIButton
     
-    var order: TopicDetailViewController.ViewOrder = .ascending {
+    var order: CommentOrder = .asc {
         didSet {
             orderButton.setTitle(order.buttonTitle, for: .normal)
         }
@@ -78,7 +78,7 @@ class TopicDetailViewCell: UITableViewCell {
         orderButton.setTitleColor(Theme.current.titleColor, for: .selected)
         orderButton.backgroundColor = Theme.current.cellBackgroundColor
         orderButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 10, bottom: 3, right: 10)
-        orderButton.setTitle(TopicDetailViewController.ViewOrder.ascending.buttonTitle, for: .normal)
+        orderButton.setTitle(CommentOrder.asc.buttonTitle, for: .normal)
         orderButton.setTitle("正在加载", for: .selected)
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)

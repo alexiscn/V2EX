@@ -37,6 +37,9 @@
 /* 取消收藏 */
 "Detail.RemoveFromFavorites" = "Remove from favorites";
 
+/* 感谢 */
+"Detail.Thanks" = "Thanks";
+
 /* 取消收藏成功 */
 "Detail.UnFavoritedSuccess" = "Removed from favorites";
 

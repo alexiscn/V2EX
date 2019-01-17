@@ -13,22 +13,22 @@ import Photos
 import WXActionSheet
 import SKPhotoBrowser
 
-class TopicDetailViewController: UIViewController {
-
-    enum ViewOrder {
-        case ascending
-        case descending
-        
-        var buttonTitle: String {
-            switch self {
-            case .ascending:
-                return "正序查看"
-            case .descending:
-                return "倒序查看"
-            }
+enum CommentOrder {
+    case asc
+    case desc
+    
+    var buttonTitle: String {
+        switch self {
+        case .asc:
+            return "正序查看"
+        case .desc:
+            return "倒序查看"
         }
     }
-    
+}
+
+class TopicDetailViewController: UIViewController {
+
     fileprivate var tableView: UITableView!
     fileprivate var detailCell: TopicDetailViewCell?
     fileprivate var loadingIndicator: UIActivityIndicatorView!
@@ -41,7 +41,7 @@ class TopicDetailViewController: UIViewController {
     fileprivate let titleString: String?
     fileprivate var currentPage = 1
     fileprivate var viewAuthorOnly = false
-    fileprivate var order: ViewOrder = .ascending
+    fileprivate var order: CommentOrder = .asc
     fileprivate var webViewHeightCaculated = false
     fileprivate var inputBar = CommentInputBar()
     
@@ -83,91 +83,6 @@ class TopicDetailViewController: UIViewController {
         inputBar.delegate = self
     }
     
-    private func setupLongPressGesture() {
-        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
-        gesture.minimumPressDuration = 0.5
-        tableView.addGestureRecognizer(gesture)
-    }
-    
-    private func showCommentSheet(_ comment: Reply) {
-        let actionSheet = WXActionSheet(cancelButtonTitle: Strings.Cancel)
-        if AppContext.current.isLogined {
-            actionSheet.add(WXActionSheetItem(title: Strings.DetailComment, handler: { [weak self]  _ in
-                if let name = comment.username {
-                    self?.mentionUser(name)
-                }
-            }))
-        }
-        
-        if comment.mentions.count > 0 {
-            actionSheet.add(WXActionSheetItem(title: Strings.DetailViewConversation, handler: { [weak self] _ in
-                self?.showConversation(with: comment)
-            }))
-        }
-        
-        actionSheet.add(WXActionSheetItem(title: Strings.DetailCopyComments, handler: { _ in
-            UIPasteboard.general.string = comment.content
-        }))
-        actionSheet.add(WXActionSheetItem(title: Strings.Report, handler: { _ in
-            // 为了审核用，实际上没有该接口
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
-                HUD.show(message: "举报成功，我们会及时处理你的举报")
-            })
-        }))
-        actionSheet.show()
-    }
-    
-    private func showConversation(with originComment: Reply) {
-        guard let floorAuthor = originComment.username else { return }
-        var dataSource: [Reply] = []
-        for comment in allComments {
-            if let username = comment.username {
-                if originComment.mentions.contains(username) {
-                    if comment.mentions.count == 0 || comment.mentions.contains(floorAuthor) {
-                        dataSource.append(comment)
-                    }
-                }
-            }
-            if comment.replyID == originComment.replyID {
-                dataSource.append(comment)
-            }
-        }
-        
-        let controller = CommentConversationViewController()
-        let nav = SettingsNavigationController(rootViewController: controller)
-        controller.dataSource = dataSource
-        present(nav, animated: true, completion: nil)
-    }
-    
-    private func mentionUser(_ name: String) {
-        inputBar.appendMention(text: "@\(name) ")
-        inputBar.inputTextView.becomeFirstResponder()
-    }
-    
-    fileprivate func setupNavigationBar() {
-        let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
-        navigationItem.rightBarButtonItem = moreBarButtonItem
-    }
-    
-    private func doFavorite() {
-        guard let token = detail?.csrfToken,
-            let topicID = self.topicID,
-            let isFavorited = detail?.favorited else {
-            return
-        }
-        let endPoint: EndPoint = isFavorited ? .unfavoriteTopic(topicID, token: token): .favoriteTopic(topicID, token: token)
-        V2SDK.request(endPoint, parser: OperationParser.self) { [weak self] (response: V2Response<OperationResponse>) in
-            switch response {
-            case .success(_):
-                let msg = isFavorited ? Strings.DetailUnFavoritedSuccess: Strings.DetailFavoritedSuccess
-                self?.detail?.favorited = !isFavorited
-                HUD.show(message: msg)
-            case .error(let error):
-                HUD.show(message: error.description)
-            }
-        }
-    }
-    
     private func resortReplies() {
         viewAuthorOnly = !viewAuthorOnly
         if viewAuthorOnly {
@@ -199,10 +114,10 @@ class TopicDetailViewController: UIViewController {
                     }
                 }
                 switch strongSelf.order {
-                case .ascending:
+                case .asc:
                     strongSelf.allComments = detail.replyList
                     strongSelf.comments = detail.replyList
-                case .descending:
+                case .desc:
                     strongSelf.allComments = detail.replyList.reversed()
                     strongSelf.comments = detail.replyList.reversed()
                 }
@@ -220,13 +135,13 @@ class TopicDetailViewController: UIViewController {
         guard let topicID = topicID, let detail = detail else { return }
         
         switch order {
-        case .ascending:
+        case .asc:
             if currentPage >= detail.page {
                 setNoMoreData()
                 return
             }
             currentPage += 1
-        case .descending:
+        case .desc:
             if currentPage == 1 {
                 setNoMoreData()
                 return
@@ -245,7 +160,7 @@ class TopicDetailViewController: UIViewController {
                     }
                 }
                 switch strongSelf.order {
-                case .ascending:
+                case .asc:
                     strongSelf.allComments.append(contentsOf: replies)
                     strongSelf.comments.append(contentsOf: replies)
                     strongSelf.tableView.reloadData()
@@ -254,7 +169,7 @@ class TopicDetailViewController: UIViewController {
                     } else {
                         strongSelf.tableView.mj_footer.endRefreshing()
                     }
-                case .descending:
+                case .desc:
                     strongSelf.allComments.append(contentsOf: replies.reversed())
                     strongSelf.comments.append(contentsOf: replies.reversed())
                     strongSelf.tableView.reloadData()
@@ -281,11 +196,11 @@ class TopicDetailViewController: UIViewController {
     private func reOrder() {
         guard let topicID = topicID, let detail = detail else { return }
         switch order {
-        case .ascending:
-            order = .descending
+        case .asc:
+            order = .desc
             currentPage = detail.page
-        case .descending:
-            order = .ascending
+        case .desc:
+            order = .asc
             currentPage = 1
         }
         
@@ -310,7 +225,7 @@ class TopicDetailViewController: UIViewController {
                     strongSelf.allComments.removeAll()
                     strongSelf.comments.removeAll()
                     switch strongSelf.order {
-                    case .ascending:
+                    case .asc:
                         strongSelf.allComments = replies
                         strongSelf.comments = replies
                         strongSelf.tableView.reloadData()
@@ -319,7 +234,7 @@ class TopicDetailViewController: UIViewController {
                         } else {
                             strongSelf.tableView.mj_footer.endRefreshing()
                         }
-                    case .descending:
+                    case .desc:
                         strongSelf.allComments = replies.reversed()
                         strongSelf.comments = replies.reversed()
                         strongSelf.tableView.reloadData()
@@ -386,6 +301,17 @@ extension TopicDetailViewController {
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+    }
+    
+    private func setupLongPressGesture() {
+        let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(_:)))
+        gesture.minimumPressDuration = 0.5
+        tableView.addGestureRecognizer(gesture)
+    }
+    
+    fileprivate func setupNavigationBar() {
+        let moreBarButtonItem = UIBarButtonItem(image: UIImage(named: "nav_more_24x24_"), style: .done, target: self, action: #selector(moreBarButtonItemTapped(_:)))
+        navigationItem.rightBarButtonItem = moreBarButtonItem
     }
 }
 
@@ -558,11 +484,10 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 self.mentionUser(name)
             }
         }
-//        let likeAction = UITableViewRowAction(style: .default, title: "感谢") { (_, indexPath) in
-//            
-//        }
-        return [commentAction]
-        //return [commentAction, likeAction]
+        let likeAction = UITableViewRowAction(style: .default, title: Strings.DetailThanks) { (_, indexPath) in
+            
+        }
+        return [commentAction, likeAction]
     }
 }
 
@@ -610,6 +535,100 @@ extension TopicDetailViewController: CommentInputBarDelegate {
     }
 }
 
+
+// MARK: - Actions
+extension TopicDetailViewController {
+    
+    private func showCommentSheet(_ comment: Reply) {
+        let actionSheet = WXActionSheet(cancelButtonTitle: Strings.Cancel)
+        if AppContext.current.isLogined {
+            actionSheet.add(WXActionSheetItem(title: Strings.DetailComment, handler: { [weak self]  _ in
+                if let name = comment.username {
+                    self?.mentionUser(name)
+                }
+            }))
+        }
+        
+        if comment.mentions.count > 0 {
+            actionSheet.add(WXActionSheetItem(title: Strings.DetailViewConversation, handler: { [weak self] _ in
+                self?.showConversation(with: comment)
+            }))
+        }
+        
+        actionSheet.add(WXActionSheetItem(title: Strings.DetailCopyComments, handler: { _ in
+            UIPasteboard.general.string = comment.content
+        }))
+        actionSheet.add(WXActionSheetItem(title: Strings.Report, handler: { _ in
+            // 为了审核用，实际上没有该接口
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
+                HUD.show(message: "举报成功，我们会及时处理你的举报")
+            })
+        }))
+        actionSheet.show()
+    }
+ 
+    private func doFavorite() {
+        guard let token = detail?.csrfToken,
+            let topicID = self.topicID,
+            let isFavorited = detail?.favorited else {
+                return
+        }
+        let endPoint: EndPoint = isFavorited ? .unfavoriteTopic(topicID, token: token): .favoriteTopic(topicID, token: token)
+        V2SDK.request(endPoint, parser: OperationParser.self) { [weak self] (response: V2Response<OperationResponse>) in
+            switch response {
+            case .success(_):
+                let msg = isFavorited ? Strings.DetailUnFavoritedSuccess: Strings.DetailFavoritedSuccess
+                self?.detail?.favorited = !isFavorited
+                HUD.show(message: msg)
+            case .error(let error):
+                HUD.show(message: error.description)
+            }
+        }
+    }
+    
+    private func showConversation(with originComment: Reply) {
+        guard let floorAuthor = originComment.username else { return }
+        var dataSource: [Reply] = []
+        for comment in allComments {
+            if let username = comment.username {
+                if originComment.mentions.contains(username) {
+                    if comment.mentions.count == 0 || comment.mentions.contains(floorAuthor) {
+                        dataSource.append(comment)
+                    }
+                }
+            }
+            if comment.replyID == originComment.replyID {
+                dataSource.append(comment)
+            }
+        }
+        
+        let controller = CommentConversationViewController()
+        let nav = SettingsNavigationController(rootViewController: controller)
+        controller.dataSource = dataSource
+        present(nav, animated: true, completion: nil)
+    }
+    
+    private func mentionUser(_ name: String) {
+        inputBar.appendMention(text: "@\(name) ")
+        inputBar.inputTextView.becomeFirstResponder()
+    }
+    
+    private func thankReply(_ reply: Reply) {
+        guard let replyID = reply.replyID, let token = detail?.csrfToken else { return }
+        let endPoint = EndPoint.thankReply(replyID, token: token)
+        V2SDK.request(endPoint, parser: TabParser.self) { (response: V2Response<OperationResponse>) in
+            switch response {
+            case .success(_):
+                print("success")
+            case .error(let error):
+                HUD.show(message: error.description)
+            }
+        }
+    }
+}
+
+
+// MARK: - UIImagePickerControllerDelegate
 extension TopicDetailViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
