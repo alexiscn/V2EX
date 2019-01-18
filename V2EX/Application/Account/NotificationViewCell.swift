@@ -14,6 +14,8 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
     private let usernameLabel: UILabel
     private let timeAgoLabel: UILabel
     private let commentTextView: UITextView
+    private let topicButton: UIButton
+    private var topicTitle: String?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
@@ -38,8 +40,14 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
         commentTextView.font = UIFont.systemFont(ofSize: 14)
         commentTextView.textColor = Theme.current.titleColor
         
-//        lineView = UIView()
-//        lineView.backgroundColor = Theme.current.cellBackgroundColor
+        topicButton = UIButton(type: .system)
+        topicButton.contentHorizontalAlignment = .left
+        topicButton.titleLabel?.numberOfLines = 0
+        topicButton.titleLabel?.font = UIFont.systemFont(ofSize: 11)
+        topicButton.setTitleColor(Theme.current.subTitleColor, for: .normal)
+        topicButton.backgroundColor = Theme.current.cellHighlightColor
+        topicButton.layer.cornerRadius = 6.0
+        topicButton.contentEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 12, right: 12)
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -47,7 +55,7 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
         contentView.addSubview(usernameLabel)
         contentView.addSubview(timeAgoLabel)
         contentView.addSubview(commentTextView)
-        //contentView.addSubview(lineView)
+        contentView.addSubview(topicButton)
         
         commentTextView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(12)
@@ -71,18 +79,22 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
             make.leading.equalToSuperview().offset(usernameLeading)
             make.top.equalTo(usernameLabel.snp.bottom).offset(3)
         }
-        
-//        lineView.snp.makeConstraints { make in
-//            make.leading.trailing.equalToSuperview()
-//            make.height.equalTo(1)
-//            make.bottom.equalToSuperview()
-//        }
-        
+    
         let backgroundView = UIView()
         backgroundView.backgroundColor = Theme.current.cellHighlightColor
         selectedBackgroundView = backgroundView
         
         commentTextView.delegate = self
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let title = topicTitle {
+            let height = NotificationViewCell.heightForTopicButton(title)
+            let width = UIScreen.main.bounds.width - 24.0
+            topicButton.frame = CGRect(x: 12, y: frame.height - height - 5, width: width, height: height)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -102,18 +114,14 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
         let width = UIScreen.main.bounds.width - 24.0
         var height: CGFloat = 56.0
         
-        if let title = notification.title {
+        if let comment = notification.comment {
             let maxSize = CGSize(width: width - 6.0, height: CGFloat.infinity)
-            let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
+            let rect = comment.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
             height += rect.height + 12.0
         }
         
-        if let comment = notification.comment, let author = notification.username {
-            let maxSize = CGSize(width: width - 6.0, height: CGFloat.infinity)
-            let text = author + ":" + comment
-            let rect = text.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 14) as Any])
-            height += rect.height
-            height += 12.0
+        if let title = notification.title {
+            height += heightForTopicButton(title)
         }
         
         notification._rowHeight = height
@@ -121,13 +129,25 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
         
     }
     
+    class func heightForTopicButton(_ title: String) -> CGFloat {
+        let width = UIScreen.main.bounds.width - 24.0 - 24.0
+        let maxSize = CGSize(width: width, height: CGFloat.infinity)
+        let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 11) as Any])
+        return rect.height + 24.0
+    }
+    
     func update(_ model: DataType) {
-        guard let message = model as? MessageNotification else { return }
+        guard let notification = model as? MessageNotification else { return }
         
-        avatarImageView.kf.setImage(with: message.avatarURL)
-        usernameLabel.text = message.username
-        timeAgoLabel.text = message.timeAgo
-        commentTextView.text = message.comment
+        avatarImageView.kf.setImage(with: notification.avatarURL)
+        usernameLabel.text = notification.username
+        timeAgoLabel.text = notification.timeAgo
+        commentTextView.text = notification.comment
+        
+        if let title = notification.title {
+            topicButton.setTitle(title, for: .normal)
+            topicTitle = title
+        }
     }
 }
 

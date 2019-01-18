@@ -14,7 +14,7 @@ class NotificationsViewModel: ListViewModel {
     
     var dataSouce: [MessageNotification] = []
     
-    var title: String? { return "Notifications" }
+    var title: String? { return Strings.Notifications }
     
     var cellClass: UITableViewCell.Type { return NotificationViewCell.self }
     
