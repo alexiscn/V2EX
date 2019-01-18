@@ -8,7 +8,6 @@
 
 import Foundation
 
-// TODO: - Refactor
-class TopicDetailViewModel {
+class TopicDetailDataSource {
     
 }
