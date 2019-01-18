@@ -30,6 +30,10 @@ class NotificationsViewModel: ListViewModel {
     }
     
     func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
-        
+        let message = dataSouce[indexPath.row]
+        guard let topicID = message.topicID else { return }
+        let url = URL(string: "https://www.v2ex.com/t/\(topicID)")
+        let controller = TopicDetailViewController(url: url, title: message.title)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }
