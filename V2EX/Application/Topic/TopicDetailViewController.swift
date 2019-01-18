@@ -399,7 +399,8 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
             cell.topicButtonHandler = { [weak self] in
                 if let detail = self?.detail, let name = detail.nodeTag, let title = detail.nodeName {
                     let node = Node.nodeWithName(name, title: title)
-                    let controller = TimelineViewController(node: node)
+                    let vm = NodeTimelineViewModel(node: node)
+                    let controller = TimelineViewController(viewModel: vm)
                     self?.navigationController?.pushViewController(controller, animated: true)
                 }
             }
@@ -449,7 +450,9 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 self?.navigationController?.pushViewController(controller, animated: true)
             }
             cell.nodeLinkHandler = { [weak self] nodename in
-                let controller = TimelineViewController(node: Node(name: nodename, title: nodename, letter: ""))
+                let node = Node(name: nodename, title: nodename, letter: "")
+                let vm = NodeTimelineViewModel(node: node)
+                let controller = TimelineViewController(viewModel: vm)
                 self?.navigationController?.pushViewController(controller, animated: true)
             }
             return cell

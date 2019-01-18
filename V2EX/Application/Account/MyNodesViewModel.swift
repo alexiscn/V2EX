@@ -31,7 +31,9 @@ class MyNodesViewModel: ListViewModel {
     func didSelectRowAt(_ indexPath: IndexPath, navigationController: UINavigationController?) {
         let node = dataSouce[indexPath.row]
         if let name = node.nodeName, let title = node.title {
-            let timelineVC = TimelineViewController(node: Node(name: name, title: title, letter: ""))
+            let n = Node(name: name, title: title, letter: "")
+            let vm = NodeTimelineViewModel(node: n)
+            let timelineVC = TimelineViewController(viewModel: vm )
             navigationController?.pushViewController(timelineVC, animated: true)
         }
     }

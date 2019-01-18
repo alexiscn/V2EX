@@ -96,7 +96,8 @@ class MainViewController: UIViewController {
             }
         }
         
-        let timelineViewController = TimelineViewController(tab: tab)
+        let viewModel = TabTimelineViewModel(tab: tab)
+        let timelineViewController = TimelineViewController(viewModel: viewModel)
         timelineViewController.view.frame = view.bounds
         view.addSubview(timelineViewController.view)
         addChild(timelineViewController)

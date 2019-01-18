@@ -10,9 +10,9 @@ import Foundation
 
 class TabTimelineViewModel: TimelineViewModel {
     
-    var source: TimelineSource
+    weak var delegate: TimelineViewModelDelegate?
     
-    weak var coordinator: TimelineCoordinator?
+    var tab: V2Tab
     
     var title: String?
     
@@ -20,30 +20,31 @@ class TabTimelineViewModel: TimelineViewModel {
     
     var currentPage: Int = 1
     
-    required init(source: TimelineSource) {
-        self.source = source
-        self.title = source.tab?.title
+    init(tab: V2Tab) {
+        self.tab = tab
+        self.title = tab.title
+        self.dataSource = []
     }
     
-    func loadData(isLoadMore: Bool, completion: @escaping (() -> Void)) {
-        guard let tab = source.tab else { return }
+    func loadData(isLoadMore: Bool) {
+        
         currentPage = isLoadMore ? (currentPage + 1): 1
         
         DispatchQueue.global().async {
-            let topics = V2DataManager.shared.loadTopics(forTab: tab.key)
+            let topics = V2DataManager.shared.loadTopics(forTab: self.tab.key)
             DispatchQueue.main.async {
                 if topics.count > 0 {
                     self.dataSource = topics
-                    self.coordinator?.reloadData()
+                    self.delegate?.reloadData()
                 }
             }
-            let key = tab.key
-            let isRecent = tab == V2Tab.recentTab
+            let key = self.tab.key
+            let isRecent = self.tab == V2Tab.recentTab
             let endPoint = isRecent ? EndPoint.recent(self.currentPage): EndPoint.tab(key)
             V2SDK.request(endPoint, parser: TabParser.self, completion: { [weak self] (response: V2Response<[Topic]>) in
                 DispatchQueue.main.async {
                     guard let strongSelf = self else { return }
-                    strongSelf.coordinator?.endRefreshing()
+                    strongSelf.delegate?.endRefreshing()
                     switch response {
                     case .success(let topics):
                         if isLoadMore {
@@ -55,17 +56,12 @@ class TabTimelineViewModel: TimelineViewModel {
                         } else {
                             strongSelf.dataSource = topics
                         }
-                        strongSelf.coordinator?.reloadData()
-                        if tab == V2Tab.recentTab {
-                            
+                        strongSelf.delegate?.reloadData()
+                        if strongSelf.tab == V2Tab.recentTab {
+                            strongSelf.delegate?.resetNoMoreData()
                         } else {
-                            strongSelf.coordinator?.setNoMoreData()
+                            strongSelf.delegate?.setNoMoreData()
                         }
-                        //                    if strongSelf.tab == V2Tab.recentTab {
-                        //                        strongSelf.tableView.mj_footer.resetNoMoreData()
-                        //                    } else {
-                        //                        strongSelf.setNoMoreData()
-                        //                    }
                         topics.forEach { $0.tab = key }
                         V2DataManager.shared.saveTopics(topics, forTab: key)
                     case .error(let error):

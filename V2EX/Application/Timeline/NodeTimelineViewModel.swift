@@ -10,9 +10,9 @@ import Foundation
 
 class NodeTimelineViewModel: TimelineViewModel {
     
-    var source: TimelineSource
+    weak var delegate: TimelineViewModelDelegate?
     
-    weak var coordinator: TimelineCoordinator?
+    var node: Node
     
     var title: String?
     
@@ -22,16 +22,17 @@ class NodeTimelineViewModel: TimelineViewModel {
     
     var nodeDetail: NodeDetail?
     
-    required init(source: TimelineSource) {
-        self.source = source
-        self.title = source.node?.title
+    init(node: Node) {
+        self.node = node
+        self.title = "#" + node.title
+        self.dataSource = []
     }
     
-    func loadData(isLoadMore: Bool, completion: @escaping (() -> Void)) {
-        guard let node = source.node else { return }
+    func loadData(isLoadMore: Bool) {
+        
         let totalPage = nodeDetail?.page ?? Int.max
         if currentPage >= totalPage {
-            coordinator?.setNoMoreData()
+            delegate?.setNoMoreData()
             return
         }
         
@@ -39,7 +40,7 @@ class NodeTimelineViewModel: TimelineViewModel {
         let endPoint = EndPoint.node(node.name, page: currentPage)
         V2SDK.request(endPoint, parser: NodeTopicsParser.self) { [weak self] (response: V2Response<NodeDetail>) in
             guard let strongSelf = self else { return }
-            strongSelf.coordinator?.endRefreshing()
+            strongSelf.delegate?.endRefreshing()
             switch response {
             case .success(let nodeDetail):
                 strongSelf.nodeDetail = nodeDetail
@@ -48,12 +49,12 @@ class NodeTimelineViewModel: TimelineViewModel {
                 } else {
                     strongSelf.dataSource = nodeDetail.topics
                 }
-//                strongSelf.tableView.reloadData()
-//                if nodeDetail.topics.count > 0 {
-//                    strongSelf.tableView.mj_footer.resetNoMoreData()
-//                } else {
-//                    strongSelf.setNoMoreData()
-//                }
+                strongSelf.delegate?.reloadData()
+                if nodeDetail.topics.count > 0 {
+                    strongSelf.delegate?.resetNoMoreData()
+                } else {
+                    strongSelf.delegate?.setNoMoreData()
+                }
             case .error(let error):
                 HUD.show(message: error.description)
             }

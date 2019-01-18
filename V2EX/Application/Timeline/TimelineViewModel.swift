@@ -8,38 +8,14 @@
 
 import Foundation
 
-enum TimelineSource {
-    case node(Node)
-    case tab(V2Tab)
-    
-    var node: Node? {
-        switch self {
-        case .node(let n):
-            return n
-        default:
-            return nil
-        }
-    }
-    
-    var tab: V2Tab? {
-        switch self {
-        case .tab(let t):
-            return t
-        default:
-            return nil
-        }
-    }
-}
-
-protocol TimelineCoordinator: class {
+protocol TimelineViewModelDelegate: class {
     func reloadData()
     func setNoMoreData()
+    func resetNoMoreData()
     func endRefreshing()
 }
 
 protocol TimelineViewModel {
-    
-    var source: TimelineSource { get set }
     
     var title: String? { get }
     
@@ -47,14 +23,5 @@ protocol TimelineViewModel {
     
     var currentPage: Int { get set }
     
-    init(source: TimelineSource)
- 
-    func loadData(isLoadMore: Bool, completion: @escaping (() -> Void))
-}
-
-extension TimelineViewModel {
-    
-    func update(source: TimelineSource) {
-        
-    }
+    func loadData(isLoadMore: Bool)
 }
