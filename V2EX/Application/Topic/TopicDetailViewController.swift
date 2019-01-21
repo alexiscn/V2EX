@@ -488,7 +488,8 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
             }
         }
         let likeAction = UITableViewRowAction(style: .default, title: Strings.DetailThanks) { (_, indexPath) in
-            
+            let comment = self.comments[indexPath.row]
+            self.thankReply(comment, indexPath: indexPath)
         }
         return [commentAction, likeAction]
     }
@@ -616,13 +617,16 @@ extension TopicDetailViewController {
         inputBar.inputTextView.becomeFirstResponder()
     }
     
-    private func thankReply(_ reply: Reply) {
+    private func thankReply(_ reply: Reply, indexPath: IndexPath) {
         guard let replyID = reply.replyID, let token = detail?.csrfToken else { return }
         let endPoint = EndPoint.thankReply(replyID, token: token)
-        V2SDK.request(endPoint, parser: TabParser.self) { (response: V2Response<OperationResponse>) in
+        
+        V2SDK.request(endPoint, parser: OperationParser.self) { [weak self] (response: V2Response<OperationResponse>) in
             switch response {
             case .success(_):
-                print("success")
+                reply.likeCount += 1
+                self?.tableView.reloadRows(at: [indexPath], with: .none)
+                HUD.show(message: "感谢成功")
             case .error(let error):
                 HUD.show(message: error.description)
             }

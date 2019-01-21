@@ -158,12 +158,12 @@ extension EndPoint {
     
     static func thankTopic(_ topicID: String, token: String) -> EndPoint {
         let path = "/thank/topic/\(topicID)?t=\(token)"
-        return EndPoint(path: path)
+        return EndPoint(path: path, method: .post, parameters: nil, headers: nil)
     }
     
     static func thankReply(_ replyID: String, token: String) -> EndPoint {
         let path = "/thank/reply/\(replyID)?t=\(token)"
-        return EndPoint(path: path)
+        return EndPoint(path: path, method: .post, parameters: nil, headers: nil)
     }
     
     static func reportTopic(_ topicID: String, token: String) -> EndPoint {

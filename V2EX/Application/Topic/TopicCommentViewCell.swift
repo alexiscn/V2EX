@@ -174,7 +174,8 @@ class TopicCommentViewCell: UITableViewCell {
         avatarButton.isHidden = !AppSettings.shared.displayAvatar
         contentTextView.attributedText = reply.contentAttributedString
         timeAgoLabel.text = reply.timeAgo
-        likesLabel.text = reply.likesInfo
+        likesLabel.text = "♥ \(reply.likeCount)"
+        likesLabel.isHidden = reply.likeCount == 0
         if let floor = reply.floor {
             floorButton.setTitle("\(floor)楼", for: .normal)
         }
@@ -187,7 +188,7 @@ class TopicCommentViewCell: UITableViewCell {
             ownerLabel.text = nil
         }
     }
-
+    
     class func heightForRowWithReply(_ reply: inout Reply) -> CGFloat {
         
         if reply._rowHeight > 0 {

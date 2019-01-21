@@ -38,6 +38,9 @@ class Reply: TableCodable {
     
     var contentAttributedString: NSAttributedString? = nil
     
+    // ♥ 8
+    var likeCount: Int = 0
+    
     var likesInfo: String? = nil
     
     var floor: String? = nil

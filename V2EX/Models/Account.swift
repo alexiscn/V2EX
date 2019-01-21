@@ -26,6 +26,8 @@ struct Account {
     var silver: String?
     var bronze: String?
     
+    var unread: Int = 0 
+    
     init() { }
 }
 

@@ -177,6 +177,11 @@ struct AccountInfoParser: HTMLParser {
                 account.balance = balance.replacingOccurrences(of: " ", with: "")
             }
             
+            if let notification = try box.select("a[href=/notifications]").first()?.text() {
+                let count = notification.replacingOccurrences(of: " 条未读提醒", with: "")
+                account.unread = Int(count) ?? 0
+            }
+            
             return account as? T
         }
         return nil
@@ -337,7 +342,7 @@ struct TopicReplyParser: HTMLParser {
                 continue
             }
             let reply = Reply()
-            reply.replyID = divID
+            reply.replyID = divID?.replacingOccurrences(of: "r_", with: "")
             let avatarSrc = try cell.select("img").first()?.attr("src")
             reply.avatarURL = avatarURLWithSource(avatarSrc)
             reply.content = try cell.select("div.reply_content").text()
@@ -352,7 +357,12 @@ struct TopicReplyParser: HTMLParser {
             reply.username = try userLink.text()
             reply.floor = try cell.select("span.no").text()
             if let like = try cell.select(".small.fade").first() {
-                reply.likesInfo = try like.text()
+                let likesInfo = try like.text()
+                reply.likesInfo = likesInfo
+                let count = likesInfo.replacingOccurrences(of: "♥ ", with: "")
+                reply.likeCount = Int(count) ?? 0
+            } else {
+                reply.likeCount = 0
             }
             
             replyList.append(reply)

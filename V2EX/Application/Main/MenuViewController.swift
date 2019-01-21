@@ -30,6 +30,7 @@ class MenuViewController: UIViewController {
     private var themeButton: UIButton!
     private var messageButton: UIButton!
     private var settingButton: UIButton!
+    private var unreadCountLabel: UILabel!
     private var dataSource: [V2Tab] = []
     private var isFirstViewDidAppear = false
     
@@ -42,6 +43,7 @@ class MenuViewController: UIViewController {
         setupTableView()
         setupThemeButton()
         setupMessageButton()
+        setupUnreadCountLabel()
         setupSettingButton()
         self.fd_prefersNavigationBarHidden = true
         tableView.reloadData()
@@ -76,9 +78,12 @@ class MenuViewController: UIViewController {
             let url = URL(string: avatar)
             avatarButton.kf.setBackgroundImage(with: url, for: .normal)
             userLabel.text = account.username
+            unreadCountLabel.text = String(account.unread)
+            unreadCountLabel.isHidden = account.unread == 0
         } else {
             avatarButton.setBackgroundImage(UIImage(), for: .normal)
             userLabel.text = Strings.AccountNamePlaceholder
+            unreadCountLabel.isHidden = true
         }
     }
     
@@ -154,11 +159,34 @@ class MenuViewController: UIViewController {
         messageButton.addTarget(self, action: #selector(messageButtonTapped(_:)), for: .touchUpInside)
     }
     
+    private func setupUnreadCountLabel() {
+        unreadCountLabel = UILabel()
+        unreadCountLabel.backgroundColor = .red
+        unreadCountLabel.textColor = .white
+        unreadCountLabel.font = UIFont.systemFont(ofSize: 11)
+        unreadCountLabel.layer.cornerRadius = 9
+        unreadCountLabel.clipsToBounds = true
+        unreadCountLabel.textAlignment = .center
+        unreadCountLabel.isHidden = true
+        
+        view.addSubview(unreadCountLabel)
+        unreadCountLabel.snp.makeConstraints { make in
+            make.leading.equalTo(messageButton.snp.trailing).offset(-9)
+            make.top.equalTo(messageButton.snp.top).offset(-9)
+            make.width.greaterThanOrEqualTo(18)
+            make.height.equalTo(18)
+        }
+    }
+    
     @objc private func messageButtonTapped(_ sender: Any) {
         if AppContext.current.isLogined {
             let viewModel = NotificationsViewModel()
             let controller = ListViewController(viewModel: viewModel)
             navigationController?.pushViewController(controller, animated: true)
+            
+            AppContext.current.account?.unread = 0
+            unreadCountLabel.text = "0"
+            unreadCountLabel.isHidden = true
         } else {
             let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
             present(loginVC, animated: true, completion: nil)
