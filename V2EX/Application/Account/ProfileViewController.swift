@@ -54,9 +54,6 @@ class ProfileViewController: UIViewController {
             case .success(let profileRes):
                 self?.profile = profileRes
                 self?.tableView.reloadData()
-//                if let info = profileRes.info {
-//                    self?.headerView?.update(info: info)
-//                }
             case .error(let error):
                 HUD.show(message: error.description)
             }
