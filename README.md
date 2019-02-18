@@ -28,6 +28,8 @@ V2EX iOS Client written in Swift
 - 发布评论、复制评论
 - 收藏主题、取消收藏
 - 点击楼层可以快速@Ta
+- 查看对话
+- 发布主题
 
 【搜索】
 -  集成了V站搜索功能，让你快速找到想要的答案
@@ -46,10 +48,4 @@ V2EX iOS Client written in Swift
 1. download release from [SwiftGenStrings](https://github.com/kayak/SwiftGenStrings/releases)
 2. add export Path
 3. run `cd Localizations & python app.py`
-
-
-# On-Working
-
-* New Topic
-* Comments with image
 
