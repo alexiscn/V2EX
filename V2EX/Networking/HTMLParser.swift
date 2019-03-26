@@ -216,7 +216,7 @@ struct NodeTopicsParser: HTMLParser {
     static func parseTopicListCell(_ cell: Element, isNodeList: Bool = false) -> Topic {
         let topic = Topic()
         // parse avatar
-        if let img = try? cell.select("img").first(), let imgEle = img, let src = try? imgEle.attr("src") {
+        if let img = try? cell.select("img").first(), let src = try? img.attr("src") {
             topic.avatar = avatarURLWithSource(src)
         }
         // parse members
@@ -231,32 +231,32 @@ struct NodeTopicsParser: HTMLParser {
         
         // parse topic title
         if let titleElement = try? cell.select("span.item_title").first() {
-            if let title = try? titleElement?.text() {
+            if let title = try? titleElement.text() {
                 topic.title = title
             }
-            if let href = try? titleElement?.select("a").attr("href"), let link = href {
-                if link.contains("#") {
-                    topic.url = URL(string: V2SDK.baseURLString + String(link.split(separator: "#")[0]))
+            if let href = try? titleElement.select("a").attr("href") {
+                if href.contains("#") {
+                    topic.url = URL(string: V2SDK.baseURLString + String(href.split(separator: "#")[0]))
                 } else {
-                    topic.url = URL(string: V2SDK.baseURLString + link)
+                    topic.url = URL(string: V2SDK.baseURLString + href)
                 }
             }
         }
         
         // parse reply count
         if let countElement = try? cell.select("a.count_livid").first() {
-            if let count = try? countElement?.text(), let c = count {
-                topic.replies = Int(c)!
+            if let count = try? countElement.text() {
+                topic.replies = Int(count)!
             }
         }
         
         // parse node
         if let nodeElement = try? cell.select("a.node").first() {
-            if let title = try? nodeElement?.text() {
+            if let title = try? nodeElement.text() {
                 topic.nodeTitle = title
             }
-            if let name = try? nodeElement?.attr("href"), let nodename = name {
-                topic.nodeName = trimNode(nodename)
+            if let name = try? nodeElement.attr("href") {
+                topic.nodeName = trimNode(name)
             }
         }
         if let text = try? cell.text() {
