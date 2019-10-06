@@ -338,7 +338,7 @@ struct TopicReplyParser: HTMLParser {
         var replyList: [Reply] = []
         for cell in cells {
             let divID = try? cell.attr("id")
-            if divID == nil || divID == "" {
+            if divID == nil || divID == "" || divID == "member-activity" {
                 continue
             }
             let reply = Reply()

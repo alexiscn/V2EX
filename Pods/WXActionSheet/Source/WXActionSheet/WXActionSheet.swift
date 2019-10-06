@@ -13,12 +13,12 @@ public class WXActionSheet: UIView {
     /// WXActionSheet defaults, you can override it globally
     public struct Preferences {
         
-        /// Height for buttons, defaults 50.0
-        public static var ButtonHeight: CGFloat = 50.0
+        /// Height for buttons, defaults 56.0
+        public static var ButtonHeight: CGFloat = 56.0
         
-        public static var ButtonNormalBackgroundColor = UIColor(white: 1, alpha: 0.8)
+        public static var ButtonNormalBackgroundColor = UIColor(white: 1, alpha: 1)
         
-        public static var ButtonHighlightBackgroundColor = UIColor(white: 1, alpha: 0.5)
+        public static var ButtonHighlightBackgroundColor = UIColor(white: 248.0/255, alpha: 1)
         
         /// Title color for normal buttons, default to UIColor.black
         public static var ButtonTitleColor = UIColor.black
@@ -27,10 +27,12 @@ public class WXActionSheet: UIView {
         public static var DestructiveButtonTitleColor = UIColor.red
         
         /// Separator backgroundColor between CancelButton and other buttons
-        public static var SeparatorColor = UIColor(white: 153.0/255, alpha: 1.0)
+        public static var SeparatorColor = UIColor(white: 242.0/255, alpha: 1.0)
     }
     
     public var titleView: UIView?
+    
+    public var roundTopCorners: Bool = true
     
     private let containerView = UIView()
     private let backgroundView = UIView()
@@ -85,15 +87,15 @@ public class WXActionSheet: UIView {
 extension WXActionSheet {
     
     private func commonInit() {
-        
         backgroundView.frame = bounds
+        backgroundView.alpha = 0.0
         backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
         tapGesture.delegate = self
         backgroundView.addGestureRecognizer(tapGesture)
         addSubview(backgroundView)
         
-        containerView.backgroundColor = .clear
+        containerView.backgroundColor = .white
         addSubview(containerView)
     }
     
@@ -120,59 +122,100 @@ extension WXActionSheet {
         }
         
         let highlightBackgroundImage = UIImage.imageWithColor(Preferences.ButtonHighlightBackgroundColor)
-        let nomalBackgroundImage = UIImage.imageWithColor(Preferences.ButtonNormalBackgroundColor)
+        let backgroundImage = UIImage.imageWithColor(Preferences.ButtonNormalBackgroundColor)
         
         let x = bounds.minX
         let width = bounds.width
         var height = Preferences.ButtonHeight
         
         for (index, item) in items.enumerated() {
-            let button = UIButton(type: .custom)
-            button.tag = index
-            button.backgroundColor = .clear
-            button.setBackgroundImage(nomalBackgroundImage, for: .normal)
-            button.setBackgroundImage(highlightBackgroundImage, for: .highlighted)
-            button.setTitle(item.title, for: .normal)
-            button.setImage(item.iconImage, for: .normal)
-            button.imageEdgeInsets = item.imageEdgeInsets
-            button.titleEdgeInsets = item.titleEdgeInsets
-            button.titleLabel?.font = item.font
             
-            switch item.type  {
-            case .default:
-                button.setTitleColor(item.titleColor, for: .normal)
-            case .destructive:
-                button.setTitleColor(Preferences.DestructiveButtonTitleColor, for: .normal)
-            case .cancel:
-                button.setTitleColor(item.titleColor, for: .normal)
-            }
-            
-            if index == items.count - 1 {
-                let separator = UIView(frame: CGRect(x: 0, y: y , width: width, height: 5.0))
-                separator.backgroundColor = Preferences.SeparatorColor
-                containerView.addSubview(separator)
-                
-                y += 5.0
+            height = item.desc == nil ? Preferences.ButtonHeight: 62.0
+            let isLastItem = index == items.count - 1
+            let itemView = actionItemView(item: item, at: index, isLastItem: isLastItem, backgroundImage: backgroundImage, highlightBackgroundImage: highlightBackgroundImage)
+            if isLastItem {
+                if item.type == .cancel {
+                    let separator = UIView(frame: CGRect(x: 0, y: y , width: width, height: 7.0))
+                    separator.backgroundColor = Preferences.SeparatorColor
+                    containerView.addSubview(separator)
+                    y += separator.bounds.height
+                }
                 height = Preferences.ButtonHeight + safeInsets.bottom
-                button.titleEdgeInsets = UIEdgeInsets(top: -safeInsets.bottom/2.0, left: 0, bottom: 0, right: 0)
             }
-            button.frame = CGRect(x: x, y: y, width: width, height: height)
-            containerView.addSubview(button)
-            button.addTarget(self, action: #selector(handleButtonTapped(_:)), for: .touchUpInside)
             
-            if index == items.count - 1 || index == items.count - 2 {
-                y += height
-            } else {
-                y += height + LineHeight
+            itemView.frame = CGRect(x: x, y: y, width: width, height: height)
+            containerView.addSubview(itemView)
+            y += height
+            
+            if !isLastItem {
+                let line = UIView()
+                line.frame = CGRect(x: x, y: y, width: width, height: LineHeight)
+                line.backgroundColor = UIColor(white: 0, alpha: 0.1)
+                containerView.addSubview(line)
+                y += LineHeight
             }
         }
         
         containerView.frame = CGRect(x: x, y: bounds.height, width: width, height: y)
         
+        if roundTopCorners {
+            containerView.layer.cornerRadius = 15
+            containerView.layer.masksToBounds = true
+            containerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        }
+        
         let effectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         effectView.frame = containerView.bounds
         containerView.addSubview(effectView)
         containerView.sendSubviewToBack(effectView)
+    }
+    
+    fileprivate func actionItemView(item: WXActionSheetItem, at index: Int, isLastItem: Bool, backgroundImage: UIImage?, highlightBackgroundImage: UIImage?) -> UIView {
+        
+        if item.desc == nil {
+            let button = UIButton(type: .custom)
+            button.tag = index
+            button.backgroundColor = .clear
+            button.setBackgroundImage(backgroundImage, for: .normal)
+            button.setBackgroundImage(highlightBackgroundImage, for: .highlighted)
+            button.setTitle(item.title, for: .normal)
+            button.setImage(item.iconImage, for: .normal)
+            button.imageEdgeInsets = item.imageEdgeInsets
+            button.titleEdgeInsets = isLastItem ? UIEdgeInsets(top: -safeInsets.bottom/2, left: 0, bottom: safeInsets.bottom/2, right: 0) : item.titleEdgeInsets
+            button.titleLabel?.font = item.font
+            let titleColor = item.type == .destructive ? Preferences.DestructiveButtonTitleColor: item.titleColor
+            button.setTitleColor(titleColor, for: .normal)
+            button.addTarget(self, action: #selector(handleButtonTapped(_:)), for: .touchUpInside)
+            return button
+        } else {
+            let view = UIView()
+            
+            let button = UIButton()
+            button.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 62)
+            button.tag = index
+            button.addTarget(self, action: #selector(handleButtonTapped(_:)), for: .touchUpInside)
+            button.setBackgroundImage(backgroundImage, for: .normal)
+            button.setBackgroundImage(highlightBackgroundImage, for: .highlighted)
+            
+            let titleLabel = UILabel()
+            titleLabel.textAlignment = .center
+            titleLabel.text = item.title
+            titleLabel.textColor = item.titleColor
+            titleLabel.font = UIFont.systemFont(ofSize: 18)
+            titleLabel.frame = CGRect(x: 0, y: 12, width: bounds.width, height: 22)
+            
+            let descLabel = UILabel()
+            descLabel.textAlignment = .center
+            descLabel.text = item.desc
+            descLabel.textColor = item.descColor
+            descLabel.font = UIFont.systemFont(ofSize: 12)
+            descLabel.frame = CGRect(x: 0, y: 36, width: bounds.width, height: 15)
+            
+            view.addSubview(button)
+            view.addSubview(titleLabel)
+            view.addSubview(descLabel)
+            return view
+        }
     }
     
     fileprivate var safeInsets: UIEdgeInsets {

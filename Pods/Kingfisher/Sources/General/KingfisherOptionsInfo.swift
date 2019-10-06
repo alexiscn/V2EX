@@ -182,7 +182,7 @@ public enum KingfisherOptionsInfoItem {
     /// If set and a downloading error occurred Kingfisher will set provided image (or empty)
     /// in place of requested one. It's useful when you don't want to show placeholder
     /// during loading time but wants to use some default image when requests will be failed.
-    case onFailureImage(Image?)
+    case onFailureImage(KFCrossPlatformImage?)
     
     /// If set and used in `ImagePrefetcher`, the prefetching operation will load the images into memory storage
     /// aggressively. By default this is not contained in the options, that means if the requested image is already
@@ -203,16 +203,32 @@ public enum KingfisherOptionsInfoItem {
     /// value to overwrite the config setting for this caching item.
     case memoryCacheExpiration(StorageExpiration)
     
-    /// The expiration setting for memory cache. By default, the underlying `DiskStorage.Backend` uses the
+    /// The expiration extending setting for memory cache. The item expiration time will be incremented by this
+    /// value after access.
+    /// By default, the underlying `MemoryStorage.Backend` uses the initial cache expiration as extending
+    /// value: .cacheTime.
+    ///
+    /// To disable extending option at all add memoryCacheAccessExtendingExpiration(.none) to options.
+    case memoryCacheAccessExtendingExpiration(ExpirationExtending)
+    
+    /// The expiration setting for disk cache. By default, the underlying `DiskStorage.Backend` uses the
     /// expiration in its config for all items. If set, the `DiskStorage.Backend` will use this associated
     /// value to overwrite the config setting for this caching item.
     case diskCacheExpiration(StorageExpiration)
+
+    /// The expiration extending setting for disk cache. The item expiration time will be incremented by this value after access.
+    /// By default, the underlying `DiskStorage.Backend` uses the initial cache expiration as extending value: .cacheTime.
+    /// To disable extending option at all add diskCacheAccessExtendingExpiration(.none) to options.
+    case diskCacheAccessExtendingExpiration(ExpirationExtending)
     
     /// Decides on which queue the image processing should happen. By default, Kingfisher uses a pre-defined serial
     /// queue to process images. Use this option to change this behavior. For example, specify a `.mainCurrentOrAsync`
     /// to let the image be processed in main queue to prevent a possible flickering (but with a possibility of
     /// blocking the UI, especially if the processor needs a lot of time to run).
     case processingQueue(CallbackQueue)
+    
+    /// Enable progressive image loading, Kingfisher will use the `ImageProgressive` of
+    case progressiveJPEG(ImageProgressive)
 }
 
 // Improve performance by parsing the input `KingfisherOptionsInfo` (self) first.
@@ -245,13 +261,18 @@ public struct KingfisherParsedOptionsInfo {
     public var keepCurrentImageWhileLoading = false
     public var onlyLoadFirstFrame = false
     public var cacheOriginalImage = false
-    public var onFailureImage: Optional<Image?> = .none
+    public var onFailureImage: Optional<KFCrossPlatformImage?> = .none
     public var alsoPrefetchToMemory = false
     public var loadDiskFileSynchronously = false
     public var memoryCacheExpiration: StorageExpiration? = nil
+    public var memoryCacheAccessExtendingExpiration: ExpirationExtending = .cacheTime
     public var diskCacheExpiration: StorageExpiration? = nil
+    public var diskCacheAccessExtendingExpiration: ExpirationExtending = .cacheTime
     public var processingQueue: CallbackQueue? = nil
+    public var progressiveJPEG: ImageProgressive? = nil
 
+    var onDataReceived: [DataReceivingSideEffect]? = nil
+    
     public init(_ info: KingfisherOptionsInfo?) {
         guard let info = info else { return }
         for option in info {
@@ -284,8 +305,11 @@ public struct KingfisherParsedOptionsInfo {
             case .loadDiskFileSynchronously: loadDiskFileSynchronously = true
             case .callbackDispatchQueue(let value): callbackQueue = value.map { .dispatch($0) } ?? .mainCurrentOrAsync
             case .memoryCacheExpiration(let expiration): memoryCacheExpiration = expiration
+            case .memoryCacheAccessExtendingExpiration(let expirationExtending): memoryCacheAccessExtendingExpiration = expirationExtending
             case .diskCacheExpiration(let expiration): diskCacheExpiration = expiration
+            case .diskCacheAccessExtendingExpiration(let expirationExtending): diskCacheAccessExtendingExpiration = expirationExtending
             case .processingQueue(let queue): processingQueue = queue
+            case .progressiveJPEG(let value): progressiveJPEG = value
             }
         }
 
@@ -302,5 +326,35 @@ extension KingfisherParsedOptionsInfo {
             duration: 0.0,
             preloadAll: preloadAllAnimationData,
             onlyFirstFrame: onlyLoadFirstFrame)
+    }
+}
+
+protocol DataReceivingSideEffect: AnyObject {
+    var onShouldApply: () -> Bool { get set }
+    func onDataReceived(_ session: URLSession, task: SessionDataTask, data: Data)
+}
+
+class ImageLoadingProgressSideEffect: DataReceivingSideEffect {
+
+    var onShouldApply: () -> Bool = { return true }
+    
+    let block: DownloadProgressBlock
+
+    init(_ block: @escaping DownloadProgressBlock) {
+        self.block = block
+    }
+
+    func onDataReceived(_ session: URLSession, task: SessionDataTask, data: Data) {
+        guard onShouldApply() else { return }
+        guard
+            let expectedContentLength = task.task.response?.expectedContentLength,
+            expectedContentLength != -1 else {
+            return
+        }
+
+        let dataLength = Int64(task.mutableData.count)
+        DispatchQueue.main.async {
+            self.block(dataLength, expectedContentLength)
+        }
     }
 }
