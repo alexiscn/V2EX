@@ -123,6 +123,7 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             self?.nodeDidSelectedHandler?(node)
         }
         let nav = SettingsNavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
     

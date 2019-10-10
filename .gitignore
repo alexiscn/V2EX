@@ -6,6 +6,7 @@
 .DS_Store
 build/
 DerivedData/
+Localizations/.idea/*
 
 ## Various settings
 *.pbxuser

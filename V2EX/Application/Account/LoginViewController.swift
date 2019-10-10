@@ -170,6 +170,7 @@ class LoginViewController: UIViewController {
         
         let url = URL(string: "https://shuifeng.me/v2ex/privacy.html")!
         let controller = SFSafariViewController(url: url)
+        controller.modalPresentationStyle = .fullScreen
         present(controller, animated: true, completion: nil)
     }
     

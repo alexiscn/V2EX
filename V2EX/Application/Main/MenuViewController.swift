@@ -189,6 +189,7 @@ class MenuViewController: UIViewController {
             unreadCountLabel.isHidden = true
         } else {
             let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
+            loginVC.modalPresentationStyle = .fullScreen
             present(loginVC, animated: true, completion: nil)
         }
     }
@@ -199,6 +200,7 @@ class MenuViewController: UIViewController {
             navigationController?.pushViewController(userVC, animated: true)
         } else {
             let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
+            loginVC.modalPresentationStyle = .fullScreen
             present(loginVC, animated: true, completion: nil)
         }
     }
@@ -227,6 +229,7 @@ class MenuViewController: UIViewController {
     @objc private func settingButtonTapped(_ sender: Any) {
         let settingsController = SettingsViewController()
         let nav = SettingsNavigationController(rootViewController: settingsController)
+        nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
     

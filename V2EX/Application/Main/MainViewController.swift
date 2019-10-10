@@ -112,8 +112,11 @@ class MainViewController: UIViewController {
         menuController.selectionChangedHandler = { [weak self] tab in
             self?.updateTab(tab)
         }
-        let menuNav = UISideMenuNavigationController(rootViewController: menuController)
+        let menuNav = SideMenuNavigationController(rootViewController: menuController)
         menuNav.menuWidth = 180.0
+        menuNav.presentationStyle = .viewSlideOut
+        menuNav.blurEffectStyle = nil
+        menuNav.statusBarEndAlpha = 0.0
         menuNav.isNavigationBarHidden = true
         
         let rightMenuController = RightMenuViewController()
@@ -123,18 +126,17 @@ class MainViewController: UIViewController {
             self?.timelineVC?.updateNode(node)
             self?.title = "#\(node.title)"
         }
-        let rightNav = UISideMenuNavigationController(rootViewController: rightMenuController)
+        let rightNav = SideMenuNavigationController(rootViewController: rightMenuController)
+        rightNav.menuWidth = 150
+        rightNav.presentationStyle = .viewSlideOut
+        rightNav.blurEffectStyle = nil
+        rightNav.statusBarEndAlpha = 0.0
         rightNav.isNavigationBarHidden = true
         
-        SideMenuManager.default.menuLeftNavigationController = menuNav
-        SideMenuManager.default.menuRightNavigationController = rightNav
-        SideMenuManager.default.menuAddPanGestureToPresent(toView: self.view)
-        SideMenuManager.default.menuAddScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
-        SideMenuManager.default.menuWidth = 150.0
-        SideMenuManager.default.menuFadeStatusBar = false
-        SideMenuManager.default.menuPresentMode = .viewSlideOut
-        SideMenuManager.default.menuBlurEffectStyle = nil
-        SideMenuManager.default.menuAnimationFadeStrength = 0
+        SideMenuManager.default.leftMenuNavigationController = menuNav
+        SideMenuManager.default.rightMenuNavigationController = rightNav
+        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
+        SideMenuManager.default.addScreenEdgePanGesturesToPresent(toView: self.navigationController!.view)
     }
 
     override func didReceiveMemoryWarning() {
@@ -151,6 +153,7 @@ extension MainViewController {
             navigationController?.pushViewController(newTopicVC, animated: true)
         } else {
             let loginVC = UIStoryboard.main.instantiateViewController(ofType: LoginViewController.self)
+            loginVC.modalPresentationStyle = .fullScreen
             present(loginVC, animated: true, completion: nil)
         }
     }
@@ -164,7 +167,7 @@ extension MainViewController {
     }
     
     @objc private func menuBarButtonItemTapped(_ sender: Any) {
-        if let menuVC = SideMenuManager.default.menuLeftNavigationController {
+        if let menuVC = SideMenuManager.default.leftMenuNavigationController {
             present(menuVC, animated: true, completion: nil)
         }
     }
@@ -175,11 +178,12 @@ extension MainViewController {
             self?.dismiss(animated: true, completion: nil)
         }
         let nav = SettingsNavigationController(rootViewController: searchVC)
+        nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
     }
     
     @objc private func moreBarButtonItemTapped(_ sender: Any) {
-        if let vc = SideMenuManager.default.menuRightNavigationController {
+        if let vc = SideMenuManager.default.rightMenuNavigationController {
             present(vc, animated: true, completion: nil)
         }
     }
