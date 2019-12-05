@@ -21,6 +21,8 @@ class TopicDetailViewCell: UITableViewCell {
     
     var topicButtonHandler: RelayCommand?
     
+    var detailLinkHandler: ((URL) -> Void)?
+    
     var avatarHandler: RelayCommand?
     
     private let avatarButton: UIButton
@@ -165,7 +167,7 @@ class TopicDetailViewCell: UITableViewCell {
         } else {
             nodeButton.isHidden = true
         }
-        webView.loadHTMLString(htmlContent(detail.contentHTML), baseURL: URL(string: "https://www.v2ex.com"))
+        webView.loadHTMLString(htmlContent(detail.contentHTML), baseURL: URL(string: "local://www.v2ex.com"))
     }
     
     func htmlContent(_ contentHTML: String?) -> String {
@@ -244,9 +246,20 @@ extension TopicDetailViewCell: WKNavigationDelegate {
             decisionHandler(.cancel)
             return
         }
-        if let url = navigationAction.request.url, url.absoluteString != "https://www.v2ex.com/" {
-            presentSafariViewController(url: url)
-            decisionHandler(.cancel)
+        if let url = navigationAction.request.url {
+            
+            if url.absoluteString == "local://www.v2ex.com" {
+                decisionHandler(.allow)
+                return
+            }
+            
+            if url.absoluteString.hasPrefix("https://www.v2ex.com") {
+                detailLinkHandler?(url)
+                decisionHandler(.cancel)
+            } else {
+                presentSafariViewController(url: url)
+                decisionHandler(.cancel)
+            }
             return
         }
         decisionHandler(.allow)

@@ -419,6 +419,10 @@ extension TopicDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 let browser = SKPhotoBrowser(photos: [photo], initialPageIndex: 0)
                 self?.present(browser, animated: true, completion: nil)
             }
+            cell.detailLinkHandler = { [weak self] url in
+                let controller = TopicDetailViewController(url: url, title: nil)
+                self?.navigationController?.pushViewController(controller, animated: true)
+            }
             if let detail = detail {
                 cell.update(detail)
             }
