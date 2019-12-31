@@ -10,11 +10,11 @@ import UIKit
 
 class UserProfileHeaderView: UIView {
     
-    let avatarImageView: UIImageView
+    private let avatarImageView: UIImageView
     
-    let usernameLabel: UILabel
+    private let usernameLabel: UILabel
     
-    let infoLabel: UILabel
+    private let infoLabel: UILabel
     
     override init(frame: CGRect) {
         
@@ -24,11 +24,11 @@ class UserProfileHeaderView: UIView {
         
         usernameLabel = UILabel()
         usernameLabel.textColor = Theme.current.titleColor
-        usernameLabel.font = AppContext.current.font.titleFont
+        usernameLabel.font = UIFont.systemFont(ofSize: 15.0)
         
         infoLabel = UILabel()
         infoLabel.textColor = Theme.current.subTitleColor
-        infoLabel.font = AppContext.current.font.subTitleFont
+        infoLabel.font = UIFont.systemFont(ofSize: 12.0)
         infoLabel.numberOfLines = 0
         infoLabel.textAlignment = .center
         

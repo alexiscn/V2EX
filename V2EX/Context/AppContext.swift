@@ -16,8 +16,6 @@ class AppContext {
     
     var isLogined: Bool { return account != nil }
     
-    var font: AppFont = NormalFonts()
-    
     private init() {
         
     }

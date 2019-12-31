@@ -45,19 +45,19 @@ class TimelineViewCell: UITableViewCell {
         
         usernameLabel = UILabel()
         usernameLabel.textColor = Theme.current.subTitleColor
-        usernameLabel.font = AppContext.current.font.subTitleFont //UIFont.systemFont(ofSize: 12)
+        usernameLabel.font = UIFont.systemFont(ofSize: 12)
         
         titleLabel = UILabel()
-        titleLabel.font = AppContext.current.font.titleFont
+        titleLabel.font = UIFont.systemFont(ofSize: 15.0)
         titleLabel.numberOfLines = 0
         titleLabel.textColor = Theme.current.titleColor
         
         timeLabel = UILabel()
-        timeLabel.font = AppContext.current.font.subTitleFont
+        timeLabel.font = UIFont.systemFont(ofSize: 12.0)
         timeLabel.textColor = Theme.current.subTitleColor
         
         nodeButton = UIButton(type: .system)
-        nodeButton.titleLabel?.font = AppContext.current.font.subTitleFont
+        nodeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
         nodeButton.setTitleColor(Theme.current.titleColor, for: .normal)
         nodeButton.backgroundColor = Theme.current.backgroundColor
         nodeButton.contentEdgeInsets = UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5)
@@ -66,7 +66,7 @@ class TimelineViewCell: UITableViewCell {
         
         commentCountLabel = UILabel()
         commentCountLabel.textColor = Theme.current.subTitleColor
-        commentCountLabel.font = AppContext.current.font.subTitleFont
+        commentCountLabel.font = UIFont.systemFont(ofSize: 12.0)
         
         backgroundColorView = UIView()
         backgroundColorView.backgroundColor = Theme.current.cellHighlightColor
@@ -204,7 +204,7 @@ class TimelineViewCell: UITableViewCell {
         }
         if let title = topic.title {
             let maxSize = CGSize(width: width, height: CGFloat.infinity)
-            let font = AppContext.current.font.titleFont
+            let font = UIFont.systemFont(ofSize: 15.0)
             let rect = title.boundingRectWithSize(maxSize, attributes: [.font: font as Any])
             let height = 10 + rect.height + 10 + 30
             topic._rowHeight = height

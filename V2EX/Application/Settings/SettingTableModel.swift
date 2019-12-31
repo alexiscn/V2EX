@@ -10,9 +10,9 @@ import Foundation
 
 class SettingTableSectionModel {
     
-    var title: String?
+    private(set) var title: String?
     
-    var items: [SettingTableModel]
+    private(set) var items: [SettingTableModel]
     
     init(title: String?, items: [SettingTableModel]) {
         self.title = title
