@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import GenericNetworking
 import Alamofire
 
 // https://sm.ms/doc/
@@ -20,26 +19,20 @@ extension V2SDK {
     class func upload(data: Data, mimeType: MIMEType, completion: @escaping (MSUploadResponse?, Error?) -> Void) {
         let url = "https://sm.ms/api/upload"
         let filename = UUID().uuidString
-        Alamofire.upload(multipartFormData: { (multiformdata) in
+        
+        AF.upload(multipartFormData: { (multiformdata) in
             multiformdata.append(data, withName: "smfile", fileName: filename, mimeType: mimeType.rawValue)
-        }, to: url) { (encodingResult) in
-            switch encodingResult {
-            case .failure(let error):
-                print(error)
-            case .success(let request, _, _):
-                request.responseData { dataResponse in
-                    if let resData = dataResponse.data {
-                        do {
-                           let json = try JSONDecoder().decode(MSUploadResponse.self, from: resData)
-                            completion(json, nil)
-                        } catch {
-                            completion(nil, NSError(domain: "v2ex", code: 1002, userInfo: [NSLocalizedDescriptionKey: "JSON Decoder Error"]))
-                            print(error)
-                        }
-                    } else {
-                        completion(nil, dataResponse.error)
-                    }
+        }, to: url).responseDecodable(of: MSUploadResponse.self) { response in
+            if let resData = response.data {
+                do {
+                   let json = try JSONDecoder().decode(MSUploadResponse.self, from: resData)
+                    completion(json, nil)
+                } catch {
+                    completion(nil, NSError(domain: "v2ex", code: 1002, userInfo: [NSLocalizedDescriptionKey: "JSON Decoder Error"]))
+                    print(error)
                 }
+            } else {
+                completion(nil, response.error)
             }
         }
     }

@@ -37,7 +37,7 @@ extension EndPoint: URLRequestConvertible {
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         var urlRequest = try URLEncoding().encode(request, with: parameters)
-        urlRequest.allHTTPHeaderFields = headers
+        urlRequest.allHTTPHeaderFields = headers?.dictionary
         return urlRequest
     }
 }
@@ -94,7 +94,7 @@ extension EndPoint {
         params[formData.password] = password
         params[formData.captcha] = captcha
         
-        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        var headers = HTTPHeaders()
         headers["Referer"] = V2SDK.baseURLString + path
         headers["User-Agent"] = UserAgents.phone
         
@@ -114,7 +114,7 @@ extension EndPoint {
     static func dailyMission(once: String) -> EndPoint {
         let path = "/mission/daily/redeem?once=" + once
         
-        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        var headers = HTTPHeaders()
         headers["Referer"] = V2SDK.baseURLString + "/mission/daily"
         headers["User-Agent"] = UserAgents.phone
         
@@ -177,7 +177,7 @@ extension EndPoint {
         params["content"] = content
         params["once"] = once
         
-        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        var headers = HTTPHeaders()
         headers["User-Agent"] = UserAgents.phone
         headers["Referer"] = V2SDK.baseURLString + path
         headers["Origin"] = V2SDK.baseURLString
@@ -187,7 +187,7 @@ extension EndPoint {
     
     static func createTopicOnce(_ nodename: String) -> EndPoint {
         let path = "/new/" + nodename
-        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        var headers = HTTPHeaders()
         headers["Referer"] = V2SDK.baseURLString + path
         headers["User-Agent"] = UserAgents.phone
         return EndPoint(path: path, method: .post, parameters: nil, headers: headers)
@@ -200,7 +200,7 @@ extension EndPoint {
         params["topic_content"] = body ?? ""
         params["once"] = once
         
-        var headers = Alamofire.SessionManager.defaultHTTPHeaders
+        var headers = HTTPHeaders()
         headers["Referer"] = V2SDK.baseURLString + path
         headers["User-Agent"] = UserAgents.phone
         

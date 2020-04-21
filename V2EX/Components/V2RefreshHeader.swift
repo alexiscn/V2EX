@@ -13,10 +13,9 @@ class V2RefreshHeader: MJRefreshNormalHeader {
     
     override func prepare() {
         super.prepare()
-        
-        activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
-        stateLabel.isHidden = true
-        stateLabel.textColor = Theme.current.subTitleColor
-        lastUpdatedTimeLabel.isHidden = true
+        loadingView?.style = Theme.current.activityIndicatorViewStyle
+        stateLabel?.isHidden = true
+        stateLabel?.textColor = Theme.current.subTitleColor
+        lastUpdatedTimeLabel?.isHidden = true
     }
 }

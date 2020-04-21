@@ -123,6 +123,7 @@ extension KingfisherWrapper where Base: KFCrossPlatformImageView {
         let task = KingfisherManager.shared.retrieveImage(
             with: source,
             options: options,
+            downloadTaskUpdated: { mutatingSelf.imageTask = $0 },
             completionHandler: { result in
                 CallbackQueue.mainCurrentOrAsync.execute {
                     maybeIndicator?.stopAnimatingView()
@@ -201,7 +202,7 @@ extension KingfisherWrapper where Base: KFCrossPlatformImageView {
         completionHandler: ((Result<RetrieveImageResult, KingfisherError>) -> Void)? = nil) -> DownloadTask?
     {
         return setImage(
-            with: resource.map { .network($0) },
+            with: resource?.convertToSource(),
             placeholder: placeholder,
             options: options,
             progressBlock: progressBlock,
@@ -302,8 +303,6 @@ extension KingfisherWrapper where Base: KFCrossPlatformImageView {
     public private(set) var taskIdentifier: Source.Identifier.Value? {
         get {
             let box: Box<Source.Identifier.Value>? = getAssociatedObject(base, &taskIdentifierKey)
-            defer { objc_sync_exit(self) }
-            objc_sync_enter(self)
             return box?.value
         }
         set {
@@ -357,6 +356,17 @@ extension KingfisherWrapper where Base: KFCrossPlatformImageView {
                     equalTo: base.centerXAnchor, constant: newIndicator.centerOffset.x).isActive = true
                 view.centerYAnchor.constraint(
                     equalTo: base.centerYAnchor, constant: newIndicator.centerOffset.y).isActive = true
+
+                switch newIndicator.sizeStrategy(in: base) {
+                case .intrinsicSize:
+                    break
+                case .full:
+                    view.heightAnchor.constraint(equalTo: base.heightAnchor, constant: 0).isActive = true
+                    view.widthAnchor.constraint(equalTo: base.widthAnchor, constant: 0).isActive = true
+                case .size(let size):
+                    view.heightAnchor.constraint(equalToConstant: size.height).isActive = true
+                    view.widthAnchor.constraint(equalToConstant: size.width).isActive = true
+                }
                 
                 newIndicator.view.isHidden = true
             }
@@ -393,8 +403,8 @@ extension KingfisherWrapper where Base: KFCrossPlatformImageView {
 }
 
 
-@objc extension KFCrossPlatformImageView {
-    func shouldPreloadAllAnimation() -> Bool { return true }
+extension KFCrossPlatformImageView {
+    @objc func shouldPreloadAllAnimation() -> Bool { return true }
 }
 
 extension KingfisherWrapper where Base: KFCrossPlatformImageView {

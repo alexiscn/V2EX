@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var tabViewController: UITabBarController!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        V2SDK.setup()
         AppContext.current.setup()
         Fabric.with([Crashlytics.self])
         

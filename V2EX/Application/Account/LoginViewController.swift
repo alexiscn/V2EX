@@ -75,7 +75,7 @@ class LoginViewController: UIViewController {
             case .success(let formData):
                 self?.loginForm = formData
                 let url = V2SDK.captchaURL(once: formData.once)
-                Alamofire.request(url).responseData(completionHandler: { dataResponse in
+                AF.request(url).responseData(completionHandler: { dataResponse in
                     if let data = dataResponse.data {
                         let img = UIImage(data: data)
                         self?.captchaButton.setImage(img, for: .normal)

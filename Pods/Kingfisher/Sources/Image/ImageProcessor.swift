@@ -262,7 +262,7 @@ public struct BlendImageProcessor: ImageProcessor {
             return image.kf.scaled(to: options.scaleFactor)
                         .kf.image(withBlendMode: blendMode, alpha: alpha, backgroundColor: backgroundColor)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -324,7 +324,7 @@ public struct CompositingImageProcessor: ImageProcessor {
                             alpha: alpha,
                             backgroundColor: backgroundColor)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -333,12 +333,15 @@ public struct CompositingImageProcessor: ImageProcessor {
 /// Processor for making round corner images. Only CG-based images are supported in macOS, 
 /// if a non-CG image passed in, the processor will do nothing.
 ///
-/// Note: The input image will be rendered with round corner pixels removed. If the image itself does not contain
+/// - Note: The input image will be rendered with round corner pixels removed. If the image itself does not contain
 /// alpha channel (for example, a JPEG image), the processed image will contain an alpha channel in memory in order
-/// to show correctly. However, when cached into disk, the image format will be respected and the alpha channel will
-/// be removed. That means when you load the processed image from cache again, you will lose transparent corner.
+/// to show correctly. However, when cached to disk, Kingfisher respects the original image format by default. That
+/// means the alpha channel will be removed for these images. When you load the processed image from cache again, you
+/// will lose transparent corner.
+///
 /// You could use `FormatIndicatedCacheSerializer.png` to force Kingfisher to serialize the image to PNG format in this
 /// case.
+///
 public struct RoundCornerImageProcessor: ImageProcessor {
     
     /// Identifier of the processor.
@@ -414,7 +417,7 @@ public struct RoundCornerImageProcessor: ImageProcessor {
                             roundingCorners: roundingCorners,
                             backgroundColor: backgroundColor)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -494,7 +497,7 @@ public struct ResizingImageProcessor: ImageProcessor {
             return image.kf.scaled(to: options.scaleFactor)
                         .kf.resize(to: referenceSize, for: targetContentMode)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -533,7 +536,7 @@ public struct BlurImageProcessor: ImageProcessor {
             return image.kf.scaled(to: options.scaleFactor)
                         .kf.blurred(withRadius: radius)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -576,7 +579,7 @@ public struct OverlayImageProcessor: ImageProcessor {
             return image.kf.scaled(to: options.scaleFactor)
                         .kf.overlaying(with: overlay, fraction: fraction)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -613,7 +616,7 @@ public struct TintImageProcessor: ImageProcessor {
             return image.kf.scaled(to: options.scaleFactor)
                         .kf.tinted(with: tint)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -667,7 +670,7 @@ public struct ColorControlsProcessor: ImageProcessor {
             return image.kf.scaled(to: options.scaleFactor)
                         .kf.adjusted(brightness: brightness, contrast: contrast, saturation: saturation, inputEV: inputEV)
         case .data:
-            return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+            return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -752,7 +755,7 @@ public struct CroppingImageProcessor: ImageProcessor {
         case .image(let image):
             return image.kf.scaled(to: options.scaleFactor)
                         .kf.crop(to: size, anchorOn: anchor)
-        case .data: return (DefaultImageProcessor.default >> self).process(item: item, options: options)
+        case .data: return (DefaultImageProcessor.default |> self).process(item: item, options: options)
         }
     }
 }
@@ -808,7 +811,15 @@ public struct DownsamplingImageProcessor: ImageProcessor {
 ///   - left: The first processor.
 ///   - right: The second processor.
 /// - Returns: The concatenated processor.
+@available(*, deprecated,
+message: "Will be removed soon. Use `|>` instead.",
+renamed: "|>")
 public func >>(left: ImageProcessor, right: ImageProcessor) -> ImageProcessor {
+    return left.append(another: right)
+}
+
+infix operator |>: AdditionPrecedence
+public func |>(left: ImageProcessor, right: ImageProcessor) -> ImageProcessor {
     return left.append(another: right)
 }
 

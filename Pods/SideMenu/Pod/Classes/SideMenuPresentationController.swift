@@ -32,7 +32,6 @@ internal final class SideMenuPresentationController {
     private var interactivePopGestureRecognizerEnabled: Bool?
     private var clipsToBounds: Bool?
     private let leftSide: Bool
-    private weak var originalSuperview: UIView?
     private unowned var presentedViewController: UIViewController
     private unowned var presentingViewController: UIViewController
 
@@ -73,37 +72,19 @@ internal final class SideMenuPresentationController {
         dismissalTransitionDidEnd(true)
     }
     
-    var frameOfPresentedViewInContainerView: CGRect {
-        var rect = containerView.frame
-        rect.origin.x = leftSide ? 0 : rect.width - config.menuWidth
-        rect.size.width = config.menuWidth
-        return rect
-    }
-    
     func containerViewWillLayoutSubviews() {
         presentedViewController.view.untransform {
             presentedViewController.view.frame = frameOfPresentedViewInContainerView
         }
         presentingViewController.view.untransform {
-            presentingViewController.view.frame = containerView.frame
-            snapshotView?.frame = containerView.frame
+            presentingViewController.view.frame = frameOfPresentingViewInContainerView
+            snapshotView?.frame = presentingViewController.view.bounds
         }
 
         guard let statusBarView = statusBarView else { return }
-        let statusBarOffset = containerView.frame.size.height - presentedViewController.view.bounds.height
-        var statusBarFrame: CGRect
-        if #available(iOS 13.0, *) {
-            statusBarFrame = containerView.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
-        } else {
-            statusBarFrame = UIApplication.shared.statusBarFrame
-        }
 
-        // For in-call status bar, height is normally 40, which overlaps view. Instead, calculate height difference
-        // of view and set height to fill in remaining space.
-        if statusBarOffset >= CGFloat.ulpOfOne {
-            statusBarFrame.size.height = statusBarOffset
-        }
-
+        var statusBarFrame: CGRect = self.statusBarFrame
+        statusBarFrame.size.height -= containerView.frame.minY
         statusBarView.frame = statusBarFrame
     }
     
@@ -114,10 +95,6 @@ internal final class SideMenuPresentationController {
 
         presentingViewController.view.isUserInteractionEnabled = config.presentingViewControllerUserInteractionEnabled
         containerView.backgroundColor = config.presentationStyle.backgroundColor
-
-        originalSuperview = presentingViewController.view.superview
-        containerView.addSubview(presentingViewController.view)
-        containerView.addSubview(presentedViewController.view)
         
         layerViews()
 
@@ -189,7 +166,6 @@ internal final class SideMenuPresentationController {
         }
 
         statusBarView?.removeFromSuperview()
-        presentedViewController.view.removeFromSuperview()
 
         removeStyles(from: presentingViewController.containerViewController.view)
         
@@ -198,13 +174,37 @@ internal final class SideMenuPresentationController {
             topNavigationController.interactivePopGestureRecognizer?.isEnabled = interactivePopGestureRecognizerEnabled
         }
 
-        originalSuperview?.addSubview(presentingViewController.view)
         presentingViewController.view.isUserInteractionEnabled = true
         config.presentationStyle.dismissalTransitionDidEnd(to: presentedViewController, from: presentingViewController, completed)
     }
 }
 
 private extension SideMenuPresentationController {
+
+    var statusBarFrame: CGRect {
+        if #available(iOS 13.0, *) {
+            return containerView.window?.windowScene?.statusBarManager?.statusBarFrame ?? .zero
+        } else {
+            return UIApplication.shared.statusBarFrame
+        }
+    }
+
+    var frameOfPresentedViewInContainerView: CGRect {
+        var rect = containerView.bounds
+        rect.origin.x = leftSide ? 0 : rect.width - config.menuWidth
+        rect.size.width = config.menuWidth
+        return rect
+    }
+
+    var frameOfPresentingViewInContainerView: CGRect {
+        var rect = containerView.frame
+        if containerView.superview != nil, containerView.frame.minY > .ulpOfOne {
+            let statusBarOffset = statusBarFrame.height - rect.minY
+            rect.origin.y = statusBarOffset
+            rect.size.height -= statusBarOffset
+        }
+        return rect
+    }
 
     func transition(to: UIViewController, from: UIViewController, alpha: CGFloat, statusBarAlpha: CGFloat, scale: CGFloat, translate: CGFloat) {
         containerViewWillLayoutSubviews()

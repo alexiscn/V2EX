@@ -14,11 +14,11 @@ class V2RefreshFooter: MJRefreshAutoNormalFooter {
     override func prepare() {
         super.prepare()
         
-        stateLabel.isHidden = true
-        stateLabel.textColor = Theme.current.subTitleColor
+        stateLabel?.isHidden = true
+        stateLabel?.textColor = Theme.current.subTitleColor
         setTitle(Strings.NoMoreData, for: .noMoreData)
         isRefreshingTitleHidden = true
         triggerAutomaticallyRefreshPercent = 0.8
-        activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
+        loadingView?.style = Theme.current.activityIndicatorViewStyle
     }
 }

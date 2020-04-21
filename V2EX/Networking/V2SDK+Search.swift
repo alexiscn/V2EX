@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import GenericNetworking
+import Alamofire
 
 //https://github.com/bynil/sov2ex/blob/master/API.md
 extension V2SDK {
@@ -17,7 +17,7 @@ extension V2SDK {
     ///   - from: 与第一个结果的偏移量（默认 0），比如 0, 10, 20
     ///   - options: 搜索选项
     ///   - completion: 请求回调
-    public class func search(key: String, from: Int = 0, options: SearchOptions = SearchOptions.default, completion: @escaping GenericNetworkingCompletion<SearchResponse>) {
+    public class func search(key: String, from: Int = 0, options: SearchOptions = SearchOptions.default, completion: @escaping ((Result<SearchResponse, Error>) -> Void)) {
         var params: [String: Any] = [:]
         params["q"] = key
         params["size"] = options.size
@@ -26,7 +26,20 @@ extension V2SDK {
         if let node = options.node {
             params["node"] = node
         }
-        GenericNetworking.getJSON(URLString: "https://www.sov2ex.com/api/search", parameters: params, headers: nil, completion: completion)
+        
+        AF.request(URL(string: "https://www.sov2ex.com/api/search")!, parameters: params).responseJSON { response in
+            if let data = response.data {
+                do {
+                    let result = try JSONDecoder().decode(SearchResponse.self, from: data)
+                    completion(.success(result))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else {
+                let error: Error = response.error ?? NSError(domain: "me.shuifeng.v2ex", code: 404, userInfo: nil)
+                completion(.failure(error))
+            }
+        }
     }
 }
 

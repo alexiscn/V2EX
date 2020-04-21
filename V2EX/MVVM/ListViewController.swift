@@ -31,7 +31,7 @@ class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegat
         view.backgroundColor = Theme.current.backgroundColor
         title = viewModel.title
         setupTableView()
-        tableView.mj_header.beginRefreshing()
+        tableView.mj_header?.beginRefreshing()
     }
     
     fileprivate func setupTableView() {
@@ -56,14 +56,14 @@ class ListViewController<T: ListViewModel>: UIViewController, UITableViewDelegat
         
         viewModel.loadData(isLoadMore: isLoadMore) { [weak self] (info) in
             if info.isLoadMore {
-                self?.tableView.mj_footer.endRefreshing()
+                self?.tableView.mj_footer?.endRefreshing()
             } else {
-                self?.tableView.mj_header.endRefreshing()
+                self?.tableView.mj_header?.endRefreshing()
             }
             if info.canLoadMore {
-                 self?.tableView.mj_footer.resetNoMoreData()
+                 self?.tableView.mj_footer?.resetNoMoreData()
             } else {
-               self?.tableView.mj_footer.endRefreshingWithNoMoreData()
+               self?.tableView.mj_footer?.endRefreshingWithNoMoreData()
             }
             self?.tableView.reloadData()
         }

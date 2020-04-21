@@ -100,7 +100,7 @@ class TopicDetailViewController: UIViewController {
         V2SDK.request(endPoint, parser: TopicDetailParser.self) { [weak self] (response: V2Response<TopicDetail>) in
             guard let strongSelf = self else { return }
             strongSelf.loadingIndicator.stopAnimating()
-            strongSelf.tableView.mj_header.endRefreshing()
+            strongSelf.tableView.mj_header?.endRefreshing()
             switch response {
             case .success(let detail):
                 if !strongSelf.webViewHeightCaculated {
@@ -167,7 +167,7 @@ class TopicDetailViewController: UIViewController {
                     if strongSelf.currentPage == detail.page {
                         strongSelf.setNoMoreData()
                     } else {
-                        strongSelf.tableView.mj_footer.endRefreshing()
+                        strongSelf.tableView.mj_footer?.endRefreshing()
                     }
                 case .desc:
                     strongSelf.allComments.append(contentsOf: replies.reversed())
@@ -176,11 +176,11 @@ class TopicDetailViewController: UIViewController {
                     if strongSelf.currentPage == 1 {
                         strongSelf.setNoMoreData()
                     } else {
-                        strongSelf.tableView.mj_footer.endRefreshing()
+                        strongSelf.tableView.mj_footer?.endRefreshing()
                     }
                 }
             case .error(let error):
-                strongSelf.tableView.mj_footer.endRefreshing()
+                strongSelf.tableView.mj_footer?.endRefreshing()
                 HUD.show(message: error.description)
             }
         }
@@ -189,7 +189,7 @@ class TopicDetailViewController: UIViewController {
     private func setNoMoreData() {
         if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
             footer.endRefreshingWithNoMoreData()
-            footer.stateLabel.isHidden = false
+            footer.stateLabel?.isHidden = false
         }
     }
     
@@ -232,7 +232,7 @@ class TopicDetailViewController: UIViewController {
                         if strongSelf.currentPage == detail.page {
                             strongSelf.setNoMoreData()
                         } else {
-                            strongSelf.tableView.mj_footer.endRefreshing()
+                            strongSelf.tableView.mj_footer?.endRefreshing()
                         }
                     case .desc:
                         strongSelf.allComments = replies.reversed()
@@ -241,12 +241,12 @@ class TopicDetailViewController: UIViewController {
                         if strongSelf.currentPage == 1 {
                             strongSelf.setNoMoreData()
                         } else {
-                            strongSelf.tableView.mj_footer.endRefreshing()
+                            strongSelf.tableView.mj_footer?.endRefreshing()
                         }
                     }
                     strongSelf.detailCell?.order = strongSelf.order
                 case .error(let error):
-                    strongSelf.tableView.mj_footer.endRefreshing()
+                    strongSelf.tableView.mj_footer?.endRefreshing()
                     HUD.show(message: error.description)
                 }
             }

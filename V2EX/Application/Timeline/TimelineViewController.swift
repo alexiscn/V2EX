@@ -46,12 +46,12 @@ class TimelineViewController: UIViewController {
     func updateTheme() {
         view.backgroundColor = Theme.current.backgroundColor
         if let header = tableView.mj_header as? MJRefreshNormalHeader {
-            header.stateLabel.textColor = Theme.current.subTitleColor
-            header.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
+            header.stateLabel?.textColor = Theme.current.subTitleColor
+            header.loadingView?.style = Theme.current.activityIndicatorViewStyle
         }
         if let footer = tableView.mj_footer as? MJRefreshAutoNormalFooter {
-            footer.stateLabel.textColor = Theme.current.subTitleColor
-            footer.activityIndicatorViewStyle = Theme.current.activityIndicatorViewStyle
+            footer.stateLabel?.textColor = Theme.current.subTitleColor
+            footer.loadingView?.style = Theme.current.activityIndicatorViewStyle
         }
     }
     
@@ -88,7 +88,7 @@ class TimelineViewController: UIViewController {
 
     private func refresh(){
         if tableView != nil {
-            tableView.mj_header.beginRefreshing()
+            tableView.mj_header?.beginRefreshing()
         }
     }
 
@@ -169,8 +169,8 @@ extension TimelineViewController: TimelineViewModelDelegate {
     }
     
     func endRefreshing() {
-        tableView.mj_header.endRefreshing()
-        tableView.mj_footer.endRefreshing()
+        tableView.mj_header?.endRefreshing()
+        tableView.mj_footer?.endRefreshing()
     }
     
     func setNoMoreData() {
@@ -181,11 +181,11 @@ extension TimelineViewController: TimelineViewModelDelegate {
                 footer.setTitle(Strings.NoMoreData, for: .noMoreData)
             }
             footer.endRefreshingWithNoMoreData()
-            footer.stateLabel.isHidden = false
+            footer.stateLabel?.isHidden = false
         }
     }
     
     func resetNoMoreData() {
-        tableView.mj_footer.resetNoMoreData()
+        tableView.mj_footer?.resetNoMoreData()
     }
 }

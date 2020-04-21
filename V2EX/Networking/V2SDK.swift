@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import GenericNetworking
 import Alamofire
 import SwiftSoup
 
@@ -57,10 +56,6 @@ class V2SDK {
     
     static var once: String? = nil
     
-    class func setup() {
-        GenericNetworking.baseURLString = baseURLString
-    }
-    
     class func captchaURL(once: String) -> URL {
         let urlString = baseURLString + "/_captcha?once=" + once
         return URL(string: urlString)!
@@ -68,7 +63,7 @@ class V2SDK {
     
     @discardableResult
     class func request<T>(_ endPoint: EndPoint, parser: HTMLParser.Type, completion: @escaping RequestCompletionHandler<T>) -> DataRequest {
-        let dataRequest = Alamofire.request(endPoint)
+        let dataRequest = AF.request(endPoint)
         dataRequest.responseString { response in
             guard let html = response.value else {
                 completion(V2Response.error(.serverNotFound))
@@ -102,7 +97,7 @@ class V2SDK {
     
     @discardableResult
     class func request(url: URL, completion: @escaping RequestCompletionHandler<OperationResponse>) -> DataRequest {
-        let dataRequest = Alamofire.request(url)
+        let dataRequest = AF.request(url)
         dataRequest.responseString { response in
             guard response.value != nil else {
                 completion(V2Response.error(.serverNotFound))
@@ -116,11 +111,6 @@ class V2SDK {
             completion(V2Response.success(OperationResponse()))
         }
         return dataRequest
-    }
-    
-    public class func getAllNodes(completion: @escaping GenericNetworkingCompletion<Int>) {
-        let path = "/api/nodes/all.json"
-        GenericNetworking.getJSON(path: path, completion: completion)
     }
     
     public class func dailyMission() {

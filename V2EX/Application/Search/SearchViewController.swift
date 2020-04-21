@@ -121,8 +121,8 @@ class SearchViewController: UIViewController {
     private func doSearch(isLoadMore: Bool = false) {
         let keyword = searchInputView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         guard keyword.count > 0 else {
-            tableView.mj_header.endRefreshing()
-            tableView.mj_footer.endRefreshing()
+            tableView.mj_header?.endRefreshing()
+            tableView.mj_footer?.endRefreshing()
             return
         }
         searchInputView.resignFirstResponder()
@@ -131,9 +131,9 @@ class SearchViewController: UIViewController {
         options.sort = currentSort
         V2SDK.search(key: keyword, from: from, options: options) { [weak self] response in
             if isLoadMore {
-                self?.tableView.mj_footer.endRefreshing()
+                self?.tableView.mj_footer?.endRefreshing()
             } else {
-                self?.tableView.mj_header.endRefreshing()
+                self?.tableView.mj_header?.endRefreshing()
             }
             switch response {
             case .success(let searchRes):
@@ -145,7 +145,7 @@ class SearchViewController: UIViewController {
                     self?.dataSource = searchRes.hits
                 }
                 self?.tableView.reloadData()
-            case .error(let error):
+            case .failure(let error):
                 HUD.show(message: error.localizedDescription)
             }
         }

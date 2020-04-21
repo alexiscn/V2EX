@@ -30,9 +30,9 @@ internal extension UIView {
         }
     }
 
-    static func animationsEnabled(_ block: () -> Void) {
+    static func animationsEnabled(_ enabled: Bool = true, _ block: () -> Void) {
         let a = areAnimationsEnabled
-        setAnimationsEnabled(true)
+        setAnimationsEnabled(enabled)
         block()
         setAnimationsEnabled(a)
     }
@@ -75,8 +75,7 @@ internal extension UIViewController {
 internal extension UIGestureRecognizer {
 
     convenience init(addTo view: UIView, target: Any, action: Selector) {
-        self.init()
-        addTarget(target, action: action)
+        self.init(target: target, action: action)
         view.addGestureRecognizer(self)
     }
 
