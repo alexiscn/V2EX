@@ -32,6 +32,7 @@ class NewTopicViewController: UIViewController {
         title = Strings.TopicCreateNewTopic
         setupNavigationBar()
         setupSubviews()
+        configureConstraints()
         checkButtonEnable()
     }
     

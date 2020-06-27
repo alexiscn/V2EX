@@ -228,8 +228,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         switch item.value {
         case .actionCommand(let action):
             action?()
-        case .switchButton(let value):
-            print(value)
+        case .switchButton(let value, let value2):
+            print("value:\(value), value2:\(value2)")
         }
     }
     
