@@ -38,22 +38,26 @@ class UserProfileHeaderView: UIView {
         addSubview(usernameLabel)
         addSubview(infoLabel)
 
-        avatarImageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.height.width.equalTo(80)
-            make.top.equalToSuperview()
-        }
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarImageView.widthAnchor.constraint(equalToConstant: 80),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 80),
+            avatarImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor)
+        ])
         
-        usernameLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(avatarImageView.snp.bottom).offset(10)
-        }
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            usernameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            usernameLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 10)
+        ])
         
-        infoLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(50)
-            make.trailing.equalToSuperview().offset(-50)
-            make.top.equalTo(usernameLabel.snp.bottom).offset(3)
-        }
+        infoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            infoLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 50),
+            infoLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -50),
+            infoLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 3)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

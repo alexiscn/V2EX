@@ -53,12 +53,14 @@ class AllNodesViewController: UIViewController {
         tableView.sectionIndexTrackingBackgroundColor = Theme.current.backgroundColor
         
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
     }
     
     private func loadAllNodes() {

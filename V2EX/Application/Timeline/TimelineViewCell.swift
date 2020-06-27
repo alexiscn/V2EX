@@ -83,53 +83,10 @@ class TimelineViewCell: UITableViewCell {
         containerView.addSubview(nodeButton)
         containerView.addSubview(commentImageView)
         containerView.addSubview(commentCountLabel)
-    
-        containerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(3)
-            make.bottom.equalToSuperview().offset(-3)
-        }
         
-        avatarButton.snp.makeConstraints { make in
-            make.height.width.equalTo(40)
-            make.leading.equalToSuperview().offset(10)
-            make.top.equalToSuperview().offset(10)
-        }
-        
-        let titleLeading: CGFloat = AppSettings.shared.displayAvatar ? 60: 10
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(titleLeading)
-            make.trailing.equalToSuperview().offset(-10)
-            make.top.equalToSuperview().offset(10)
-        }
-        
-        timeLabel.snp.makeConstraints { make in
-            make.leading.equalTo(titleLabel.snp.leading).offset(-3)
-            make.top.equalTo(titleLabel.snp.bottom).offset(10)
-        }
-        
-        usernameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(timeLabel.snp.trailing).offset(5)
-            make.centerY.equalTo(nodeButton)
-        }
-        
-        commentImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(12)
-            make.centerY.equalTo(timeLabel)
-            make.leading.equalTo(usernameLabel.snp.trailing).offset(10)
-        }
-        
-        commentCountLabel.snp.makeConstraints { make in
-            make.leading.equalTo(commentImageView.snp.trailing).offset(5)
-            make.centerY.equalTo(timeLabel)
-        }
-        
-        nodeButton.snp.makeConstraints { make in
-            make.height.equalTo(18)
-            make.trailing.equalToSuperview().offset(-10)
-            make.centerY.equalTo(timeLabel)
-        }
         selectedBackgroundView = backgroundColorView
+        
+        configureConstraints()
         
         nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
         avatarButton.addTarget(self, action: #selector(handleAvatarTapped(_:)), for: .touchUpInside)
@@ -137,14 +94,6 @@ class TimelineViewCell: UITableViewCell {
         ThemeManager.shared.observeThemeUpdated { [weak self] _ in
             self?.updateTheme()
         }
-    }
-    
-    @objc private func handleAvatarTapped(_ sender: Any) {
-        avatarHandler?()
-    }
-    
-    @objc private func handleNodeButtonTapped(_ sender: Any) {
-        nodeHandler?()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -213,6 +162,82 @@ class TimelineViewCell: UITableViewCell {
         return 80
     }
     
+}
+
+// MARK: - Constraints
+extension TimelineViewCell {
+ 
+    private func configureConstraints() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 3),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3)
+        ])
+        
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarButton.widthAnchor.constraint(equalToConstant: 40),
+            avatarButton.heightAnchor.constraint(equalToConstant: 40),
+            avatarButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            avatarButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10)
+        ])
+        
+        let titleLeading: CGFloat = AppSettings.shared.displayAvatar ? 60: 10
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: titleLeading),
+            titleLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10),
+            titleLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 10)
+        ])
+        
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor, constant: -3),
+            timeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10)
+        ])
+        
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            usernameLabel.leadingAnchor.constraint(equalTo: timeLabel.trailingAnchor, constant: 5),
+            usernameLabel.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor)
+        ])
+        
+        commentImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            commentImageView.heightAnchor.constraint(equalToConstant: 12),
+            commentImageView.widthAnchor.constraint(equalToConstant: 12),
+            commentImageView.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
+            commentImageView.leadingAnchor.constraint(equalTo: usernameLabel.trailingAnchor, constant: 10)
+        ])
+        
+        commentCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            commentCountLabel.leadingAnchor.constraint(equalTo: commentImageView.trailingAnchor, constant: 5),
+            commentCountLabel.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor)
+        ])
+        
+        nodeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nodeButton.heightAnchor.constraint(equalToConstant: 18),
+            nodeButton.centerYAnchor.constraint(equalTo: timeLabel.centerYAnchor),
+            nodeButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
+        ])
+    }
+    
+}
+
+// MARK: - Events
+extension TimelineViewCell {
+    
+    @objc private func handleAvatarTapped(_ sender: Any) {
+        avatarHandler?()
+    }
+    
+    @objc private func handleNodeButtonTapped(_ sender: Any) {
+        nodeHandler?()
+    }
 }
 
 extension TimelineViewCell: ListViewCell {

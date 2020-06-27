@@ -63,10 +63,12 @@ class ProfileViewController: UIViewController {
     private func setupLoadingView() {
         loadingIndicator = UIActivityIndicatorView(style: Theme.current.activityIndicatorViewStyle)
         view.addSubview(loadingIndicator)
-        loadingIndicator.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(60)
-        }
+        
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 60)
+        ])
         loadingIndicator.startAnimating()
     }
     
@@ -227,11 +229,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         label.textColor = Theme.current.subTitleColor
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         header.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 16),
+            label.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            label.trailingAnchor.constraint(equalTo: header.trailingAnchor)
+        ])
         return header
     }
     

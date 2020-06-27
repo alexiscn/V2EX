@@ -39,11 +39,6 @@ class TopicCommentViewCell: UITableViewCell {
     
     private let contentTextView: UITextView
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         
         containerView = UIView()
@@ -96,17 +91,39 @@ class TopicCommentViewCell: UITableViewCell {
         containerView.addSubview(floorButton)
         containerView.addSubview(contentTextView)
         
-        containerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(0.5)
-            make.bottom.equalToSuperview()
-        }
+        configureConstraints()
         
-        avatarButton.snp.makeConstraints { make in
-            make.height.width.equalTo(32)
-            make.leading.equalToSuperview().offset(12)
-            make.top.equalToSuperview().offset(12)
-        }
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = Theme.current.cellHighlightColor
+        selectedBackgroundView = backgroundView
+        
+        contentTextView.delegate = self
+        
+        avatarButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
+        usernameButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
+        floorButton.addTarget(self, action: #selector(floorButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureConstraints() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0.5)
+        ])
+        
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarButton.widthAnchor.constraint(equalToConstant: 32),
+            avatarButton.heightAnchor.constraint(equalToConstant: 32),
+            avatarButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            avatarButton.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12)
+        ])
         
         let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
         usernameButton.snp.makeConstraints { make in
@@ -140,32 +157,6 @@ class TopicCommentViewCell: UITableViewCell {
             make.top.equalToSuperview().offset(38)
             make.bottom.equalToSuperview().offset(-9)
         }
-        
-        let backgroundView = UIView()
-        backgroundView.backgroundColor = Theme.current.cellHighlightColor
-        selectedBackgroundView = backgroundView
-        
-        contentTextView.delegate = self
-        
-        avatarButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
-        usernameButton.addTarget(self, action: #selector(usernameButtonTapped(_:)), for: .touchUpInside)
-        floorButton.addTarget(self, action: #selector(floorButtonTapped(_:)), for: .touchUpInside)
-    }
-    
-    @objc private func floorButtonTapped(_ sender: Any) {
-        mentionHandler?()
-    }
-    
-    @objc private func usernameButtonTapped(_ sender: Any) {
-        userTappedHandler?()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
     
     func update(_ reply: Reply) {
@@ -188,6 +179,10 @@ class TopicCommentViewCell: UITableViewCell {
             ownerLabel.text = nil
         }
     }
+}
+
+// MARK: - Height Calculation
+extension TopicCommentViewCell {
     
     class func heightForRowWithReply(_ reply: inout Reply) -> CGFloat {
         
@@ -210,6 +205,19 @@ class TopicCommentViewCell: UITableViewCell {
     }
 }
 
+// MARK: - Events
+extension TopicCommentViewCell {
+    
+    @objc private func floorButtonTapped(_ sender: Any) {
+        mentionHandler?()
+    }
+    
+    @objc private func usernameButtonTapped(_ sender: Any) {
+        userTappedHandler?()
+    }
+}
+
+// MARK: - UITextViewDelegate
 extension TopicCommentViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {

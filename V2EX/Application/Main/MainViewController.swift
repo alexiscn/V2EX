@@ -54,11 +54,13 @@ class MainViewController: UIViewController {
         composeButton.tintColor = Theme.current.backgroundColor
         composeButton.setImage(UIImage(named: "icon_pen_24x24_"), for: .normal)
         view.addSubview(composeButton)
-        composeButton.snp.makeConstraints { make in
-            make.height.width.equalTo(44)
-            make.trailing.equalToSuperview().offset(-20)
-            make.bottom.equalToSuperview().offset(-view.keyWindowSafeAreaInsets.bottom - 20)
-        }
+        composeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            composeButton.heightAnchor.constraint(equalToConstant: 44),
+            composeButton.widthAnchor.constraint(equalToConstant: 44),
+            composeButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            composeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20 - view.keyWindowSafeAreaInsets.bottom)
+        ])
         composeButton.addTarget(self, action: #selector(composeButtonTapped(_:)), for: .touchUpInside)
     }
     

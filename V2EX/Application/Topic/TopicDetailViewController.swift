@@ -265,10 +265,12 @@ extension TopicDetailViewController {
     private func setupLoadingView() {
         loadingIndicator = UIActivityIndicatorView(style: Theme.current.activityIndicatorViewStyle)
         view.addSubview(loadingIndicator)
-        loadingIndicator.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-60)
-        }
+        
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -60)
+        ])
         loadingIndicator.startAnimating()
     }
     
@@ -282,24 +284,25 @@ extension TopicDetailViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView()
         tableView.keyboardDismissMode = .onDrag
+        tableView.register(TopicCommentViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicCommentViewCell.self))
+        tableView.register(TopicDetailViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicDetailViewCell.self))
+        view.addSubview(tableView)
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
         
         let header = V2RefreshHeader { [weak self] in
             self?.webViewHeightCaculated = false
             self?.loadTopicDetail()
         }
         tableView.mj_header = header
-        
         tableView.mj_footer = V2RefreshFooter { [weak self] in
             self?.loadMoreComments()
-        }
-        
-        tableView.register(TopicCommentViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicCommentViewCell.self))
-        tableView.register(TopicDetailViewCell.self, forCellReuseIdentifier: NSStringFromClass(TopicDetailViewCell.self))
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalToSuperview()
         }
     }
     

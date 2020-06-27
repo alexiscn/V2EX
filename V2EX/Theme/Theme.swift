@@ -16,22 +16,10 @@ enum Theme: Int {
     static var current: Theme = .light
     
     var statusBarStyle: UIStatusBarStyle {
-        guard let traitCollection = UIApplication.shared.keyWindow?.traitCollection else {
+        if #available(iOS 13, *) {
+            return self == .light ? UIStatusBarStyle.darkContent: UIStatusBarStyle.lightContent
+        } else {
             return self == .light ? UIStatusBarStyle.default : UIStatusBarStyle.lightContent
-        }
-        switch self {
-        case .light:
-            if #available(iOS 13.0, *) {
-                return traitCollection.userInterfaceStyle == .dark ? .darkContent: .lightContent
-            } else {
-                return .default
-            }
-        case .dark:
-            if #available(iOS 13.0, *) {
-                return traitCollection.userInterfaceStyle == .light ? .lightContent: .darkContent
-            } else {
-                return .lightContent
-            }
         }
     }
     

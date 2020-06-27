@@ -66,12 +66,13 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         headerLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         view.addSubview(headerLabel)
         
-        headerLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(14)
-            make.trailing.equalToSuperview()
-            make.height.equalTo(25)
-            make.top.equalToSuperview().offset(65)
-        }
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            headerLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 14),
+            headerLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            headerLabel.heightAnchor.constraint(equalToConstant: 24),
+            headerLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 65)
+        ])
     }
     
     private func setupTableView() {
@@ -81,14 +82,15 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview().offset(100)
-            make.bottom.equalToSuperview().offset(-100)
-        }
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+        ])
     }
     
     private func updateTheme() {
@@ -107,12 +109,14 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         allNodesButton.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         allNodesButton.layer.cornerRadius = 20
         view.addSubview(allNodesButton)
-        allNodesButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(tableView.snp.bottom).offset(20)
-            make.height.equalTo(40)
-            make.width.equalTo(110)
-        }
+        
+        allNodesButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            allNodesButton.widthAnchor.constraint(equalToConstant: 110),
+            allNodesButton.heightAnchor.constraint(equalToConstant: 40),
+            allNodesButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            allNodesButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 20)
+        ])
         allNodesButton.addTarget(self, action: #selector(handleAllNodesTapped(_:)), for: .touchUpInside)
     }
     
@@ -169,11 +173,13 @@ class RightMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         label.textColor = Theme.current.subTitleColor
         label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         header.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 16),
+            label.centerYAnchor.constraint(equalTo: header.centerYAnchor),
+            label.trailingAnchor.constraint(equalTo: header.trailingAnchor)
+        ])
         return header
     }
     

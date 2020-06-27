@@ -122,9 +122,11 @@ fileprivate class NewTopicNodesViewCell: UICollectionViewCell {
         
         contentView.addSubview(titleLabel)
         
-        titleLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
     }
     
     override var isHighlighted: Bool {

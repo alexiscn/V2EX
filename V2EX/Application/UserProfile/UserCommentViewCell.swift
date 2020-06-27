@@ -70,40 +70,9 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
         containerView.addSubview(commentTextView)
         containerView.addSubview(topicButton)
         containerView.addSubview(lineView)
-        
-        containerView.snp.makeConstraints { make in
-            make.leading.top.trailing.bottom.equalToSuperview()
-        }
-        
-        commentTextView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.trailing.equalToSuperview().offset(-12)
-            make.top.equalToSuperview().offset(56)
-        }
-        
-        avatarImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(32)
-            make.leading.equalToSuperview().offset(12)
-            make.top.equalToSuperview().offset(12)
-        }
-        
-        let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
-        usernameLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(usernameLeading)
-            make.top.equalToSuperview().offset(12)
-        }
-        
-        timeAgoLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(usernameLeading)
-            make.top.equalTo(usernameLabel.snp.bottom).offset(3)
-        }
-        
-        lineView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(LineHeight)
-            make.bottom.equalToSuperview()
-        }
-        
+
+        configureConstraints()
+
         let backgroundView = UIView()
         backgroundView.backgroundColor = Theme.current.cellHighlightColor
         selectedBackgroundView = backgroundView
@@ -118,6 +87,54 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureConstraints() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+        
+        commentTextView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            commentTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            commentTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            commentTextView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 56)
+        ])
+        
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarImageView.widthAnchor.constraint(equalToConstant: 32),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 32),
+            avatarImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            avatarImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12)
+        ])
+        
+        let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            usernameLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: usernameLeading),
+            usernameLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            usernameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12)
+        ])
+        
+        timeAgoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeAgoLabel.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
+            timeAgoLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 3),
+            timeAgoLabel.trailingAnchor.constraint(equalTo: usernameLabel.trailingAnchor)
+        ])
+        
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            lineView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            lineView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            lineView.heightAnchor.constraint(equalToConstant: LineHeight),
+            lineView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+        ])
     }
     
     override func layoutSubviews() {
@@ -149,6 +166,10 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
         guard let comment = model as? UserProfileComment else { return }
         update(comment)
     }
+}
+
+// MARK: - Height Calculation
+extension UserCommentViewCell {
     
     class func heightForComment(_ comment: inout UserProfileComment) -> CGFloat {
         
@@ -182,9 +203,9 @@ class UserCommentViewCell: UITableViewCell, ListViewCell {
         let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 11) as Any])
         return rect.height + 24.0
     }
-    
 }
 
+// MARK: - UITextViewDelegate
 extension UserCommentViewCell: UITextViewDelegate {
     
     func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {

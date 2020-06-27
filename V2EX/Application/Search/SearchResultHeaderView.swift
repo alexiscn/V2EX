@@ -62,37 +62,52 @@ class SearchResultHeaderView: UIView {
         optionView.addSubview(separator)
         optionView.addSubview(createdTimeButton)
         
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
-        }
-        
-        optionView.snp.makeConstraints { make in
-            make.top.trailing.bottom.equalToSuperview()
-            make.width.equalTo(120)
-        }
-        
-        sumupButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.width.equalTo(59)
-            make.top.bottom.equalToSuperview()
-        }
-        
-        separator.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-            make.height.equalTo(20)
-            make.width.equalTo(2)
-        }
-        
-        createdTimeButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.width.equalTo(59)
-            make.top.bottom.equalToSuperview()
-        }
+        configureConstraints()
         
         sumupButton.addTarget(self, action: #selector(handleOptionButtonTapped(_:)), for: .touchUpInside)
         createdTimeButton.addTarget(self, action: #selector(handleOptionButtonTapped(_:)), for: .touchUpInside)
+    }
+    
+    private func configureConstraints() {
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
+            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+        
+        optionView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            optionView.topAnchor.constraint(equalTo: self.topAnchor),
+            optionView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            optionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            optionView.widthAnchor.constraint(equalToConstant: 120)
+        ])
+        
+        sumupButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            sumupButton.leadingAnchor.constraint(equalTo: optionView.leadingAnchor),
+            sumupButton.topAnchor.constraint(equalTo: optionView.topAnchor),
+            sumupButton.bottomAnchor.constraint(equalTo: optionView.bottomAnchor),
+            sumupButton.widthAnchor.constraint(equalToConstant: 59)
+        ])
+        
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            separator.centerXAnchor.constraint(equalTo: optionView.centerXAnchor),
+            separator.centerYAnchor.constraint(equalTo: optionView.centerYAnchor),
+            separator.widthAnchor.constraint(equalToConstant: 2),
+            separator.heightAnchor.constraint(equalToConstant: 20)
+        ])
+        
+        createdTimeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            createdTimeButton.trailingAnchor.constraint(equalTo: optionView.trailingAnchor),
+            createdTimeButton.topAnchor.constraint(equalTo: optionView.topAnchor),
+            createdTimeButton.bottomAnchor.constraint(equalTo: optionView.bottomAnchor),
+            createdTimeButton.widthAnchor.constraint(equalToConstant: 59)
+        ])
     }
     
     @objc private func handleOptionButtonTapped(_ sender: UIButton) {

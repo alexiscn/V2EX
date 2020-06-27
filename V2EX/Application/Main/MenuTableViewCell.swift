@@ -24,19 +24,21 @@ class MenuTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-        }
-        
         contentView.addSubview(lineView)
-        lineView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview()
-            make.width.equalTo(3)
-            make.height.equalToSuperview()
-        }
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        lineView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            lineView.widthAnchor.constraint(equalToConstant: 3),
+            lineView.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            lineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

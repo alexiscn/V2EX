@@ -91,12 +91,14 @@ class AppLogoViewCell: UICollectionViewCell {
         
         super.init(frame: frame)
         
+        self.clipsToBounds = true
         contentView.addSubview(imageView)
         
-        imageView.snp.makeConstraints { make in
-            make.center.equalToSuperview()
-        }
-        clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            imageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
     }
     
     required init?(coder aDecoder: NSCoder) {

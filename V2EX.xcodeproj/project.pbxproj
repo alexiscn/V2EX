@@ -20,6 +20,7 @@
 		A31DF70A21A6B51100618AD5 /* SettingTableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70921A6B51100618AD5 /* SettingTableModel.swift */; };
 		A31DF70C21A6B74500618AD5 /* SettingViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */; };
 		A31F9C4C21BFD78E00AD9846 /* NotificationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */; };
+		A3232A2A24A710E000571110 /* UserProfileSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3232A2924A710E000571110 /* UserProfileSectionHeaderView.swift */; };
 		A333759521C76DEC0008085F /* CommentInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333759421C76DEC0008085F /* CommentInputTextView.swift */; };
 		A333759721C76E190008085F /* CommentInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A333759621C76E190008085F /* CommentInputBar.swift */; };
 		A335F6C3219ABDC9003BDE77 /* UINavigationBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */; };
@@ -128,6 +129,7 @@
 		A31DF70921A6B51100618AD5 /* SettingTableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTableModel.swift; sourceTree = "<group>"; };
 		A31DF70B21A6B74500618AD5 /* SettingViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewCell.swift; sourceTree = "<group>"; };
 		A31F9C4B21BFD78E00AD9846 /* NotificationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewCell.swift; sourceTree = "<group>"; };
+		A3232A2924A710E000571110 /* UserProfileSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileSectionHeaderView.swift; sourceTree = "<group>"; };
 		A333759421C76DEC0008085F /* CommentInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputTextView.swift; sourceTree = "<group>"; };
 		A333759621C76E190008085F /* CommentInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputBar.swift; sourceTree = "<group>"; };
 		A335F6C2219ABDC9003BDE77 /* UINavigationBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationBarExtensions.swift; sourceTree = "<group>"; };
@@ -469,6 +471,7 @@
 			children = (
 				A3DCB08621B3FB2E005FD955 /* UserProfileViewController.swift */,
 				A373C68721B5154800C919AD /* UserProfileHeaderView.swift */,
+				A3232A2924A710E000571110 /* UserProfileSectionHeaderView.swift */,
 				A373C68921B5411C00C919AD /* UserCommentViewCell.swift */,
 				A317CF1621C388EE0099BB1E /* UserTopicViewModel.swift */,
 				A317CF1821C38B9A0099BB1E /* UserReplyViewModel.swift */,
@@ -711,6 +714,7 @@
 				A373C68821B5154800C919AD /* UserProfileHeaderView.swift in Sources */,
 				A31F9C4C21BFD78E00AD9846 /* NotificationViewCell.swift in Sources */,
 				A3961C7C21C22D47007D7663 /* ListViewController.swift in Sources */,
+				A3232A2A24A710E000571110 /* UserProfileSectionHeaderView.swift in Sources */,
 				A36D0FAD219D80E400E20EFB /* V2DataManager.swift in Sources */,
 				A33E18C021BE3DC50084FF29 /* ProfileHeaderView.swift in Sources */,
 				A3051EC621CA424600AC7287 /* SearchInputTextView.swift in Sources */,

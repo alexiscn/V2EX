@@ -95,11 +95,14 @@ class MenuViewController: UIViewController {
         avatarButton.layer.borderWidth = 1.5
         avatarButton.clipsToBounds = true
         view.addSubview(avatarButton)
-        avatarButton.snp.makeConstraints { make in
-            make.height.width.equalTo(70)
-            make.centerX.equalToSuperview()
-            make.top.equalToSuperview().offset(60)
-        }
+
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarButton.widthAnchor.constraint(equalToConstant: 70),
+            avatarButton.heightAnchor.constraint(equalToConstant: 70),
+            avatarButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            avatarButton.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 60)
+        ])
         
         userLabel = UILabel()
         userLabel.font = UIFont.systemFont(ofSize: 14.0)
@@ -107,10 +110,13 @@ class MenuViewController: UIViewController {
         userLabel.text = Strings.AccountNamePlaceholder
         userLabel.textAlignment = .center
         view.addSubview(userLabel)
-        userLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(avatarButton.snp.bottom).offset(6)
-        }
+
+        userLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            userLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            userLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            userLabel.topAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: 6)
+        ])
         
         avatarButton.addTarget(self, action: #selector(avatarButtonTapped(_:)), for: .touchUpInside)
     }
@@ -123,12 +129,14 @@ class MenuViewController: UIViewController {
         tableView.dataSource = self
         tableView.separatorStyle = .none
         view.addSubview(tableView)
-        tableView.snp.makeConstraints { make in
-            make.width.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.top.equalTo(avatarButton.snp.bottom).offset(50)
-            make.bottom.equalToSuperview().offset(-100)
-        }
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: 50),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -100)
+        ])
         tableView.reloadData()
     }
     
@@ -138,11 +146,13 @@ class MenuViewController: UIViewController {
         themeButton.setImage(UIImage(named: "icon_light"), for: .normal)
         themeButton.tintColor = Theme.current.titleColor
         view.addSubview(themeButton)
-        themeButton.snp.makeConstraints { make in
-            make.height.width.equalTo(24)
-            make.leading.equalToSuperview().offset(30)
-            make.bottom.equalToSuperview().offset(-30)
-        }
+        themeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            themeButton.widthAnchor.constraint(equalToConstant: 24),
+            themeButton.heightAnchor.constraint(equalToConstant: 24),
+            themeButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 30),
+            themeButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30)
+        ])
         themeButton.addTarget(self, action: #selector(themeButtonTapped(_:)), for: .touchUpInside)
     }
     
@@ -151,11 +161,13 @@ class MenuViewController: UIViewController {
         messageButton.setImage(UIImage(named: "message_24x24_"), for: .normal)
         messageButton.tintColor = Theme.current.titleColor
         view.addSubview(messageButton)
-        messageButton.snp.makeConstraints { make in
-            make.height.width.equalTo(24)
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-30)
-        }
+        messageButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            messageButton.widthAnchor.constraint(equalToConstant: 24),
+            messageButton.heightAnchor.constraint(equalToConstant: 24),
+            messageButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            messageButton.centerYAnchor.constraint(equalTo: themeButton.centerYAnchor)
+        ])
         messageButton.addTarget(self, action: #selector(messageButtonTapped(_:)), for: .touchUpInside)
     }
     
@@ -168,14 +180,15 @@ class MenuViewController: UIViewController {
         unreadCountLabel.clipsToBounds = true
         unreadCountLabel.textAlignment = .center
         unreadCountLabel.isHidden = true
-        
         view.addSubview(unreadCountLabel)
-        unreadCountLabel.snp.makeConstraints { make in
-            make.leading.equalTo(messageButton.snp.trailing).offset(-9)
-            make.top.equalTo(messageButton.snp.top).offset(-9)
-            make.width.greaterThanOrEqualTo(18)
-            make.height.equalTo(18)
-        }
+        
+        unreadCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            unreadCountLabel.widthAnchor.constraint(greaterThanOrEqualToConstant: 18),
+            unreadCountLabel.heightAnchor.constraint(equalToConstant: 18),
+            unreadCountLabel.leadingAnchor.constraint(equalTo: messageButton.trailingAnchor, constant: -9),
+            unreadCountLabel.topAnchor.constraint(equalTo: messageButton.topAnchor, constant: -9)
+        ])
     }
     
     @objc private func messageButtonTapped(_ sender: Any) {
@@ -218,11 +231,13 @@ class MenuViewController: UIViewController {
         settingButton.setImage(UIImage(named: "icon_settings_24x24_"), for: .normal)
         view.addSubview(settingButton)
         
-        settingButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
-            make.centerY.equalTo(themeButton)
-            make.trailing.equalToSuperview().offset(-30)
-        }
+        settingButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            settingButton.widthAnchor.constraint(equalToConstant: 24),
+            settingButton.heightAnchor.constraint(equalToConstant: 24),
+            settingButton.centerYAnchor.constraint(equalTo: themeButton.centerYAnchor),
+            settingButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -30)
+        ])
         settingButton.addTarget(self, action: #selector(settingButtonTapped(_:)), for: .touchUpInside)
     }
     

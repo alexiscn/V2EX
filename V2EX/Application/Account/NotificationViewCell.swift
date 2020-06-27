@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
+class NotificationViewCell: UITableViewCell, ListViewCell {
     
     private let avatarImageView: UIImageView
     private let usernameLabel: UILabel
@@ -57,34 +57,45 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
         contentView.addSubview(commentTextView)
         contentView.addSubview(topicButton)
         
-        commentTextView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.trailing.equalToSuperview().offset(-12)
-            make.top.equalToSuperview().offset(56)
-        }
-        
-        avatarImageView.snp.makeConstraints { make in
-            make.height.width.equalTo(32)
-            make.leading.equalToSuperview().offset(12)
-            make.top.equalToSuperview().offset(12)
-        }
-        
-        let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
-        usernameLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(usernameLeading)
-            make.top.equalToSuperview().offset(12)
-        }
-        
-        timeAgoLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(usernameLeading)
-            make.top.equalTo(usernameLabel.snp.bottom).offset(3)
-        }
+        configureConstraints()
     
         let backgroundView = UIView()
         backgroundView.backgroundColor = Theme.current.cellHighlightColor
         selectedBackgroundView = backgroundView
         
         commentTextView.delegate = self
+    }
+    
+    private func configureConstraints() {
+        commentTextView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            commentTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            commentTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+            commentTextView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 56)
+        ])
+        
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarImageView.widthAnchor.constraint(equalToConstant: 32),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 32),
+            avatarImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            avatarImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12)
+        ])
+        
+        let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            usernameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: usernameLeading),
+            usernameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            usernameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12)
+        ])
+        
+        timeAgoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeAgoLabel.leadingAnchor.constraint(equalTo: usernameLabel.leadingAnchor),
+            timeAgoLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            timeAgoLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 3)
+        ])
     }
     
     override func layoutSubviews() {
@@ -101,10 +112,24 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
-        presentSafariViewController(url: URL)
-        return false
+    func update(_ model: DataType) {
+        guard let notification = model as? MessageNotification else { return }
+        
+        avatarImageView.kf.setImage(with: notification.avatarURL)
+        usernameLabel.text = notification.username
+        timeAgoLabel.text = notification.timeAgo
+        commentTextView.text = notification.comment
+        
+        if let title = notification.title {
+            topicButton.setTitle(title, for: .normal)
+            topicTitle = title
+        }
     }
+}
+
+// MARK: - Height Calculation
+extension NotificationViewCell {
+    
     class func heightForNotification(_ notification: inout MessageNotification) -> CGFloat {
         
         if notification._rowHeight > 0.0 {
@@ -135,19 +160,13 @@ class NotificationViewCell: UITableViewCell, UITextViewDelegate, ListViewCell {
         let rect = title.boundingRectWithSize(maxSize, attributes: [.font: UIFont.systemFont(ofSize: 11) as Any])
         return rect.height + 24.0
     }
-    
-    func update(_ model: DataType) {
-        guard let notification = model as? MessageNotification else { return }
-        
-        avatarImageView.kf.setImage(with: notification.avatarURL)
-        usernameLabel.text = notification.username
-        timeAgoLabel.text = notification.timeAgo
-        commentTextView.text = notification.comment
-        
-        if let title = notification.title {
-            topicButton.setTitle(title, for: .normal)
-            topicTitle = title
-        }
-    }
 }
 
+// MARK: - UITextViewDelegate
+extension NotificationViewCell: UITextViewDelegate {
+    
+    func textView(_ textView: UITextView, shouldInteractWith URL: URL, in characterRange: NSRange, interaction: UITextItemInteraction) -> Bool {
+        presentSafariViewController(url: URL)
+        return false
+    }
+}

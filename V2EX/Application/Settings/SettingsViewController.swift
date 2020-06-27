@@ -67,10 +67,12 @@ class SettingsViewController: UIViewController {
         }
         
         view.addSubview(versionLabel)
-        versionLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().offset(-view.keyWindowSafeAreaInsets.bottom)
-        }
+        
+        versionLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            versionLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            versionLabel.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -view.keyWindowSafeAreaInsets.bottom)
+        ])
     }
     
     private func setupDataSource() {

@@ -51,10 +51,13 @@ class CommentInputTextView: UITextView {
         textColor = Theme.current.titleColor
         
         addSubview(placeholderLabel)
-        placeholderLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(15)
-            make.centerY.equalToSuperview()
-        }
+        
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            placeholderLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            placeholderLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+        ])
     }
     
     func updatePlaceholder(_ text: String) {

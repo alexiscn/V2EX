@@ -68,7 +68,6 @@ class UserProfileViewController: UIViewController {
             self?.handleBlockButton()
         }))
         actionSheet.add(WXActionSheetItem(title: Strings.Report, handler: { _ in
-            // 暂时这么写，下个版本请求接口
             DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
                 HUD.show(message: "举报成功，我们会及时处理你的举报")
             })
@@ -79,10 +78,12 @@ class UserProfileViewController: UIViewController {
     private func setupLoadingView() {
         loadingIndicator = UIActivityIndicatorView(style: Theme.current.activityIndicatorViewStyle)
         view.addSubview(loadingIndicator)
-        loadingIndicator.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-60)
-        }
+        
+        loadingIndicator.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loadingIndicator.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            loadingIndicator.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -60)
+        ])
         loadingIndicator.startAnimating()
     }
     
@@ -96,8 +97,17 @@ class UserProfileViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.register(TimelineViewCell.self, forCellReuseIdentifier: NSStringFromClass(TimelineViewCell.self))
         tableView.register(UserCommentViewCell.self, forCellReuseIdentifier: NSStringFromClass(UserCommentViewCell.self))
+        tableView.register(UserProfileSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: UserProfileSectionHeaderView.identifier)
         view.addSubview(tableView)
         tableView.tableFooterView = UIView()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+        ])
 
         let headerView = UserProfileHeaderView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 150.0))
         tableView.tableHeaderView = headerView
@@ -121,8 +131,8 @@ class UserProfileViewController: UIViewController {
         }
     }
     
-    @objc private func handleViewAllButtonTapped(_ sender: UIButton) {
-        if sender.tag == 0 {
+    private func handleViewAllButtonTapped(section: Int) {
+        if section == 0 {
             let viewModel = UserTopicViewModel(username: username, avatarURL: profile?.info?.avatarURL)
             let controller = ListViewController(viewModel: viewModel)
             navigationController?.pushViewController(controller, animated: true)
@@ -238,30 +248,12 @@ extension UserProfileViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UIView(frame: CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 50.0)))
-        header.backgroundColor = Theme.current.backgroundColor
-        let label = UILabel(frame: .zero)
-        label.text = UserProfileSections(rawValue: section)?.title
-        label.textColor = Theme.current.subTitleColor
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        header.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserProfileSectionHeaderView.identifier) as? UserProfileSectionHeaderView
+        let title = UserProfileSections(rawValue: section)?.title
+        header?.update(title: title, section: section)
+        header?.viewAllButtonHandler = { [weak self] section in
+            self?.handleViewAllButtonTapped(section: section)
         }
-        
-        let viewAllButton = UIButton(type: .system)
-        viewAllButton.tag = section
-        viewAllButton.setTitle(Strings.ProfileViewMore, for: .normal)
-        viewAllButton.setTitleColor(Theme.current.titleColor, for: .normal)
-        header.addSubview(viewAllButton)
-        viewAllButton.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-20)
-        }
-        viewAllButton.addTarget(self, action: #selector(handleViewAllButtonTapped(_:)), for: .touchUpInside)
-        
         return header
     }
     

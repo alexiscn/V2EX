@@ -46,23 +46,8 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
         contentView.addSubview(descLabel)
         contentView.addSubview(timeAgoLabel)
         
-        amountLabel.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.equalTo(80)
-        }
+        configureConstraints()
         
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(15)
-            make.top.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-30)
-        }
-
-        descLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(15)
-            make.top.equalTo(titleLabel.snp.bottom).offset(5)
-            make.trailing.equalToSuperview().offset(-80)
-        }
         contentView.backgroundColor = Theme.current.cellBackgroundColor
         let backgroundView = UIView()
         backgroundView.backgroundColor = Theme.current.cellHighlightColor
@@ -71,6 +56,30 @@ class BalanceViewCell: UITableViewCell, ListViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureConstraints() {
+        
+        amountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            amountLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            amountLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            amountLabel.widthAnchor.constraint(equalToConstant: 80)
+        ])
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 15),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -30)
+        ])
+        
+        descLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            descLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 15),
+            descLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
+            descLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -80)
+        ])
     }
     
     func update(_ model: DataType) {

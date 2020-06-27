@@ -47,11 +47,13 @@ class NewTopicTextView: UITextView {
         textContainerInset = UIEdgeInsets(top: 14, left: 9, bottom: 14, right: 10)
         textColor = Theme.current.titleColor
         addSubview(placeholderLabel)
-        placeholderLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.width.equalToSuperview().offset(-24)
-            make.top.equalToSuperview().offset(14)
-        }
+        
+        placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            placeholderLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 12),
+            placeholderLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -12),
+            placeholderLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 14)
+        ])
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextViewDidChanged(_:)), name: UITextView.textDidChangeNotification, object: nil)
     }
     

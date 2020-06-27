@@ -14,6 +14,8 @@ class NewTopicAccessoryView: UIView {
     
     var keyboardButtonHandler: RelayCommand?
     
+    private let containerView: UIView
+    
     private let nodesView: NewTopicNodesView
     
     private let nodeButton: UIButton
@@ -27,6 +29,7 @@ class NewTopicAccessoryView: UIView {
         let nodesFrame = CGRect(x: 0, y: 0, width: frame.width, height: 44)
         nodesView = NewTopicNodesView(frame: nodesFrame)
         nodesView.alpha = 0.0
+        nodesView.backgroundColor = Theme.current.cellBackgroundColor
         
         nodeButton = UIButton(type: .custom)
         nodeButton.setTitle(Strings.TopicSelectNode, for: .normal)
@@ -39,7 +42,8 @@ class NewTopicAccessoryView: UIView {
         nodeButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         nodeButton.setImage(UIImage(named: "new_topic_arrow_12x12_")?.withRenderingMode(.alwaysTemplate), for: .normal)
         
-        let containerView = UIView()
+        containerView = UIView()
+        containerView.backgroundColor = Theme.current.cellBackgroundColor
         
         keyboardButton = UIButton(type: .system)
         keyboardButton.setImage(UIImage(named: "ic_keyboard_hide_24x24_"), for: .normal)
@@ -48,27 +52,9 @@ class NewTopicAccessoryView: UIView {
         super.init(frame: frame)
         
         addSubview(nodesView)
-        nodesView.backgroundColor = Theme.current.cellBackgroundColor
-        containerView.backgroundColor = Theme.current.cellBackgroundColor
         addSubview(containerView)
-        containerView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(44)
-        }
-        
         containerView.addSubview(nodeButton)
-        nodeButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.centerY.equalToSuperview()
-            make.height.equalTo(24)
-        }
-        
         containerView.addSubview(keyboardButton)
-        keyboardButton.snp.makeConstraints { make in
-            make.height.width.equalTo(24)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-12)
-        }
         
         nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
         keyboardButton.addTarget(self, action: #selector(handleKeyboardButtonTapped(_:)), for: .touchUpInside)
@@ -84,6 +70,25 @@ class NewTopicAccessoryView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func configureConstraints() {
+        containerView.snp.makeConstraints { make in
+            make.leading.trailing.bottom.equalToSuperview()
+            make.height.equalTo(44)
+        }
+        
+        nodeButton.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(12)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(24)
+        }
+        
+        keyboardButton.snp.makeConstraints { make in
+            make.height.width.equalTo(24)
+            make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview().offset(-12)
+        }
     }
     
     func updateNode(_ node: Node) {

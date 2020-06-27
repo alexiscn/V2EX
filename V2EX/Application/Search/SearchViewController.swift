@@ -55,12 +55,14 @@ class SearchViewController: UIViewController {
         searchInputView.delegate = self
         view.addSubview(searchInputView)
         
-        searchInputView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.top.equalToSuperview().offset(view.keyWindowSafeAreaInsets.top + 12)
-            make.height.equalTo(40)
-            make.trailing.equalToSuperview().offset(-70)
-        }
+        searchInputView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchInputView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
+            searchInputView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -70),
+            searchInputView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: view.keyWindowSafeAreaInsets.top + 12),
+            searchInputView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextViewDidChanged(_:)), name: UITextView.textDidChangeNotification, object: searchInputView)
     }
     
@@ -75,11 +77,13 @@ class SearchViewController: UIViewController {
         cancelButton.setTitleColor(Theme.current.titleColor, for: .normal)
         
         view.addSubview(cancelButton)
-        cancelButton.snp.makeConstraints { make in
-            make.centerY.equalTo(searchInputView)
-            make.trailing.equalToSuperview()
-            make.width.equalTo(70)
-        }
+        
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            cancelButton.centerYAnchor.constraint(equalTo: searchInputView.centerYAnchor),
+            cancelButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            cancelButton.widthAnchor.constraint(equalToConstant: 70)
+        ])
         cancelButton.addTarget(self, action: #selector(handleCancelButtonTapped(_:)), for: .touchUpInside)
     }
     
@@ -106,11 +110,13 @@ class SearchViewController: UIViewController {
             self?.doSearch(isLoadMore: true)
         }
         
-        tableView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalToSuperview().offset(view.keyWindowSafeAreaInsets.top + 64)
-            make.bottom.equalToSuperview()
-        }
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: view.keyWindowSafeAreaInsets.top + 64),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+        ])
     }
     
     @objc private func handleCancelButtonTapped(_ sender: Any) {
