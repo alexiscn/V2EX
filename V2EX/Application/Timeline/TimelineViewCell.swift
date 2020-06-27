@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import SnapKit
 import Kingfisher
 
 class TimelineViewCell: UITableViewCell {

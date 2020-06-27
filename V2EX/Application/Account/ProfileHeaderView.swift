@@ -49,29 +49,35 @@ class ProfileHeaderView: UIView {
         addSubview(balanceButton)
         addSubview(buttonsView)
         
-        avatarImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
-            make.height.width.equalTo(80)
-            make.top.equalToSuperview().offset(10)
-        }
+        avatarImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            avatarImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10),
+            avatarImageView.widthAnchor.constraint(equalToConstant: 80),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 80)
+        ])
         
-        usernameLabel.snp.makeConstraints { make in
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(15)
-            make.top.equalTo(avatarImageView.snp.top).offset(10)
-        }
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            usernameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 15),
+            usernameLabel.topAnchor.constraint(equalTo: avatarImageView.topAnchor, constant: 10),
+            usernameLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
         
-        balanceButton.snp.makeConstraints { make in
-            make.leading.equalTo(avatarImageView.snp.trailing).offset(10)
-            make.height.equalTo(30)
-            make.top.equalTo(usernameLabel.snp.bottom).offset(10)
-        }
+        balanceButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            balanceButton.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
+            balanceButton.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 10),
+            balanceButton.heightAnchor.constraint(equalToConstant: 30)
+        ])
     
-        buttonsView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(15)
-            make.trailing.equalToSuperview().offset(-15)
-            make.top.equalTo(avatarImageView.snp.bottom).offset(10)
-            make.height.equalTo(80)
-        }
+        buttonsView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            buttonsView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 15),
+            buttonsView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -15),
+            buttonsView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 10),
+            buttonsView.heightAnchor.constraint(equalToConstant: 80)
+        ])
         
         let buttonItemWidth: CGFloat = (UIScreen.main.bounds.width - 30 - 2)/3.0
         
@@ -80,54 +86,64 @@ class ProfileHeaderView: UIView {
         nodeButton.tag = 1
         nodeButton.update(count: account?.myNodes, title: Strings.ProfileFavoritedNodes)
         buttonsView.addSubview(nodeButton)
-        nodeButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.equalTo(buttonItemWidth)
-            make.height.equalToSuperview()
-        }
+        
+        nodeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nodeButton.leadingAnchor.constraint(equalTo: buttonsView.leadingAnchor),
+            nodeButton.centerYAnchor.constraint(equalTo: buttonsView.centerYAnchor),
+            nodeButton.widthAnchor.constraint(equalToConstant: buttonItemWidth),
+            nodeButton.heightAnchor.constraint(equalTo: buttonsView.heightAnchor)
+        ])
         
         let topicButton = ProfileButton(frame: .zero)
         topicButton.tag = 2
         topicButton.update(count: account?.myTopics, title: Strings.ProfileFavoritedTopics)
         buttonsView.addSubview(topicButton)
-        topicButton.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.equalTo(buttonItemWidth)
-            make.height.equalToSuperview()
-        }
+        
+        topicButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topicButton.centerXAnchor.constraint(equalTo: buttonsView.centerXAnchor),
+            topicButton.centerYAnchor.constraint(equalTo: buttonsView.centerYAnchor),
+            topicButton.widthAnchor.constraint(equalToConstant: buttonItemWidth),
+            topicButton.heightAnchor.constraint(equalTo: buttonsView.heightAnchor)
+        ])
         
         let separator1 = UIView()
         separator1.backgroundColor = Theme.current.titleColor
         buttonsView.addSubview(separator1)
-        separator1.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.width.equalTo(1)
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(topicButton)
-        }
+        
+        separator1.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            separator1.heightAnchor.constraint(equalToConstant: 50),
+            separator1.widthAnchor.constraint(equalToConstant: 1),
+            separator1.centerYAnchor.constraint(equalTo: buttonsView.centerYAnchor),
+            separator1.leadingAnchor.constraint(equalTo: topicButton.leadingAnchor)
+        ])
         
         let followingButton = ProfileButton(frame: .zero)
         followingButton.tag = 3
         followingButton.update(count: account?.myFollowing, title: Strings.ProfileMyFollowing)
         buttonsView.addSubview(followingButton)
-        followingButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.width.equalTo(buttonItemWidth)
-            make.height.equalToSuperview()
-        }
+        
+        followingButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            followingButton.trailingAnchor.constraint(equalTo: buttonsView.trailingAnchor),
+            followingButton.centerYAnchor.constraint(equalTo: buttonsView.centerYAnchor),
+            followingButton.widthAnchor.constraint(equalToConstant: buttonItemWidth),
+            followingButton.heightAnchor.constraint(equalTo: buttonsView.heightAnchor)
+        ])
         
         let separator2 = UIView()
         separator2.backgroundColor = Theme.current.titleColor
         buttonsView.addSubview(separator2)
-        separator2.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.width.equalTo(1)
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(followingButton)
-        }
+        
+        separator2.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            separator2.heightAnchor.constraint(equalToConstant: 50),
+            separator2.widthAnchor.constraint(equalToConstant: 1),
+            separator2.centerYAnchor.constraint(equalTo: buttonsView.centerYAnchor),
+            separator2.leadingAnchor.constraint(equalTo: followingButton.leadingAnchor)
+        ])
         
         let balanceValue = account?.balance ?? "0"
         let balance = String(format: Strings.ProfileMyBalanceCount, balanceValue)
@@ -193,9 +209,6 @@ class ProfileButton: UIView {
         
         actionButton = UIButton(type: .system)
         addSubview(actionButton)
-        actionButton.snp.makeConstraints { make in
-            make.leading.trailing.top.bottom.equalToSuperview()
-        }
         
         titleLabel = UILabel()
         titleLabel.textColor = Theme.current.titleColor
@@ -207,15 +220,25 @@ class ProfileButton: UIView {
         subTitleLabel.textColor = Theme.current.subTitleColor
         actionButton.addSubview(subTitleLabel)
         
-        titleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(-7)
-        }
+        actionButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            actionButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            actionButton.topAnchor.constraint(equalTo: self.topAnchor),
+            actionButton.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            actionButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
         
-        subTitleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview().offset(17)
-        }
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -7)
+        ])
+        
+        subTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            subTitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            subTitleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 17)
+        ])
     }
     
     func addTarget(_ target: Any?, action: Selector) {

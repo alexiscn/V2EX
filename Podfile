@@ -5,7 +5,6 @@ target 'V2EX' do
     pod 'Fabric'
     pod 'Crashlytics'
     pod 'Alamofire'
-    pod 'SnapKit'
     pod 'SwiftSoup'
     pod 'Kingfisher'
     pod 'MJRefresh'

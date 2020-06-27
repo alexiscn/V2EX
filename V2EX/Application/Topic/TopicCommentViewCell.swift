@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import Kingfisher
 import SafariServices
 
@@ -126,37 +125,43 @@ class TopicCommentViewCell: UITableViewCell {
         ])
         
         let usernameLeading: CGFloat = AppSettings.shared.displayAvatar ? 54.0: 10.0
-        usernameButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(usernameLeading)
-            make.top.equalTo(avatarButton).offset(-5)
-        }
+        usernameButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            usernameButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: usernameLeading),
+            usernameButton.topAnchor.constraint(equalTo: avatarButton.topAnchor, constant: -5)
+        ])
         
-        timeAgoLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(usernameButton)
-            make.leading.equalTo(usernameButton.snp.trailing).offset(5)
-        }
+        timeAgoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeAgoLabel.centerYAnchor.constraint(equalTo: usernameButton.centerYAnchor),
+            timeAgoLabel.leadingAnchor.constraint(equalTo: usernameButton.trailingAnchor, constant: 5)
+        ])
         
-        likesLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(usernameButton)
-            make.leading.equalTo(timeAgoLabel.snp.trailing).offset(5)
-        }
+        likesLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            likesLabel.centerYAnchor.constraint(equalTo: usernameButton.centerYAnchor),
+            likesLabel.leadingAnchor.constraint(equalTo: timeAgoLabel.trailingAnchor, constant: 5)
+        ])
         
-        ownerLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(usernameButton)
-            make.leading.equalTo(likesLabel.snp.trailing).offset(5)
-        }
+        ownerLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            ownerLabel.centerYAnchor.constraint(equalTo: usernameButton.centerYAnchor),
+            ownerLabel.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor, constant: 5)
+        ])
         
-        floorButton.snp.makeConstraints { make in
-            make.centerY.equalTo(usernameButton)
-            make.trailing.equalToSuperview()
-        }
+        floorButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            floorButton.centerYAnchor.constraint(equalTo: usernameButton.centerYAnchor),
+            floorButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        ])
         
-        contentTextView.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().offset(-12)
-            make.leading.equalToSuperview().offset(usernameLeading)
-            make.top.equalToSuperview().offset(38)
-            make.bottom.equalToSuperview().offset(-9)
-        }
+        contentTextView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentTextView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: usernameLeading),
+            contentTextView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 38),
+            contentTextView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12),
+            contentTextView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -9)
+        ])
     }
     
     func update(_ reply: Reply) {

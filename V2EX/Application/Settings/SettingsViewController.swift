@@ -240,11 +240,13 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         label.textColor = Theme.current.subTitleColor
         label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
         header.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(16)
-            make.bottom.equalToSuperview().offset(-8)
-            make.trailing.equalToSuperview()
-        }
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            label.leadingAnchor.constraint(equalTo: header.leadingAnchor, constant: 16),
+            label.bottomAnchor.constraint(equalTo: header.bottomAnchor, constant: -8),
+            label.trailingAnchor.constraint(equalTo: header.trailingAnchor)
+        ])
         return header
     }
     

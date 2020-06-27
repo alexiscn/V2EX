@@ -10,10 +10,14 @@ import UIKit
 
 class NewTopicViewController: UIViewController {
 
+    private var topLine: UIView!
     private var titleLabel: UILabel!
+    private var titleLine: UIView!
+    private var titleTextFieldLine: UIView!
     private var titleTextField: UITextField!
     private var titleCountLabel: UILabel!
     private var contentLabel: UILabel!
+    private var contentLabelLine: UIView!
     private var contentCountLabel: UILabel!
     private var contentTextView: NewTopicTextView!
     private var previewBarButton: UIBarButtonItem!
@@ -47,119 +51,137 @@ class NewTopicViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-//        previewBarButton = UIBarButtonItem(image: UIImage(named: "nav_preview_24x24_"), style: .done, target: self, action: #selector(previewBarButtonItemTapped(_:)))
-//        previewBarButton.imageInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 0)
-        
         sendBarButton = UIBarButtonItem(image: UIImage(named: "nav_send_24x24_"), style: .done, target: self, action: #selector(sendBarButtonItemTapped(_:)))
         navigationItem.rightBarButtonItem = sendBarButton
-//        navigationItem.rightBarButtonItems = [sendBarButton, previewBarButton]
     }
     
     private func checkButtonEnable() {
         if let text = titleTextField.text, !text.isEmpty {
             sendBarButton.isEnabled = true
-//            previewBarButton.isEnabled = true
         } else {
             sendBarButton.isEnabled = false
-//            previewBarButton.isEnabled = false
         }
     }
     
     private func setupSubviews() {
         
-        let topLine = lineView()
+        topLine = lineView()
         view.addSubview(topLine)
-        topLine.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalToSuperview()
-            make.height.equalTo(LineHeight)
-        }
         
         titleLabel = infoLabel(title: Strings.TopicTitleTitle)
         view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.trailing.equalToSuperview().offset(-12)
-            make.top.equalTo(topLine.snp.bottom)
-            make.height.equalTo(36)
-        }
-        
+
         titleCountLabel = counterLabel(count: 120)
         view.addSubview(titleCountLabel)
-        titleCountLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(titleLabel)
-            make.trailing.equalToSuperview().offset(-12)
-        }
         
-        let titleLine = lineView()
+        titleLine = lineView()
         view.addSubview(titleLine)
-        titleLine.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.height.equalTo(LineHeight)
-        }
         
         titleTextField = UITextField()
         titleTextField.font = UIFont.systemFont(ofSize: 14)
         titleTextField.attributedPlaceholder = NSAttributedString(string: Strings.TopicTitlePlaceholder, attributes: [.foregroundColor : Theme.current.subTitleColor])
         titleTextField.textColor = Theme.current.titleColor
         view.addSubview(titleTextField)
-        titleTextField.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.trailing.equalToSuperview().offset(-12)
-            make.top.equalTo(titleLine.snp.bottom)
-            make.height.equalTo(44)
-        }
+        
         titleTextField.addTarget(self, action: #selector(titleFieldEditingChanged(_:)), for: .editingChanged)
         
-        let titleTextFieldLine = lineView()
+        titleTextFieldLine = lineView()
         view.addSubview(titleTextFieldLine)
-        titleTextFieldLine.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalTo(titleTextField.snp.bottom)
-            make.height.equalTo(LineHeight)
-        }
         
         contentLabel = infoLabel(title: Strings.TopicBodyTitle)
         view.addSubview(contentLabel)
-        contentLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.trailing.equalToSuperview().offset(-12)
-            make.top.equalTo(titleTextFieldLine.snp.bottom)
-            make.height.equalTo(36)
-        }
-        
+
         contentCountLabel = counterLabel(count: 20000)
         view.addSubview(contentCountLabel)
-        contentCountLabel.snp.makeConstraints { make in
-            make.centerY.equalTo(contentLabel)
-            make.trailing.equalToSuperview().offset(-12)
-        }
         
-        let contentLabelLine = lineView()
+        contentLabelLine = lineView()
         view.addSubview(contentLabelLine)
-        contentLabelLine.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalTo(contentLabel.snp.bottom)
-            make.height.equalTo(LineHeight)
-        }
     
         contentTextView = NewTopicTextView()
         contentTextView.delegate = self
         contentTextView.keyboardDismissMode = .onDrag
         view.addSubview(contentTextView)
-        contentTextView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.top.equalTo(contentLabelLine)
-            make.bottom.equalToSuperview().offset(-view.keyWindowSafeAreaInsets.bottom)
-        }
         
         titleTextField.becomeFirstResponder()
+    }
+    
+    private func configureConstraints() {
+        
+        topLine.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topLine.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            topLine.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            topLine.topAnchor.constraint(equalTo: self.view.topAnchor),
+            topLine.heightAnchor.constraint(equalToConstant: LineHeight)
+        ])
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
+            titleLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12),
+            titleLabel.heightAnchor.constraint(equalToConstant: 36),
+            titleLabel.topAnchor.constraint(equalTo: topLine.bottomAnchor)
+        ])
+        
+        titleCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleCountLabel.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+            titleCountLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12)
+        ])
+        
+        titleLine.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLine.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            titleLine.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            titleLine.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            titleLine.heightAnchor.constraint(equalToConstant: LineHeight)
+        ])
+        
+        titleTextField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleTextField.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
+            titleTextField.topAnchor.constraint(equalTo: titleLine.bottomAnchor),
+            titleTextField.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12),
+            titleTextField.heightAnchor.constraint(equalToConstant: 44)
+        ])
+        
+        titleTextFieldLine.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleTextFieldLine.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            titleTextFieldLine.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            titleTextFieldLine.topAnchor.constraint(equalTo: titleTextField.bottomAnchor),
+            titleTextFieldLine.heightAnchor.constraint(equalToConstant: LineHeight)
+        ])
+        
+        contentLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentLabel.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 12),
+            contentLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12),
+            contentLabel.topAnchor.constraint(equalTo: titleTextFieldLine.bottomAnchor),
+            contentLabel.heightAnchor.constraint(equalToConstant: 36),
+        ])
+        
+        contentCountLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentCountLabel.centerYAnchor.constraint(equalTo: contentLabel.centerYAnchor),
+            contentCountLabel.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -12)
+        ])
+        
+        contentLabelLine.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentLabelLine.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            contentLabelLine.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            contentLabelLine.topAnchor.constraint(equalTo: contentLabel.bottomAnchor),
+            contentLabelLine.heightAnchor.constraint(equalToConstant: LineHeight)
+        ])
+        
+        contentTextView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentTextView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            contentTextView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            contentTextView.topAnchor.constraint(equalTo: contentLabelLine.bottomAnchor),
+            contentTextView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -view.keyWindowSafeAreaInsets.bottom)
+        ])
     }
     
     func showAllNodes() {

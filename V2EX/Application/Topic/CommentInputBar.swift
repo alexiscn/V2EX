@@ -95,40 +95,7 @@ class CommentInputBar: UIView, UITextViewDelegate {
         contentView.addSubview(inputTextView)
         contentView.addSubview(addPhotoButton)
         
-        backgroundView.snp.makeConstraints { make in
-            make.leading.trailing.top.equalToSuperview()
-            make.bottom.equalToSuperview()
-        }
-        
-        contentView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.trailing.equalToSuperview()
-        }
-        
-        loginRequiredButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
-            make.top.equalToSuperview()
-            make.bottom.equalTo(safeAreaLayoutGuide)
-            make.trailing.equalToSuperview()
-        }
-        
-        topLineView.snp.makeConstraints { make in
-            make.leading.top.trailing.equalToSuperview()
-            make.height.equalTo(LineHeight)
-        }
-        
-        inputTextView.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview()
-            make.trailing.equalTo(addPhotoButton.snp.leading).offset(-15.0)
-        }
-        
-        addPhotoButton.snp.makeConstraints { make in
-            make.width.height.equalTo(24)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-15)
-        }
+        configureConstraints()
         
         loginRequiredButton.isHidden = AppContext.current.isLogined
         
@@ -137,6 +104,57 @@ class CommentInputBar: UIView, UITextViewDelegate {
         addPhotoButton.addTarget(self, action: #selector(handleAddPhotoButtonTapped(_:)), for: .touchUpInside)
         
         NotificationCenter.default.addObserver(self, selector: #selector(handleTextViewDidChanged(_:)), name: UITextView.textDidChangeNotification, object: inputTextView)
+    }
+    
+    private func configureConstraints() {
+        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: self.topAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        ])
+        
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            contentView.topAnchor.constraint(equalTo: self.topAnchor),
+            contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        ])
+        
+        loginRequiredButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            loginRequiredButton.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            loginRequiredButton.topAnchor.constraint(equalTo: self.topAnchor),
+            loginRequiredButton.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            loginRequiredButton.trailingAnchor.constraint(equalTo: self.trailingAnchor)
+        ])
+        
+        topLineView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            topLineView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            topLineView.topAnchor.constraint(equalTo: self.topAnchor),
+            topLineView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            topLineView.heightAnchor.constraint(equalToConstant: LineHeight)
+        ])
+        
+        inputTextView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            inputTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            inputTextView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            inputTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            inputTextView.trailingAnchor.constraint(equalTo: addPhotoButton.leadingAnchor, constant: -15)
+        ])
+        
+        addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            addPhotoButton.widthAnchor.constraint(equalToConstant: 24),
+            addPhotoButton.heightAnchor.constraint(equalToConstant: 24),
+            addPhotoButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            addPhotoButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15)
+        ])
+        
     }
     
     override func invalidateIntrinsicContentSize() {

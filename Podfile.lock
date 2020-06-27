@@ -11,7 +11,6 @@ PODS:
   - MJRefresh (3.4.3)
   - SideMenu (6.4.8)
   - SKPhotoBrowser (6.1.0)
-  - SnapKit (5.0.1)
   - SQLiteRepairKit (1.2.2):
     - WCDBOptimizedSQLCipher (~> 1.2.0)
   - SwiftSoup (2.3.2)
@@ -31,7 +30,6 @@ DEPENDENCIES:
   - MJRefresh
   - SideMenu
   - SKPhotoBrowser
-  - SnapKit
   - SwiftSoup
   - WCDB.swift
   - WXActionSheet
@@ -47,7 +45,6 @@ SPEC REPOS:
     - MJRefresh
     - SideMenu
     - SKPhotoBrowser
-    - SnapKit
     - SQLiteRepairKit
     - SwiftSoup
     - WCDB.swift
@@ -64,13 +61,12 @@ SPEC CHECKSUMS:
   MJRefresh: 53e3e3219f204425ee6d3e62e8733d3295944cd6
   SideMenu: 4a891be552d30bb6fa87ad404d62e485f8450c34
   SKPhotoBrowser: 343de95d89dc7913763c5dda243cc6e606e4a168
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SQLiteRepairKit: 35aaae5a8838adb85f5b1eb4d796055be6060a4b
   SwiftSoup: f97bc4e988c7729d6457f9642f974c617a6e2510
   WCDB.swift: 05d509d7a0e60fb6e11c34eb7e4027c0fab5849f
   WCDBOptimizedSQLCipher: baf44493b0c7a3d49e97bc5b64a3856f6428ddd1
   WXActionSheet: 8a1817ad641a892b17b53e157b6ec15ca7d1ff95
 
-PODFILE CHECKSUM: e86fb31d7d9f4c9ce78b035a07e8cfb5ff16dc02
+PODFILE CHECKSUM: 7f5ddf934f3961a1d9e72ed579d746ea9b276254
 
 COCOAPODS: 1.9.3

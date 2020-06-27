@@ -73,22 +73,28 @@ class NewTopicAccessoryView: UIView {
     }
     
     private func configureConstraints() {
-        containerView.snp.makeConstraints { make in
-            make.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(44)
-        }
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
+            containerView.topAnchor.constraint(equalTo: self.topAnchor),
+            containerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            containerView.heightAnchor.constraint(equalToConstant: 44)
+        ])
         
-        nodeButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.centerY.equalToSuperview()
-            make.height.equalTo(24)
-        }
+        nodeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nodeButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 12),
+            nodeButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            nodeButton.heightAnchor.constraint(equalToConstant: 24)
+        ])
         
-        keyboardButton.snp.makeConstraints { make in
-            make.height.width.equalTo(24)
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-12)
-        }
+        keyboardButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            keyboardButton.widthAnchor.constraint(equalToConstant: 24),
+            keyboardButton.heightAnchor.constraint(equalToConstant: 24),
+            keyboardButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            keyboardButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -12)
+        ])
     }
     
     func updateNode(_ node: Node) {

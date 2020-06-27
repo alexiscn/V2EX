@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import WebKit
 import SafariServices
 
@@ -34,6 +33,8 @@ class TopicDetailViewCell: UITableViewCell {
     private let timeAgoLabel: UILabel
     
     private let webView: WKWebView
+    
+    private var webViewHeightConstraint: NSLayoutConstraint!
     
     private let nodeButton: UIButton
     
@@ -95,45 +96,7 @@ class TopicDetailViewCell: UITableViewCell {
         
         webView.navigationDelegate = self
         
-        avatarButton.snp.makeConstraints { make in
-            make.height.width.equalTo(40)
-            make.leading.equalToSuperview().offset(12)
-            make.top.equalToSuperview().offset(12)
-        }
-        
-        usernameButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(12)
-            make.leading.equalToSuperview().offset(64)
-        }
-        
-        timeAgoLabel.snp.makeConstraints { make in
-            make.top.equalTo(usernameButton.snp.bottom).offset(-3)
-            make.leading.equalToSuperview().offset(64)
-        }
-        
-        nodeButton.snp.makeConstraints { make in
-            make.centerY.equalTo(usernameButton)
-            make.trailing.equalToSuperview().offset(-12)
-        }
-        
-        titleLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.top.equalTo(avatarButton.snp.bottom).offset(12)
-            make.trailing.equalToSuperview().offset(-12)
-        }
-        
-        webView.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.leading.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.height.equalTo(0)
-        }
-        
-        orderButton.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(12)
-            make.bottom.equalToSuperview().offset(-12)
-            make.height.equalTo(22)
-        }
+        configureConstraints()
         
         nodeButton.addTarget(self, action: #selector(handleNodeButtonTapped(_:)), for: .touchUpInside)
         avatarButton.addTarget(self, action: #selector(userAvatarButtonTapped(_:)), for: .touchUpInside)
@@ -143,17 +106,57 @@ class TopicDetailViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    @objc private func handleOrderButtonTapped(_ sender: Any) {
-        orderButtonHandler?()
-    }
     
-    @objc private func handleNodeButtonTapped(_ sender: Any) {
-        topicButtonHandler?()
-    }
-    
-    @objc private func userAvatarButtonTapped(_ sender: Any) {
-        avatarHandler?()
+    private func configureConstraints() {
+        
+        avatarButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            avatarButton.widthAnchor.constraint(equalToConstant: 40),
+            avatarButton.heightAnchor.constraint(equalToConstant: 40),
+            avatarButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            avatarButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12)
+        ])
+        
+        usernameButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            usernameButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+            usernameButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 64)
+        ])
+        
+        timeAgoLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            timeAgoLabel.topAnchor.constraint(equalTo: usernameButton.topAnchor, constant: -3),
+            timeAgoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 64)
+        ])
+        
+        nodeButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            nodeButton.centerYAnchor.constraint(equalTo: usernameButton.centerYAnchor),
+            nodeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
+        ])
+        
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            titleLabel.topAnchor.constraint(equalTo: avatarButton.bottomAnchor, constant: 12),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12)
+        ])
+        
+        webView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            webView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            webView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            webView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        ])
+        webViewHeightConstraint = webView.heightAnchor.constraint(equalToConstant: 0)
+        webViewHeightConstraint.isActive = true
+        
+        orderButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            orderButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+            orderButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+            orderButton.heightAnchor.constraint(equalToConstant: 22)
+        ])
     }
 
     func update(_ detail: TopicDetail) {
@@ -179,6 +182,32 @@ class TopicDetailViewCell: UITableViewCell {
         html += "</html>"
         return html
     }
+
+    func updateWebViewHeight(_ height: CGFloat) {
+        webViewHeightChangedHandler?(height)    
+        webViewHeightConstraint.constant = height
+    }
+
+}
+
+// MARK: - Events
+extension TopicDetailViewCell {
+    
+    @objc private func handleOrderButtonTapped(_ sender: Any) {
+        orderButtonHandler?()
+    }
+    
+    @objc private func handleNodeButtonTapped(_ sender: Any) {
+        topicButtonHandler?()
+    }
+    
+    @objc private func userAvatarButtonTapped(_ sender: Any) {
+        avatarHandler?()
+    }
+}
+
+// MARK: - Height Calculation
+extension TopicDetailViewCell {
     
     class func heightForRowWithDetail(_ detail: inout TopicDetail) -> CGFloat {
         
@@ -198,18 +227,11 @@ class TopicDetailViewCell: UITableViewCell {
         
         detail._rowHeight = rowHeight
         return rowHeight
-        
     }
     
-    func updateWebViewHeight(_ height: CGFloat) {
-        webViewHeightChangedHandler?(height)    
-        webView.snp.updateConstraints { make in
-            make.height.equalTo(height)
-        }
-    }
-
 }
 
+// MARK: - WKNavigationDelegate
 extension TopicDetailViewCell: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {

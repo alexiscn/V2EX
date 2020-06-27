@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SnapKit
 import FDFullscreenPopGesture
 
 class MenuViewController: UIViewController {
