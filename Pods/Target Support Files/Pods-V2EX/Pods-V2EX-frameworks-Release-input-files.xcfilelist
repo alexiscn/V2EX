@@ -11,3 +11,4 @@ ${BUILT_PRODUCTS_DIR}/SwiftSoup/SwiftSoup.framework
 ${BUILT_PRODUCTS_DIR}/WCDB.swift/WCDBSwift.framework
 ${BUILT_PRODUCTS_DIR}/WCDBOptimizedSQLCipher/sqlcipher.framework
 ${BUILT_PRODUCTS_DIR}/WXActionSheet/WXActionSheet.framework
+${BUILT_PRODUCTS_DIR}/WXGrowingTextView/WXGrowingTextView.framework

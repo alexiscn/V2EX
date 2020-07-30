@@ -13,6 +13,7 @@ target 'V2EX' do
     pod 'MBProgressHUD'
     pod 'FDFullscreenPopGesture'
     pod 'WXActionSheet'
+    pod 'WXGrowingTextView'
     pod 'SKPhotoBrowser'
 end
 

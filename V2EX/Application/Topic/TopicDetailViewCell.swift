@@ -125,7 +125,7 @@ class TopicDetailViewCell: UITableViewCell {
         
         timeAgoLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            timeAgoLabel.topAnchor.constraint(equalTo: usernameButton.topAnchor, constant: -3),
+            timeAgoLabel.topAnchor.constraint(equalTo: usernameButton.bottomAnchor, constant: -3),
             timeAgoLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 64)
         ])
         

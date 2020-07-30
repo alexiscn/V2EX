@@ -98,7 +98,7 @@ public struct SideMenuSettings: Model, InitializableStruct {
     public var presentDuration: Double = 0.35
     public var presentationStyle: SideMenuPresentationStyle = .viewSlideOut
     public var pushStyle: SideMenuPushStyle = .default
-    public var statusBarEndAlpha: CGFloat = 1
+    public var statusBarEndAlpha: CGFloat = 0
     public var usingSpringWithDamping: CGFloat = 1
 
     public init() {}
@@ -244,7 +244,7 @@ open class SideMenuNavigationController: UINavigationController {
             transitionController?.transition(presenting: false, animated: false)
         }
 
-        // Clear selecton on UITableViewControllers when reappearing using custom transitions
+        // Clear selection on UITableViewControllers when reappearing using custom transitions
         if let tableViewController = topViewController as? UITableViewController,
             let tableView = tableViewController.tableView,
             let indexPaths = tableView.indexPathsForSelectedRows,

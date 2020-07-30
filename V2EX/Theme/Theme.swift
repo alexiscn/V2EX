@@ -140,15 +140,15 @@ class ThemeManager {
     
     private func configureWXActionSheet() {
         if Theme.current == .dark {
-            WXActionSheet.Preferences.ButtonNormalBackgroundColor = UIColor(red: 118.0/255, green: 130.0/255, blue: 157.0/255, alpha: 1.0)
-            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = UIColor(red: 108.0/255, green: 118.0/255, blue: 149.0/255, alpha: 1.0)
-            WXActionSheet.Preferences.SeparatorColor = Theme.current.cellBackgroundColor
-            WXActionSheet.Preferences.ButtonTitleColor = .white
+//            WXActionSheet.Preferences.ButtonNormalBackgroundColor = UIColor(red: 118.0/255, green: 130.0/255, blue: 157.0/255, alpha: 1.0)
+//            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = UIColor(red: 108.0/255, green: 118.0/255, blue: 149.0/255, alpha: 1.0)
+//            WXActionSheet.Preferences.SeparatorColor = Theme.current.cellBackgroundColor
+//            WXActionSheet.Preferences.ButtonTitleColor = .white
         } else {
-            WXActionSheet.Preferences.ButtonNormalBackgroundColor = UIColor(white: 1, alpha: 0.8)
-            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = UIColor(white: 1, alpha: 0.5)
-            WXActionSheet.Preferences.SeparatorColor = UIColor(white: 153.0/255, alpha: 1.0)
-            WXActionSheet.Preferences.ButtonTitleColor = .black
+//            WXActionSheet.Preferences.ButtonNormalBackgroundColor = UIColor(white: 1, alpha: 0.8)
+//            WXActionSheet.Preferences.ButtonHighlightBackgroundColor = UIColor(white: 1, alpha: 0.5)
+//            WXActionSheet.Preferences.SeparatorColor = UIColor(white: 153.0/255, alpha: 1.0)
+//            WXActionSheet.Preferences.ButtonTitleColor = .black
         }
     }
     
