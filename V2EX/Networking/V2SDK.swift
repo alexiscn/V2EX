@@ -61,9 +61,11 @@ class V2SDK {
         return URL(string: urlString)!
     }
     
+    static let session = Session(configuration: URLSessionConfiguration.af.default, redirectHandler: Redirector.follow)
+    
     @discardableResult
     class func request<T>(_ endPoint: EndPoint, parser: HTMLParser.Type, completion: @escaping RequestCompletionHandler<T>) -> DataRequest {
-        let dataRequest = AF.request(endPoint)
+        let dataRequest = session.request(endPoint)
         dataRequest.responseString { response in
             guard let html = response.value else {
                 completion(V2Response.error(.serverNotFound))
@@ -97,7 +99,7 @@ class V2SDK {
     
     @discardableResult
     class func request(url: URL, completion: @escaping RequestCompletionHandler<OperationResponse>) -> DataRequest {
-        let dataRequest = AF.request(url)
+        let dataRequest = session.request(url)
         dataRequest.responseString { response in
             guard response.value != nil else {
                 completion(V2Response.error(.serverNotFound))
