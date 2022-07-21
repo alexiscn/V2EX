@@ -2,8 +2,8 @@
 //  SettingsViewController.swift
 //  V2EX
 //
-//  Created by xu.shuifeng on 2018/6/26.
-//  Copyright © 2018 shuifeng.me. All rights reserved.
+//  Created by alexiscn on 2018/6/26.
+//  Copyright © 2018 alexiscn. All rights reserved.
 //
 
 import UIKit
@@ -129,7 +129,7 @@ class SettingsViewController: UIViewController {
 //            })
         
         let privacy = SettingTableModel(title: Strings.SettingsPrivacyPolicy, value: .actionCommand { [weak self] in
-            let url = URL(string: "https://shuifeng.me/v2ex/privacy.html")!
+            let url = URL(string: "https://alexiscn/v2ex/privacy.html")!
             let controller = SFSafariViewController(url: url)
             self?.present(controller, animated: true, completion: nil)
         })

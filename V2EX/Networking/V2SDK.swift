@@ -2,7 +2,7 @@
 //  V2SDK.swift
 //  V2EX
 //
-//  Created by xu.shuifeng on 2018/6/22.
+//  Created by alexiscn on 2018/6/22.
 //
 
 import Foundation

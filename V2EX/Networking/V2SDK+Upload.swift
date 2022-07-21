@@ -2,8 +2,8 @@
 //  V2SDK+Upload.swift
 //  V2EX
 //
-//  Created by xushuifeng on 2018/12/8.
-//  Copyright © 2018 shuifeng.me. All rights reserved.
+//  Created by alexiscn on 2018/12/8.
+//  Copyright © 2018 alexiscn. All rights reserved.
 //
 
 import Foundation

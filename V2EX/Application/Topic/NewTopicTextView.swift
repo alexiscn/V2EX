@@ -2,8 +2,8 @@
 //  NewTopicTextView.swift
 //  V2EX
 //
-//  Created by xu.shuifeng on 2019/1/8.
-//  Copyright © 2019 shuifeng.me. All rights reserved.
+//  Created by alexiscn on 2019/1/8.
+//  Copyright © 2019 alexiscn. All rights reserved.
 //
 
 import UIKit

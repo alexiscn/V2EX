@@ -2,8 +2,8 @@
 //  MainViewController.swift
 //  V2EX
 //
-//  Created by xu.shuifeng on 2018/8/9.
-//  Copyright © 2018 shuifeng.me. All rights reserved.
+//  Created by alexiscn on 2018/8/9.
+//  Copyright © 2018 alexiscn. All rights reserved.
 //
 
 import UIKit
@@ -22,6 +22,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController?.view.backgroundColor = Theme.current.backgroundColor
         view.backgroundColor = Theme.current.backgroundColor
         setupNavigationBar()
         setupChildViewController()
@@ -84,6 +85,7 @@ class MainViewController: UIViewController {
     
     private func updateTheme() {
         self.view.backgroundColor = Theme.current.backgroundColor
+        navigationController?.view.backgroundColor = Theme.current.backgroundColor
         self.navigationController?.setNeedsStatusBarAppearanceUpdate()
         composeButton.backgroundColor = Theme.current.subTitleColor
         composeButton.tintColor = Theme.current.backgroundColor

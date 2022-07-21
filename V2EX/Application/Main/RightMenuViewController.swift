@@ -2,8 +2,8 @@
 //  RightMenuViewController.swift
 //  V2EX
 //
-//  Created by xu.shuifeng on 2018/11/20.
-//  Copyright © 2018 shuifeng.me. All rights reserved.
+//  Created by alexiscn on 2018/11/20.
+//  Copyright © 2018 alexiscn. All rights reserved.
 //
 
 import UIKit

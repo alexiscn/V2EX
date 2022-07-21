@@ -2,7 +2,7 @@
 //  V2DataManager.swift
 //  V2EX
 //
-//  Created by xushuifeng on 2018/7/28.
+//  Created by alexiscn on 2018/7/28.
 //
 
 import Foundation

@@ -2,8 +2,8 @@
 //  UserProfileSectionHeaderView.swift
 //  V2EX
 //
-//  Created by xushuifeng on 2020/6/27.
-//  Copyright © 2020 shuifeng.me. All rights reserved.
+//  Created by alexiscn on 2020/6/27.
+//  Copyright © 2020 alexiscn. All rights reserved.
 //
 
 import UIKit

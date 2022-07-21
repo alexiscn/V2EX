@@ -2,7 +2,7 @@
 //  V2SDK+Search.swift
 //  V2EX
 //
-//  Created by xushuifeng on 2018/6/26.
+//  Created by alexiscn on 2018/6/26.
 //
 
 import Foundation

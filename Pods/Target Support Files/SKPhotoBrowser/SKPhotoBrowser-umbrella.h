@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "UIImage+animatedGIF.h"
 #import "SKPhotoBrowser.h"
 
 FOUNDATION_EXPORT double SKPhotoBrowserVersionNumber;

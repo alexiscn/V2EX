@@ -2,8 +2,8 @@
 //  ListViewController.swift
 //  V2EX
 //
-//  Created by xu.shuifeng on 2018/12/13.
-//  Copyright © 2018 shuifeng.me. All rights reserved.
+//  Created by alexiscn on 2018/12/13.
+//  Copyright © 2018 alexiscn. All rights reserved.
 //
 
 import UIKit
